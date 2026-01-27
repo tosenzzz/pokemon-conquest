@@ -2,12 +2,20 @@
 
 <head>
 	<title>Pokémon Conquest - Pokémon Listings</title>
+
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 	<link rel="stylesheet" type="text/css" href="layout.css">
 	<link rel="stylesheet" href="tablenew.css" type="text/css" media="screen">
-
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script src="https://unpkg.com/jquery-tablesortable"></script>
+	<style>
+		table {
+			font-size: 9px;
+		}
+	</style>
 </head>
 
 <body class="">
@@ -9544,7 +9552,6 @@
 
 	</div>
 
-
 	<pre id="pwd">
 <h1>PASSWORD</h1>
 Eevee	2rz3XFCKmR
@@ -9744,6 +9751,16 @@ Yukitaka - Sandile/Krokorok/Krookodile
 
 </body>
 <script>
+	$(function () {
+		$('#myTable tr').each(function () {
+			const $cells = $(this).children();
+			// Lấy cột 5-9
+			const $move = $cells.slice(4, 9);
+			// Append xuống cuối
+			$(this).append($move);
+		});
+	});
+
 	$(document).ready(function () {
 		$("#myTable").tableSortable();
 	});
