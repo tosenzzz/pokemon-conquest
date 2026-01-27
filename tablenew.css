@@ -1,6 +1,6 @@
 
 .tab { border: 0; border-collapse: seperate; width:100%; } 
-.tab td { padding: 3px;  } 
+.tab td { padding: 1px;  } 
 .dextable { border: 0; border-collapse: seperate; width:auto;} 
 .dextab { border: 0; border-collapse: seperate; min-width:600px;width:auto; } 
 .fooleft { background: #507C36; color: white; text-align:left; font-weight: bold; border: 1px solid #383838; border-radius: 3px; -moz-border-radius: 3px;-webkit-border-radius: 3px;  }
@@ -15,7 +15,7 @@
 .foocontent { background: #404040; font-size: 7.5pt; color: white; border: 1px solid #383838; border-radius: 3px; -moz-border-radius: 3px;-webkit-border-radius: 3px;  }
 .fooextra { background: #4a4a4a; font-size: 7.5pt; color: white; border: 1px solid #383838; border-radius: 3px; -moz-border-radius: 3px;-webkit-border-radius: 3px; font-weight:bold;  }
 
-.cen { background: #404040; color: white; text-align:center; border: 1px solid #383838; border-radius: 3px; -moz-border-radius: 3px;-webkit-border-radius: 3px; }
+.cen { background: #404040; color: white; text-align:center; border: 1px solid #383838; border-radius: 3px; -moz-border-radius: 3px;-webkit-border-radius: 2px; }
 .curr { background: #507C36; font-size: 1em; color: white; text-align:center; border: 1px solid #383838; border-radius: 30px; -moz-border-radius: 30px;-webkit-border-radius: 30px;  }
 
 .footwoin { background: #507C36; color: white; text-align:center; width: 50%; font-weight: bold; border: 1px solid #383838; border-radius: 3px; -moz-border-radius: 3px;-webkit-border-radius: 3px;  }
