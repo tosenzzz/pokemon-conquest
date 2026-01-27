@@ -21,6 +21,20 @@
 		.pkmn img {
 			width: 50px;
 		}
+
+		#plink,
+		#pwd {
+			margin-left: 10px;
+		}
+
+		.hero-own,
+		.hero-own a {
+			color: aqua;
+		}
+
+		.poke-own {
+			color: red !important;
+		}
 	</style>
 </head>
 
@@ -9790,21 +9804,54 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 		}
 	});
 
-	// Render data perfect-link thành hyperlink tới pokemon
+	// Render data Warlord thành hyperlink tới pokemon
 	const ppp = line => {
 		// 1. Tách phần trong ngoặc (nếu có)
-		const match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
+		let match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
 		const mainPart = match[1];          // Shingen - Rhyperior//Groudon
 		const extraPart = match[2] || '';   // (not Rhyhorn/Rhydon)
 		// 2. Tách hero và pokemon
 		const [hero, pokes] = mainPart.split('-').map(s => s.trim());
 		// 3. Tạo hyperlink CHỈ cho pokemon
-		const html = pokes.replace(/([\/]*)([^\/]+)/g, function (_, sep, name) {
-			const clean = name.trim();
-			return sep + `<a href="#poke-${clean}">${clean}</a>`;
-		});
+		let pokel = [];
+		const regex = /([\/]*)([^\/]+)/g;
+		while ((match = regex.exec(pokes)) !== null) {
+			const prefix = match[1];   // /// hoặc /
+			const poke = match[2].trim(); // Pokemon
+			const pk = $(`<a href="#poke-${poke}">${poke}</a>`);
+			if (localStorage.getItem(`${hero}-poke-${poke}`) == 'true') {
+				pk.addClass('poke-own');
+			}
+			pokel.push([poke, pk, prefix])
+		}
+		// const html = pokes.replace(/([\/]*)([^\/]+)/g, function (_, sep, name) {
+		// 	const clean = name.trim();
+		// 	return sep + `<a href="#poke-${clean}">${clean}</a>`;
+		// });
 		// 4. Render ra HTML (GIỮ NGUYÊN NGOẶC)
-		$('#plink').append(`<div id="hero-${hero}">${hero} - ${html}${extraPart}</div>`);
+		const herod = $(`<div id="hero-${hero}">${hero} - </div>`);
+		pokel.forEach(pk => {
+			herod.append(pk[2], pk[1]);
+		})
+		herod.append(extraPart);
+		if (localStorage.getItem(`${hero}-own`) == 'true') {
+			herod.addClass('hero-own');
+		}
+		const add = $(`<span style="color:aqua;margin-left:5px;">+</span>`).click(() => {
+			herod.toggleClass('hero-own');
+			localStorage.setItem(`${hero}-own`, herod.hasClass('hero-own'));
+		})
+		herod.append(add);
+		pokel.forEach(pk => {
+			var pokd = $(`<span style="color:aqua;margin-left:5px;">○</span>`);
+			pokd.click(() => {
+				console.log(pk[1])
+				pk[1].toggleClass('poke-own');
+				localStorage.setItem(`${hero}-poke-${pk[0]}`, pk[1].hasClass('poke-own'));
+			})
+			herod.append(pokd);
+		})
+		$('#plink').append(herod);
 	}
 	$('#plink').append(`<div><h1>WARLORD/POKEMON</h1></div>`);
 	plink1.forEach(ppp);
