@@ -3,7 +3,7 @@
 <head>
 	<title>Pokémon Conquest - Pokémon Listings</title>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10, user-scalable=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -9594,7 +9594,7 @@ Zoroark	6iYmwq1Y8w
 
 </body>
 <script>
-	// 2. Data input
+	// Perfect Link Data
 	const plink1 = `
 DDD - Eevee//Vaporeon//Jolteon//Flareon//Espeon//Umbreon//Leafeon//Glaceon///Arceus
 Oichi - Jigglypuff//Wigglytuff (not Igglybuff)
@@ -9770,9 +9770,9 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 
 		$('#myTable table tr').each(function () {
 			const $cells = $(this).children();
-			// Lấy cột 5-9
+			// Lấy cột Power
 			const $move = $cells.slice(2, 3);
-			// Append xuống cuối
+			// Append lên đầu
 			$(this).prepend($move);
 		});
 	});
@@ -9782,7 +9782,7 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 		$("#myTable").tableSortable();
 	});
 
-	// 1. Gán id cho mỗi dòng table theo tên Pokémon
+	// Gán id cho mỗi dòng table theo tên Pokémon
 	$('#myTable tr').each(function () {
 		const name = $(this).find('td:eq(3)').text().trim();
 		if (name) {
@@ -9790,21 +9790,21 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 		}
 	});
 
-	// 3. Render data perfect-link thành hyperlink tới pokemon
+	// Render data perfect-link thành hyperlink tới pokemon
 	const ppp = line => {
 		// 1. Tách phần trong ngoặc (nếu có)
 		const match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
 		const mainPart = match[1];          // Shingen - Rhyperior//Groudon
 		const extraPart = match[2] || '';   // (not Rhyhorn/Rhydon)
-		// 2. Tách label và pokemon
-		const [label, right] = mainPart.split('-').map(s => s.trim());
+		// 2. Tách hero và pokemon
+		const [hero, pokes] = mainPart.split('-').map(s => s.trim());
 		// 3. Tạo hyperlink CHỈ cho pokemon
-		const html = right.replace(/([\/]*)([^\/]+)/g, function (_, sep, name) {
+		const html = pokes.replace(/([\/]*)([^\/]+)/g, function (_, sep, name) {
 			const clean = name.trim();
 			return sep + `<a href="#poke-${clean}">${clean}</a>`;
 		});
 		// 4. Render ra HTML (GIỮ NGUYÊN NGOẶC)
-		$('#plink').append(`<div>${label} - ${html}${extraPart}</div>`);
+		$('#plink').append(`<div id="hero-${hero}">${hero} - ${html}${extraPart}</div>`);
 	}
 	$('#plink').append(`<div><h1>WARLORD/POKEMON</h1></div>`);
 	plink1.forEach(ppp);
@@ -9833,7 +9833,7 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 		}
 	});
 
-	// Fill Perfect-link Warlord cho mỗi pokemon
+	// Fill Warlord vào pokemon
 	const data = [...plink1, ...plink2];
 	const map = {};
 	data.forEach(line => {
@@ -9841,30 +9841,27 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 		let match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
 		const mainPart = match[1];          // Shingen - Rhyperior//Groudon
 		const extraPart = match[2] || '';   // (not Rhyhorn/Rhydon)
-		const [label, right] = mainPart.split('-').map(s => s.trim());
-		if (!right) return;
+		const [hero, pokes] = mainPart.split('-').map(s => s.trim());
+		if (!pokes) return;
 
-		// tách theo pokemon nhưng giữ separator
+		// 2. Tách theo pokemon nhưng giữ separator
 		const regex = /([\/]*)([^\/]+)/g;
-		while ((match = regex.exec(right)) !== null) {
+		while ((match = regex.exec(pokes)) !== null) {
 			const prefix = match[1];   // /// hoặc /
-			const name = match[2];     // Pokemon
-			if (!map[name]) map[name] = []
-			map[name].push({ label, prefix });
+			const poke = match[2];     // Pokemon
+			if (!map[poke]) map[poke] = []
+			map[poke].push({ hero, prefix });
 		}
 	});
-
-	// 2. Update table
 	document.querySelectorAll('table tr').forEach(tr => {
 		const td = tr.children[2];
 		if (!td) return;
 
-		const name = td.firstChild.textContent.trim();
-		if (map[name]) {
-			map[name].forEach(v => {
+		const poke = td.firstChild.textContent.trim();
+		if (map[poke]) {
+			map[poke].forEach(v => {
 				const div = document.createElement('div');
-				div.textContent = v.prefix + v.label;
-				div.style.color = 'aqua';
+				div.innerHTML = `<a href="#hero-${v.hero}" style="color:aqua">${v.prefix + v.hero}</a>`;
 				td.appendChild(div);
 			})
 		}
