@@ -9772,6 +9772,9 @@ Yoshikiyo - Cubchoo/Beartic
 Yukimasa - Spheal/Sealeo/Walrein
 Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 
+	const lget = (key) => JSON.parse(localStorage.getItem(key))
+	const lset = (key, val) => localStorage.setItem(key, JSON.stringify(val))
+
 	// Thay đổi thứ tự Column
 	$(function () {
 		$('#myTable tr').each(function () {
@@ -9819,35 +9822,30 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 			const prefix = match[1];   // /// hoặc /
 			const poke = match[2].trim(); // Pokemon
 			const pk = $(`<a href="#poke-${poke}">${poke}</a>`);
-			if (localStorage.getItem(`${hero}-poke-${poke}`) == 'true') {
+			if (lget(`${hero}-poke-${poke}`)) {
 				pk.addClass('poke-own');
 			}
 			pokel.push([poke, pk, prefix])
 		}
-		// const html = pokes.replace(/([\/]*)([^\/]+)/g, function (_, sep, name) {
-		// 	const clean = name.trim();
-		// 	return sep + `<a href="#poke-${clean}">${clean}</a>`;
-		// });
 		// 4. Render ra HTML (GIỮ NGUYÊN NGOẶC)
 		const herod = $(`<div id="hero-${hero}">${hero} - </div>`);
 		pokel.forEach(pk => {
 			herod.append(pk[2], pk[1]);
 		})
 		herod.append(extraPart);
-		if (localStorage.getItem(`${hero}-own`) == 'true') {
+		if (lget(`${hero}-own`)) {
 			herod.addClass('hero-own');
 		}
 		const add = $(`<span style="color:aqua;margin-left:5px;">+</span>`).click(() => {
 			herod.toggleClass('hero-own');
-			localStorage.setItem(`${hero}-own`, herod.hasClass('hero-own'));
+			lset(`${hero}-own`, herod.hasClass('hero-own'));
 		})
 		herod.append(add);
 		pokel.forEach(pk => {
 			var pokd = $(`<span style="color:aqua;margin-left:5px;">○</span>`);
 			pokd.click(() => {
-				console.log(pk[1])
 				pk[1].toggleClass('poke-own');
-				localStorage.setItem(`${hero}-poke-${pk[0]}`, pk[1].hasClass('poke-own'));
+				lset(`${hero}-poke-${pk[0]}`, pk[1].hasClass('poke-own'));
 			})
 			herod.append(pokd);
 		})
@@ -9896,7 +9894,7 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 		while ((match = regex.exec(pokes)) !== null) {
 			const prefix = match[1];   // /// hoặc /
 			const poke = match[2];     // Pokemon
-			if (!map[poke]) map[poke] = []
+			if (!map[poke]) map[poke] = [];
 			map[poke].push({ hero, prefix });
 		}
 	});
@@ -9907,9 +9905,9 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 		const poke = td.firstChild.textContent.trim();
 		if (map[poke]) {
 			map[poke].forEach(v => {
-				const div = document.createElement('div');
-				div.innerHTML = `<a href="#hero-${v.hero}" style="color:aqua">${v.prefix + v.hero}</a>`;
-				td.appendChild(div);
+				const div = $(`<div style="margin-top:2px"></div>`);
+				$(div).append(`<a href="#hero-${v.hero}" style="color:aqua">${v.prefix + v.hero}</a>`);
+				$(td).append(div);
 			})
 		}
 	});
