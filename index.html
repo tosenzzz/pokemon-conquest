@@ -33,6 +33,10 @@
 		}
 
 		.poke-own {
+			color: yellow !important;
+		}
+
+		.poke-want {
 			color: red !important;
 		}
 	</style>
@@ -9822,8 +9826,10 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 			const prefix = match[1];   // /// hoặc /
 			const poke = match[2].trim(); // Pokemon
 			const pk = $(`<a href="#poke-${poke}">${poke}</a>`);
-			if (lget(`${hero}-poke-${poke}`)) {
+			if (lget(`${hero}-poke-${poke}`) == 'own') {
 				pk.addClass('poke-own');
+			} else if (lget(`${hero}-poke-${poke}`)) {
+				pk.addClass('poke-want');
 			}
 			pokel.push([poke, pk, prefix])
 		}
@@ -9844,8 +9850,17 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 		pokel.forEach(pk => {
 			var pokd = $(`<span style="color:aqua;margin-left:5px;">○</span>`);
 			pokd.click(() => {
-				pk[1].toggleClass('poke-own');
-				lset(`${hero}-poke-${pk[0]}`, pk[1].hasClass('poke-own'));
+				if (!pk[1].hasClass('poke-want') && !pk[1].hasClass('poke-own')) {
+					pk[1].toggleClass('poke-want');
+					lset(`${hero}-poke-${pk[0]}`, 'want');
+				} else if (pk[1].hasClass('poke-own')) {
+					pk[1].toggleClass('poke-own');
+					lset(`${hero}-poke-${pk[0]}`, '');
+				} else if (pk[1].hasClass('poke-want')) {
+					pk[1].toggleClass('poke-want');
+					pk[1].toggleClass('poke-own');
+					lset(`${hero}-poke-${pk[0]}`, 'own');
+				}
 			})
 			herod.append(pokd);
 		})
