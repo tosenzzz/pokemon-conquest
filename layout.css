@@ -404,7 +404,8 @@ footer#footer .copyright{
 
 @media (max-width:1011px){/* mobile screen */
 	body{/* height matches #tbar_sticky height+border */
-		margin-top:44px;
+		margin-top:20px;
+		margin-bottom: 20px;
 	}
 	#lbar,
 	#rbar{

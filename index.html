@@ -8,9 +8,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 	<link rel="stylesheet" type="text/css" href="layout.css">
-	<link rel="stylesheet" href="tablenew.css" type="text/css" media="screen">
+	<link rel="stylesheet" type="text/css" href="tablenew.css" media="screen">
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script src="https://unpkg.com/jquery-tablesortable"></script>
+	<script src="data.js"></script>
 	<style>
 		table {
 			font-size: 9px;
@@ -42,12 +43,17 @@
 	</style>
 </head>
 
-<body class="">
+<body>
 
 	<div id="wrapper">
-
 		<div id="content">
 			<main>
+				<div>
+					<input id="search" class="form-control" placeholder="search..." />
+					<button class="btn btn-success" onclick="search()"><i class="fa fa-solid fa-gifts"></i> Search</button>
+					<button class="btn btn-success" onclick="clearS()"><i class="fa fa-solid fa-clear"></i> Clear</button>
+				</div>
+
 				<table class="tab" align="center" id="myTable">
 					<thead>
 						<tr>
@@ -113,7 +119,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#quickattack">Quick Attack</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -205,9 +212,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#hydropump">Hydro Pump</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#hydropump">Hydro
+													Pump</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/water.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -285,9 +294,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#firefang">Fire Fang</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#firefang">Fire
+													Fang</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -366,7 +377,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#assurance">Assurance</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dark.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -404,9 +416,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#leafblade">Leaf Blade</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#leafblade">Leaf
+													Blade</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -444,9 +458,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#icywind">Icy Wind</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#icywind">Icy
+													Wind</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ice.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -636,7 +652,8 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#psychocut">Psycho Cut</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#psychocut">Psycho
+													Cut</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/psychic.gif"
 													border="0"></td>
 											<td align="center" width="33%">Power<br>★★★★</td>
@@ -678,7 +695,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#splash">Splash</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>&nbsp;</td>
 										</tr>
 									</tbody>
@@ -729,9 +747,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#aquatail">Aqua Tail</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#aquatail">Aqua
+													Tail</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/water.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -871,7 +891,8 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#volttackle">Volt Tackle</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#volttackle">Volt
+													Tackle</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/electric.gif"
 													border="0"></td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
@@ -912,9 +933,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#watergun">Water Gun</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#watergun">Water
+													Gun</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/water.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -965,9 +988,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#mudbomb">Mud Bomb</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#mudbomb">Mud
+													Bomb</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ground.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -1006,9 +1031,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#pound">Pound</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#pound">Pound</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -1063,7 +1090,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#doubleslap">Doubleslap</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -1116,9 +1144,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#hypervoice">Hyper Voice</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#hypervoice">Hyper
+													Voice</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -1160,9 +1190,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#wingattack">Wing Attack</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#wingattack">Wing
+													Attack</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/flying.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -1216,7 +1248,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#poisonfang">Poison Fang</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/poison.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -1271,7 +1304,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#crosspoison">Cross Poison</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/poison.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -1314,7 +1348,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#quickattack">Quick Attack</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -1367,9 +1402,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#wingattack">Wing Attack</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#wingattack">Wing
+													Attack</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/flying.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -1423,9 +1460,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#bravebird">Brave Bird</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#bravebird">Brave
+													Bird</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/flying.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -1466,7 +1505,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#headbutt">Headbutt</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -1518,9 +1558,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#hyperfang">Hyper Fang</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#hyperfang">Hyper
+													Fang</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -1561,7 +1603,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#poisonsting">Poison Sting</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/poison.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -1616,7 +1659,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#poisontail">Poison Tail</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/poison.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -1670,7 +1714,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#venoshock">Venoshock</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/poison.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -1708,7 +1753,8 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#spark">Spark</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#spark">Spark</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/electric.gif"
 													border="0"></td>
 											<td align="center" width="33%">Power<br>★★★</td>
@@ -1855,9 +1901,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#ember">Ember</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#ember">Ember</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -1909,9 +1957,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#flameburst">Flame Burst</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#flameburst">Flame
+													Burst</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -1964,9 +2014,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#firespin">Fire Spin</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#firespin">Fire
+													Spin</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -2004,9 +2056,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#rockblast">Rock Blast</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#rockblast">Rock
+													Blast</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/rock.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -2055,9 +2109,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#rockslide">Rock Slide</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#rockslide">Rock
+													Slide</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/rock.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -2106,9 +2162,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#stoneedge">Stone Edge</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#stoneedge">Stone
+													Edge</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/rock.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -2146,9 +2204,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#megadrain">Mega Drain</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#megadrain">Mega
+													Drain</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -2199,9 +2259,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#petaldance">Petal Dance</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#petaldance">Petal
+													Dance</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -2385,7 +2447,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#absorb">Absorb</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -2436,9 +2499,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#razorleaf">Razor Leaf</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#razorleaf">Razor
+													Leaf</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -2475,7 +2540,8 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#forcepalm">Force Palm</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#forcepalm">Force
+													Palm</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fighting.gif"
 													border="0"></td>
 											<td align="center" width="33%">Power<br>★★★</td>
@@ -2529,7 +2595,8 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#aurasphere">Aura Sphere</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#aurasphere">Aura
+													Sphere</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fighting.gif"
 													border="0"></td>
 											<td align="center" width="33%">Power<br>★★★★</td>
@@ -2658,7 +2725,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#poisonsting">Poison Sting</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/poison.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -2711,7 +2779,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#venoshock">Venoshock</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/poison.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -2749,9 +2818,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#bugbite">Bug Bite</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#bugbite">Bug
+													Bite</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/bug.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -2803,9 +2874,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#gyroball">Gyro Ball</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#gyroball">Gyro
+													Ball</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/steel.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -2843,9 +2916,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#furyswipes">Fury Swipes</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#furyswipes">Fury
+													Swipes</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -2895,9 +2970,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#slash">Slash</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#slash">Slash</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -2939,7 +3016,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#powdersnow">Powder Snow</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ice.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -2991,9 +3069,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#iceball">Ice Ball</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#iceball">Ice
+													Ball</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ice.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -3047,7 +3127,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#blizzard">Blizzard</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ice.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -3236,7 +3317,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#mud-slap">Mud-slap</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ground.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -3289,9 +3371,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#bite">Bite</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#bite">Bite</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dark.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -3346,7 +3430,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#crunch">Crunch</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dark.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -3386,7 +3471,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#astonish">Astonish</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ghost.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -3436,7 +3522,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#shadowsneak">Shadow Sneak</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ghost.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -3489,7 +3576,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#shadowball">Shadow Ball</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ghost.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -3580,7 +3668,8 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#dreameater">Dream Eater</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#dreameater">Dream
+													Eater</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/psychic.gif"
 													border="0"></td>
 											<td align="center" width="33%">Power<br>★★★★</td>
@@ -3618,7 +3707,8 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#spark">Spark</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#spark">Spark</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/electric.gif"
 													border="0"></td>
 											<td align="center" width="33%">Power<br>★★★</td>
@@ -3713,7 +3803,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#dragonrage">Dragon Rage</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dragon.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -3766,7 +3857,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#dragontail">Dragon Tail</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dragon.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -3821,7 +3913,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#dragonrush">Dragon Rush</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dragon.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -3862,9 +3955,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#rocktomb">Rock Tomb</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#rocktomb">Rock
+													Tomb</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/rock.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -3915,9 +4010,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#rockslide">Rock Slide</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#rockslide">Rock
+													Slide</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/rock.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -3968,9 +4065,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#stoneedge">Stone Edge</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#stoneedge">Stone
+													Edge</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/rock.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -4010,9 +4109,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#ironhead">Iron Head</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#ironhead">Iron
+													Head</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/steel.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -4066,7 +4167,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#bulletpunch">Bullet Punch</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/steel.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -4120,7 +4222,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#meteormash">Meteor Mash</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/steel.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -4162,7 +4265,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#dragonrage">Dragon Rage</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dragon.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -4216,7 +4320,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#dragonclaw">Dragon Claw</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dragon.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -4271,7 +4376,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#dragonrush">Dragon Rush</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dragon.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -4311,9 +4417,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#poisonjab">Poison Jab</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#poisonjab">Poison
+													Jab</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/poison.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -4367,7 +4475,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#sludgebomb">Sludge Bomb</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/poison.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -4408,7 +4517,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#dragonrage">Dragon Rage</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dragon.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -4461,7 +4571,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#crunch">Crunch</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dark.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -4515,7 +4626,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#dragonpulse">Dragon Pulse</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dragon.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -4552,7 +4664,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#powdersnow">Powder Snow</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ice.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -4609,9 +4722,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#icebeam">Ice Beam</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#icebeam">Ice
+													Beam</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ice.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -4651,9 +4766,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#icywind">Icy Wind</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#icywind">Icy
+													Wind</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ice.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -4693,7 +4810,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#doubleslap">Doubleslap</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -4745,9 +4863,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#tailslap">Tail Slap</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#tailslap">Tail
+													Slap</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -4890,7 +5010,8 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#crosschop">Cross Chop</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#crosschop">Cross
+													Chop</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fighting.gif"
 													border="0"></td>
 											<td align="center" width="33%">Power<br>★★★★</td>
@@ -4930,7 +5051,8 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#lowkick">Low Kick</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#lowkick">Low
+													Kick</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fighting.gif"
 													border="0"></td>
 											<td align="center" width="33%">Power<br>★★★</td>
@@ -5077,7 +5199,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#powdersnow">Powder Snow</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ice.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -5129,7 +5252,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#iciclecrash">Icicle Crash</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ice.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -5167,9 +5291,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#watergun">Water Gun</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#watergun">Water
+													Gun</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/water.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -5219,9 +5345,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#waterpulse">Water Pulse</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#waterpulse">Water
+													Pulse</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/water.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -5271,9 +5399,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#aquatail">Aqua Tail</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#aquatail">Aqua
+													Tail</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/water.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -5312,9 +5442,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#ember">Ember</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#ember">Ember</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -5364,9 +5496,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#firefang">Fire Fang</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#firefang">Fire
+													Fang</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -5419,7 +5553,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#flamethrower">Flamethrower</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -5458,9 +5593,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#lick">Lick</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#lick">Lick</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ghost.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -5509,9 +5646,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#hex">Hex</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#hex">Hex</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ghost.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -5562,7 +5701,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#shadowball">Shadow Ball</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ghost.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -5597,9 +5737,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#ember">Ember</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#ember">Ember</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -5650,9 +5792,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#flamewheel">Flame Wheel</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#flamewheel">Flame
+													Wheel</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -5703,9 +5847,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#firespin">Fire Spin</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#firespin">Fire
+													Spin</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -5744,9 +5890,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#vinewhip">Vine Whip</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#vinewhip">Vine
+													Whip</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -5797,9 +5945,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#leafblade">Leaf Blade</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#leafblade">Leaf
+													Blade</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -5850,9 +6000,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#leafstorm">Leaf Storm</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#leafstorm">Leaf
+													Storm</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -5890,9 +6042,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#ember">Ember</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#ember">Ember</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -5944,9 +6098,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#heatcrash">Heat Crash</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#heatcrash">Heat
+													Crash</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -5998,9 +6154,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#fireblast">Fire Blast</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#fireblast">Fire
+													Blast</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -6040,9 +6198,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#bugbite">Bug Bite</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#bugbite">Bug
+													Bite</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/bug.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -6094,9 +6254,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#razorleaf">Razor Leaf</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#razorleaf">Razor
+													Leaf</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -6150,7 +6312,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#x-scissor">X-scissor</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/bug.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -6336,7 +6499,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#absorb">Absorb</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -6387,9 +6551,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#leafblade">Leaf Blade</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#leafblade">Leaf
+													Blade</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -6439,9 +6605,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#leafstorm">Leaf Storm</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#leafstorm">Leaf
+													Storm</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -6482,7 +6650,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#bubble">Bubble</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/water.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -6534,7 +6703,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#bubblebeam">Bubblebeam</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/water.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -6585,9 +6755,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#hydropump">Hydro Pump</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#hydropump">Hydro
+													Pump</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/water.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -6625,9 +6797,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#vinewhip">Vine Whip</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#vinewhip">Vine
+													Whip</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -6678,9 +6852,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#leafstorm">Leaf Storm</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#leafstorm">Leaf
+													Storm</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -6717,9 +6893,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#flameburst">Flame Burst</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#flameburst">Flame
+													Burst</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -6771,7 +6949,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#incinerate">Incinerate</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -6809,9 +6988,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#watergun">Water Gun</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#watergun">Water
+													Gun</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/water.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -6861,9 +7042,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#brine">Brine</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#brine">Brine</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/water.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -6900,9 +7083,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#flamewheel">Flame Wheel</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#flamewheel">Flame
+													Wheel</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -6954,9 +7139,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#fireblast">Fire Blast</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#fireblast">Fire
+													Blast</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -6997,7 +7184,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#dragonrage">Dragon Rage</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dragon.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -7050,7 +7238,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#dragonclaw">Dragon Claw</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dragon.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -7103,7 +7292,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#outrage">Outrage</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dragon.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -7238,9 +7428,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#metalclaw">Metal Claw</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#metalclaw">Metal
+													Claw</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/steel.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -7291,9 +7483,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#ironhead">Iron Head</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#ironhead">Iron
+													Head</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/steel.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -7344,9 +7538,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#irontail">Iron Tail</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#irontail">Iron
+													Tail</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/steel.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -7384,9 +7580,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#dig">Dig</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#dig">Dig</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ground.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -7438,9 +7636,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#drillrun">Drill Run</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#drillrun">Drill
+													Run</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ground.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -7477,9 +7677,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#foulplay">Foul Play</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#foulplay">Foul
+													Play</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dark.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -7528,9 +7730,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#nightdaze">Night Daze</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#nightdaze">Night
+													Daze</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dark.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -7570,9 +7774,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#poisonjab">Poison Jab</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#poisonjab">Poison
+													Jab</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/poison.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -7627,7 +7833,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#crosspoison">Cross Poison</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/poison.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -7669,7 +7876,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#assurance">Assurance</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dark.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -7721,9 +7929,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#nightslash">Night Slash</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#nightslash">Night
+													Slash</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dark.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -7766,7 +7976,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#bulldoze">Bulldoze</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ground.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -7819,9 +8030,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#drillrun">Drill Run</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#drillrun">Drill
+													Run</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ground.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -7874,9 +8087,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#rockwrecker">Rock Wrecker</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#rockwrecker">Rock
+													Wrecker</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/rock.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -7917,9 +8132,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#ironhead">Iron Head</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#ironhead">Iron
+													Head</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/steel.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -7970,9 +8187,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#rockslide">Rock Slide</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#rockslide">Rock
+													Slide</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/rock.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -8013,7 +8232,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#faintattack">Faint Attack</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dark.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -8064,7 +8284,8 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#hijumpkick">Hi Jump Kick</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#hijumpkick">Hi
+													Jump Kick</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fighting.gif"
 													border="0"></td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
@@ -8107,7 +8328,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#astonish">Astonish</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ghost.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -8160,7 +8382,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#shadowball">Shadow Ball</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ghost.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -8200,9 +8423,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#wingattack">Wing Attack</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#wingattack">Wing
+													Attack</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/flying.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -8255,9 +8480,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#skydrop">Sky Drop</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#skydrop">Sky
+													Drop</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/flying.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -8296,9 +8523,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#furycutter">Fury Cutter</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#furycutter">Fury
+													Cutter</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/bug.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -8352,7 +8581,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#x-scissor">X-scissor</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/bug.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -8392,9 +8622,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#flamewheel">Flame Wheel</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#flamewheel">Flame
+													Wheel</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -8446,9 +8678,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#fierydance">Fiery Dance</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#fierydance">Fiery
+													Dance</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -8488,9 +8722,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#rocktomb">Rock Tomb</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#rocktomb">Rock
+													Tomb</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/rock.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -8542,9 +8778,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#irontail">Iron Tail</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#irontail">Iron
+													Tail</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/steel.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -8586,7 +8824,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#twineedle">Twineedle</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/bug.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -8626,7 +8865,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#tackle">Tackle</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -8676,9 +8916,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#bodyslam">Body Slam</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#bodyslam">Body
+													Slam</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -8718,7 +8960,8 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#voltswitch">Volt Switch</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#voltswitch">Volt
+													Switch</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/electric.gif"
 													border="0"></td>
 											<td align="center" width="33%">Power<br>★★★★</td>
@@ -8762,7 +9005,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#faintattack">Faint Attack</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dark.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -8814,9 +9058,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#nightslash">Night Slash</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#nightslash">Night
+													Slash</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dark.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★</td>
 										</tr>
 									</tbody>
@@ -8857,7 +9103,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#astonish">Astonish</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ghost.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -8907,7 +9154,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#shadowball">Shadow Ball</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ghost.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -8943,9 +9191,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#pound">Pound</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#pound">Pound</a>
+											</td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -8983,9 +9233,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#vinewhip">Vine Whip</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#vinewhip">Vine
+													Whip</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/grass.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -9024,7 +9276,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#shadowsneak">Shadow Sneak</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ghost.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★</td>
 										</tr>
 									</tbody>
@@ -9064,9 +9317,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#furycutter">Fury Cutter</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#furycutter">Fury
+													Cutter</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/bug.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★</td>
 										</tr>
 									</tbody>
@@ -9119,7 +9374,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#x-scissor">X-scissor</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/bug.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -9158,9 +9414,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#icebeam">Ice Beam</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#icebeam">Ice
+													Beam</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ice.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -9242,7 +9500,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#blizzard">Blizzard</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ice.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -9280,7 +9539,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#flashcannon">Flash Cannon</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/steel.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -9318,9 +9578,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#earthpower">Earth Power</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#earthpower">Earth
+													Power</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/ground.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -9358,9 +9620,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#roaroftime">Roar Of Time</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#roaroftime">Roar
+													Of Time</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dragon.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -9437,9 +9701,11 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#blueflare">Blue Flare</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#blueflare">Blue
+													Flare</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/fire.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -9478,7 +9744,8 @@
 									<tbody>
 										<tr>
 											<td align="center" width="33%"><a
-													href="https://www.serebii.net/conquest/attacks.shtml#boltstrike">Bolt Strike</a></td>
+													href="https://www.serebii.net/conquest/attacks.shtml#boltstrike">Bolt
+													Strike</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/electric.gif"
 													border="0"></td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
@@ -9518,7 +9785,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#judgment">Judgment</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/normal.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★★</td>
 										</tr>
 									</tbody>
@@ -9559,7 +9827,8 @@
 											<td align="center" width="33%"><a
 													href="https://www.serebii.net/conquest/attacks.shtml#dragonpulse">Dragon Pulse</a></td>
 											<td align="center" width="33%"><img src="https://www.serebii.net/pokedex-bw/type/dragon.gif"
-													border="0"></td>
+													border="0">
+											</td>
 											<td align="center" width="33%">Power<br>★★★★</td>
 										</tr>
 									</tbody>
@@ -9573,215 +9842,20 @@
 				</table>
 			</main>
 		</div>
-
 	</div>
 
-	<pre id="pwd">
-<h1>PASSWORD</h1>
-Eevee	2rz3XFCKmR
-Dratini	Sr5Z5GqAgR
-Gyarados	mq2xRVNgRL
-Cinccino	vVALFrGTXX
-Oshawott	frCLRpXG88
-Gible	LTb3n3RYJ8 J3mmJr9rX8
-Pansear	niE33w9rwM
-Panpour	CNZF3wpq3x
-Axew	BqWxXEK3xg
-Darmanitan	pK5RgzqLG8
-Sneasel	Rc338MpqLx
-Beldum	CMqkZRRSRX
-Larvitar	Lpu3ggCYk8
-Emolga	Jnm3kqgN8X
-Pikachu	FZP8GqRZRR urALRZwvRg
-Riolu	Shw8mxRAJR
-Scyther	8GV3LMGrnM
-Lapras	GfV33RVN3F
-Croagunk	LKpk8FRQR8
-Pansage	6xSG8UCAZR q5wwwxHD8n
-Musharna	iMYXwqtHgL
-Larvesta	yQAw81qxGR
-Chimchar	DNB3x2gCgk RKGBxzC2n8
-Deino	8rf3XPwvJw PKSRGpCPZJ
-Lilligant	RwGxLbHRRk
-Misdreavus	mnKX3qwrZR
-Snivy	XyADXkr138
-Zoroark	6iYmwq1Y8w
-	</pre>
+	<pre id="pwd"><h1>PASSWORD</h1></pre>
 
 	<div id="plink"></div>
 
 </body>
 <script>
-	// Perfect Link Data
-	const plink1 = `
-DDD - Eevee//Vaporeon//Jolteon//Flareon//Espeon//Umbreon//Leafeon//Glaceon///Arceus
-Oichi - Jigglypuff//Wigglytuff (not Igglybuff)
-Aya - Snorunt//Froslass(not Glalie)
-Ginchiyo - Luxio//Luxray (not Shinx)
-Gracia - Gothorita//Gothitelle (not Gothita)
-Hanbei - Pikachu//Raichu (not Pichu)
-Hanzo - Haunter//Gengar (not Gastly)
-Hideyoshi - Monferno//Infernape///Reshiram (not Chimchar)
-Ieyasu - Aggron//Registeel (not Aron/Lairon)
-Ina - Prinplup//Empoleon (not Piplup)
-Kai - Darumaka//Darmanitan
-Kanbei - Lampent//Chandelure (not Litwick)
-Kanetsugu - Kadabra//Alakazam (not Abra)
-Keiji - Bastiodon//Terrakion (not Shieldon)
-Kenshin - Gallade//Mewtwo (not Ralts/Kirlia/Gardevoir)
-Kotaro - Zorua//Zoroark
-Kunoichi - Sneasel//Weavile
-Magoichi - Grovyle//Sceptile (not Treecko)
-Masamune - Rufflet//Braviary
-Masanori - Krokorok//Krookodile (not Sandile)
-Mitsuhide - Lapras//Articuno
-Mitsunari - Pawniard//Bisharp
-Motochika - Dewott//Samurott (not Oshawott)
-Motonari - Servine//Serperior (not Snivy)
-Muneshige - Staravia//Staraptor (not Starly)
-Nene - Golbat//Crobat (not Zubat)
-Nō - Misdreavus//Mismagius
-Nobunaga - Hydreigon//Zekrom//Rayquaza (not Deino/Zwielous)
-Okuni - Larvesta//Volcarona
-Shingen - Rhyperior//Groudon (not Rhyhorn/Rhydon)
-Ranmaru - Riolu//Lucario
-Tadakatsu - Metagross//Dialga (not Beldum/Metang)
-Ujiyasu - Boldore//Gigalith (not Roggenrola)
-Yoshihiro - Gurdurr//Conkeldurr (not Timburr)
-Yoshimoto - Pineco//Foretress
-Yukimura - Charmeleon//Charizard (not Charmander)`.trim().split("\n").map(v => v.trim());
+	const ll = console.log;
+	const lget = (key) => JSON.parse(localStorage.getItem(key));
+	const lset = (key, val) => localStorage.setItem(key, JSON.stringify(val));
 
-	const plink2 = `
-Akizane - Pichu/Pikachu/Raichu
-Asahi - Drilbur/Excadrill
-Bokuden - Shieldon/Bastiodon
-Bokuzen - Gastly/Haunter/Gengar
-Chacha - Minccino/Cincinno
-Chikamasa - Wooper/Quagsire
-Chikayasu - Oshawott/Dewott/Samurott
-Choun - Bidoof/Bibarel
-Dosan - Ekans/Arbok
-Dosetsu - Shinx/Luxio
-Ekei - Carnivine
-Fujitaka - Lapras
-Gen'an - Onix/Steelix
-Genba - Scraggy/Scrafty
-Go - Piplup/Prinplup/Empoleon
-Gotoku - Deino/Zweilous/Hydreigon
-Hana - Munna/Musharna
-Haruyuki - Rufflet/Braviary
-Hatsu - Igglybuff/Jigglypuff/Wigglytuff
-Hideaki - Venipede/Whirlipede/Scolipede
-Hidetada - Pawniard/Bisharp
-Hideyori - Chimchar/Monferno/Infernape
-Hisahide - Deino/Zweilous/Hydreigon
-Hiroko - Snorunt/Glalie
-Hisaaki - Scraggy/Scrafty
-Ise - Gothita/Gothorita/Gothitelle
-Jinpachi - Misdreavius/Mismagius
-Jouun - Mareep/Flaaffy/Ampharos
-Juzo - Pansear/Simisear
-Kagekatsu - Ralts/Kirlia/Gardevoir
-Kagetsuna - Dratini/Dragonair/Dragonite
-Kame - Pineco/Forretress
-Kanemori - Croagunk/Toxicroak
-Kashinkoji - Skorupi/Drapion
-Katsuyori - Larvitar/Pupitar/Tyranitar
-Kazumasu - Axew/Fraxure/Haxorus
-Kei - Drilbur/Excadrill
-Kitsuno - Dratini/Dragonair/Dragonite
-Kiyo - Blitzle/Zebstrika
-Koroku - Timburr/Gurrdurr
-Maa - Litwick/Lampent/Chandelure
-Madoka - Roggenrola/Boldore/Gigalith
-Masakage - Charmander/Charmeleon/Charizard
-Masanobu - Litwick
-Masatsuna - Beedrill
-Masatoshi - Machop/Machoke/Machamp
-Masatoyo - Rhyhorn/Rhydon
-Masayuki - Larvesta/Volcarona
-Morichika - Oshawott/Dewott/Samurott
-Morikiyo - Croagunk/Toxicroak
-Morinari - Duskull/Dusclops/Dusknoir
-Motoharu - Axew/Fraxure/Haxorus
-Motozane - Joltik/Galvantula
-Munenori - Scyther/Scizor
-Munetoki - Rufflet/Braviary
-Munezane - Starly/Staravia/Staraptor
-Murashige - Treecko/Grovyle/Sceptile
-Nagahide - Dratini/Dragonair/Dragonite
-Nagayasu - Darumaka/Darmanitan
-Nagayoshi - Riolu/Lucario
-Naka - Drilbur/Excadrill
-Naomasa - Tepig/Pignite/Emboar
-Nobuchika - Magikarp/Gyarados
-Norishige - Mareep/Flaaffy/Ampharos
-Omi - Beedrill
-Rikyu - Pansage/Simisage
-Sadamitsu - Munna/Musharna
-Sadatoshi - Cottonee/Whimsicott
-Saizo - Gastly/Haunter/Gengar
-Sandayu - Zubat/Golbat
-Saneyori - Chingling/Chimecho
-Seikuro - Skorupi/Drapion
-Sekiso - Joltik/Galvantula
-Sessai - Larvesta/Volcarona
-Sen - Chingling/Chimecho
-Sena - Beedrill
-Shigemoto - Cubchoo/Beartic
-Shigezane - Scyther/Scizor
-Shimoyama - Scraggy/Scrafty
-Shizuka - Rhyhorn/Rhydon
-Shoun - Mareep/Flaaffy/Ampharos
-Sorin - Pichu/Pikachu/Raichu
-Soun - Larvitar/Pupitar/Tyranitar
-Tadamoto - Croagunk/Toxicroak
-Tadaoki - Gothita/Gothorita/Gothitelle
-Tadatsune - Machop/Machoke/Machamp
-Tadatsugu - Aron/Lairon/Aggron
-Tadasumi - Blitzle/Zebstrika
-Takahisa - Timburr/Gurrdurr
-Takahiro - Abra/Kadabra/Alakazam
-Takakage - Treecko/Grovyle/Sceptile
-Takamoto - Snivy/Servine/Serperior
-Takanobu - Munchlax/Snorlax
-Takatane - Shinx/Luxio
-Takatora - Litwick/Lampent/Chandelure
-Takayori - Panpour/Simipour
-Takeyoshi - Magikarp/Gyarados
-Tatsukio - Tepig/Pignite/Emboar
-Terumoto - Petilil/Lilligant
-Tokitaka - Timburr/Gurdurr
-Toku - Aron/Lairon/Aggron
-Tomonobu - Ralts/Kirlia/Gardevoir
-Tsunamoto - Snorunt/Gliale
-Tsunehisa - Meowth/Persian
-Ujichika - Sewaddle/Swadloon
-Ujihiro - Sewaddle/Swadloon
-Ujikini - Anorith/Armaldo
-Ujinao - Anorith/Armaldo
-Ujisato - Snivy/Servine/Serperior
-Ujitera - Shieldon/Bastiodon
-Ujizane - Pineco/Forretress
-Ume - Drilbur/Excadrill
-Yasumasa - Dratini/Dragonair/Dragonite
-Yasunaga - Venipede/WhirlipedeScolipede
-Yasutomo - Joltik/Galvantula
-Yataro - Treecko/Grovyle/Sceptile
-Yazaemon - Ekans/Arbok
-Yoshi - Zubat/Golbat
-Yoshiaki - Carnivine
-Yoshitatsu - Gastly/Haunter/Gengar
-Yoshikiyo - Cubchoo/Beartic
-Yukimasa - Spheal/Sealeo/Walrein
-Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
-
-	const lget = (key) => JSON.parse(localStorage.getItem(key))
-	const lset = (key, val) => localStorage.setItem(key, JSON.stringify(val))
-
-	// Thay đổi thứ tự Column
 	$(function () {
-		$('#myTable tr').each(function () {
+		$('#myTable>tbody>tr').each(function () {
 			const $cells = $(this).children();
 			// Lấy cột 5-9
 			const $move = $cells.slice(4, 9);
@@ -9796,6 +9870,9 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 			// Append lên đầu
 			$(this).prepend($move);
 		});
+
+		// Fill data
+		$('#pwd').append(pwd_data);
 	});
 
 	// Column sort
@@ -9872,7 +9949,7 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 	plink2.forEach(ppp);
 
 	// Fill password vào pokemon
-	const pwd = document.getElementById('pwd').textContent.trim().split('\n');
+	const pwd = pwd_data.trim().split('\n');
 	const pwdl = {}
 	pwd.forEach(line => {
 		const [label, right] = line.split('\t').map(s => s.trim());
@@ -9926,6 +10003,21 @@ Yukitaka - Sandile/Krokorok/Krookodile`.trim().split("\n").map(v => v.trim());
 			})
 		}
 	});
+
+	function search() {
+		var val = $('#search').val().toLowerCase();
+		$('#myTable>tbody>tr').each(function () {
+			const txt = $(this).text().toLowerCase();
+			if (txt.indexOf(val) < 0) {
+				$(this).hide();
+			}
+		});
+	}
+
+	function clearS() {
+		$('#search').val('');
+		$('#myTable>tbody>tr').show();
+	}
 
 </script>
 
