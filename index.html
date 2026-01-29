@@ -9911,7 +9911,9 @@
 			pokel.push([poke, pk, prefix])
 		}
 		// 4. Render ra HTML (GIỮ NGUYÊN NGOẶC)
-		const herod = $(`<div id="hero-${hero}">${hero} - </div>`);
+		const herod = $(`<div id="hero-${hero}"></div>`);
+		const herolnk = $(`<a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero} - </a>`);
+		herod.append(herolnk);
 		pokel.forEach(pk => {
 			herod.append(pk[2], pk[1]);
 		})

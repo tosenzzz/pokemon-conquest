@@ -29,7 +29,7 @@ Zoroark	6iYmwq1Y8w`;
 
 // Perfect Link Data
 const plink1 = `
-DDD - Eevee//Vaporeon//Jolteon//Flareon//Espeon//Umbreon//Leafeon//Glaceon///Arceus
+Player ♂ - Eevee//Vaporeon//Jolteon//Flareon//Espeon//Umbreon//Leafeon//Glaceon///Arceus
 Oichi - Jigglypuff//Wigglytuff (not Igglybuff)
 Aya - Snorunt//Froslass(not Glalie)
 Ginchiyo - Luxio//Luxray (not Shinx)
