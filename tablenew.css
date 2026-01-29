@@ -89,3 +89,31 @@ width:16px;
 .tab { border: 0; border-collapse: seperate; width:100%;} 
 .dextable { border: 0; border-collapse: seperate;}
 }
+
+table {
+  font-size: 9px;
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+
+.pkmn img {
+  width: 50px;
+}
+
+#plink,
+#pwd {
+  margin-left: 10px;
+}
+
+.hero-own,
+.hero-own a {
+  color: aqua;
+}
+
+.poke-own {
+  color: yellow !important;
+}
+
+.poke-want {
+  color: red !important;
+}

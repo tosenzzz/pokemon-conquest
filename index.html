@@ -12,35 +12,6 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script src="https://unpkg.com/jquery-tablesortable"></script>
 	<script src="data.js"></script>
-	<style>
-		table {
-			font-size: 9px;
-			border-spacing: 0px;
-			border-collapse: collapse;
-		}
-
-		.pkmn img {
-			width: 50px;
-		}
-
-		#plink,
-		#pwd {
-			margin-left: 10px;
-		}
-
-		.hero-own,
-		.hero-own a {
-			color: aqua;
-		}
-
-		.poke-own {
-			color: yellow !important;
-		}
-
-		.poke-want {
-			color: red !important;
-		}
-	</style>
 </head>
 
 <body>
@@ -49,7 +20,7 @@
 		<div id="content">
 			<main>
 				<div>
-					<input id="search" class="form-control" placeholder="search..." />
+					<input id="search" class="form-control" placeholder="Search..." />
 					<button class="btn btn-success" onclick="search()"><i class="fa fa-solid fa-gifts"></i> Search</button>
 					<button class="btn btn-success" onclick="clearS()"><i class="fa fa-solid fa-clear"></i> Clear</button>
 				</div>
@@ -9871,8 +9842,11 @@
 			$(this).prepend($move);
 		});
 
-		// Fill data
-		$('#pwd').append(pwd_data);
+		$("#search").on('keyup', function (e) {
+			if (e.key === 'Enter' || e.keyCode === 13) {
+				search()
+			}
+		});
 	});
 
 	// Column sort
@@ -9951,13 +9925,23 @@
 	plink2.forEach(ppp);
 
 	// Fill password vào pokemon
-	const pwd = pwd_data.trim().split('\n');
-	const pwdl = {}
+	var pwd = pwd_data.trim().split('\n').sort();
+	var pwdl = {}
 	pwd.forEach(line => {
-		const [label, right] = line.split('\t').map(s => s.trim());
-		if (!right) return;
-		pwdl[label] = right;
+		const [label, ...right] = line.trim().split(/[^\w]+/).map(s => s.trim());
+		if (!right.length) return;
+		if (!pwdl[label]) {
+			pwdl[label] = right;
+		} else {
+			right.forEach(v => {
+				if (!pwdl[label].includes(v)) pwdl[label].push(v);
+			});
+		}
 	});
+	// Show data
+	Object.keys(pwdl).forEach(k => {
+		$('#pwd').append(`\n${k}\t\t${pwdl[k].join(" ")}`);
+	})
 	document.querySelectorAll('table tr').forEach(tr => {
 		const tx = tr.children[1];
 		const td = tr.children[2];
@@ -9966,15 +9950,15 @@
 		const name = td.firstChild.textContent.trim();
 		if (pwdl[name]) {
 			const div = document.createElement('div');
-			div.textContent = pwdl[name];
+			div.textContent = pwdl[name].join(" ");
 			div.style.color = 'aqua';
 			tx.prepend(div);
 		}
 	});
 
 	// Fill Warlord vào pokemon
-	const data = [...plink1, ...plink2];
-	const map = {};
+	var data = [...plink1, ...plink2];
+	var map = {};
 	data.forEach(line => {
 		// 1. Tách phần trong ngoặc (nếu có)
 		let match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
@@ -10012,6 +9996,8 @@
 			const txt = $(this).text().toLowerCase();
 			if (txt.indexOf(val) < 0) {
 				$(this).hide();
+			} else {
+				$(this).show();
 			}
 		});
 	}

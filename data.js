@@ -1,31 +1,142 @@
-var pwd_data = `Eevee	2rz3XFCKmR
-Dratini	Sr5Z5GqAgR
-Gyarados	mq2xRVNgRL
-Cinccino	vVALFrGTXX
-Oshawott	frCLRpXG88
-Gible	LTb3n3RYJ8 J3mmJr9rX8
-Pansear	niE33w9rwM
-Panpour	CNZF3wpq3x
-Axew	BqWxXEK3xg
-Darmanitan	pK5RgzqLG8
-Sneasel	Rc338MpqLx
-Beldum	CMqkZRRSRX
-Larvitar	Lpu3ggCYk8
-Emolga	Jnm3kqgN8X
-Pikachu	FZP8GqRZRR urALRZwvRg
-Riolu	Shw8mxRAJR
-Scyther	8GV3LMGrnM
-Lapras	GfV33RVN3F
-Croagunk	LKpk8FRQR8
-Pansage	6xSG8UCAZR q5wwwxHD8n
-Musharna	iMYXwqtHgL
-Larvesta	yQAw81qxGR
-Chimchar	DNB3x2gCgk RKGBxzC2n8
-Deino	8rf3XPwvJw PKSRGpCPZJ
-Lilligant	RwGxLbHRRk
-Misdreavus	mnKX3qwrZR
-Snivy	XyADXkr138
-Zoroark	6iYmwq1Y8w`;
+var pwd_data = `Abra		JkKxwkq1x8
+Ampharos		tKAm8mrxLR
+Anorith		SEHGJqBrwW
+Arbok		fEvxXRGNRJ
+Aron		EpAgXkR1R8
+Audino		8gc33MmrnX
+Axew		BqWxXEK3xg YRzX833J8x
+Bastiodon		YRYXXh3m8F
+Beartic		hqNFXEXD8J
+Beedrill		ZqCGRJXwRX
+Beldum		CMqkZRRSRX MJAJJrGPX8
+Bibarel		mRfJX3wQRF
+Bidoof		JLqRxrrZLR
+Bisharp		bp4XiR4axM
+Blitzle		Dan3JGnqkZ
+Boldore		YqNxXEX28R
+Braviary		YqYGXJ3EXg
+Carnivine		FqEGJ1EmGR
+Charmander		daQL8qGP88
+Chimchar		DNB3x2gCgk RKGBxzC2n8 nMaxL2aRwR
+Chimecho		eqCxRmXDJJ
+Chingling		aMpX3CtsF3
+Cinccino		CwDF3vHaJn vVALFrGTXX
+Cincinno		vVALFrGTXX
+Cottonee		LJLRRTrY38
+Croagunk		LCrk8EXD8J LKpk8FRQR8
+Crobat		a1ZXLqCJ8m
+Cubchoo		RwGxL4HmJk
+Darmanitan		DJgR8Lgrgn pK5RgzqLG8
+Darumaka		JKGRmzraM8
+Deino		8rf3XPwvJw PKSRGpCPZJ qwDg3PHmJk
+Drapion		rakMJuxcgR
+Dratini		JrPmMrqZFR Sr5Z5GqAgR
+Drifblim		dRm8R1EmGR
+Drifloon		LEbxXeqhgX eqCgRvXwXX
+Drilbur		WCrZ8EXG88
+Dusclops		CCDkJVag3J
+Duskull		mmKkRqGP88
+Eevee		2rz3XFCKmR m2KJZkRERR
+Ekans		aRAXRdwvRg
+Emolga		En3wnCCEJZ Jnm3kqgN8X
+Excadrill		aKGXmzqtG8
+Flaaffy		JSaRGCECFR
+Forretress		wEMF8RBrm3
+Fraxure		nMUxMPEqg8
+Gabite		REkxJKkckR
+Galvantula		EUPgnNqZgR
+Gastly		merkFNqZgR
+Gible		J3mmJr9rX8 LTb3n3RYJ8 Wag8mrm3nJ
+Glalie		mRfJXpwvJg
+Golbat		nHEm3gJCRJ
+Gothita		EMz8LRt8xL
+Gothorita		SJwZxEqAgR
+Gurdurr		urNLXmXDJJ
+Gyarados		mCGm8VmnmR mq2xRVNgRL
+Haunter		LmLmRXRh8X
+Igglybuff		wJVJRrarXm
+Jigglypuff		JFER8RJCRR
+Joltik		QaFwRFqvxX
+Kadabra		Wau8nqJm88
+Kirlia		Dqax8mEmxR
+Krokorok		qmKkRRGPR8
+Krookodile		VazLXFrA3J
+Lairon		RApxXJ3qxx
+Lampent		Nqix8WEMxJ
+Lapras		GfV33RVN3F VrCMRaXwXX
+Larvesta		ryZGxmpqLx yQAw81qxGR
+Larvitar		Lpu3ggCYk8 gAxFRmrxLR
+Leavanny		JKSRnprcw8
+Lilligant		RwGxLbHRRk bmpm8FrA3J
+Litwick		Rm1mRe5Q8R
+Lucario		LaWJZCmykR
+Luxio		wJHJJqur8m
+Luxray		RGGmLzHJRm
+Machoke		gJUR8CUbFk
+Machop		ERf8XtwvJg
+Magikarp		RkCRFCRmJJ
+Mareep		nHamL4mqm8
+Meowth		aX3nMrCJXm
+Metang		zrzw8A3JJx
+Minccino		up48iC5akG
+Misdreavus		gmtmXCtmLn mnKX3qwrZR
+Munchlax		qkNwmaNtXL
+Munna		mCLk8ExkmF
+Musharna		8HVmLVmrkX iMYXwqtHgL
+Onix		uaWXZCJRJX
+Oshawott		fC2kRVJLR8 frCLRpXG88
+Panpour		CNZF3wpq3x NrGw8VJLR8
+Pansage		6xSG8UCAZR q5wwwxHD8n qxCgJRRJRR
+Pansear		Ra83RwxcgR niE33w9rwM
+Pawniard		Nqix8zJ48X
+Persian		8ccmWVECFJ
+Petilil		J63RPRCJRm
+Pichu		prpLJn3aRG
+Pikachu		FZP8GqRZRR urALRZwvRg ZKxmRERx8R
+Pineco		E9x8Jkra3J
+Piplup		CETF8JeU33
+Pupitar		zRz88F3JJx
+Quagsire		Wp4JiRKJRm
+Ralts		rV3XwJZqRx
+Rhydon		6fSGZErAwR
+Rhyhorn		YRYXXS3J8x
+Riolu		LmLmRhCYm8 Shw8mxRAJR
+Roggenrola		aqfGXiwQRF
+Rufflet		Jipm3q188M
+Sandile		EMz8LrtnGL
+Scolipede		CGDk3QHaRn
+Scrafty		bqmgR1mmnR
+Scraggy		uaLXkrm6n8
+Scyther		8GV3LMGrnM aGxMLkrU3X
+Sealeo		SRwZxmrALR
+Sewaddle		JDXx3CCEJZ
+Shieldon		EjFgZRCERZ
+Shinx		5USJZaRAXR
+Skorupi		dvPGir1JX3
+Sneasel		Rc338MpqLx cmvnXqGT8X
+Snivy		4yTZXC1aJM XyADXkr138
+Snorunt		EqWgXExWmF
+Spheal		82cm3VEqF8
+Staraptor		ACrm8aX2XR
+Staravia		mMhJMRUpm3
+Starly		aNZXLrCJXm
+Swadloon		5aMw8RCrxx
+Tepig		WaW8ZrEnG8
+Timburr		aMhXMqtSgL
+Toxicroak		Lau38URYJ8
+Treecko		5Ji8XCgrFm
+Tyranitar		gaa3RrUNGk
+Venipede		mCfkXMwQRL
+Walrein		R7FRFEFqZx
+Weavile		aipn3r12XM
+Whimsicott		jR2RRVEgxJ
+Whirlipede		ga13Jq1wZm
+Wooper		WpiJ5rHaXn
+Zebstrika		CaCk5rRJXR
+Zoroark		6iYmwq1Y8w rYeGPmeUL3
+Zorua		6TSGwmRAJR CTeFMMeUM3
+Zubat		aGZXJRCJRm
+Zweilous		JzqmWNCZZR`;
 
 // Perfect Link Data
 const plink1 = `
