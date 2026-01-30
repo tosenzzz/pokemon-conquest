@@ -11685,7 +11685,6 @@
 	});
 	// Show password list
 	Object.keys(pwdl).forEach((k) => {
-		ll(k);
 		$('#pwd').append(`${k}${k.length > 7 ? '\t' : '\t\t'}${pwdl[k].join(' ')}\n`);
 	});
 	document.querySelectorAll('table tr').forEach((tr) => {
@@ -11725,13 +11724,13 @@
 	document.querySelectorAll('table tr').forEach((tr) => {
 		const td = tr.children[2];
 		if (!td) return;
-
 		const poke = td.textContent.trim();
 		if (map[poke]) {
 			map[poke].forEach((v) => {
 				const div = $(`<div style="margin-top:2px"></div>`);
+				const color = lget(`${v.hero}-own`) ? 'yellow' : 'aqua';
 				$(div).append(
-					`<a href="#hero-${v.hero}" style="color:aqua">${v.prefix + v.hero}</a>`,
+					`<a href="#hero-${v.hero}" style="color:${color}">${v.prefix + v.hero}</a>`,
 				);
 				$(td).append(div);
 			});
