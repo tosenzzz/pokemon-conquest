@@ -11563,6 +11563,11 @@
 	<pre id="pwd"><h1>PASSWORD</h1></pre>
 
 	<div id="plink"></div>
+
+	<div style="margin: 10px; display: flex; flex-direction: column; gap: 10px;">
+		<a href="javascript: window.scrollTo(0,0)">SCROLL TO TOP</a>
+		<img src="https://oyster.ignimgs.com/mediawiki/apis.ign.com/pokemon-conquest/2/2d/Typechart_big.jpg" />
+	</div>
 </body>
 <script>
 	const ll = console.log;
@@ -11581,6 +11586,8 @@
 		});
 	});
 
+
+	const pokeImgs = {};
 	// Link pokemon detail2
 	$('#myTable>tbody>tr').each(function () {
 		const tds = $(this).children();
@@ -11590,6 +11597,8 @@
 			`https://veekun.com/dex/conquest/pokemon/${lnk.text()}`,
 		);
 		lnk.attr('target', '_blank');
+		const id = String(+$(tds[0]).text()).padStart(3, '0');
+		pokeImgs[lnk.text()] = `https://www.serebii.net/conquest/pokemon/${id}.png`;
 	});
 
 	// Gán id cho mỗi dòng table theo tên Pokémon
@@ -11600,7 +11609,7 @@
 		}
 	});
 
-	// Render data Warlord thành hyperlink tới pokemon
+	// HERO LIST
 	const ppp = (line) => {
 		// 1. Tách phần trong ngoặc (nếu có)
 		let match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
@@ -11627,6 +11636,7 @@
 		const herolnk = $(
 			`<a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero} - </a>`,
 		);
+		herod.append(`<img src="${heroImgs[hero]}" style="height:20px;margin-right:5px;"/>`);
 		herod.append(herolnk);
 		pokel.forEach((pk) => {
 			herod.append(pk[2], pk[1]);
@@ -11643,7 +11653,7 @@
 		);
 		herod.append(add);
 		pokel.forEach((pk) => {
-			var pokd = $(`<span style="color:aqua;margin-left:5px;">○</span>`);
+			var pokd = $(`<img src="${pokeImgs[pk[0]]}" style="width:20px;margin-left:5px;"/>`);
 			pokd.click(() => {
 				if (!pk[1].hasClass('poke-want') && !pk[1].hasClass('poke-own')) {
 					pk[1].toggleClass('poke-want');
@@ -11687,7 +11697,7 @@
 	Object.keys(pwdl).forEach((k) => {
 		$('#pwd').append(`${k}${k.length > 7 ? '\t' : '\t\t'}${pwdl[k].join(' ')}\n`);
 	});
-	document.querySelectorAll('table tr').forEach((tr) => {
+	document.querySelectorAll('#myTable>tbody>tr').forEach((tr) => {
 		const tx = tr.children[1];
 		const td = tr.children[2];
 		if (!td || !tx) return;
@@ -11721,7 +11731,7 @@
 			map[poke].push({ hero, prefix });
 		}
 	});
-	document.querySelectorAll('table tr').forEach((tr) => {
+	document.querySelectorAll('#myTable>tbody>tr').forEach((tr) => {
 		const td = tr.children[2];
 		if (!td) return;
 		const poke = td.textContent.trim();
@@ -11753,6 +11763,8 @@
 		$('#search').val('');
 		$('#myTable>tbody>tr').show();
 	}
+
+
 
 </script>
 

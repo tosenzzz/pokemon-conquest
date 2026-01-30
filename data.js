@@ -43,7 +43,35 @@ $('#myTable>tbody>tr').each(function () {
   $(tds[13]).text(pk[4]);
 });
 
+// Get Hero list 1
+a = [];
+$('#xx tbody tr').find('td:eq(1)').each((i, v) => {
+  a.push($(v).text());
+})
+// Hero list 2
+var data = [...plink1, ...plink2];
+var b = [];
+data.forEach((line) => {
+    // 1. Tách phần trong ngoặc (nếu có)
+    let match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
+    const mainPart = match[1]; // Shingen - Rhyperior//Groudon
+    const extraPart = match[2] || ''; // (not Rhyhorn/Rhydon)
+    const [hero, pokes] = mainPart.split('-').map((s) => s.trim());
+    if (!pokes) return;
+    b.push(hero);
+});
+// Filter
+console.log(b.filter(v => !a.includes(v)).sort().join(", "))
+console.log(a.filter(v => !b.includes(v)).sort().join(", "))
+
+// Hero images
+a = {};
+$('#xx tbody tr').each((i, v) => {
+  a[v.find('td:eq(1)').text()] = 'https://veekun.com' + v.find('img').attr('src')
+})
+
 */
+
 var pwd_data = `Abra		JkKxwkq1x8
 Ampharos		tKAm8mrxLR
 Anorith		SEHGJqBrwW
@@ -192,7 +220,7 @@ Aya - Snorunt//Froslass(not Glalie)
 Ginchiyo - Luxio//Luxray (not Shinx)
 Gracia - Gothorita//Gothitelle (not Gothita)
 Hanbei - Pikachu//Raichu (not Pichu)
-Hanzo - Haunter//Gengar (not Gastly)
+Hanzō - Haunter//Gengar (not Gastly)
 Hideyoshi - Monferno//Infernape///Reshiram (not Chimchar)
 Ieyasu - Aggron//Registeel (not Aron/Lairon)
 Ina - Prinplup//Empoleon (not Piplup)
@@ -201,7 +229,7 @@ Kanbei - Lampent//Chandelure (not Litwick)
 Kanetsugu - Kadabra//Alakazam (not Abra)
 Keiji - Bastiodon//Terrakion (not Shieldon)
 Kenshin - Gallade//Mewtwo (not Ralts/Kirlia/Gardevoir)
-Kotaro - Zorua//Zoroark
+Kotarō - Zorua//Zoroark
 Kunoichi - Sneasel//Weavile
 Magoichi - Grovyle//Sceptile (not Treecko)
 Masamune - Rufflet//Braviary
@@ -220,7 +248,7 @@ Ranmaru - Riolu//Lucario
 Tadakatsu - Metagross//Dialga (not Beldum/Metang)
 Ujiyasu - Boldore//Gigalith (not Roggenrola)
 Yoshihiro - Gurdurr//Conkeldurr (not Timburr)
-Yoshimoto - Pineco//Foretress
+Yoshimoto - Pineco//Forretress
 Yukimura - Charmeleon//Charizard (not Charmander)`
   .trim()
   .split('\n')
@@ -231,17 +259,17 @@ Akizane - Pichu/Pikachu/Raichu
 Asahi - Drilbur/Excadrill
 Bokuden - Shieldon/Bastiodon
 Bokuzen - Gastly/Haunter/Gengar
-Chacha - Minccino/Cincinno
+Chacha - Minccino/Cinccino
 Chikamasa - Wooper/Quagsire
 Chikayasu - Oshawott/Dewott/Samurott
-Choun - Bidoof/Bibarel
-Dosan - Ekans/Arbok
-Dosetsu - Shinx/Luxio
+Chōan - Bidoof/Bibarel
+Dōsan - Ekans/Arbok
+Dōsetsu - Shinx/Luxio
 Ekei - Carnivine
 Fujitaka - Lapras
 Gen'an - Onix/Steelix
 Genba - Scraggy/Scrafty
-Go - Piplup/Prinplup/Empoleon
+Gō - Piplup/Prinplup/Empoleon
 Gotoku - Deino/Zweilous/Hydreigon
 Hana - Munna/Musharna
 Haruyuki - Rufflet/Braviary
@@ -253,9 +281,9 @@ Hisahide - Deino/Zweilous/Hydreigon
 Hiroko - Snorunt/Glalie
 Hisaaki - Scraggy/Scrafty
 Ise - Gothita/Gothorita/Gothitelle
-Jinpachi - Misdreavius/Mismagius
-Jouun - Mareep/Flaaffy/Ampharos
-Juzo - Pansear/Simisear
+Jinpachi - Misdreavus/Mismagius
+Jūbei - Ralts/Kirlia/Gallade
+Jūzō - Pansear/Simisear
 Kagekatsu - Ralts/Kirlia/Gardevoir
 Kagetsuna - Dratini/Dragonair/Dragonite
 Kame - Pineco/Forretress
@@ -266,7 +294,7 @@ Kazumasu - Axew/Fraxure/Haxorus
 Kei - Drilbur/Excadrill
 Kitsuno - Dratini/Dragonair/Dragonite
 Kiyo - Blitzle/Zebstrika
-Koroku - Timburr/Gurrdurr
+Koroku - Timburr/Gurdurr
 Maa - Litwick/Lampent/Chandelure
 Madoka - Roggenrola/Boldore/Gigalith
 Masakage - Charmander/Charmeleon/Charizard
@@ -288,18 +316,19 @@ Nagahide - Dratini/Dragonair/Dragonite
 Nagayasu - Darumaka/Darmanitan
 Nagayoshi - Riolu/Lucario
 Naka - Drilbur/Excadrill
+Naoie - Deino/Zweilous/Hydreigon
 Naomasa - Tepig/Pignite/Emboar
 Nobuchika - Magikarp/Gyarados
 Norishige - Mareep/Flaaffy/Ampharos
 Omi - Beedrill
-Rikyu - Pansage/Simisage
+Rikyū - Pansage/Simisage
 Sadamitsu - Munna/Musharna
 Sadatoshi - Cottonee/Whimsicott
-Saizo - Gastly/Haunter/Gengar
-Sandayu - Zubat/Golbat
+Saizō - Gastly/Haunter/Gengar
+Sandayū - Zubat/Golbat
 Saneyori - Chingling/Chimecho
-Seikuro - Skorupi/Drapion
-Sekiso - Joltik/Galvantula
+Seikurō - Skorupi/Drapion
+Sekisō - Joltik/Galvantula
 Sessai - Larvesta/Volcarona
 Sen - Chingling/Chimecho
 Sena - Beedrill
@@ -307,15 +336,15 @@ Shigemoto - Cubchoo/Beartic
 Shigezane - Scyther/Scizor
 Shimoyama - Scraggy/Scrafty
 Shizuka - Rhyhorn/Rhydon
-Shoun - Mareep/Flaaffy/Ampharos
-Sorin - Pichu/Pikachu/Raichu
-Soun - Larvitar/Pupitar/Tyranitar
+Shōun - Mareep/Flaaffy/Ampharos
+Sōrin - Pichu/Pikachu/Raichu
+Sōun - Larvitar/Pupitar/Tyranitar
 Tadamoto - Croagunk/Toxicroak
 Tadaoki - Gothita/Gothorita/Gothitelle
 Tadatsune - Machop/Machoke/Machamp
 Tadatsugu - Aron/Lairon/Aggron
 Tadasumi - Blitzle/Zebstrika
-Takahisa - Timburr/Gurrdurr
+Takahisa - Timburr/Gurdurr
 Takahiro - Abra/Kadabra/Alakazam
 Takakage - Treecko/Grovyle/Sceptile
 Takamoto - Snivy/Servine/Serperior
@@ -324,25 +353,25 @@ Takatane - Shinx/Luxio
 Takatora - Litwick/Lampent/Chandelure
 Takayori - Panpour/Simipour
 Takeyoshi - Magikarp/Gyarados
-Tatsukio - Tepig/Pignite/Emboar
+Tatsuko - Tepig/Pignite/Emboar
 Terumoto - Petilil/Lilligant
 Tokitaka - Timburr/Gurdurr
 Toku - Aron/Lairon/Aggron
 Tomonobu - Ralts/Kirlia/Gardevoir
-Tsunamoto - Snorunt/Gliale
+Tsunamoto - Snorunt/Glalie
 Tsunehisa - Meowth/Persian
 Ujichika - Sewaddle/Swadloon
 Ujihiro - Sewaddle/Swadloon
-Ujikini - Anorith/Armaldo
+Ujikuni - Anorith/Armaldo
 Ujinao - Anorith/Armaldo
 Ujisato - Snivy/Servine/Serperior
-Ujitera - Shieldon/Bastiodon
+Ujiteru - Shieldon/Bastiodon
 Ujizane - Pineco/Forretress
 Ume - Drilbur/Excadrill
 Yasumasa - Dratini/Dragonair/Dragonite
-Yasunaga - Venipede/WhirlipedeScolipede
+Yasunaga - Venipede/Whirlipede/Scolipede
 Yasutomo - Joltik/Galvantula
-Yataro - Treecko/Grovyle/Sceptile
+Yatarō - Treecko/Grovyle/Sceptile
 Yazaemon - Ekans/Arbok
 Yoshi - Zubat/Golbat
 Yoshiaki - Carnivine
@@ -353,3 +382,231 @@ Yukitaka - Sandile/Krokorok/Krookodile`
   .trim()
   .split('\n')
   .map((v) => v.trim());
+
+const heroImgs = {
+  'Player ♂': 'https://veekun.com/dex/media/warriors/big-icons/player-m-1.png',
+  'Player ♀': 'https://veekun.com/dex/media/warriors/big-icons/player-f-1.png',
+  Nobunaga: 'https://veekun.com/dex/media/warriors/big-icons/nobunaga-2.png',
+  Oichi: 'https://veekun.com/dex/media/warriors/big-icons/oichi-1.png',
+  Hideyoshi: 'https://veekun.com/dex/media/warriors/big-icons/hideyoshi-1.png',
+  Motochika: 'https://veekun.com/dex/media/warriors/big-icons/motochika-1.png',
+  Ginchiyo: 'https://veekun.com/dex/media/warriors/big-icons/ginchiyo-1.png',
+  Motonari: 'https://veekun.com/dex/media/warriors/big-icons/motonari-1.png',
+  Mitsuhide: 'https://veekun.com/dex/media/warriors/big-icons/mitsuhide-1.png',
+  Yoshihiro: 'https://veekun.com/dex/media/warriors/big-icons/yoshihiro-1.png',
+  Nene: 'https://veekun.com/dex/media/warriors/big-icons/nene-1.png',
+  Shingen: 'https://veekun.com/dex/media/warriors/big-icons/shingen-1.png',
+  Masamune: 'https://veekun.com/dex/media/warriors/big-icons/masamune-1.png',
+  Kenshin: 'https://veekun.com/dex/media/warriors/big-icons/kenshin-1.png',
+  Yoshimoto: 'https://veekun.com/dex/media/warriors/big-icons/yoshimoto-1.png',
+  Ujiyasu: 'https://veekun.com/dex/media/warriors/big-icons/ujiyasu-1.png',
+  Nō: 'https://veekun.com/dex/media/warriors/big-icons/no-1.png',
+  Kotarō: 'https://veekun.com/dex/media/warriors/big-icons/kotaro-1.png',
+  Ieyasu: 'https://veekun.com/dex/media/warriors/big-icons/ieyasu-1.png',
+  Hanbei: 'https://veekun.com/dex/media/warriors/big-icons/hanbei-1.png',
+  Kanbei: 'https://veekun.com/dex/media/warriors/big-icons/kanbei-1.png',
+  Muneshige: 'https://veekun.com/dex/media/warriors/big-icons/muneshige-1.png',
+  Gracia: 'https://veekun.com/dex/media/warriors/big-icons/gracia-1.png',
+  Hanzō: 'https://veekun.com/dex/media/warriors/big-icons/hanzo-1.png',
+  Kunoichi: 'https://veekun.com/dex/media/warriors/big-icons/kunoichi-1.png',
+  Yukimura: 'https://veekun.com/dex/media/warriors/big-icons/yukimura-1.png',
+  Magoichi: 'https://veekun.com/dex/media/warriors/big-icons/magoichi-1.png',
+  Kanetsugu: 'https://veekun.com/dex/media/warriors/big-icons/kanetsugu-1.png',
+  Aya: 'https://veekun.com/dex/media/warriors/big-icons/aya-1.png',
+  Kai: 'https://veekun.com/dex/media/warriors/big-icons/kai-1.png',
+  Okuni: 'https://veekun.com/dex/media/warriors/big-icons/okuni-1.png',
+  Ranmaru: 'https://veekun.com/dex/media/warriors/big-icons/ranmaru-1.png',
+  Tadakatsu: 'https://veekun.com/dex/media/warriors/big-icons/tadakatsu-1.png',
+  Ina: 'https://veekun.com/dex/media/warriors/big-icons/ina-1.png',
+  Keiji: 'https://veekun.com/dex/media/warriors/big-icons/keiji-1.png',
+  Mitsunari: 'https://veekun.com/dex/media/warriors/big-icons/mitsunari-1.png',
+  Kiyomasa: 'https://veekun.com/dex/media/warriors/big-icons/kiyomasa-1.png',
+  Masanori: 'https://veekun.com/dex/media/warriors/big-icons/masanori-1.png',
+  Tsunehisa: 'https://veekun.com/dex/media/warriors/big-icons/professor.png',
+  Naoie: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
+  Harutaka:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
+  Takanobu: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
+  Naoshige: 'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
+  Ujisato: 'https://veekun.com/dex/media/warriors/big-icons/alchemist.png',
+  Chacha: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
+  Gō: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
+  Hatsu: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
+  Kazumasu: 'https://veekun.com/dex/media/warriors/big-icons/ninja-armor.png',
+  Nagahide: 'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
+  Yoshitaka: 'https://veekun.com/dex/media/warriors/big-icons/sailor.png',
+  Urakusai: 'https://veekun.com/dex/media/warriors/big-icons/alchemist.png',
+  Narimasa: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
+  Tomonori: 'https://veekun.com/dex/media/warriors/big-icons/nobleman.png',
+  Murashige: 'https://veekun.com/dex/media/warriors/big-icons/alchemist.png',
+  Masahide: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
+  Nagayoshi: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
+  Kitsuno: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
+  Gotoku: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
+  Hidenaga:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
+  Koroku: 'https://veekun.com/dex/media/warriors/big-icons/adventurer.png',
+  Takatora: 'https://veekun.com/dex/media/warriors/big-icons/clever.png',
+  Yoshitsugu: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
+  Yukinaga: 'https://veekun.com/dex/media/warriors/big-icons/merchant-m.png',
+  Rikyū: 'https://veekun.com/dex/media/warriors/big-icons/alchemist.png',
+  Hideyori: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
+  Asahi: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
+  Kazutoyo: 'https://veekun.com/dex/media/warriors/big-icons/clever.png',
+  Nagayasu: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
+  Harunaga: 'https://veekun.com/dex/media/warriors/big-icons/portly.png',
+  Hideaki: 'https://veekun.com/dex/media/warriors/big-icons/nervous.png',
+  Naka: 'https://veekun.com/dex/media/warriors/big-icons/farmer-f.png',
+  Tatsuko: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
+  Maa: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
+  Chiyo: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
+  Hatsume: 'https://veekun.com/dex/media/warriors/big-icons/ninja-ceiling.png',
+  Nobuchika: 'https://veekun.com/dex/media/warriors/big-icons/clever.png',
+  Chikayasu:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
+  Morichika: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
+  Chikamasa: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
+  Norishige:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
+  Takayori: 'https://veekun.com/dex/media/warriors/big-icons/clever.png',
+  Tadasumi: 'https://veekun.com/dex/media/warriors/big-icons/nervous.png',
+  Dōsetsu: 'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
+  Shōun: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
+  Sōrin: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
+  Sekisō: 'https://veekun.com/dex/media/warriors/big-icons/monk.png',
+  Akizane: 'https://veekun.com/dex/media/warriors/big-icons/alchemist.png',
+  Takatane: 'https://veekun.com/dex/media/warriors/big-icons/nervous.png',
+  Kiyo: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
+  Motoharu:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
+  Takakage: 'https://veekun.com/dex/media/warriors/big-icons/armor-visor.png',
+  Terumoto:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
+  Takeyoshi: 'https://veekun.com/dex/media/warriors/big-icons/sailor.png',
+  Ekei: 'https://veekun.com/dex/media/warriors/big-icons/monk.png',
+  Takamoto: 'https://veekun.com/dex/media/warriors/big-icons/nervous.png',
+  Sadatoshi: 'https://veekun.com/dex/media/warriors/big-icons/portly.png',
+  Hidemitsu:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
+  Toshimitsu:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
+  Shigemoto:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
+  Mitsutada: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
+  Yukimasa: 'https://veekun.com/dex/media/warriors/big-icons/portly.png',
+  Tadaoki: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
+  Fujitaka: 'https://veekun.com/dex/media/warriors/big-icons/nobleman.png',
+  Hiroko: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
+  Tadamoto: 'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
+  Tadatsune: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
+  Takahisa: 'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
+  Hisaaki: 'https://veekun.com/dex/media/warriors/big-icons/armor-visor.png',
+  Masatoshi: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
+  Kanemori: 'https://veekun.com/dex/media/warriors/big-icons/armor-visor.png',
+  Tokitaka: 'https://veekun.com/dex/media/warriors/big-icons/professor.png',
+  Sandayū: 'https://veekun.com/dex/media/warriors/big-icons/ninja-armor.png',
+  Morikiyo: 'https://veekun.com/dex/media/warriors/big-icons/ninja-armor.png',
+  Kashinkoji: 'https://veekun.com/dex/media/warriors/big-icons/professor.png',
+  Yasunaga: 'https://veekun.com/dex/media/warriors/big-icons/ninja-visor.png',
+  Seikurō: 'https://veekun.com/dex/media/warriors/big-icons/ninja-scroll.png',
+  Katsuyori:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
+  Haruyuki: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
+  Masakage: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
+  Masatoyo: 'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
+  Nobufusa:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
+  Masayuki: 'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
+  Yukitaka: 'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
+  Ume: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
+  Chiyome: 'https://veekun.com/dex/media/warriors/big-icons/ninja-eyeliner.png',
+  Kei: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
+  Kagetsuna: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
+  Shigezane: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
+  Tsunamoto:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
+  Tsunenaga: 'https://veekun.com/dex/media/warriors/big-icons/sailor.png',
+  Munetoki: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
+  Munezane: 'https://veekun.com/dex/media/warriors/big-icons/armor-visor.png',
+  Yoshi: 'https://veekun.com/dex/media/warriors/big-icons/ninja-eyeliner.png',
+  Iroha: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
+  Kagekatsu: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
+  Yoshikiyo:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
+  Tomonobu:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
+  Kageie: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
+  Takahiro: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
+  Sadamitsu: 'https://veekun.com/dex/media/warriors/big-icons/professor.png',
+  Yatarō: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
+  Saneyori: 'https://veekun.com/dex/media/warriors/big-icons/professor.png',
+  Hana: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
+  Sen: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
+  Ujichika: 'https://veekun.com/dex/media/warriors/big-icons/nobleman.png',
+  Ujizane: 'https://veekun.com/dex/media/warriors/big-icons/nobleman.png',
+  Sessai: 'https://veekun.com/dex/media/warriors/big-icons/monk.png',
+  Masatsuna:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
+  Yasutomo:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
+  Ujihiro: 'https://veekun.com/dex/media/warriors/big-icons/portly.png',
+  Motozane: 'https://veekun.com/dex/media/warriors/big-icons/portly.png',
+  Sena: 'https://veekun.com/dex/media/warriors/big-icons/ninja-eyeliner.png',
+  Sōun: 'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
+  Tsunashige:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
+  "Gen'an": 'https://veekun.com/dex/media/warriors/big-icons/monk.png',
+  Ujimasa:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
+  Ujiteru: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
+  Ujikuni:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
+  Ujinao: 'https://veekun.com/dex/media/warriors/big-icons/armor-visor.png',
+  Shizuka: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
+  Madoka: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
+  Dōsan: 'https://veekun.com/dex/media/warriors/big-icons/merchant-m.png',
+  Yoshitatsu:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
+  Ittetsu:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
+  Bokuzen: 'https://veekun.com/dex/media/warriors/big-icons/armor-visor.png',
+  Morinari: 'https://veekun.com/dex/media/warriors/big-icons/nervous.png',
+  Omi: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
+  Asa: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
+  Shimoyama: 'https://veekun.com/dex/media/warriors/big-icons/ninja-scroll.png',
+  Genba: 'https://veekun.com/dex/media/warriors/big-icons/ninja-visor.png',
+  Danzō: 'https://veekun.com/dex/media/warriors/big-icons/ninja-scroll.png',
+  Yazaemon: 'https://veekun.com/dex/media/warriors/big-icons/ninja-visor.png',
+  Isuke: 'https://veekun.com/dex/media/warriors/big-icons/ninja-visor.png',
+  Tadatsugu:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
+  Naomasa: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
+  Yasumasa: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
+  Masanobu: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
+  Hidetada: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
+  Kazumasa: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
+  Chōan: 'https://veekun.com/dex/media/warriors/big-icons/merchant-m.png',
+  Tenkai: 'https://veekun.com/dex/media/warriors/big-icons/monk.png',
+  Munenori:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
+  Kame: 'https://veekun.com/dex/media/warriors/big-icons/ninja-ceiling.png',
+  Toku: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
+  Saizō: 'https://veekun.com/dex/media/warriors/big-icons/ninja-armor.png',
+  Sasuke: 'https://veekun.com/dex/media/warriors/big-icons/ninja-scroll.png',
+  Katsu: 'https://veekun.com/dex/media/warriors/big-icons/ninja-ceiling.png',
+  Jūzō: 'https://veekun.com/dex/media/warriors/big-icons/ninja-visor.png',
+  Tsuru: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
+  Ise: 'https://veekun.com/dex/media/warriors/big-icons/ninja-ceiling.png',
+  Jinpachi: 'https://veekun.com/dex/media/warriors/big-icons/sailor.png',
+  Kamanosuke: 'https://veekun.com/dex/media/warriors/big-icons/adventurer.png',
+  Seikai: 'https://veekun.com/dex/media/warriors/big-icons/adventurer.png',
+  Isa: 'https://veekun.com/dex/media/warriors/big-icons/adventurer.png',
+  Yoshiteru: 'https://veekun.com/dex/media/warriors/big-icons/nobleman.png',
+  Yoshiaki: 'https://veekun.com/dex/media/warriors/big-icons/nobleman.png',
+  Hisahide: 'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
+  Jūbei: 'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
+  Nobutsuna:
+    'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
+  Bokuden: 'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
+  Otsū: 'https://veekun.com/dex/media/warriors/big-icons/ninja-ceiling.png',
+};
