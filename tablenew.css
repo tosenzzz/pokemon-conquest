@@ -96,8 +96,8 @@ table {
   border-collapse: collapse;
 }
 
-.pkmn img {
-  width: 50px;
+.imgpk {
+  width: 60px;
 }
 
 #plink,

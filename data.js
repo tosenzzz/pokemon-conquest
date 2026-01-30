@@ -1,3 +1,49 @@
+/*
+
+$('#myTable tr').each(function () {
+  const $cells = $(this).children();
+  // Lấy cột 5-9
+  const $move = $cells.slice(4, 9);
+  // Append xuống cuối
+  $(this).append($move);
+});
+
+$('#myTable table tr').each(function () {
+  const $cells = $(this).children();
+  // Lấy cột Power
+  const $move = $cells.slice(2, 3);
+  // Append lên đầu
+  $(this).prepend($move);
+});
+
+// Move link outside of table
+$('#myTable>tbody>tr').each(function () {
+  const tds = $(this).children();
+  const lnk = $(tds[1]).find('a');
+  $(tds[1]).append(lnk);
+  $(tds[1]).find('table').remove();
+});
+
+// Get pokemons data
+pks = {};
+$('#myTable>tbody>tr').each(function () {
+  const tds = $(this).children();
+  pks[$(tds[1]).text()] = [$(tds[5]).text(), $(tds[6]).text(), $(tds[7]).text(), $(tds[8]).text(), $(tds[9]).text()]
+});
+// Set pokemon data
+$('#myTable>tbody>tr').each(function () {
+  const tds = $(this).children();
+  nm = $(tds[2]).text().trim();
+  pk = pks[nm] || ['0x', '0', '0', '0', '0'];
+  
+  $(tds[9]).text(pk[0]);
+  $(tds[10]).text(pk[1]);
+  $(tds[11]).text(pk[2]);
+  $(tds[12]).text(pk[3]);
+  $(tds[13]).text(pk[4]);
+});
+
+*/
 var pwd_data = `Abra		JkKxwkq1x8
 Ampharos		tKAm8mrxLR
 Anorith		SEHGJqBrwW
