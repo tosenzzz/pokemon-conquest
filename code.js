@@ -210,16 +210,22 @@ async function search() {
           const value = localStorage.getItem(key);
           items[key] = value;
         });
+        const vHost = lget('host');
         const version = +(items['version'] || 0);
-        const valsHost = await API('GET', lget('host'));
+        const valsHost = await API('GET', vHost, {
+          game: 'pokemon_conquest',
+          key: window.location.hostname || 'localhost',
+        });
         const hver = +(valsHost?.data?.version || 0);
         ll(items, version, hver);
         // PUT to HOST
         if (!valsHost || version > hver) {
           await API(
             'PUT',
-            lget('host'),
+            vHost,
             JSON.stringify({
+              game: 'pokemon_conquest',
+              key: window.location.hostname || 'localhost',
               data: items,
             }),
           );
