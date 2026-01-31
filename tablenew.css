@@ -93,7 +93,10 @@ table {
 .poke-own { color: yellow !important; }
 .poke-want { color: red !important; }
 .herod {display: flex; align-items: center; gap: 5px; white-space: nowrap; }
-.pklink { overflow: clip; border-radius: 50%; }
+.pklink {
+  /* overflow: clip; */
+  border-radius: 50%;
+}
 .pklink img { width: 20px; background-color: white; }
 .skill { position: relative; }
 .skill la {
