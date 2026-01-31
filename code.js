@@ -50,6 +50,11 @@ $(function () {
     if (name) {
       $(this).attr('id', 'poke-' + name);
     }
+    // Insert skill image
+    const tr = $(this).find('td:eq(4) tr');
+    tr.append(
+      `<td align="center" width="33%"><img src="${SkillImgs[name]}" border="0"></td>`,
+    );
   });
 
   // HERO LIST
@@ -76,9 +81,6 @@ $(function () {
     }
     // 4. Render ra HTML (GIỮ NGUYÊN NGOẶC)
     const herod = $(`<div id="hero-${hero}" class="herod"></div>`);
-    const herolnk = $(
-      `<a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero} - </a>`,
-    );
     const add = $(
       `<img src="${heroImgs[hero]}" style="height:20px;margin-right:5px;"/>`,
     ).click(() => {
@@ -86,7 +88,9 @@ $(function () {
       lset(`${hero}-own`, herod.hasClass('hero-own'));
     });
     herod.append(add);
-    herod.append(herolnk);
+    herod.append(
+      `<a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero}</a>&nbsp;-&nbsp;`,
+    );
     pokel.forEach((pk) => {
       herod.append(pk[2], pk[1]);
     });

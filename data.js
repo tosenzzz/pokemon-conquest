@@ -26,7 +26,7 @@ $('#myTable>tbody>tr').each(function () {
 
 // Get pokemons data
 pks = {};
-$('#myTable>tbody>tr').each(function () {
+$('.dex-pokemon-moves>tbody>tr').each(function () {
   const tds = $(this).children();
   pks[$(tds[1]).text()] = [$(tds[5]).text(), $(tds[6]).text(), $(tds[7]).text(), $(tds[8]).text(), $(tds[9]).text()]
 });
@@ -69,6 +69,19 @@ a = {};
 $('#xx tbody tr').each((i, v) => {
   a[v.find('td:eq(1)').text()] = 'https://veekun.com' + v.find('img').attr('src')
 })
+
+// Pokemons skills
+pks = {};
+getskill = (nm) => {
+  $.get(`https://veekun.com/dex/conquest/pokemon/${nm}`, function(data) {
+    img = $(data).find('dd.dex-cpm-range img').attr('src');
+    pks[nm] = 'https://veekun.com' + img;
+  });
+}
+$('.dex-pokemon-moves>tbody>tr').each(function () {
+  const tds = $(this).children();
+  getskill($(tds[1]).text());
+});
 
 */
 
@@ -214,7 +227,8 @@ Zweilous		JzqmWNCZZR`;
 
 // Perfect Link Data
 const plink1 = `
-Player ♂ - Eevee//Vaporeon//Jolteon//Flareon//Espeon//Umbreon//Leafeon//Glaceon///Arceus
+Player ♂ - Eevee//Vaporeon//Jolteon//Flareon//Espeon
+Player ♂ - //Umbreon//Leafeon//Glaceon///Arceus
 Oichi - Jigglypuff//Wigglytuff (not Igglybuff)
 Aya - Snorunt//Froslass(not Glalie)
 Ginchiyo - Luxio//Luxray (not Shinx)
@@ -609,4 +623,387 @@ const heroImgs = {
     'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
   Bokuden: 'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
   Otsū: 'https://veekun.com/dex/media/warriors/big-icons/ninja-ceiling.png',
+};
+
+const SkillImgs = {
+  Kadabra:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Luxray:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+  Emolga:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-switch-back.png',
+  Snorlax:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  Munchlax:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Misdreavus:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  Audino:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Mismagius:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Pikachu:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
+  Scizor:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
+  Bidoof:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Bibarel:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Weavile: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  Venipede:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Luxio:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  Shinx:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Staraptor:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/chevron-advance-1.png',
+  Chandelure:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-2-ahead.png',
+  Whirlipede:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  Lampent:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
+  Litwick:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Scolipede:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
+  Pichu:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Mareep:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Gyarados:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
+  Flaaffy:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  Scyther: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  Spiritomb:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Registeel:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
+  Riolu:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  Carnivine: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  Petilil:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Flareon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Whimsicott:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Lilligant:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
+  Cottonee:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Ampharos:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+  Lucario:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-knockback.png',
+  Ekans:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Chimecho:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Chingling:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+  Meowth:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Arbok:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
+  Forretress:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  Pineco:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Sealeo:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  Walrein:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
+  Persian:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Spheal:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Sandile:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Gothita:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+  Gothorita:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Gothitelle:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
+  Duskull:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  Krookodile:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Dusclops:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Krokorok:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Blitzle:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Dragonite:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
+  Dragonair:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback-switch.png',
+  Musharna:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Dusknoir:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Zebstrika:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  Dratini:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Beldum:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  Munna:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Tyranitar:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
+  Larvitar:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Gabite:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Pupitar:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Metang:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Gible:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Toxicroak:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
+  Metagross:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  Deino:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Croagunk:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Garchomp:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
+  Snorunt:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Glalie:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Machop:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Hydreigon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Zweilous:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Gurdurr:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Minccino:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Froslass: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  Cinccino: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  Machamp:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
+  Timburr:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Oshawott:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Beartic:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Machoke:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Conkeldurr:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  Cubchoo:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Charmander:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Charmeleon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Dewott:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Samurott:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
+  Haunter:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Gastly:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Snivy: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  Gengar:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Charizard:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Infernape:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-2-ahead.png',
+  Chimchar:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Tepig:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Pignite:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  Zekrom:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  Serperior:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  Arceus:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  Servine:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Swadloon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Monferno:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  Sewaddle:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Alakazam:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead.png',
+  Piplup:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Grovyle:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Sceptile:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  Emboar: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/dai.png',
+  Magikarp: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/user.png',
+  Treecko:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Raichu:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead-advance-1.png',
+  Quagsire:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Wooper:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Articuno:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
+  Ralts:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+  Terrakion:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Gallade:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Reshiram: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
+  Lapras:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Mewtwo:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/t-shape.png',
+  Groudon: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
+  Dialga: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows.png',
+  Leafeon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Rayquaza:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Golbat:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Umbreon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Vaporeon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Simisage:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  Gardevoir:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead.png',
+  Kirlia:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Glaceon: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  Empoleon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Pansage: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  Simipour:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Prinplup:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-ahead.png',
+  Panpour:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Simisear:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Pansear:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
+  Fraxure:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Axew: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Darmanitan:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/dai.png',
+  Darumaka:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  Aron: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Galvantula:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  Joltik:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Excadrill:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  Haxorus:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
+  Drilbur:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Aggron:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
+  Lairon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  Drapion:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
+  Skorupi:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Zorua:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Rhyhorn:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
+  Rhydon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  Zoroark:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
+  Bisharp: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  Pawniard:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Rhyperior:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+  Scraggy:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Shieldon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  Rufflet:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Scrafty:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  Drifblim:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Drifloon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  Bastiodon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Larvesta:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  Armaldo:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
+  Braviary:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Steelix:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
+  Anorith: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  Onix: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Beedrill:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  Sneasel:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Volcarona:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
+  Boldore:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Gigalith: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
+  Zubat:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Igglybuff:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Wigglytuff:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  Roggenrola:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  Staravia:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Crobat:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
+  Starly:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Jigglypuff:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Jolteon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
+  Eevee:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  Espeon:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  Abra: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/user.png',
+  Leavanny:
+    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
 };
