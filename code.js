@@ -79,7 +79,8 @@ $(function () {
       }
       pokel.push([poke, pk, prefix]);
     }
-    // 4. Render ra HTML (GIỮ NGUYÊN NGOẶC)
+
+    // 4. Render ra Hero image and Pokemons name
     const herod = $(`<div id="hero-${hero}" class="herod"></div>`);
     if (lget(`${hero}-own`)) herod.addClass('hero-own');
     const add = $(`<img src="${heroImgs[hero]}" style="height:20px;"/>`).click(
@@ -91,8 +92,29 @@ $(function () {
     herod.append(add);
     const handp = $(`<div></div>`);
     handp.append(
-      `<a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero}</a>&nbsp;-&nbsp;`,
+      `<a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero}</a>`,
     );
+
+    // Hero rank-up
+    if (heroRankUp[hero]) {
+      var sdiv = $(`<span class="skill"></span>`);
+      var skill = $(`<span>&nbsp;+&nbsp;</span>`);
+      var skilld = $(
+        `<la>${heroRankUp[hero].map((v, i) => `<div>${i + 1}. ${v}</div>`).join('\n')}</la>`,
+      );
+      sdiv.append(skill, skilld);
+      handp.append(sdiv);
+      skill.click(() => {
+        skilld.show();
+        setTimeout(() => {
+          skilld.hide();
+        }, 5000);
+      });
+    } else {
+      handp.append(`&nbsp;-&nbsp;`);
+    }
+
+    // Pokemons
     pokel.forEach((pk) => {
       handp.append(pk[2], pk[1]);
     });

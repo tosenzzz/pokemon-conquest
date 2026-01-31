@@ -90,7 +90,7 @@ $('.xx tr').each(function () {
   dd[$(tds[0]).text().trim()] = $(tds[2]).text().trim();
 });
 
-// Get hero skills
+// Get hero skills: https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Conquest_characters
 dd = {};
 name = '';
 $('.xx tr').each(function () {
@@ -111,6 +111,22 @@ $('.yy tr').each(function () {
   skill = $(tds[8]).text().trim();
   if (!dd[name]) dd[name] = [skill];
   else dd[name].push(skill);
+});
+
+// Hero rank-up: https://bulbapedia.bulbagarden.net/wiki/Warlord
+dd = {};
+name = '';
+$('.xx tr').each(function () {
+  tds = $(this).children();
+  if (tds.length < 12) {
+    rank = $(tds[7]).text().trim();
+    dd[name].push(rank);
+  } else {
+    name = $(tds[0]).find('a').text().trim();
+    rank = $(tds[11]).text().trim();
+    if (!dd[name]) dd[name] = [rank];
+    else dd[name].push(rank);
+  }
 });
 
 */
@@ -1150,12 +1166,12 @@ const skillsList = {
 };
 
 var heroSkills = {
+  'Player ♂': ['Top Speed', 'Courage', 'Motivate'],
   Aya: ['Sweet Song', 'Compassion'],
   Ginchiyo: ['Bustle', 'Thunderclap'],
   Gracia: ['Added Bonus', 'Bewilder'],
   Hanbei: ['Added Bonus', 'Lazybones'],
   Hanzō: ['Marksman', 'Ninjutsu'],
-  'Player ♂': ['Top Speed', 'Courage', 'Motivate'],
   Hideyoshi: ['Quick Strike', 'Grand Dream', 'Great Uniter'],
   Ieyasu: ['Brotherhood', 'Resolution'],
   Ina: ['Crack Shot', 'Elegance'],
@@ -1350,4 +1366,103 @@ var heroSkills = {
   Yukimasa: ['Temperate'],
   Yukinaga: ['Deep Breath'],
   Yukitaka: ['Impact'],
+};
+
+var heroRankUp = {
+  'Player ♂': [
+    'Base Rank',
+    'Automatic transformation during The Legend of Ransei (Base Rank in all other stories)',
+    '80% link with an Eeveelution (not Eevee) in Two Heroes of Ransei.',
+  ],
+  Nobunaga: [
+    'Base Rank',
+    'Base Rank (In The Legend of Ransei and "Defeat Nobunaga" stories), 80% link with Hydreigon in The Road to Conquest.',
+  ],
+  Oichi: ['Base Rank', '55% link with Jigglypuff or Wigglytuff'],
+  Hideyoshi: [
+    'Base Rank',
+    '60% link with Monferno or Infernape',
+    '70% link with Reshiram (hidden Rank)',
+  ],
+  Motochika: ['Base Rank', '65% link with Dewott or Samurott'],
+  Ginchiyo: [
+    'Base Rank',
+    '60% link with Luxio or Luxray while both Ginchiyo and Muneshige are in the army but deployed in two non-adjacent kingdoms',
+  ],
+  Motonari: [
+    'Base Rank',
+    '60% link with Servine or Serperior when at least 100 Pokémon registered in the Gallery.',
+  ],
+  Mitsuhide: [
+    'Base Rank',
+    '70% link with Lapras or Articuno after clearing Tragic Determination',
+  ],
+  Yoshihiro: ['Base Rank', '60% link with Gurdurr or Conkeldurr'],
+  Nene: [
+    'Base Rank',
+    '60% link with Golbat or Crobat when all Poison-type Pokémon are registered in the Gallery.',
+  ],
+  Shingen: [
+    'Base Rank',
+    '75% link with Rhyperior after clearing The Joy of Battle',
+  ],
+  Masamune: [
+    'Base Rank',
+    "60% link with Rufflet or Braviary in The Dragon's Dream",
+  ],
+  Kenshin: ['Base Rank', '75% link with Gallade after clearing Archenemies.'],
+  Yoshimoto: ['Base Rank', '55% link with Pineco or Forretress'],
+  Ujiyasu: ['Base Rank', '60% link with Boldore or Gigalith'],
+  Nō: [
+    'Base Rank',
+    '60% link with Misdreavus or Mismagius when all Ghost-type Pokémon are registered in the Gallery.',
+  ],
+  Kotarō: ['Base Rank', '60% link with Zorua or Zoroark'],
+  Ieyasu: [
+    'Base Rank',
+    '70% link with Aggron when the army has more than 50 warriors, and more than half of them have their perfect link when the warrior headcount is even; or all warriors have their perfect link when the headcount is odd.',
+  ],
+  Hanbei: [
+    'Base Rank',
+    '60% link with Pikachu or Raichu when deployed in the same kingdom as Kanbei.',
+  ],
+  Kanbei: [
+    'Base Rank',
+    '60% link with Lampent or Chandelure when deployed in the same kingdom as Hanbei.',
+  ],
+  Muneshige: [
+    'Base Rank',
+    '60% link with Staravia or Staraptor while both Ginchiyo and Muneshige are in the army but deployed in two non-adjacent kingdoms.',
+  ],
+  Gracia: ['Base Rank', '60% link with Gothorita or Gothitelle'],
+  Hanzō: ['Base Rank', '60% link with Haunter or Gengar'],
+  Kunoichi: ['Base Rank', '60% link with Sneasel or Weavile'],
+  Yukimura: [
+    'Base Rank',
+    '65% link with Charmeleon or Charizard when he is deployed with Shingen in the same kingdom.',
+  ],
+  Magoichi: [
+    'Base Rank',
+    '60% link with Grovyle or Sceptile when three or more female Warlords are deployed with Magoichi in the same kingdom, and Masamune is not deployed with him.',
+  ],
+  Kanetsugu: [
+    'Base Rank',
+    '60% link with Kadabra or Alakazam when deployed with Kenshin in the same kingdom.',
+  ],
+  Aya: ['Base Rank', '55% link with Snorunt or Froslass'],
+  Kai: ['Base Rank', '55% link with Darumaka or Darmanitan'],
+  Okuni: ['Base Rank', '65% link with Larvesta or Volcarona'],
+  Ranmaru: [
+    'Base Rank',
+    '60% link with Riolu or Lucario when deployed with Nobunaga in the same kingdom.',
+  ],
+  Tadakatsu: [
+    'Base Rank',
+    '80% link with Metagross when deployed with Ieyasu and Ina in the same kingdom.',
+  ],
+  Ina: ['Base Rank', '65% link with Prinplup or Empoleon'],
+  Keiji: ['Base Rank', '70% link with Bastiodon'],
+  Mitsunari: ['Base Rank', '60% link with Pawniard or Bisharp'],
+  Kiyomasa: ['Base Rank', '60% link with Fraxure or Haxorus'],
+  Masanori: ['Base Rank', '60% link with Krokorok or Krookodile'],
 };
