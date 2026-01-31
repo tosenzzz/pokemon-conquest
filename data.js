@@ -83,6 +83,36 @@ $('.dex-pokemon-moves>tbody>tr').each(function () {
   getskill($(tds[1]).text());
 });
 
+// Get skills
+dd = {};
+$('.xx tr').each(function () {
+  const tds = $(this).children();
+  dd[$(tds[0]).text().trim()] = $(tds[2]).text().trim();
+});
+
+// Get hero skills
+dd = {};
+name = '';
+$('.xx tr').each(function () {
+  tds = $(this).children();
+  if (tds.length < 22) {
+    skill = $(tds[6]).text().trim();
+    dd[name].push(skill);
+  } else {
+    name = $(tds[1]).find('a').text().trim();
+    skill = $(tds[9]).text().trim();
+    if (!dd[name]) dd[name] = [skill];
+    else dd[name].push(skill);
+  }
+});
+$('.yy tr').each(function () {
+  tds = $(this).children();
+  name = $(tds[1]).find('a').text().trim();
+  skill = $(tds[8]).text().trim();
+  if (!dd[name]) dd[name] = [skill];
+  else dd[name].push(skill);
+});
+
 */
 
 var pwd_data = `Abra		JkKxwkq1x8
@@ -1006,4 +1036,318 @@ const SkillImgs = {
   Abra: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/user.png',
   Leavanny:
     'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
+};
+
+const skillsList = {
+  'Added Bonus':
+    'Increases probability of inflicting burn, poison, bad poison, paralysis, or freezing on enemies by 30% for 3 turns.',
+  Adrenaline: 'Raises Attack by 1 stage for 3 turns.',
+  Brotherhood:
+    "Raises Defense of the Warrior's Pokémon and adjacent allies by 1 stage for 3 turns.",
+  Bustle:
+    "Increases Range of Warrior's Pokémon and adjacent allies by 1 for 1 turn.",
+  Convalesce:
+    "At the beginning of the next 3 turns, the Warrior's Pokémon and adjacent allies have their HP restored by 1/8 of their maximum HP.",
+  'Crack Shot':
+    "All the Warrior's Pokémon's moves are guaranteed to hit for 1 turn.",
+  'Deep Breath':
+    "Fully restores the Warrior's Pokémon's HP, but its Range is set to 0 for 3 turns.",
+  Detox: 'Cures any allied Pokémon who are poisoned or paralyzed.',
+  'Eagle Eye': 'Boosts accuracy by 3 stages for 3 turns.',
+  Empathy: "Restores 100 HP to the Warrior's Pokémon and adjacent allies.",
+  Fortify: 'Raises Defense by 1 stage for 3 turns.',
+  Greed:
+    'For 3 turns, one extra treasure box will appear upon defeating an enemy.',
+  'High Jump': "Enables Warrior's Pokémon to climb high ledges for 1 turn.",
+  Impact:
+    "For 3 turns, the Pokémon's move has a 50% chance to make targets flinch.",
+  Marksman:
+    'Boosts accuracy by 3 stages and increases chances of critical hits for 3 turns.',
+  'Mighty Blow': 'Raises Attack by 2 stages for 1 turn.',
+  'Quick Strike':
+    "Increases Range by 1, and gives the Pokémon's move a 50% chance to make targets flinch for 1 turn.",
+  Rally:
+    "Raises Attack of Warrior's Pokémon and adjacent allies by 1 stage for 3 turns.",
+  Salve: "Cures status ailments of the Warrior's Pokémon and adjacent allies.",
+  Shout: 'Cures any allied Pokémon who are confused or sleeping.',
+  'Sweet Song': 'Restores 50 HP to all allied Pokémon.',
+  Temperate: 'Cures any allied Pokémon who are burned or frozen.',
+  'Top Speed': 'Increases Range by 2 for 1 turn.',
+  Ambition:
+    "Allows the Warrior's Pokémon to move twice, and its moves have a 50% chance to make targets flinch for the turn.",
+  Belief:
+    'Raises Defense by 1 stage and blocks status ailments (except flinch) for 3 turns.',
+  Bewilder:
+    "All allies' moves have an 80% chance to confuse the enemy for 1 turn.",
+  Carefree:
+    "For 4 turns, raises Attack by 1 stage, and the Pokémon's move has a 50% chance to make targets flinch.",
+  'Chesto!':
+    "Raises Attack by 3 stages but lowers Defense by 2 stages for the Warrior's Pokémon and adjacent allies for 1 turn.",
+  'Cold Eyes':
+    'Increases Speed by 1 stage and ensures all moves hit for 3 turns.',
+  Compassion:
+    "Raises Defense by 2 stages for 1 turn and restores 80 HP of Warrior's Pokémon and adjacent allies.",
+  Courage: 'Increases Range by 2 and Attack by 2 stages for 1 turn.',
+  Desire: "Allows the Warrior's Pokémon to move twice in one turn.",
+  Elegance:
+    "For 3 turns, increases Range by 1, and the Pokémon's moves are guaranteed to hit.",
+  Cunning:
+    "For 3 turns, increases Speed by 2 stages, and the Pokémon's moves are guaranteed to hit.",
+  Cupid:
+    'Multiples Attack by 1 + 0.3 times the total number of female Warriors with non-fainted Pokémon on the battlefield. On top of this, boosts Attack by 1 stage and moves are guaranteed to hit. Lasts 1 turn.\nNote: The Heroine is not counted for this effect.',
+  Extinguish:
+    'Terminates the effects of all active Warrior Skills for both foes and allies.',
+  Faith: "All allies' moves are guaranteed to hit for 3 turns.",
+  'Father Figure':
+    'For 3 turns, blocks enemy critical hits and increases Energy for all allied Pokémon.',
+  'Fūrin Kazan':
+    'Raises Attack and Defense of all allied Pokémon by 1 stage for 3 turns.',
+  Grace:
+    "Restores HP of Warrior's Pokémon and adjacent allies, but puts affected Pokémon to sleep.",
+  'Grand Dream':
+    'For 3 turns, increases Energy, and one extra treasure box will appear upon defeating an enemy.',
+  'Great Uniter':
+    'For 3 turns, increases Energy, raises Attack by 1 stage, and one extra treasure box will appear upon defeating an enemy.',
+  Inspiration:
+    'For 3 turns, increases Range by 1 and Attack by 1 stage for all allied Pokémon.',
+  'Kabuki Dance': 'Raises Energy and Attack of all allied Pokémon for 1 turn.',
+  Lazybones:
+    'Blocks enemy critical hits and status ailments (except flinch) for all allied Pokémon for 3 turns.',
+  'Love and Honor':
+    "Restores 80 HP to the Warrior's Pokémon and adjacent allies, and raises their Attack by 2 stages for 1 turn.",
+  Mayhem:
+    "Allows the Warrior's Pokémon to climb high ledges, gives its move a 40% chance to make targets flinch, and increases Range by 1 for 3 turns.",
+  Motivate:
+    "Raises Attack by 1 stage and allows Warrior's Pokémon to move twice for 1 turn.",
+  'Nene Ninpō':
+    "For 1 turn, all moves used against the warrior's Pokémon have an accuracy of 0%. Can be bypassed by Faint Attack, Aura Sphere, or Crack Shot.",
+  Ninjutsu:
+    'Increases Range by 1, increases chance of critical hits, and allows the Pokémon to climb high ledges for 3 turns.',
+  'One-Eyed Dragon':
+    "Increases Range of Warrior's Pokémon and adjacent allies by 3 for 3 turns.",
+  Rebellion:
+    "Increases chance of critical hits for Warrior's Pokémon and adjacent allies for 1 turn.",
+  Resolution: 'Raises Defense by 3 stages for 3 turns.',
+  Sacrifice:
+    'Increases Range by 2 and Attack by 2 stages for 1 turn. Reduces HP to 1.',
+  'Soft Light':
+    'Cures status ailments and restores 100 HP for all allied Pokémon.',
+  Strategist:
+    'Blocks enemy critical hits and increases Speed by 1 stage for all allied Pokémon for 3 turns.',
+  Thunderclap:
+    'Increases Range by 1 and Attack by 1 stage for all allied Pokémon for 1 turn. Increases them by 2 if Typhoon has been used the same turn.',
+  Trickster:
+    "Improves Speed by 2 stages, allows Warrior's Pokémon to climb high ledges, and increases chance of critical hits for 3 turns.",
+  Typhoon:
+    'Increases Range by 1 and Attack by 1 stage for all allied Pokémon for 1 turn. Increases them by 2 if Thunderclap has been used the same turn.',
+  Unrivaled: 'Raises Attack and Defense by 1 stage for 4 turns.',
+  "Viper's Bite":
+    'Adds an 80% chance to inflict random status ailments when attacking Pokémon with male Warrior partners for 3 turns. Possible status ailments: burn, poison, bad poison, paralysis, freezing, flinch, confusion, or sleep.',
+  'Warrior Woman':
+    "Improves Speed by 1 stage and gives the Pokémon's move a 100% chance to make targets flinch for 1 turn.",
+  Willpower:
+    "Increases chance of critical hits and allows the Warrior's Pokémon to move twice for 1 turn.",
+};
+
+var heroSkills = {
+  Aya: ['Sweet Song', 'Compassion'],
+  Ginchiyo: ['Bustle', 'Thunderclap'],
+  Gracia: ['Added Bonus', 'Bewilder'],
+  Hanbei: ['Added Bonus', 'Lazybones'],
+  Hanzō: ['Marksman', 'Ninjutsu'],
+  'Player ♂': ['Top Speed', 'Courage', 'Motivate'],
+  Hideyoshi: ['Quick Strike', 'Grand Dream', 'Great Uniter'],
+  Ieyasu: ['Brotherhood', 'Resolution'],
+  Ina: ['Crack Shot', 'Elegance'],
+  Kai: ['Quick Strike', 'Warrior Woman'],
+  Kanbei: ['Impact', 'Extinguish'],
+  Kanetsugu: ['Rally', 'Love and Honor'],
+  Keiji: ['Mighty Blow', 'Carefree'],
+  Kenshin: ['Bustle', 'Inspiration'],
+  Kiyomasa: ['Empathy', 'Belief'],
+  Kotarō: ['Quick Strike', 'Mayhem'],
+  Kunoichi: ['Convalesce', 'Trickster'],
+  Magoichi: ['Crack Shot', 'Cupid'],
+  Masamune: ['Bustle', 'One-Eyed Dragon'],
+  Masanori: ['Impact', 'Sacrifice'],
+  Mitsuhide: ['Crack Shot', 'Cold Eyes'],
+  Mitsunari: ['Marksman', 'Cunning'],
+  Motochika: ['Rally', 'Rebellion'],
+  Motonari: ['Brotherhood', 'Strategist'],
+  Muneshige: ['Marksman', 'Typhoon'],
+  Nene: ['Rally', 'Nene Ninpō'],
+  Nō: ['Added Bonus', "Viper's Bite"],
+  Nobunaga: ['Desire', 'Ambition'],
+  Oichi: ['Sweet Song', 'Soft Light'],
+  Okuni: ['Convalesce', 'Kabuki Dance'],
+  Ranmaru: ['Empathy', 'Faith'],
+  Shingen: ['Rally', 'Fūrin Kazan'],
+  Tadakatsu: ['Impact', 'Unrivaled'],
+  Ujiyasu: ['Brotherhood', 'Father Figure'],
+  Yoshihiro: ['Mighty Blow', 'Chesto!'],
+  Yoshimoto: ['Deep Breath', 'Grace'],
+  Yukimura: ['Mighty Blow', 'Willpower'],
+  Akizane: ['Fortify'],
+  Asa: ['Sweet Song'],
+  Asahi: ['Salve'],
+  Bokuden: ['Rally'],
+  Bokuzen: ['Added Bonus'],
+  Chacha: ['Salve'],
+  Chikamasa: ['Shout'],
+  Chikayasu: ['Brotherhood'],
+  Chiyo: ['Sweet Song'],
+  Chiyome: ['Crack Shot'],
+  Chōan: ['Added Bonus'],
+  Danzō: ['Crack Shot'],
+  Dōsan: ['Quick Strike'],
+  Dōsetsu: ['Marksman'],
+  Ekei: ['Convalesce'],
+  Fujitaka: ['Fortify'],
+  "Gen'an": ['Temperate'],
+  Genba: ['Top Speed'],
+  Gō: ['Fortify'],
+  Gotoku: ['Crack Shot'],
+  Hana: ['Temperate'],
+  Harunaga: ['Crack Shot'],
+  Harutaka: ['Mighty Blow'],
+  Haruyuki: ['Quick Strike'],
+  Hatsu: ['Detox'],
+  Hatsume: ['Top Speed'],
+  Hideaki: ['Fortify'],
+  Hidemitsu: ['Shout'],
+  Hidenaga: ['Convalesce'],
+  Hidetada: ['Salve'],
+  Hideyori: ['Salve'],
+  Hiroko: ['Detox'],
+  Hisaaki: ['High Jump'],
+  Hisahide: ['Quick Strike'],
+  Iroha: ['Added Bonus'],
+  Isa: ['Adrenaline'],
+  Ise: ['Eagle Eye'],
+  Isuke: ['Top Speed'],
+  Ittetsu: ['Rally'],
+  Jinpachi: ['Top Speed'],
+  Jūbei: ['Impact'],
+  Jūzō: ['Empathy'],
+  Kageie: ['Mighty Blow'],
+  Kagekatsu: ['Marksman'],
+  Kagetsuna: ['Fortify'],
+  Kamanosuke: ['High Jump'],
+  Kame: ['Crack Shot'],
+  Kanemori: ['Brotherhood'],
+  Kashinkoji: ['Eagle Eye'],
+  Katsu: ['Quick Strike'],
+  Katsuyori: ['Mighty Blow'],
+  Kazumasa: ['Greed'],
+  Kazumasu: ['Marksman'],
+  Kazutoyo: ['Deep Breath'],
+  Kei: ['Adrenaline'],
+  Kitsuno: ['Sweet Song'],
+  Kiyo: ['Temperate'],
+  Koroku: ['Mighty Blow'],
+  Maa: ['Added Bonus'],
+  Madoka: ['Empathy'],
+  Masahide: ['Shout'],
+  Masakage: ['Deep Breath'],
+  Masanobu: ['Salve'],
+  Masatoshi: ['Bustle'],
+  Masatoyo: ['Brotherhood'],
+  Masatsuna: ['Rally'],
+  Masayuki: ['Convalesce'],
+  Mitsutada: ['Salve'],
+  Morichika: ['Eagle Eye'],
+  Morikiyo: ['Bustle'],
+  Morinari: ['Bustle'],
+  Motoharu: ['Mighty Blow'],
+  Motozane: ['Top Speed'],
+  Munenori: ['Impact'],
+  Munetoki: ['Deep Breath'],
+  Munezane: ['Eagle Eye'],
+  Murashige: ['Top Speed'],
+  Nagahide: ['Empathy'],
+  Nagayasu: ['Adrenaline'],
+  Nagayoshi: ['Adrenaline'],
+  Naka: ['Temperate'],
+  Naoie: ['Quick Strike'],
+  Naomasa: ['Convalesce'],
+  Naoshige: ['Brotherhood'],
+  Narimasa: ['Bustle'],
+  Nobuchika: ['Crack Shot'],
+  Nobufusa: ['Deep Breath'],
+  Nobutsuna: ['Mighty Blow'],
+  Norishige: ['Bustle'],
+  Omi: ['Salve'],
+  Otsū: ['Sweet Song'],
+  Rikyū: ['Detox'],
+  Sadamitsu: ['Salve'],
+  Sadatoshi: ['Eagle Eye'],
+  Saizō: ['Detox'],
+  Sandayū: ['Bustle'],
+  Saneyori: ['Detox'],
+  Sasuke: ['Bustle'],
+  Seikai: ['High Jump'],
+  Seikurō: ['High Jump'],
+  Sekisō: ['Deep Breath'],
+  Sen: ['Brotherhood'],
+  Sena: ['Eagle Eye'],
+  Sessai: ['Quick Strike'],
+  Shigemoto: ['Empathy'],
+  Shigezane: ['Bustle'],
+  Shimoyama: ['Shout'],
+  Shizuka: ['Rally'],
+  Shōun: ['Rally'],
+  Sōrin: ['Rally'],
+  Sōun: ['Quick Strike'],
+  Tadamoto: ['Fortify'],
+  Tadaoki: ['Mighty Blow'],
+  Tadasumi: ['Deep Breath'],
+  Tadatsugu: ['Empathy'],
+  Tadatsune: ['Top Speed'],
+  Takahiro: ['Greed'],
+  Takahisa: ['Impact'],
+  Takakage: ['Adrenaline'],
+  Takamoto: ['Brotherhood'],
+  Takanobu: ['Shout'],
+  Takatane: ['Top Speed'],
+  Takatora: ['Added Bonus'],
+  Takayori: ['Fortify'],
+  Takeyoshi: ['Eagle Eye'],
+  Tatsuko: ['Eagle Eye'],
+  Tenkai: ['Detox'],
+  Terumoto: ['Fortify'],
+  Tokitaka: ['Greed'],
+  Toku: ['Added Bonus'],
+  Tomonobu: ['Shout'],
+  Tomonori: ['Impact'],
+  Toshimitsu: ['Impact'],
+  Tsunamoto: ['Adrenaline'],
+  Tsunashige: ['Marksman'],
+  Tsunehisa: ['Salve'],
+  Tsunenaga: ['High Jump'],
+  Tsuru: ['Detox'],
+  Ujichika: ['Temperate'],
+  Ujihiro: ['Greed'],
+  Ujikuni: ['Brotherhood'],
+  Ujimasa: ['Adrenaline'],
+  Ujinao: ['Greed'],
+  Ujisato: ['Detox'],
+  Ujiteru: ['Shout'],
+  Ujizane: ['Added Bonus'],
+  Ume: ['High Jump'],
+  Urakusai: ['Eagle Eye'],
+  Yasumasa: ['Marksman'],
+  Yasunaga: ['Crack Shot'],
+  Yasutomo: ['Mighty Blow'],
+  Yatarō: ['Impact'],
+  Yazaemon: ['Eagle Eye'],
+  Yoshi: ['Detox'],
+  Yoshiaki: ['Greed'],
+  Yoshikiyo: ['Rally'],
+  Yoshitaka: ['Rally'],
+  Yoshitatsu: ['Greed'],
+  Yoshiteru: ['Convalesce'],
+  Yoshitsugu: ['Empathy'],
+  Yukimasa: ['Temperate'],
+  Yukinaga: ['Deep Breath'],
+  Yukitaka: ['Impact'],
 };

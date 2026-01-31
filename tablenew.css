@@ -92,6 +92,11 @@ table {
 .hero-own, .hero-own a { color: aqua; }
 .poke-own { color: yellow !important; }
 .poke-want { color: red !important; }
-.herod {display: flex; align-items: center;}
-.pklink { overflow: hidden; border-radius: 50%; margin-left: 5px;  }
+.herod {display: flex; align-items: center; gap: 5px;}
+.pklink { overflow: hidden; border-radius: 50%; }
 .pklink img { width: 20px; background-color: white; }
+.skill { position: relative; }
+.skill la {
+  display: none; padding: 5px; position: absolute;
+  background-color: white; color: black; width: 200px; z-index: 1000;
+}

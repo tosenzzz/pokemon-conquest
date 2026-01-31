@@ -81,23 +81,25 @@ $(function () {
     }
     // 4. Render ra HTML (GIỮ NGUYÊN NGOẶC)
     const herod = $(`<div id="hero-${hero}" class="herod"></div>`);
-    const add = $(
-      `<img src="${heroImgs[hero]}" style="height:20px;margin-right:5px;"/>`,
-    ).click(() => {
-      herod.toggleClass('hero-own');
-      lset(`${hero}-own`, herod.hasClass('hero-own'));
-    });
+    if (lget(`${hero}-own`)) herod.addClass('hero-own');
+    const add = $(`<img src="${heroImgs[hero]}" style="height:20px;"/>`).click(
+      () => {
+        herod.toggleClass('hero-own');
+        lset(`${hero}-own`, herod.hasClass('hero-own'));
+      },
+    );
     herod.append(add);
-    herod.append(
+    const handp = $(`<div></div>`);
+    handp.append(
       `<a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero}</a>&nbsp;-&nbsp;`,
     );
     pokel.forEach((pk) => {
-      herod.append(pk[2], pk[1]);
+      handp.append(pk[2], pk[1]);
     });
-    herod.append(extraPart);
-    if (lget(`${hero}-own`)) {
-      herod.addClass('hero-own');
-    }
+    handp.append(extraPart);
+    herod.append(handp);
+
+    // Pokemons images
     pokel.forEach((pk) => {
       var pokd = $(`<div class="pklink"><img src="${pokeImgs[pk[0]]}"/></div>`);
       pokd.click(() => {
@@ -114,6 +116,21 @@ $(function () {
         }
       });
       herod.append(pokd);
+    });
+    // Hero skills
+    (heroSkills[hero] || []).forEach((v, i) => {
+      let sdiv = $(`<div class="skill"></div>`);
+      let skill = $(`<span>${i + 1}.${v}</span>`);
+      let skilld = $(`<la>${skillsList[v]}</la>`);
+      if (!skillsList[v]) alert(`No skill ${v}`);
+      sdiv.append(skill, skilld);
+      herod.append(sdiv);
+      skill.click(() => {
+        skilld.show();
+        setTimeout(() => {
+          skilld.hide();
+        }, 5000);
+      });
     });
     $('#plink').append(herod);
   };
