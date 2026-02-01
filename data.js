@@ -139,6 +139,18 @@ $('.xx tr').each(function () {
 });
 dd;
 
+// Pokemon Moves: https://veekun.com/dex/conquest/moves
+dd = {};
+$('#xx tr').each(function () {
+  const tds = $(this).children();
+  nm = $(tds[0]).text().trim().toLowerCase();
+  dd[nm] = {
+    pow: $(tds[3]).text().trim(),
+    acc: $(tds[5]).text().trim(),
+    eff: $(tds[6]).text().trim(),
+  };
+});dd;
+
 */
 
 // img.match(/([^/]+).gif$/)[1]
@@ -703,7 +715,7 @@ const heroImgs = {
 };
 
 // https://veekun.com/dex/conquest/moves
-const pokeMoves = {
+const moveRanges = {
   Kadabra:
     'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
   Luxray:
@@ -1638,4 +1650,622 @@ var pokeSkills = {
   'Water Absorb': 'Restores HP if hit by a Water-type move.',
   'Wave Rider':
     'Increases Range on water to include tiles adjacent to any water tiles within range.',
+};
+
+var pokeMoves = {
+  absorb: {
+    pow: '20',
+    acc: '100%',
+    eff: 'Heals the user by half the damage dealt.',
+  },
+  'aqua tail': {
+    pow: '44',
+    acc: '90%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  assurance: {
+    pow: '31',
+    acc: '100%',
+    eff: 'Has double power if the target has already taken damage this turn.',
+  },
+  astonish: {
+    pow: '20',
+    acc: '100%',
+    eff: 'Has a 30% chance to make the target flinch.',
+  },
+  'aura sphere': {
+    pow: '45',
+    acc: '—',
+    eff: 'Never misses.',
+  },
+  bite: {
+    pow: '36',
+    acc: '100%',
+    eff: 'Has a 30% chance to make the target flinch.',
+  },
+  blizzard: {
+    pow: '51',
+    acc: '70%',
+    eff: 'Has a 10% chance to freeze each target.',
+  },
+  'blue flare': {
+    pow: '55',
+    acc: '85%',
+    eff: 'Has a 20% chance to burn each target.',
+  },
+  'body slam': {
+    pow: '45',
+    acc: '100%',
+    eff: 'Has a 30% chance to paralyze the target.',
+  },
+  'bolt strike': {
+    pow: '57',
+    acc: '85%',
+    eff: 'Has a 20% chance to paralyze the target.',
+  },
+  'brave bird': {
+    pow: '58',
+    acc: '100%',
+    eff: "Lowers the user's range and Defense until its next turn.",
+  },
+  brine: {
+    pow: '35',
+    acc: '100%',
+    eff: 'Has double power against Pokémon with less than half their max HP remaining.',
+  },
+  bubble: {
+    pow: '20',
+    acc: '100%',
+    eff: "Has a 10% chance to lower each target's Speed.",
+  },
+  'bubble beam': {
+    pow: '38',
+    acc: '100%',
+    eff: "Has a 10% chance to lower each target's Speed.",
+  },
+  'bug bite': {
+    pow: '36',
+    acc: '100%',
+    eff: "Uses the target's item if it is consumable.",
+  },
+  bulldoze: {
+    pow: '33',
+    acc: '100%',
+    eff: "Has a 100% chance to lower each target's range by one tile.",
+  },
+  'bullet punch': {
+    pow: '26',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  confusion: {
+    pow: '29',
+    acc: '100%',
+    eff: 'Has a 10% chance to confuse the target.',
+  },
+  'cross chop': {
+    pow: '45',
+    acc: '80%',
+    eff: 'Has an increased chance for a critical hit.',
+  },
+  'cross poison': {
+    pow: '38',
+    acc: '100%',
+    eff: 'Has a 10% chance to poison each target and an increased chance for a critical hit.',
+  },
+  crunch: {
+    pow: '43',
+    acc: '100%',
+    eff: "Has a 20% chance to lower the target's Defense.",
+  },
+  dig: {
+    pow: '41',
+    acc: '100%',
+    eff: 'Digs underground and hits at the beginning of the next turn.',
+  },
+  discharge: {
+    pow: '41',
+    acc: '100%',
+    eff: 'Has a 30% chance to paralyze each target.',
+  },
+  'double slap': {
+    pow: '10',
+    acc: '90%',
+    eff: 'Hits 2 to 5 times in one turn.',
+  },
+  'dragon claw': {
+    pow: '43',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  'dragon pulse': {
+    pow: '44',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  'dragon rage': {
+    pow: '40',
+    acc: '75%',
+    eff: 'Inflicts exactly 40 HP in damage.',
+  },
+  'dragon rush': {
+    pow: '45',
+    acc: '75%',
+    eff: 'Has a 20% chance to make each target flinch.',
+  },
+  'dragon tail': {
+    pow: '33',
+    acc: '90%',
+    eff: 'Switches each target with the Pokémon behind it.',
+  },
+  'dream eater': {
+    pow: '48',
+    acc: '100%',
+    eff: 'Heals the user by half the damage inflicted.  Only works if the target is asleep.',
+  },
+  'drill run': {
+    pow: '41',
+    acc: '95%',
+    eff: 'Has an increased chance for a critical hit.',
+  },
+  'earth power': {
+    pow: '44',
+    acc: '100%',
+    eff: "Has a 10% chance to lower each target's Defense.",
+  },
+  'electro ball': {
+    pow: '26',
+    acc: '100%',
+    eff: 'Power rises the faster the user is compared to the target.',
+  },
+  ember: {
+    pow: '26',
+    acc: '100%',
+    eff: 'Has a 10% chance to burn the target.',
+  },
+  'faint attack': {
+    pow: '36',
+    acc: '—',
+    eff: 'Never misses.',
+  },
+  'fiery dance': {
+    pow: '41',
+    acc: '100%',
+    eff: "Has a 50% chance to raise the user's Attack.",
+  },
+  'fire blast': {
+    pow: '51',
+    acc: '85%',
+    eff: 'Has a 10% chance to burn each target.',
+  },
+  'fire fang': {
+    pow: '39',
+    acc: '95%',
+    eff: 'Has a 10% chance each to burn the target or make it flinch.',
+  },
+  'fire spin': {
+    pow: '12',
+    acc: '85%',
+    eff: 'Hits 4 to 5 times in one turn.',
+  },
+  'flame burst': {
+    pow: '38',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  flamethrower: {
+    pow: '45',
+    acc: '100%',
+    eff: 'Has a 10% chance to burn each target.',
+  },
+  'flame wheel': {
+    pow: '32',
+    acc: '100%',
+    eff: 'Has a 10% chance to burn the target.  Thaws the user out if frozen.',
+  },
+  'flash cannon': {
+    pow: '41',
+    acc: '100%',
+    eff: "Has a 10% chance to lower each target's Defense.",
+  },
+  'force palm': {
+    pow: '31',
+    acc: '100%',
+    eff: 'Has a 30% chance to paralyze the target.',
+  },
+  'foul play': {
+    pow: '47',
+    acc: '100%',
+    eff: "Inflicts damage based on the target's Attack stat instead of the user's.",
+  },
+  'fury cutter': {
+    pow: '12',
+    acc: '95%',
+    eff: 'Doubles in power with each consecutive successful use.',
+  },
+  'fury swipes': {
+    pow: '10',
+    acc: '90%',
+    eff: 'Hits 2 to 5 times in one turn.',
+  },
+  'future sight': {
+    pow: '45',
+    acc: '100%',
+    eff: 'Hits each target at the beginning of the turn after next.',
+  },
+  'gyro ball': {
+    pow: '18',
+    acc: '100%',
+    eff: 'Power rises the slower the user is compared to the target.',
+  },
+  headbutt: {
+    pow: '39',
+    acc: '100%',
+    eff: 'Has a 30% chance to make the target flinch.',
+  },
+  'heat crash': {
+    pow: '43',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  hex: {
+    pow: '31',
+    acc: '100%',
+    eff: 'Has double power if the target has a major status ailment.',
+  },
+  'high jump kick': {
+    pow: '65',
+    acc: '90%',
+    eff: 'Damages the user if it misses.',
+  },
+  'hydro pump': {
+    pow: '51',
+    acc: '80%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  'hyper fang': {
+    pow: '43',
+    acc: '90%',
+    eff: 'Has a 10% chance to make the target flinch.',
+  },
+  'hyper voice': {
+    pow: '44',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  hypnosis: {
+    pow: '—',
+    acc: '60%',
+    eff: 'Puts each target to sleep.',
+  },
+  'ice ball': {
+    pow: '18',
+    acc: '90%',
+    eff: 'Doubles in power with each consecutive successful use.',
+  },
+  'ice beam': {
+    pow: '45',
+    acc: '100%',
+    eff: 'Has a 10% chance to freeze each target.',
+  },
+  'icicle crash': {
+    pow: '45',
+    acc: '90%',
+    eff: 'Has a 30% chance to make the target flinch.',
+  },
+  'icy wind': {
+    pow: '34',
+    acc: '95%',
+    eff: "Has a 100% chance to lower each target's range by one tile.",
+  },
+  incinerate: {
+    pow: '28',
+    acc: '100%',
+    eff: "Permanently destroys each target's item if it is consumable.",
+  },
+  'iron head': {
+    pow: '43',
+    acc: '100%',
+    eff: 'Has a 30% chance to make the target flinch.',
+  },
+  'iron tail': {
+    pow: '45',
+    acc: '75%',
+    eff: "Has a 30% chance to lower each target's Defense.",
+  },
+  judgment: {
+    pow: '55',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  'karate chop': {
+    pow: '31',
+    acc: '100%',
+    eff: 'Has an increased chance for a critical hit.',
+  },
+  'leaf blade': {
+    pow: '45',
+    acc: '100%',
+    eff: 'Has an increased chance for a critical hit.',
+  },
+  'leaf storm': {
+    pow: '52',
+    acc: '90%',
+    eff: "Lowers the user's Attack.",
+  },
+  lick: {
+    pow: '14',
+    acc: '100%',
+    eff: 'Has a 30% chance to paralyze the target.',
+  },
+  'low kick': {
+    pow: '31',
+    acc: '90%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  'mega drain': {
+    pow: '26',
+    acc: '100%',
+    eff: 'Heals the user by half the damage dealt.',
+  },
+  'metal claw': {
+    pow: '31',
+    acc: '95%',
+    eff: "Has a 10% chance to raise the user's Attack.",
+  },
+  'meteor mash': {
+    pow: '48',
+    acc: '85%',
+    eff: "Has a 20% chance to raise the user's Attack.",
+  },
+  'mud bomb': {
+    pow: '39',
+    acc: '85%',
+    eff: "Has a 30% chance to lower the target's accuracy.",
+  },
+  'mud-slap': {
+    pow: '17',
+    acc: '100%',
+    eff: "Has a 100% chance to lower each target's accuracy.",
+  },
+  'night daze': {
+    pow: '42',
+    acc: '95%',
+    eff: "Has a 40% chance to lower each target's accuracy.",
+  },
+  'night slash': {
+    pow: '38',
+    acc: '100%',
+    eff: 'Has an increased chance for a critical hit.',
+  },
+  outrage: {
+    pow: '41',
+    acc: '100%',
+    eff: 'Hits 2 to 3 times in one turn.  User has 0 range on its next turn.',
+  },
+  'petal dance': {
+    pow: '41',
+    acc: '100%',
+    eff: 'Hits 2 to 3 times in one turn.  User has 0 range on its next turn.',
+  },
+  'poison fang': {
+    pow: '31',
+    acc: '100%',
+    eff: 'Has a 30% chance to badly poison the target.',
+  },
+  'poison jab': {
+    pow: '43',
+    acc: '100%',
+    eff: 'Has a 30% chance to poison the target.',
+  },
+  'poison sting': {
+    pow: '12',
+    acc: '100%',
+    eff: 'Has a 30% chance to poison each target.',
+  },
+  'poison tail': {
+    pow: '29',
+    acc: '100%',
+    eff: 'Has a 10% chance to poison each target and an increased chance for a critical hit.',
+  },
+  pound: {
+    pow: '26',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  'powder snow': {
+    pow: '24',
+    acc: '100%',
+    eff: 'Has a 10% chance to freeze each target.',
+  },
+  psybeam: {
+    pow: '35',
+    acc: '100%',
+    eff: 'Has a 10% chance to confuse each target.',
+  },
+  psychic: {
+    pow: '44',
+    acc: '100%',
+    eff: "Has a 10% chance to lower each target's Defense.",
+  },
+  'psycho cut': {
+    pow: '38',
+    acc: '100%',
+    eff: 'Has an increased chance for a critical hit.',
+  },
+  psyshock: {
+    pow: '43',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  psystrike: {
+    pow: '45',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  'quick attack': {
+    pow: '31',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  'razor leaf': {
+    pow: '31',
+    acc: '95%',
+    eff: 'Has an increased chance for a critical hit.',
+  },
+  'roar of time': {
+    pow: '58',
+    acc: '90%',
+    eff: 'Cannot be used the turn after hitting.',
+  },
+  'rock blast': {
+    pow: '10',
+    acc: '90%',
+    eff: 'Hits 2 to 5 times in one turn.',
+  },
+  'rock slide': {
+    pow: '41',
+    acc: '90%',
+    eff: 'Has a 30% chance to make each target flinch.',
+  },
+  'rock tomb': {
+    pow: '31',
+    acc: '80%',
+    eff: "Has a 100% chance to lower the target's range by one tile.",
+  },
+  'rock wrecker': {
+    pow: '58',
+    acc: '90%',
+    eff: 'Cannot be used the turn after hitting.',
+  },
+  'sacred sword': {
+    pow: '45',
+    acc: '100%',
+    eff: "Ignores the target's stat modifiers.",
+  },
+  'shadow ball': {
+    pow: '43',
+    acc: '100%',
+    eff: "Has a 20% chance to lower the target's Defense.",
+  },
+  'shadow sneak': {
+    pow: '26',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  'sky drop': {
+    pow: '36',
+    acc: '100%',
+    eff: 'Lifts the target into the sky and hits at the beginning of the next turn.',
+  },
+  slash: {
+    pow: '41',
+    acc: '100%',
+    eff: 'Has an increased chance for a critical hit.',
+  },
+  'sludge bomb': {
+    pow: '44',
+    acc: '100%',
+    eff: 'Has a 30% chance to poison each target.',
+  },
+  spark: {
+    pow: '39',
+    acc: '100%',
+    eff: 'Has a 30% chance to paralyze the target.',
+  },
+  splash: {
+    pow: '—',
+    acc: '—',
+    eff: 'Does nothing.',
+  },
+  'stone edge': {
+    pow: '45',
+    acc: '80%',
+    eff: 'Has an increased chance for a critical hit.',
+  },
+  superpower: {
+    pow: '55',
+    acc: '100%',
+    eff: "Lowers the user's Attack and Defense.",
+  },
+  tackle: {
+    pow: '31',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  'tail slap': {
+    pow: '23',
+    acc: '85%',
+    eff: 'Hits 2 to 5 times in one turn.',
+  },
+  teleport: {
+    pow: '—',
+    acc: '—',
+    eff: 'Teleports randomly.',
+  },
+  thunder: {
+    pow: '51',
+    acc: '70%',
+    eff: 'Has a 30% chance to paralyze the target.',
+  },
+  thunderbolt: {
+    pow: '45',
+    acc: '100%',
+    eff: 'Has a 10% chance to paralyze each target.',
+  },
+  'thunder shock': {
+    pow: '24',
+    acc: '100%',
+    eff: 'Has a 10% chance to paralyze each target.',
+  },
+  twineedle: {
+    pow: '26',
+    acc: '100%',
+    eff: 'Hits twice in one turn.  Has a 20% chance to poison each target with each hit.',
+  },
+  venoshock: {
+    pow: '35',
+    acc: '100%',
+    eff: 'Has double power against poisoned Pokémon.',
+  },
+  'vine whip': {
+    pow: '24',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  'volt switch': {
+    pow: '41',
+    acc: '100%',
+    eff: 'User moves back one tile, switching places with any Pokémon already there.',
+  },
+  'volt tackle': {
+    pow: '58',
+    acc: '100%',
+    eff: "Lowers the user's range and Defense until its next turn.  Has a 10% chance to paralyze each target.",
+  },
+  'wake-up slap': {
+    pow: '36',
+    acc: '100%',
+    eff: 'Has double power and wakes the target up if it is asleep.',
+  },
+  'water gun': {
+    pow: '24',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  'water pulse': {
+    pow: '36',
+    acc: '100%',
+    eff: 'Has a 20% chance to confuse each target.',
+  },
+  'wing attack': {
+    pow: '31',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
+  'x-scissor': {
+    pow: '41',
+    acc: '100%',
+    eff: 'Inflicts regular damage with no additional effect.',
+  },
 };

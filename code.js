@@ -22,6 +22,18 @@ const API = (type, url, data) => {
   });
 };
 
+const addBox = (title, detail, tag = 'span') => {
+  let sdiv = $(`<${tag} class="skill"></${tag}>`);
+  let dTitle = $(`<span>${title}</span>`);
+  let dDetail = $(`<la>${detail}</la>`);
+  sdiv.append(dTitle, dDetail);
+  dTitle.click(() => {
+    dDetail.show();
+    setTimeout(() => dDetail.hide(), 5000);
+  });
+  return sdiv;
+};
+
 $(function () {
   // Column sort
   $('#myTable').tableSortable();
@@ -45,11 +57,25 @@ $(function () {
     pokeImgs[name] = `https://www.serebii.net/conquest/pokemon/${id}.png`;
     // Set row-id by Poke name
     $(this).attr('id', 'poke-' + name);
-    // Insert skill image
+
+    // Update Pokemon's move
     const tr = $(tds[4]).find('tr');
     tr.append(
-      `<td align="center" width="33%"><img src="${pokeMoves[name]}" border="0"></td>`,
+      `<td align="center" width="33%"><img src="${moveRanges[name]}" border="0"></td>`,
     );
+    var moveTd = tr.find('td:eq(1)');
+    var moveNm = moveTd.text();
+    var move = pokeMoves[moveNm.trim().toLowerCase()];
+    moveTd.empty();
+    if (!move) alert('No pokemon move: ' + moveNm);
+    else {
+      moveTd.append(addBox(moveNm, move.eff));
+      tr.find('td:eq(0)').html(
+        tr.find('td:eq(0)').html().replace('Power', move.pow),
+      );
+      tr.find('td:eq(2)').prepend(`${move.acc}<br>`);
+    }
+
     // Update Poke skill
     const pskills = [];
     $(tds[11])
@@ -61,15 +87,8 @@ $(function () {
     var ul = $(`<ul></ul>`);
     $(tds[11]).append(ul);
     pskills.forEach((v, i) => {
-      let sdiv = $(`<li class="skill"></li>`);
-      let skill = $(`<span>${v}</span>`).click(() => {
-        skilld.show();
-        setTimeout(() => skilld.hide(), 5000);
-      });
-      let skilld = $(`<la>${pokeSkills[v]}</la>`);
       if (!pokeSkills[v]) alert(`No skill ${v}`);
-      sdiv.append(skill, skilld);
-      $(ul).append(sdiv);
+      $(ul).append(addBox(v, pokeSkills[v], 'li'));
     });
     // Update locations
     const locas = $(tds[13])
@@ -111,17 +130,14 @@ $(function () {
 
     // Hero rank-up
     if (heroRankUp[hero]) {
-      var sdiv = $(`<span class="skill"></span>`);
-      var skill = $(`<span>&nbsp;+&nbsp;</span>`);
-      var skilld = $(
-        `<la>${heroRankUp[hero].map((v, i) => `<div>${i + 1}. ${v}</div>`).join('\n')}</la>`,
+      handp.append(
+        addBox(
+          '&nbsp;+&nbsp;',
+          heroRankUp[hero]
+            .map((v, i) => `<div>${i + 1}. ${v}</div>`)
+            .join('\n'),
+        ),
       );
-      sdiv.append(skill, skilld);
-      handp.append(sdiv);
-      skill.click(() => {
-        skilld.show();
-        setTimeout(() => skilld.hide(), 5000);
-      });
     } else {
       handp.append(`&nbsp;-&nbsp;`);
     }
@@ -164,16 +180,7 @@ $(function () {
     });
     // Hero skills
     (heroSkills[hero] || []).forEach((v, i) => {
-      let sdiv = $(`<div class="skill"></div>`);
-      let skill = $(`<span>${i + 1}.${v}</span>`);
-      let skilld = $(`<la>${skillsList[v]}</la>`);
-      if (!skillsList[v]) alert(`No skill ${v}`);
-      sdiv.append(skill, skilld);
-      herod.append(sdiv);
-      skill.click(() => {
-        skilld.show();
-        setTimeout(() => skilld.hide(), 5000);
-      });
+      herod.append(addBox(`${i + 1}.${v}`, skillsList[v]));
     });
     $('#plink').append(herod);
   };
