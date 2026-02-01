@@ -34,7 +34,7 @@ $(function () {
   });
 
   const pokeImgs = {};
-  // Link pokemon detail2
+  // Link pokemon to veekun.com
   $('#myTable>tbody>tr').each(function () {
     const tds = $(this).children();
     const lnk = $(tds[2]).find('a');
@@ -254,11 +254,41 @@ $(function () {
       });
     }
   });
+
+  // Filter Pokemon
+  pokeTypes.forEach((v) => {
+    var img = $(`<img src="${v}" border="0" id=${v.match(/([^/]+).gif$/)[1]}>`);
+    $('.pktype').append(img);
+  });
+  $('.pktype img').click(function () {
+    filterPokemon(3, $(this).attr('src'));
+  });
+
+  // Filter Pokemon's move
+  pokeTypes.forEach((v) => {
+    var img = $(`<img src="${v}" border="0" id=${v.match(/([^/]+).gif$/)[1]}>`);
+    $('.movetype').append(img);
+  });
+  $('.movetype img').click(function () {
+    filterPokemon(4, $(this).attr('src'));
+  });
 });
+
+function filterPokemon(col, src) {
+  $('#myTable>tbody>tr').each(function () {
+    const tds = $(this).children();
+    const img = $(tds[col]).find(`img[src="${src}"]`);
+    if (!img.length) {
+      $(this).hide();
+    } else {
+      $(this).show();
+    }
+  });
+}
 
 async function search() {
   var val = $('#search').val().toLowerCase();
-  // Config
+  // Sync
   if (val.startsWith('#')) {
     val = val.slice(1); // remove #, tách key / value
     const [key, value] = val.split('=', 2);
@@ -268,7 +298,7 @@ async function search() {
         lset('key', k);
         lset('host', host);
         break;
-      case 'get':
+      case 'sync':
         const items = {};
         Object.keys(localStorage).forEach((key) => {
           const value = localStorage.getItem(key);

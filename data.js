@@ -141,6 +141,27 @@ dd;
 
 */
 
+// img.match(/([^/]+).gif$/)[1]
+var pokeTypes = [
+  'https://www.serebii.net/pokedex-bw/type/normal.gif',
+  'https://www.serebii.net/pokedex-bw/type/fire.gif',
+  'https://www.serebii.net/pokedex-bw/type/grass.gif',
+  'https://www.serebii.net/pokedex-bw/type/water.gif',
+  'https://www.serebii.net/pokedex-bw/type/fighting.gif',
+  'https://www.serebii.net/pokedex-bw/type/flying.gif',
+  'https://www.serebii.net/pokedex-bw/type/electric.gif',
+  'https://www.serebii.net/pokedex-bw/type/bug.gif',
+  'https://www.serebii.net/pokedex-bw/type/poison.gif',
+  'https://www.serebii.net/pokedex-bw/type/psychic.gif',
+  'https://www.serebii.net/pokedex-bw/type/ground.gif',
+  'https://www.serebii.net/pokedex-bw/type/rock.gif',
+  'https://www.serebii.net/pokedex-bw/type/steel.gif',
+  'https://www.serebii.net/pokedex-bw/type/dark.gif',
+  'https://www.serebii.net/pokedex-bw/type/ghost.gif',
+  'https://www.serebii.net/pokedex-bw/type/ice.gif',
+  'https://www.serebii.net/pokedex-bw/type/dragon.gif',
+];
+
 var pwd_data = `Abra		JkKxwkq1x8
 Ampharos		tKAm8mrxLR
 Anorith		SEHGJqBrwW

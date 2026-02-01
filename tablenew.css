@@ -104,7 +104,18 @@ table {
   background-color: white; color: black; width: 200px; z-index: 1000;
   white-space: normal;
 }
-#myTable td:nth-child(12), #myTable td:nth-child(14) {
+#myTable td:nth-child(n+12):nth-child(-n+15) {
   text-align: left;
 }
-.cen ul {padding-inline-start: 15px;}
+.cen ul { padding-inline-start: 15px; }
+.pktype {
+  margin-top: 10px;
+}
+.pktype, .movetype {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  max-width: 320px;
+  margin-bottom: 10px;
+}
