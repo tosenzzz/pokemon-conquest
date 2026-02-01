@@ -129,6 +129,16 @@ $('.xx tr').each(function () {
   }
 });
 
+// Pokemon Skills/Abilities: https://bulbapedia.bulbagarden.net/wiki/List_of_Abilities_in_Pok%C3%A9mon_Conquest
+dd = {};
+$('.xx tr').each(function () {
+  tds = $(this).children();
+  key = $(tds[0]).text().trim();
+  val = $(tds[2]).text().trim();
+  dd[key] = val;
+});
+dd;
+
 */
 
 var pwd_data = `Abra		JkKxwkq1x8
@@ -671,7 +681,8 @@ const heroImgs = {
   Otsū: 'https://veekun.com/dex/media/warriors/big-icons/ninja-ceiling.png',
 };
 
-const SkillImgs = {
+// https://veekun.com/dex/conquest/moves
+const pokeMoves = {
   Kadabra:
     'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
   Luxray:
@@ -1465,4 +1476,145 @@ var heroRankUp = {
   Mitsunari: ['Base Rank', '60% link with Pawniard or Bisharp'],
   Kiyomasa: ['Base Rank', '60% link with Fraxure or Haxorus'],
   Masanori: ['Base Rank', '60% link with Krokorok or Krookodile'],
+};
+
+var pokeSkills = {
+  'Aqua Boost':
+    "Boosts the effectiveness of adjacent allies' Water-type attacks.",
+  'Battle Armor': 'The Pokémon is protected against critical hits.',
+  'Black Hole':
+    'Enemies adjacent to the Pokémon have their Range reduced to 0.',
+  Blaze: 'Raises Attack when HP is at or below 1/3 of max HP.',
+  Bodyguard:
+    'Once per turn, the Pokémon will switch positions with an adjacent ally to take an attack in its place.',
+  Bonanza:
+    'The Pokémon is able to collect considerably more gold from treasure boxes.',
+  Calming: 'The Pokémon can send enemies within a Range of 2 to sleep.',
+  Celebrate: 'The Pokémon can move again after defeating an enemy.',
+  'Clear Body': "Prevents the Pokémon's stats from being lowered.",
+  Climber: 'Raises Attack when the Pokémon is below its target.',
+  Compoundeyes: "The Pokémon's accuracy is boosted.",
+  Confidence:
+    'Increases the Defense of allies within a Range of 2. (Wears off before the start of enemy turn.)',
+  Conqueror:
+    'Increases Attack, Defense, and Speed by 0.2× whenever the Pokémon defeats at least 1 enemy. The boost is stackable and lasts the entire battle.',
+  Daze: 'The Pokémon can send enemies within a Range of 2 to sleep for a long time.',
+  Decoy:
+    'The Pokémon can act as a decoy, attracting enemy attacks. (Has no effect due to a programming error.)',
+  'Deep Sleep': 'Restores HP while sleeping.',
+  Disgust: 'Forces hit enemies to switch places with adjacent enemies.',
+  Dodge:
+    "The Pokémon can evade direct attacks and lower opponents' Defense and Speed by 1 stage (i.e. 0.66× if no prior modifiers).",
+  Explode:
+    "The Pokémon explodes upon fainting, inflicting damage on those within 8 adjacent tiles, scaling with this Pokémon's Attack stat.",
+  'Flame Body': 'Contact with the Pokémon may burn the attacker.',
+  'Flame Boost':
+    "Boosts the effectiveness of adjacent allies' Fire-type attacks.",
+  'Flash Fire': 'Raises Attack if hit by a Fire-type move.',
+  Fortune: 'The Pokémon is able to collect more gold from treasure boxes.',
+  Frighten:
+    'Reduces the Speed and Range of enemies within a Range of 2 by 1 stage. Range can be reduced to a minimum of 1 (before snow penalty).',
+  Frostbite: 'Contact with the Pokémon may freeze the attacker.',
+  'Grass Cloak': 'Improves Defense on grass.',
+  Gulp: 'Restores HP when the Pokémon is standing in water.',
+  Guts: 'Raises Attack when suffering from a status ailment.',
+  Healer: "The Pokémon may heal an adjacent ally's status ailments.",
+  Herbivore: 'Restores HP when the Pokémon is standing on grass.',
+  Hero: 'Increases Attack and Defense by 1 stage (i.e. 1.5× if no prior modifiers) when their army is "struggling" (Army\'s total strength below 1/3 of opponent\'s).',
+  'High-rise': 'Raises Attack when the Pokémon is above its target.',
+  'Hot Blooded':
+    'Restores HP when the Pokémon is standing in magma, soil, or sand.',
+  Illusion: 'Appears disguised as an allied Pokémon.',
+  Immunity: 'Prevents the Pokémon from being poisoned.',
+  'Inner Focus': 'The Pokémon is protected from flinching.',
+  Instinct: 'The Pokémon uses intuition to swiftly evade enemy moves.',
+  Interference: 'Reduces the accuracy of enemies within a Range of 2.',
+  Intimidate:
+    'Reduces the Attack of enemies within a Range of 2 by 1 stage (i.e. 0.66× if no prior modifiers).',
+  'Jagged Edge':
+    "Contact with the Pokémon inflicts 1/8 of the attacker's maximum HP. Activates repeatedly for multi-strike moves.",
+  Justified: 'Raises Attack if hit by a Dark-type move.',
+  'Keen Eye': 'Prevents the Pokémon from losing accuracy.',
+  'Last Bastion':
+    'Increases Attack and Defense by 2 stages (i.e. 2.0× if no prior modifiers) when all other allies have been defeated.',
+  Levitate:
+    'Gives full immunity to all Ground-type moves. Also grants unhindered movement across all terrain, similar to Flying-type Pokémon',
+  'Life Force': 'Restores 1/8 of maximum HP every turn.',
+  Limber: 'The Pokémon is protected from paralysis.',
+  Lightningrod:
+    'Absorbs all Electric-type moves to raise Attack. Also causes Electric-type moves to miss all other Pokémon targeted by the same move.',
+  Lullaby: 'The Pokémon can sing enemies within a Range of 2 to sleep.',
+  Lunchbox: 'Restores HP when waiting at the end of a turn.',
+  Medic: 'Restores the HP of adjacent allies.',
+  Melee:
+    'If an adjacent enemy takes damage, the Pokémon deals additional damage to that enemy, equal to 1/16 of its maximum HP.',
+  'Mold Breaker':
+    'Enemy Abilities that activate before the enemy takes damage will not activate.',
+  'Mood Maker':
+    'Increases the Energy of allies within a Range of 2 by 1 stage for one turn.',
+  'Motor Drive':
+    'Raises Speed and nullifies damage if hit by an Electric-type move.',
+  Mountaineer: 'The Pokémon can climb to high places.',
+  Moxie: 'Raises Attack for 1 turn after defeating an enemy.',
+  Nomad: 'Raises Attack in proportion to distance moved.',
+  Nurse: "The Pokémon may heal an adjacent ally's status ailments.",
+  Omnipotent:
+    'The Pokémon has the Abilities Instinct, Mountaineer, and Life Force, and can inflict damage upon Pokémon of all types.',
+  Overgrow: 'Raises Attack when HP is at or below 1/3 of max HP.',
+  'Own Tempo': 'Prevents the Pokémon from becoming confused.',
+  Parry: 'The Pokémon can parry direct enemy attacks with claws or blades.',
+  Perception: 'The Pokémon can evade moves from its allies.',
+  'Poison Point': 'Contact with the Pokémon may poison the attacker.',
+  'Power Nap':
+    'The Pokémon falls asleep and recovers HP when HP is at or below 1/3 of max HP.',
+  Pride:
+    'Raises Attack and Defense by 1 stage (i.e. 1.5× if no prior modifiers) when suffering from a status ailment.',
+  'Run Up': 'Raises Attack in proportion to distance moved.',
+  Sandpit:
+    'Restores 1/8 of maximum HP when the Pokémon is standing on soil or sand.',
+  Sequence:
+    'Raises Attack in proportion to the number of adjacent Electric-type allies.',
+  Shackle:
+    'Reduces Range of hit enemies by 1, to a minimum of 1 (before snow penalty).',
+  'Shadow Dash':
+    'Increases Range by 2 (capping at 6) when there are no other Pokémon within three squares.',
+  Share:
+    'The Pokémon benefits from allied Warrior Skills, wherever they are (excluding Ambition, Desire, Motivate, and Willpower).',
+  'Shed Skin': 'The Pokémon may heal its own status ailments.',
+  'Shell Armor': 'The Pokémon is protected against critical hits.',
+  Shield:
+    "When the Pokémon is attacked by an enemy move that hits a column of tiles, the move will miss the Pokémon's allies that are standing behind it.",
+  Simple:
+    'After applying stat modifiers, stats are doubled if the stat modifier is positive, and halved if it is negative. Also works for stat-boosting equipment.',
+  Skater:
+    'Increases Range on ice to include tiles adjacent to any ice tiles within range.',
+  Sniper: 'Powers up moves if they become critical hits.',
+  'Solid Rock': 'Reduces damage from supereffective attacks.',
+  Spirit:
+    'Restores HP and raises Attack by 1 stage (i.e. 1.5× if no prior modifiers) when HP is at or below 1/3 of max HP.',
+  Sponge:
+    "The Pokémon can absorb the HP of adjacent enemies. Damage dealt is equal to 1/16 of the victim's maximum HP, and HP restored is half of the damage dealt.",
+  Sprint: 'Increases Range by 1.',
+  Static: 'Contact with the Pokémon may cause paralysis.',
+  Stealth:
+    'The Pokémon may evade enemy moves when standing on terrain that matches one of their types.',
+  Sturdy:
+    'When at full HP, the Pokémon will survive any attack with at least 1 HP.',
+  Swarm: 'Raises Attack when HP is at or below 1/3 of max HP.',
+  Tenacity: 'Contact with the Pokémon may cause the attacker to flinch.',
+  Teravolt:
+    'Enemy Abilities that activate before the enemy takes damage will not activate.',
+  'Thick Fat': 'Raises resistance to Fire-type and Ice-type moves.',
+  Thrust: 'The Pokémon pushes its target 1 additional tile away.',
+  Torrent: 'Raises Attack when HP is at or below 1/3 of max HP.',
+  Turboblaze:
+    'Enemy Abilities that activate before the enemy takes damage will not activate.',
+  Unaware: 'Ignores any stat changes in enemy Pokémon.',
+  Vanguard:
+    'Applies a 1.5× multiplier to attacks carried out at the start of a turn.',
+  'Volt Absorb': 'Restores HP if hit by an Electric-type move.',
+  'Warm Blanket': 'Restores HP when the Pokémon is standing in magma.',
+  'Water Absorb': 'Restores HP if hit by a Water-type move.',
+  'Wave Rider':
+    'Increases Range on water to include tiles adjacent to any water tiles within range.',
 };

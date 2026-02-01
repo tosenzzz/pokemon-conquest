@@ -38,23 +38,51 @@ $(function () {
   $('#myTable>tbody>tr').each(function () {
     const tds = $(this).children();
     const lnk = $(tds[2]).find('a');
-    lnk.attr('href', `https://veekun.com/dex/conquest/pokemon/${lnk.text()}`);
+    const name = lnk.text().trim();
+    lnk.attr('href', `https://veekun.com/dex/conquest/pokemon/${name}`);
     lnk.attr('target', '_blank');
     const id = String(+$(tds[0]).text()).padStart(3, '0');
-    pokeImgs[lnk.text()] = `https://www.serebii.net/conquest/pokemon/${id}.png`;
-  });
-
-  // Gán id cho mỗi dòng table theo tên Pokémon
-  $('#myTable>tbody>tr').each(function () {
-    const name = $(this).find('td:eq(2)').text().trim();
-    if (name) {
-      $(this).attr('id', 'poke-' + name);
-    }
+    pokeImgs[name] = `https://www.serebii.net/conquest/pokemon/${id}.png`;
+    // Set row-id by Poke name
+    $(this).attr('id', 'poke-' + name);
     // Insert skill image
-    const tr = $(this).find('td:eq(4) tr');
+    const tr = $(tds[4]).find('tr');
     tr.append(
-      `<td align="center" width="33%"><img src="${SkillImgs[name]}" border="0"></td>`,
+      `<td align="center" width="33%"><img src="${pokeMoves[name]}" border="0"></td>`,
     );
+    // Update Poke skill
+    const pskills = [];
+    $(tds[11])
+      .find('a')
+      .each(function () {
+        pskills.push($(this).text().trim());
+      });
+    $(tds[11]).empty();
+    var ul = $(`<ul></ul>`);
+    $(tds[11]).append(ul);
+    pskills.forEach((v, i) => {
+      let sdiv = $(`<li class="skill"></li>`);
+      let skill = $(`<span>${v}</span>`).click(() => {
+        skilld.show();
+        setTimeout(() => skilld.hide(), 5000);
+      });
+      let skilld = $(`<la>${pokeSkills[v]}</la>`);
+      if (!pokeSkills[v]) alert(`No skill ${v}`);
+      sdiv.append(skill, skilld);
+      $(ul).append(sdiv);
+    });
+    // Update locations
+    const locas = $(tds[13])
+      .html()
+      .split('<br>')
+      .map((v) => v.trim())
+      .filter((v) => !!v);
+    $(tds[13]).empty();
+    var ul = $(`<ul></ul>`);
+    $(tds[13]).append(ul);
+    locas.forEach((v, i) => {
+      ul.append(`<li>${v}</li>`);
+    });
   });
 
   // HERO LIST
@@ -65,22 +93,8 @@ $(function () {
     const extraPart = match[2] || ''; // (not Rhyhorn/Rhydon)
     // 2. Tách hero và pokemon
     const [hero, pokes] = mainPart.split('-').map((s) => s.trim());
-    // 3. Tạo hyperlink CHỈ cho pokemon
-    let pokel = [];
-    const regex = /([\/]*)([^\/]+)/g;
-    while ((match = regex.exec(pokes)) !== null) {
-      const prefix = match[1]; // /// hoặc /
-      const poke = match[2].trim(); // Pokemon
-      const pk = $(`<a href="#poke-${poke}">${poke}</a>`);
-      if (lget(`${hero}-poke-${poke}`) == 'own') {
-        pk.addClass('poke-own');
-      } else if (lget(`${hero}-poke-${poke}`)) {
-        pk.addClass('poke-want');
-      }
-      pokel.push([poke, pk, prefix]);
-    }
 
-    // 4. Render ra Hero image and Pokemons name
+    // Hero image
     const herod = $(`<div id="hero-${hero}" class="herod"></div>`);
     if (lget(`${hero}-own`)) herod.addClass('hero-own');
     const add = $(`<img src="${heroImgs[hero]}" style="height:20px;"/>`).click(
@@ -106,19 +120,28 @@ $(function () {
       handp.append(sdiv);
       skill.click(() => {
         skilld.show();
-        setTimeout(() => {
-          skilld.hide();
-        }, 5000);
+        setTimeout(() => skilld.hide(), 5000);
       });
     } else {
       handp.append(`&nbsp;-&nbsp;`);
     }
 
-    // Pokemons
-    pokel.forEach((pk) => {
-      handp.append(pk[2], pk[1]);
-    });
-    handp.append(extraPart);
+    // Pokemons name
+    let pokel = [];
+    const regex = /([\/]*)([^\/]+)/g;
+    while ((match = regex.exec(pokes)) !== null) {
+      const prefix = match[1]; // /// hoặc /
+      const poke = match[2].trim(); // Pokemon
+      const pk = $(`<a href="#poke-${poke}">${poke}</a>`);
+      if (lget(`${hero}-poke-${poke}`) == 'own') {
+        pk.addClass('poke-own');
+      } else if (lget(`${hero}-poke-${poke}`)) {
+        pk.addClass('poke-want');
+      }
+      pokel.push([poke, pk, prefix]);
+      handp.append(prefix, pk);
+    }
+    // handp.append(extraPart);
     herod.append(handp);
 
     // Pokemons images
@@ -149,9 +172,7 @@ $(function () {
       herod.append(sdiv);
       skill.click(() => {
         skilld.show();
-        setTimeout(() => {
-          skilld.hide();
-        }, 5000);
+        setTimeout(() => skilld.hide(), 5000);
       });
     });
     $('#plink').append(herod);
@@ -198,7 +219,7 @@ $(function () {
     }
   });
 
-  // Fill Warlord vào pokemon
+  // Fill Heroes vào pokemon
   var data = [...plink1, ...plink2];
   var map = {};
   data.forEach((line) => {
