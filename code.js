@@ -16,7 +16,7 @@ const API = (type, url, data) => {
         ok(data);
       },
       error: function (e) {
-        ll(e);
+        err(e);
       },
     });
   });
@@ -272,7 +272,60 @@ $(function () {
   $('.movetype img').click(function () {
     filterPokemon(4, $(this).attr('src'));
   });
+
+  // Sync button
+  if (lget('host') && lget('key')) {
+    const syncBtn = $(`<button>Sync</button>`);
+    $('.sbar').append(syncBtn);
+    syncBtn.click(() => syncData());
+  }
 });
+
+async function syncData() {
+  try {
+    const items = {};
+    Object.keys(localStorage).forEach((key) => {
+      const value = localStorage.getItem(key);
+      items[key] = value;
+    });
+    const vHost = lget('host');
+    const version = +(items['version'] || 0);
+    const valsHost = await API('GET', vHost, {
+      game: 'pokemon_conquest',
+      key: window.location.hostname || 'localhost',
+    });
+    const hver = +(valsHost?.data?.version || 0);
+    ll(items, version, hver);
+    // PUT to HOST
+    if (!valsHost || version > hver) {
+      await API(
+        'PUT',
+        vHost,
+        JSON.stringify({
+          game: 'pokemon_conquest',
+          key: window.location.hostname || 'localhost',
+          data: items,
+        }),
+      );
+      alert('Uploaded');
+    } else if (version < hver) {
+      // GET from HOST
+      Object.keys(valsHost.data).forEach((key) => {
+        localStorage.setItem(key, valsHost.data[key]);
+      });
+      alert('Downloaded');
+      window.location.reload();
+    } else {
+      alert('No updated');
+    }
+
+    $('#search').val('');
+  } catch (e) {
+    console.log(e);
+    alert('error');
+    return;
+  }
+}
 
 function filterPokemon(col, src) {
   $('#myTable>tbody>tr').each(function () {
@@ -292,52 +345,12 @@ async function search() {
   if (val.startsWith('#')) {
     val = val.slice(1); // remove #, tách key / value
     const [key, value] = val.split('=', 2);
-    switch (key) {
-      case 'key':
-        const [k, host] = value.split(',', 2);
-        lset('key', k);
-        lset('host', host);
-        break;
-      case 'sync':
-        const items = {};
-        Object.keys(localStorage).forEach((key) => {
-          const value = localStorage.getItem(key);
-          items[key] = value;
-        });
-        const vHost = lget('host');
-        const version = +(items['version'] || 0);
-        const valsHost = await API('GET', vHost, {
-          game: 'pokemon_conquest',
-          key: window.location.hostname || 'localhost',
-        });
-        const hver = +(valsHost?.data?.version || 0);
-        ll(items, version, hver);
-        // PUT to HOST
-        if (!valsHost || version > hver) {
-          await API(
-            'PUT',
-            vHost,
-            JSON.stringify({
-              game: 'pokemon_conquest',
-              key: window.location.hostname || 'localhost',
-              data: items,
-            }),
-          );
-        } else if (version < hver) {
-          // GET from HOST
-          Object.keys(valsHost.data).forEach((key) => {
-            localStorage.setItem(key, valsHost.data[key]);
-          });
-          window.location.reload();
-        } else {
-          alert('Syned');
-        }
-
-        break;
-      default:
-        alert('invalid command');
+    if (key == 'key') {
+      const [k, host] = value.split(',', 2);
+      lset('key', k);
+      lset('host', host);
+      $('#search').val('');
     }
-    $('#search').val('');
     return;
   }
   $('#myTable>tbody>tr').each(function () {
