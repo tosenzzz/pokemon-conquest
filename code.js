@@ -22,19 +22,27 @@ const API = (type, url, data) => {
   });
 };
 
+function showMessage(text) {
+  $('#messageBox').html(text);
+  $('#overlay').css('display', 'flex').hide().fadeIn(150);
+}
+
+function hideMessage() {
+  $('#overlay').fadeOut(150);
+}
+
 const addBox = (title, detail, tag = 'span') => {
-  let sdiv = $(`<${tag} class="skill"></${tag}>`);
+  let sdiv = $(`<${tag}></${tag}>`);
   let dTitle = $(`<span>${title}</span>`);
-  let dDetail = $(`<la>${detail}</la>`);
-  sdiv.append(dTitle, dDetail);
-  dTitle.click(() => {
-    dDetail.show();
-    setTimeout(() => dDetail.hide(), 5000);
-  });
+  sdiv.append(dTitle);
+  dTitle.click(() => showMessage(detail));
   return sdiv;
 };
 
 $(function () {
+  // Close message-box
+  $('#overlay').on('click', hideMessage);
+
   // Column sort
   $('#myTable').tableSortable();
 
