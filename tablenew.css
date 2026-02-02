@@ -101,8 +101,11 @@ table {
 .skill { position: relative; }
 .skill la {
   display: none; padding: 5px; position: absolute;
-  background-color: white; color: black; width: 200px; z-index: 1000;
-  white-space: normal;
+  background-color: white; color: black;
+  white-space: normal; z-index: 1000;
+  width: 200px;
+  left: 0;
+  top: 14px;
 }
 #myTable td:nth-child(n+12):nth-child(-n+15) {
   text-align: left;

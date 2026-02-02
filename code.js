@@ -29,7 +29,7 @@ const addBox = (title, detail, tag = 'span') => {
   sdiv.append(dTitle, dDetail);
   dTitle.click(() => {
     dDetail.show();
-    setTimeout(() => dDetail.hide(), 5000);
+    // setTimeout(() => dDetail.hide(), 5000);
   });
   return sdiv;
 };
@@ -285,6 +285,11 @@ $(function () {
     $('.sbar').append(syncBtn);
     syncBtn.click(() => syncData());
   }
+
+  // Hide msg-box
+  $('.skill la').on('click', function () {
+    $(this).hide();
+  });
 });
 
 async function syncData() {

@@ -359,8 +359,7 @@ Yoshimoto - Pineco//Forretress
 Yukimura - Charmeleon//Charizard (not Charmander)`
   .trim()
   .split('\n')
-  .map((v) => v.trim())
-  .sort();
+  .map((v) => v.trim());
 
 const plink2 = `
 Akizane - Pichu/Pikachu/Raichu
