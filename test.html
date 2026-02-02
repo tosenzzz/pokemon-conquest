@@ -66,6 +66,14 @@
 
       $('#overlay').on('click', hideMessage);
 
+      $('#messageBox').on('click', function (e) {
+        e.stopPropagation();
+      });
+
+      function hideMessage() {
+        $('#overlay').fadeOut(150);
+      }
+
       // Demo buttons
       $('#btnShort').on('click', function () {
         showMessage('Hello!');
@@ -73,6 +81,16 @@
 
       $('#btnLong').on('click', function () {
         showMessage('Đây là một message khá dài để kiểm tra chiều cao tự động thay đổi theo nội dung hiển thị.');
+      });
+
+      // Click bất kỳ đâu để đóng
+      $('#overlay').on('click', function () {
+        hideMessage();
+      });
+
+      // ❌ Ngăn click vào box làm đóng (optional)
+      $('#messageBox').on('click', function (e) {
+        e.stopPropagation();
       });
 
     });
