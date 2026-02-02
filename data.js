@@ -312,19 +312,23 @@ Zebstrika		CaCk5rRJXR
 Zoroark		6iYmwq1Y8w rYeGPmeUL3
 Zorua		6TSGwmRAJR CTeFMMeUM3
 Zubat		aGZXJRCJRm
-Zweilous		JzqmWNCZZR`;
+Zweilous		JzqmWNCZZR`
+  .trim()
+  .split('\n')
+  .map((v) => v.trim())
+  .sort();
 
 // Perfect Link Data
 const plink1 = `
 Player ♂ - Eevee//Vaporeon//Jolteon//Flareon//Espeon
 Player ♂ - //Umbreon//Leafeon//Glaceon///Arceus
 Oichi - Jigglypuff//Wigglytuff (not Igglybuff)
+Hideyoshi - Monferno//Infernape///Reshiram (not Chimchar)
 Aya - Snorunt//Froslass(not Glalie)
 Ginchiyo - Luxio//Luxray (not Shinx)
 Gracia - Gothorita//Gothitelle (not Gothita)
 Hanbei - Pikachu//Raichu (not Pichu)
 Hanzō - Haunter//Gengar (not Gastly)
-Hideyoshi - Monferno//Infernape///Reshiram (not Chimchar)
 Ieyasu - Aggron//Registeel (not Aron/Lairon)
 Ina - Prinplup//Empoleon (not Piplup)
 Kai - Darumaka//Darmanitan
@@ -355,7 +359,8 @@ Yoshimoto - Pineco//Forretress
 Yukimura - Charmeleon//Charizard (not Charmander)`
   .trim()
   .split('\n')
-  .map((v) => v.trim());
+  .map((v) => v.trim())
+  .sort();
 
 const plink2 = `
 Akizane - Pichu/Pikachu/Raichu
@@ -372,17 +377,17 @@ Ekei - Carnivine
 Fujitaka - Lapras
 Gen'an - Onix/Steelix
 Genba - Scraggy/Scrafty
-Gō - Piplup/Prinplup/Empoleon
 Gotoku - Deino/Zweilous/Hydreigon
+Gō - Piplup/Prinplup/Empoleon
 Hana - Munna/Musharna
 Haruyuki - Rufflet/Braviary
 Hatsu - Igglybuff/Jigglypuff/Wigglytuff
 Hideaki - Venipede/Whirlipede/Scolipede
 Hidetada - Pawniard/Bisharp
 Hideyori - Chimchar/Monferno/Infernape
-Hisahide - Deino/Zweilous/Hydreigon
 Hiroko - Snorunt/Glalie
 Hisaaki - Scraggy/Scrafty
+Hisahide - Deino/Zweilous/Hydreigon
 Ise - Gothita/Gothorita/Gothitelle
 Jinpachi - Misdreavus/Mismagius
 Jūbei - Ralts/Kirlia/Gallade
@@ -402,9 +407,9 @@ Maa - Litwick/Lampent/Chandelure
 Madoka - Roggenrola/Boldore/Gigalith
 Masakage - Charmander/Charmeleon/Charizard
 Masanobu - Litwick
-Masatsuna - Beedrill
 Masatoshi - Machop/Machoke/Machamp
 Masatoyo - Rhyhorn/Rhydon
+Masatsuna - Beedrill
 Masayuki - Larvesta/Volcarona
 Morichika - Oshawott/Dewott/Samurott
 Morikiyo - Croagunk/Toxicroak
@@ -432,9 +437,9 @@ Sandayū - Zubat/Golbat
 Saneyori - Chingling/Chimecho
 Seikurō - Skorupi/Drapion
 Sekisō - Joltik/Galvantula
-Sessai - Larvesta/Volcarona
 Sen - Chingling/Chimecho
 Sena - Beedrill
+Sessai - Larvesta/Volcarona
 Shigemoto - Cubchoo/Beartic
 Shigezane - Scyther/Scizor
 Shimoyama - Scraggy/Scrafty
@@ -444,11 +449,11 @@ Sōrin - Pichu/Pikachu/Raichu
 Sōun - Larvitar/Pupitar/Tyranitar
 Tadamoto - Croagunk/Toxicroak
 Tadaoki - Gothita/Gothorita/Gothitelle
-Tadatsune - Machop/Machoke/Machamp
-Tadatsugu - Aron/Lairon/Aggron
 Tadasumi - Blitzle/Zebstrika
-Takahisa - Timburr/Gurdurr
+Tadatsugu - Aron/Lairon/Aggron
+Tadatsune - Machop/Machoke/Machamp
 Takahiro - Abra/Kadabra/Alakazam
+Takahisa - Timburr/Gurdurr
 Takakage - Treecko/Grovyle/Sceptile
 Takamoto - Snivy/Servine/Serperior
 Takanobu - Munchlax/Snorlax
@@ -463,8 +468,8 @@ Toku - Aron/Lairon/Aggron
 Tomonobu - Ralts/Kirlia/Gardevoir
 Tsunamoto - Snorunt/Glalie
 Tsunehisa - Meowth/Persian
-Ujichika - Sewaddle/Swadloon
-Ujihiro - Sewaddle/Swadloon
+Ujichika - Sewaddle/Swadloon/Leavanny
+Ujihiro - Sewaddle/Swadloon/Leavanny
 Ujikuni - Anorith/Armaldo
 Ujinao - Anorith/Armaldo
 Ujisato - Snivy/Servine/Serperior
@@ -478,13 +483,14 @@ Yatarō - Treecko/Grovyle/Sceptile
 Yazaemon - Ekans/Arbok
 Yoshi - Zubat/Golbat
 Yoshiaki - Carnivine
-Yoshitatsu - Gastly/Haunter/Gengar
 Yoshikiyo - Cubchoo/Beartic
+Yoshitatsu - Gastly/Haunter/Gengar
 Yukimasa - Spheal/Sealeo/Walrein
 Yukitaka - Sandile/Krokorok/Krookodile`
   .trim()
   .split('\n')
-  .map((v) => v.trim());
+  .map((v) => v.trim())
+  .sort();
 
 const heroImgs = {
   'Player ♂': 'https://veekun.com/dex/media/warriors/big-icons/player-m-1.png',

@@ -132,14 +132,14 @@ $(function () {
     if (heroRankUp[hero]) {
       handp.append(
         addBox(
-          '&nbsp;+&nbsp;',
+          `&nbsp;${'+'.repeat(heroRankUp[hero].length)}&nbsp;`,
           heroRankUp[hero]
             .map((v, i) => `<div>${i + 1}. ${v}</div>`)
             .join('\n'),
         ),
       );
     } else {
-      handp.append(`&nbsp;-&nbsp;`);
+      handp.append(`&nbsp;+&nbsp;`);
     }
 
     // Pokemons name
@@ -189,10 +189,9 @@ $(function () {
   $('#plink').append(`<div><h1>WARRIOR/POKEMON</h1></div>`);
   plink2.forEach(ppp);
 
-  // Fill password vào pokemon
-  var pwd = pwd_data.trim().split('\n').sort();
+  // Password pokemon
   var pwdl = {};
-  pwd.forEach((line) => {
+  pwd_data.forEach((line) => {
     const [label, ...right] = line
       .trim()
       .split(/[^\w]+/)
@@ -206,17 +205,17 @@ $(function () {
       });
     }
   });
-  // Show password list
-  Object.keys(pwdl).forEach((k) => {
-    $('#pwd').append(
-      `${k}${k.length > 7 ? '\t' : '\t\t'}${pwdl[k].join(' ')}\n`,
-    );
-  });
+  // // Show password list
+  // Object.keys(pwdl).forEach((k) => {
+  //   $('#pwd').append(
+  //     `${k}${k.length > 7 ? '\t' : '\t\t'}${pwdl[k].join(' ')}\n`,
+  //   );
+  // });
+  // Fill password vào pokemon
   document.querySelectorAll('#myTable>tbody>tr').forEach((tr) => {
     const tx = tr.children[1];
     const td = tr.children[2];
     if (!td || !tx) return;
-
     const name = td.textContent.trim();
     if (pwdl[name]) {
       const div = document.createElement('div');
