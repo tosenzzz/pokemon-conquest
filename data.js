@@ -24,7 +24,7 @@ $('#myTable>tbody>tr').each(function () {
   $(tds[1]).find('table').remove();
 });
 
-// Get pokemons data
+// Get pokemons data (HP, Atk, Def, Spd): https://veekun.com/dex/conquest/pokemon
 pks = {};
 $('.dex-pokemon-moves>tbody>tr').each(function () {
   const tds = $(this).children();
@@ -34,7 +34,7 @@ $('.dex-pokemon-moves>tbody>tr').each(function () {
 $('#myTable>tbody>tr').each(function () {
   const tds = $(this).children();
   nm = $(tds[2]).text().trim();
-  pk = pks[nm] || ['0x', '0', '0', '0', '0'];
+  pk = pks[nm] || ['0', '0', '0', '0', '0'];
   
   $(tds[9]).text(pk[0]);
   $(tds[10]).text(pk[1]);
@@ -63,139 +63,6 @@ data.forEach((line) => {
 // Filter
 console.log(b.filter(v => !a.includes(v)).sort().join(", "))
 console.log(a.filter(v => !b.includes(v)).sort().join(", "))
-
-// Hero images
-a = {};
-$('#xx tbody tr').each((i, v) => {
-  a[v.find('td:eq(1)').text()] = 'https://veekun.com' + v.find('img').attr('src')
-})
-
-// Pokemons skills
-pks = {};
-getskill = (nm) => {
-  $.get(`https://veekun.com/dex/conquest/pokemon/${nm}`, function(data) {
-    img = $(data).find('dd.dex-cpm-range img').attr('src');
-    pks[nm] = 'https://veekun.com' + img;
-  });
-}
-$('.dex-pokemon-moves>tbody>tr').each(function () {
-  const tds = $(this).children();
-  getskill($(tds[1]).text());
-});
-
-// Get skills
-dd = {};
-$('.xx tr').each(function () {
-  const tds = $(this).children();
-  dd[$(tds[0]).text().trim()] = $(tds[2]).text().trim();
-});
-
-// Get hero skills: https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Conquest_characters
-dd = {};
-name = '';
-$('.xx tr').each(function () {
-  tds = $(this).children();
-  if (tds.length < 22) {
-    skill = $(tds[6]).text().trim();
-    dd[name].push(skill);
-  } else {
-    name = $(tds[1]).find('a').text().trim();
-    skill = $(tds[9]).text().trim();
-    if (!dd[name]) dd[name] = [skill];
-    else dd[name].push(skill);
-  }
-});
-$('.yy tr').each(function () {
-  tds = $(this).children();
-  name = $(tds[1]).find('a').text().trim();
-  skill = $(tds[8]).text().trim();
-  if (!dd[name]) dd[name] = [skill];
-  else dd[name].push(skill);
-});
-JSON.stringify(dd);
-
-// Hero rank-up: https://bulbapedia.bulbagarden.net/wiki/Warlord
-dd = {};
-name = '';
-$('.xx tr').each(function () {
-  tds = $(this).children();
-  if (tds.length < 12) {
-    rank = $(tds[7]).text().trim();
-    dd[name].push(rank);
-  } else {
-    name = $(tds[0]).find('a').text().trim();
-    rank = $(tds[11]).text().trim();
-    if (!dd[name]) dd[name] = [rank];
-    else dd[name].push(rank);
-  }
-});
-JSON.stringify(dd);
-
-// Pokemon Skills/Abilities: https://bulbapedia.bulbagarden.net/wiki/List_of_Abilities_in_Pok%C3%A9mon_Conquest
-dd = {};
-$('.xx tr').each(function () {
-  tds = $(this).children();
-  key = $(tds[0]).text().trim();
-  val = $(tds[2]).text().trim();
-  dd[key] = val;
-});
-JSON.stringify(dd);
-
-// Pokemon Moves: https://veekun.com/dex/conquest/moves
-dd = {};
-$('#xx tr').each(function () {
-  const tds = $(this).children();
-  nm = $(tds[0]).text().trim().toLowerCase();
-  dd[nm] = {
-    pow: $(tds[3]).text().trim(),
-    acc: $(tds[5]).text().trim(),
-    eff: $(tds[6]).text().trim(),
-  };
-});
-JSON.stringify(dd);
-
-// Hero-Pokemons link
-heroes = {};
-getHero = (nm) => {
-  $.get(`https://veekun.com/dex/conquest/warriors/${nm}`, function(data) {
-    dd = [];
-    $(data).find('.dex-pokemon-moves tbody:eq(1) tr').each(function () {
-      tds = $(this).children();
-      i = 0;
-      link = [];
-      // link = $(this).find('.max-link').get().map((v) => $(v).text())
-      for(i = 0; i < tds.length; i++) {
-        if (!$(tds[i]).hasClass('max-link')) {
-          break;
-        }
-        link.push(+$(tds[i]).text().replace('%', ''));
-      }
-      id = +$(tds[i+0]).find('span').attr('class').match(/sprite-icon-(\d+)/)[1];
-      name = $(tds[i+1]).text().trim();
-      dd.push({id, name, link});
-    });
-    // dd.sort((a,b) => {
-    //   for(i = a.link.length - 1; i >= 0; i--) {
-    //     if (a.link[i] != b.link[i]) return b.link[i] - a.link[i];
-    //   }
-    //   return a.id - b.id;
-    // });
-    // JSON.stringify(dd);
-    heroes[nm] = dd;
-    console.log('Done ' + nm);
-  });
-}
-plink1.map((line) => {
-  // 1. Tách phần trong ngoặc (nếu có)
-  let match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
-  const mainPart = match[1]; // Shingen - Rhyperior//Groudon
-  const extraPart = match[2] || ''; // (not Rhyhorn/Rhydon)
-  const [hero, pokes] = mainPart.split('-').map((s) => s.trim());
-  return hero;
-}).forEach(v => {
-  getHero(v);
-});
-JSON.stringify(heroes);
 
 */
 
@@ -537,6 +404,13 @@ Yukitaka - Sandile/Krokorok/Krookodile`
   .map((v) => v.trim())
   .sort();
 
+/*
+// Hero images
+a = {};
+$('#xx tbody tr').each((i, v) => {
+  a[v.find('td:eq(1)').text()] = 'https://veekun.com' + v.find('img').attr('src')
+})
+*/
 const heroImgs = {
   'Player ♂': 'https://veekun.com/dex/media/warriors/big-icons/player-m-1.png',
   'Player ♀': 'https://veekun.com/dex/media/warriors/big-icons/player-f-1.png',
@@ -765,390 +639,1013 @@ const heroImgs = {
   Otsū: 'https://veekun.com/dex/media/warriors/big-icons/ninja-ceiling.png',
 };
 
-// https://veekun.com/dex/conquest/moves
-const moveRanges = {
-  Kadabra:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Luxray:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
-  Emolga:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-switch-back.png',
-  Snorlax:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  Munchlax:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Misdreavus:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  Audino:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Mismagius:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Pikachu:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
-  Scizor:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
-  Bidoof:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Bibarel:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Weavile: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  Venipede:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Luxio:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  Shinx:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Staraptor:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/chevron-advance-1.png',
-  Chandelure:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-2-ahead.png',
-  Whirlipede:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  Lampent:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
-  Litwick:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Scolipede:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
-  Pichu:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Mareep:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Gyarados:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
-  Flaaffy:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  Scyther: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  Spiritomb:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Registeel:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
-  Riolu:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  Carnivine: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  Petilil:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Flareon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Whimsicott:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Lilligant:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
-  Cottonee:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Ampharos:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
-  Lucario:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-knockback.png',
-  Ekans:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Chimecho:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Chingling:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
-  Meowth:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Arbok:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
-  Forretress:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  Pineco:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Sealeo:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  Walrein:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
-  Persian:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Spheal:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Sandile:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Gothita:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
-  Gothorita:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Gothitelle:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
-  Duskull:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  Krookodile:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Dusclops:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Krokorok:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Blitzle:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Dragonite:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
-  Dragonair:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback-switch.png',
-  Musharna:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Dusknoir:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Zebstrika:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  Dratini:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Beldum:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  Munna:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Tyranitar:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
-  Larvitar:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Gabite:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Pupitar:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Metang:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Gible:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Toxicroak:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
-  Metagross:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  Deino:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Croagunk:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Garchomp:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
-  Snorunt:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Glalie:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Machop:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Hydreigon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Zweilous:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Gurdurr:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Minccino:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Froslass: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  Cinccino: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  Machamp:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
-  Timburr:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Oshawott:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Beartic:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Machoke:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Conkeldurr:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  Cubchoo:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Charmander:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Charmeleon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Dewott:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Samurott:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
-  Haunter:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Gastly:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Snivy: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  Gengar:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Charizard:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Infernape:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-2-ahead.png',
-  Chimchar:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Tepig:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Pignite:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  Zekrom:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  Serperior:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  Arceus:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  Servine:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Swadloon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Monferno:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  Sewaddle:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Alakazam:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead.png',
-  Piplup:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Grovyle:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Sceptile:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  Emboar: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/dai.png',
-  Magikarp: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/user.png',
-  Treecko:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Raichu:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead-advance-1.png',
-  Quagsire:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Wooper:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Articuno:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
-  Ralts:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
-  Terrakion:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Gallade:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Reshiram: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
-  Lapras:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Mewtwo:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/t-shape.png',
-  Groudon: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
-  Dialga: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows.png',
-  Leafeon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Rayquaza:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Golbat:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Umbreon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Vaporeon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Simisage:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  Gardevoir:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead.png',
-  Kirlia:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Glaceon: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  Empoleon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Pansage: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  Simipour:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Prinplup:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-ahead.png',
-  Panpour:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Simisear:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Pansear:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
-  Fraxure:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Axew: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Darmanitan:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/dai.png',
-  Darumaka:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  Aron: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Galvantula:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  Joltik:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Excadrill:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  Haxorus:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
-  Drilbur:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Aggron:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
-  Lairon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  Drapion:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
-  Skorupi:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Zorua:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Rhyhorn:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
-  Rhydon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  Zoroark:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
-  Bisharp: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  Pawniard:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Rhyperior:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
-  Scraggy:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Shieldon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  Rufflet:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Scrafty:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  Drifblim:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Drifloon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  Bastiodon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Larvesta:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  Armaldo:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
-  Braviary:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Steelix:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
-  Anorith: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  Onix: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Beedrill:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  Sneasel:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Volcarona:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
-  Boldore:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Gigalith: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
-  Zubat:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Igglybuff:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Wigglytuff:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  Roggenrola:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  Staravia:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Crobat:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
-  Starly:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Jigglypuff:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Jolteon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
-  Eevee:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  Espeon:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  Abra: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/user.png',
-  Leavanny:
-    'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
+/*
+// Pokemons move: https://veekun.com/dex/conquest/pokemon
+pks = {};
+getskill = (nm) => {
+  $.get(`https://veekun.com/dex/conquest/pokemon/${nm}`, function(data) {
+    img = $(data).find('dd.dex-cpm-range img').attr('src');
+    name = $(data).find('dd.dex-cpm-name').text().trim().toLowerCase();
+    pks[nm] = {name, range: 'https://veekun.com' + img};
+    console.log('Done ' + nm);
+  });
+}
+$('.dex-pokemon-moves>tbody>tr').each(function () {
+  const tds = $(this).children();
+  getskill($(tds[1]).text());
+});
+*/
+const pokeMoves = {
+  Drilbur: {
+    name: 'dig',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Gallade: {
+    name: 'psycho cut',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Gyarados: {
+    name: 'aqua tail',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
+  },
+  Carnivine: {
+    name: 'vine whip',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  },
+  Audino: {
+    name: 'pound',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Excadrill: {
+    name: 'drill run',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  },
+  Mismagius: {
+    name: 'shadow ball',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Spiritomb: {
+    name: 'shadow sneak',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Dusknoir: {
+    name: 'shadow ball',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Dusclops: {
+    name: 'shadow sneak',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Duskull: {
+    name: 'astonish',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  },
+  Zebstrika: {
+    name: 'discharge',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  },
+  Terrakion: {
+    name: 'sacred sword',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Musharna: {
+    name: 'dream eater',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Blitzle: {
+    name: 'spark',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Munna: {
+    name: 'hypnosis',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Dragonite: {
+    name: 'dragon rush',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
+  },
+  Larvitar: {
+    name: 'rock tomb',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Dragonair: {
+    name: 'dragon tail',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback-switch.png',
+  },
+  Krookodile: {
+    name: 'crunch',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Leafeon: {
+    name: 'leaf blade',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Kirlia: {
+    name: 'psyshock',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Espeon: {
+    name: 'psybeam',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Haxorus: {
+    name: 'outrage',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
+  },
+  Fraxure: {
+    name: 'dragon claw',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Axew: {
+    name: 'dragon rage',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Raichu: {
+    name: 'volt tackle',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead-advance-1.png',
+  },
+  Lairon: {
+    name: 'iron head',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  },
+  Aron: {
+    name: 'metal claw',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Zoroark: {
+    name: 'night daze',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
+  },
+  Galvantula: {
+    name: 'discharge',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  },
+  Zorua: {
+    name: 'foul play',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Mewtwo: {
+    name: 'psystrike',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/t-shape.png',
+  },
+  Golbat: {
+    name: 'poison fang',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Aggron: {
+    name: 'iron tail',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
+  },
+  Bibarel: {
+    name: 'hyper fang',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Eevee: {
+    name: 'quick attack',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Venipede: {
+    name: 'poison sting',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Crobat: {
+    name: 'cross poison',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
+  },
+  Staraptor: {
+    name: 'brave bird',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/chevron-advance-1.png',
+  },
+  Shinx: {
+    name: 'spark',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Bidoof: {
+    name: 'headbutt',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Luxio: {
+    name: 'discharge',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  },
+  Scolipede: {
+    name: 'venoshock',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
+  },
+  Chandelure: {
+    name: 'fire spin',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-2-ahead.png',
+  },
+  Whirlipede: {
+    name: 'poison tail',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  },
+  Luxray: {
+    name: 'thunder',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+  },
+  Petilil: {
+    name: 'mega drain',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Lampent: {
+    name: 'flame burst',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
+  },
+  Litwick: {
+    name: 'ember',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Boldore: {
+    name: 'rock slide',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Gigalith: {
+    name: 'stone edge',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
+  },
+  Flaaffy: {
+    name: 'discharge',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  },
+  Mareep: {
+    name: 'thunder shock',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Ampharos: {
+    name: 'thunder',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+  },
+  Lilligant: {
+    name: 'petal dance',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
+  },
+  Roggenrola: {
+    name: 'rock blast',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Whimsicott: {
+    name: 'razor leaf',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Cottonee: {
+    name: 'absorb',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Arbok: {
+    name: 'venoshock',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
+  },
+  Lucario: {
+    name: 'aura sphere',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-knockback.png',
+  },
+  Riolu: {
+    name: 'force palm',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  },
+  Chingling: {
+    name: 'confusion',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+  },
+  Ekans: {
+    name: 'poison sting',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Chimecho: {
+    name: 'psyshock',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Persian: {
+    name: 'slash',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Pineco: {
+    name: 'bug bite',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Forretress: {
+    name: 'gyro ball',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  },
+  Gothita: {
+    name: 'confusion',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+  },
+  Meowth: {
+    name: 'fury swipes',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Sealeo: {
+    name: 'ice ball',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  },
+  Walrein: {
+    name: 'blizzard',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
+  },
+  Krokorok: {
+    name: 'bite',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Spheal: {
+    name: 'powder snow',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Sandile: {
+    name: 'mud-slap',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Jolteon: {
+    name: 'thunderbolt',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
+  },
+  Rayquaza: {
+    name: 'dragon pulse',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Gothorita: {
+    name: 'psybeam',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Gothitelle: {
+    name: 'future sight',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
+  },
+  Glaceon: {
+    name: 'icy wind',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  },
+  Magikarp: {
+    name: 'splash',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/user.png',
+  },
+  Vaporeon: {
+    name: 'hydro pump',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Lapras: {
+    name: 'ice beam',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Pichu: {
+    name: 'thunder shock',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Scizor: {
+    name: 'x-scissor',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
+  },
+  Groudon: {
+    name: 'earth power',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
+  },
+  Scyther: {
+    name: 'fury cutter',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  },
+  Gardevoir: {
+    name: 'psychic',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead.png',
+  },
+  Registeel: {
+    name: 'flash cannon',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
+  },
+  Articuno: {
+    name: 'blizzard',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
+  },
+  Dialga: {
+    name: 'roar of time',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows.png',
+  },
+  Arceus: {
+    name: 'judgment',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  },
+  Reshiram: {
+    name: 'blue flare',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
+  },
+  Zekrom: {
+    name: 'bolt strike',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  },
+  Tyranitar: {
+    name: 'stone edge',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
+  },
+  Gabite: {
+    name: 'dragon claw',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Garchomp: {
+    name: 'dragon rush',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
+  },
+  Gible: {
+    name: 'dragon rage',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Pupitar: {
+    name: 'rock slide',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Metagross: {
+    name: 'meteor mash',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  },
+  Zweilous: {
+    name: 'crunch',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Croagunk: {
+    name: 'poison jab',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Froslass: {
+    name: 'icy wind',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  },
+  Toxicroak: {
+    name: 'sludge bomb',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
+  },
+  Glalie: {
+    name: 'ice beam',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Snorunt: {
+    name: 'powder snow',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Hydreigon: {
+    name: 'dragon pulse',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Deino: {
+    name: 'dragon rage',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Cinccino: {
+    name: 'tail slap',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  },
+  Machoke: {
+    name: 'wake-up slap',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Minccino: {
+    name: 'double slap',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Machop: {
+    name: 'karate chop',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Gurdurr: {
+    name: 'wake-up slap',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Timburr: {
+    name: 'low kick',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Machamp: {
+    name: 'cross chop',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
+  },
+  Conkeldurr: {
+    name: 'superpower',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  },
+  Charizard: {
+    name: 'flamethrower',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Cubchoo: {
+    name: 'powder snow',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Oshawott: {
+    name: 'water gun',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Dewott: {
+    name: 'water pulse',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Charmander: {
+    name: 'ember',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Charmeleon: {
+    name: 'fire fang',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Samurott: {
+    name: 'aqua tail',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
+  },
+  Beartic: {
+    name: 'icicle crash',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Metang: {
+    name: 'bullet punch',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Dratini: {
+    name: 'dragon rage',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Chimchar: {
+    name: 'ember',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Gengar: {
+    name: 'shadow ball',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Haunter: {
+    name: 'hex',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Gastly: {
+    name: 'lick',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Servine: {
+    name: 'leaf blade',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Infernape: {
+    name: 'fire spin',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-2-ahead.png',
+  },
+  Monferno: {
+    name: 'flame wheel',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  },
+  Beldum: {
+    name: 'iron head',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  },
+  Emboar: {
+    name: 'fire blast',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/dai.png',
+  },
+  Abra: {
+    name: 'teleport',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/user.png',
+  },
+  Sewaddle: {
+    name: 'bug bite',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Serperior: {
+    name: 'leaf storm',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  },
+  Swadloon: {
+    name: 'razor leaf',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Grovyle: {
+    name: 'leaf blade',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Alakazam: {
+    name: 'psychic',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead.png',
+  },
+  Kadabra: {
+    name: 'psybeam',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Treecko: {
+    name: 'absorb',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Empoleon: {
+    name: 'hydro pump',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Piplup: {
+    name: 'bubble',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Prinplup: {
+    name: 'bubble beam',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-ahead.png',
+  },
+  Simisear: {
+    name: 'incinerate',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Pansear: {
+    name: 'flame burst',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
+  },
+  Sceptile: {
+    name: 'leaf storm',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  },
+  Tepig: {
+    name: 'ember',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Simisage: {
+    name: 'leaf storm',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  },
+  Pignite: {
+    name: 'heat crash',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  },
+  Pansage: {
+    name: 'vine whip',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  },
+  Darmanitan: {
+    name: 'fire blast',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/dai.png',
+  },
+  Darumaka: {
+    name: 'flame wheel',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  },
+  Simipour: {
+    name: 'brine',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Panpour: {
+    name: 'water gun',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Joltik: {
+    name: 'electro ball',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Flareon: {
+    name: 'fire fang',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Zubat: {
+    name: 'wing attack',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Wigglytuff: {
+    name: 'hyper voice',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+  },
+  Umbreon: {
+    name: 'assurance',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Jigglypuff: {
+    name: 'double slap',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Quagsire: {
+    name: 'mud bomb',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Wooper: {
+    name: 'water gun',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Ralts: {
+    name: 'confusion',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+  },
+  Pikachu: {
+    name: 'thunderbolt',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
+  },
+  Igglybuff: {
+    name: 'pound',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Starly: {
+    name: 'quick attack',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Pawniard: {
+    name: 'assurance',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Drapion: {
+    name: 'cross poison',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
+  },
+  Skorupi: {
+    name: 'poison jab',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Staravia: {
+    name: 'wing attack',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Shieldon: {
+    name: 'iron head',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  },
+  Rhyperior: {
+    name: 'rock wrecker',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+  },
+  Rhydon: {
+    name: 'drill run',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  },
+  Drifloon: {
+    name: 'astonish',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  },
+  Rhyhorn: {
+    name: 'bulldoze',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
+  },
+  Scraggy: {
+    name: 'faint attack',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Scrafty: {
+    name: 'high jump kick',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  },
+  Bastiodon: {
+    name: 'rock slide',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+  },
+  Rufflet: {
+    name: 'wing attack',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Anorith: {
+    name: 'fury cutter',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  },
+  Braviary: {
+    name: 'sky drop',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Drifblim: {
+    name: 'shadow ball',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Larvesta: {
+    name: 'flame wheel',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  },
+  Armaldo: {
+    name: 'x-scissor',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
+  },
+  Onix: {
+    name: 'rock tomb',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+  },
+  Volcarona: {
+    name: 'fiery dance',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
+  },
+  Snorlax: {
+    name: 'body slam',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+  },
+  Steelix: {
+    name: 'iron tail',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
+  },
+  Munchlax: {
+    name: 'tackle',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Beedrill: {
+    name: 'twineedle',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+  },
+  Weavile: {
+    name: 'night slash',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  },
+  Misdreavus: {
+    name: 'astonish',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+  },
+  Sneasel: {
+    name: 'faint attack',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+  },
+  Snivy: {
+    name: 'vine whip',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  },
+  Bisharp: {
+    name: 'night slash',
+    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
+  },
+  Emolga: {
+    name: 'volt switch',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-switch-back.png',
+  },
+  Leavanny: {
+    name: 'x-scissor',
+    range:
+      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
+  },
 };
 
+/*
+// Get skills
+dd = {};
+$('.xx tr').each(function () {
+  const tds = $(this).children();
+  dd[$(tds[0]).text().trim()] = $(tds[2]).text().trim();
+});
+*/
 const skillsList = {
   'Added Bonus':
     'Increases probability of inflicting burn, poison, bad poison, paralysis, or freezing on enemies by 30% for 3 turns.',
@@ -1260,6 +1757,31 @@ const skillsList = {
     "Increases chance of critical hits and allows the Warrior's Pokémon to move twice for 1 turn.",
 };
 
+/*
+// Get hero skills: https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Conquest_characters
+dd = {};
+name = '';
+$('.xx tr').each(function () {
+  tds = $(this).children();
+  if (tds.length < 22) {
+    skill = $(tds[6]).text().trim();
+    dd[name].push(skill);
+  } else {
+    name = $(tds[1]).find('a').text().trim();
+    skill = $(tds[9]).text().trim();
+    if (!dd[name]) dd[name] = [skill];
+    else dd[name].push(skill);
+  }
+});
+$('.yy tr').each(function () {
+  tds = $(this).children();
+  name = $(tds[1]).find('a').text().trim();
+  skill = $(tds[8]).text().trim();
+  if (!dd[name]) dd[name] = [skill];
+  else dd[name].push(skill);
+});
+JSON.stringify(dd);
+*/
 var heroSkills = {
   'Player ♂': ['Top Speed', 'Courage', 'Motivate'],
   Aya: ['Sweet Song', 'Compassion'],
@@ -1463,6 +1985,24 @@ var heroSkills = {
   Yukitaka: ['Impact'],
 };
 
+/*
+// Hero rank-up: https://bulbapedia.bulbagarden.net/wiki/Warlord
+dd = {};
+name = '';
+$('.xx tr').each(function () {
+  tds = $(this).children();
+  if (tds.length < 12) {
+    rank = $(tds[7]).text().trim();
+    dd[name].push(rank);
+  } else {
+    name = $(tds[0]).find('a').text().trim();
+    rank = $(tds[11]).text().trim();
+    if (!dd[name]) dd[name] = [rank];
+    else dd[name].push(rank);
+  }
+});
+JSON.stringify(dd);
+*/
 var heroRankUp = {
   'Player ♂': [
     'Base Rank',
@@ -1562,6 +2102,17 @@ var heroRankUp = {
   Masanori: ['Base Rank', '60% link with Krokorok or Krookodile'],
 };
 
+/*
+// Pokemon Skills/Abilities: https://bulbapedia.bulbagarden.net/wiki/List_of_Abilities_in_Pok%C3%A9mon_Conquest
+dd = {};
+$('.xx tr').each(function () {
+  tds = $(this).children();
+  key = $(tds[0]).text().trim();
+  val = $(tds[2]).text().trim();
+  dd[key] = val;
+});
+JSON.stringify(dd);
+*/
 var pokeSkills = {
   'Aqua Boost':
     "Boosts the effectiveness of adjacent allies' Water-type attacks.",
@@ -1703,619 +2254,990 @@ var pokeSkills = {
     'Increases Range on water to include tiles adjacent to any water tiles within range.',
 };
 
-var pokeMoves = {
+/*
+// Pokemon Moves: https://veekun.com/dex/conquest/moves
+dd = {};
+$('#xx tr').each(function () {
+  const tds = $(this).children();
+  nm = $(tds[0]).text().trim().toLowerCase();
+  dd[nm] = {
+    pow: $(tds[3]).text().trim(),
+    star: $(tds[4]).text().trim(),
+    acc: $(tds[5]).text().trim(),
+    eff: $(tds[6]).text().trim(),
+  };
+});
+JSON.stringify(dd);
+*/
+var allMoves = {
   absorb: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '20',
+    star: '★',
     acc: '100%',
     eff: 'Heals the user by half the damage dealt.',
   },
   'aqua tail': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/row-knockback.png',
     pow: '44',
+    star: '★★★★',
     acc: '90%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   assurance: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '31',
+    star: '★★★',
     acc: '100%',
     eff: 'Has double power if the target has already taken damage this turn.',
   },
   astonish: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
     pow: '20',
+    star: '★',
     acc: '100%',
     eff: 'Has a 30% chance to make the target flinch.',
   },
   'aura sphere': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-knockback.png',
     pow: '45',
+    star: '★★★★',
     acc: '—',
     eff: 'Never misses.',
   },
   bite: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '36',
+    star: '★★★',
     acc: '100%',
     eff: 'Has a 30% chance to make the target flinch.',
   },
   blizzard: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
     pow: '51',
+    star: '★★★★★',
     acc: '70%',
     eff: 'Has a 10% chance to freeze each target.',
   },
   'blue flare': {
+    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/plus.png',
     pow: '55',
+    star: '★★★★★',
     acc: '85%',
     eff: 'Has a 20% chance to burn each target.',
   },
   'body slam': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
     pow: '45',
+    star: '★★★★',
     acc: '100%',
     eff: 'Has a 30% chance to paralyze the target.',
   },
   'bolt strike': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
     pow: '57',
+    star: '★★★★★',
     acc: '85%',
     eff: 'Has a 20% chance to paralyze the target.',
   },
   'brave bird': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/chevron-advance-1.png',
     pow: '58',
+    star: '★★★★★',
     acc: '100%',
     eff: "Lowers the user's range and Defense until its next turn.",
   },
   brine: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
     pow: '35',
+    star: '★★★',
     acc: '100%',
     eff: 'Has double power against Pokémon with less than half their max HP remaining.',
   },
   bubble: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
     pow: '20',
+    star: '★',
     acc: '100%',
     eff: "Has a 10% chance to lower each target's Speed.",
   },
   'bubble beam': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-ahead.png',
     pow: '38',
+    star: '★★★',
     acc: '100%',
     eff: "Has a 10% chance to lower each target's Speed.",
   },
   'bug bite': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '36',
+    star: '★★★',
     acc: '100%',
     eff: "Uses the target's item if it is consumable.",
   },
   bulldoze: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
     pow: '33',
+    star: '★★★',
     acc: '100%',
     eff: "Has a 100% chance to lower each target's range by one tile.",
   },
   'bullet punch': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '26',
+    star: '★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   confusion: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
     pow: '29',
+    star: '★★',
     acc: '100%',
     eff: 'Has a 10% chance to confuse the target.',
   },
   'cross chop': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/x-shape.png',
     pow: '45',
+    star: '★★★★',
     acc: '80%',
     eff: 'Has an increased chance for a critical hit.',
   },
   'cross poison': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/x-shape.png',
     pow: '38',
+    star: '★★★',
     acc: '100%',
     eff: 'Has a 10% chance to poison each target and an increased chance for a critical hit.',
   },
   crunch: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '43',
+    star: '★★★★',
     acc: '100%',
     eff: "Has a 20% chance to lower the target's Defense.",
   },
   dig: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
     pow: '41',
+    star: '★★★★',
     acc: '100%',
     eff: 'Digs underground and hits at the beginning of the next turn.',
   },
   discharge: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
     pow: '41',
+    star: '★★★★',
     acc: '100%',
     eff: 'Has a 30% chance to paralyze each target.',
   },
   'double slap': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '10',
+    star: '★',
     acc: '90%',
     eff: 'Hits 2 to 5 times in one turn.',
   },
   'dragon claw': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '43',
+    star: '★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'dragon pulse': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
     pow: '44',
+    star: '★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'dragon rage': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
     pow: '40',
+    star: '★★★',
     acc: '75%',
     eff: 'Inflicts exactly 40 HP in damage.',
   },
   'dragon rush': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
     pow: '45',
+    star: '★★★★',
     acc: '75%',
     eff: 'Has a 20% chance to make each target flinch.',
   },
   'dragon tail': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/row-knockback-switch.png',
     pow: '33',
+    star: '★★★',
     acc: '90%',
     eff: 'Switches each target with the Pokémon behind it.',
   },
   'dream eater': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '48',
+    star: '★★★★',
     acc: '100%',
     eff: 'Heals the user by half the damage inflicted.  Only works if the target is asleep.',
   },
   'drill run': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
     pow: '41',
+    star: '★★★★',
     acc: '95%',
     eff: 'Has an increased chance for a critical hit.',
   },
   'earth power': {
+    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/plus.png',
     pow: '44',
+    star: '★★★★',
     acc: '100%',
     eff: "Has a 10% chance to lower each target's Defense.",
   },
   'electro ball': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
     pow: '26',
+    star: '★★',
     acc: '100%',
     eff: 'Power rises the faster the user is compared to the target.',
   },
   ember: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
     pow: '26',
+    star: '★★',
     acc: '100%',
     eff: 'Has a 10% chance to burn the target.',
   },
   'faint attack': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '36',
+    star: '★★★',
     acc: '—',
     eff: 'Never misses.',
   },
   'fiery dance': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
     pow: '41',
+    star: '★★★★',
     acc: '100%',
     eff: "Has a 50% chance to raise the user's Attack.",
   },
   'fire blast': {
+    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/dai.png',
     pow: '51',
+    star: '★★★★★',
     acc: '85%',
     eff: 'Has a 10% chance to burn each target.',
   },
   'fire fang': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '39',
+    star: '★★★',
     acc: '95%',
     eff: 'Has a 10% chance each to burn the target or make it flinch.',
   },
   'fire spin': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/ring-2-ahead.png',
     pow: '12',
+    star: '★',
     acc: '85%',
     eff: 'Hits 4 to 5 times in one turn.',
   },
   'flame burst': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
     pow: '38',
+    star: '★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   flamethrower: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
     pow: '45',
+    star: '★★★★',
     acc: '100%',
     eff: 'Has a 10% chance to burn each target.',
   },
   'flame wheel': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
     pow: '32',
+    star: '★★★',
     acc: '100%',
     eff: 'Has a 10% chance to burn the target.  Thaws the user out if frozen.',
   },
   'flash cannon': {
+    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/plus.png',
     pow: '41',
+    star: '★★★★',
     acc: '100%',
     eff: "Has a 10% chance to lower each target's Defense.",
   },
   'force palm': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
     pow: '31',
+    star: '★★★',
     acc: '100%',
     eff: 'Has a 30% chance to paralyze the target.',
   },
   'foul play': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '47',
+    star: '★★★★',
     acc: '100%',
     eff: "Inflicts damage based on the target's Attack stat instead of the user's.",
   },
   'fury cutter': {
+    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/row.png',
     pow: '12',
+    star: '★',
     acc: '95%',
     eff: 'Doubles in power with each consecutive successful use.',
   },
   'fury swipes': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '10',
+    star: '★',
     acc: '90%',
     eff: 'Hits 2 to 5 times in one turn.',
   },
   'future sight': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
     pow: '45',
+    star: '★★★★',
     acc: '100%',
     eff: 'Hits each target at the beginning of the turn after next.',
   },
   'gyro ball': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
     pow: '18',
+    star: '★',
     acc: '100%',
     eff: 'Power rises the slower the user is compared to the target.',
   },
   headbutt: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '39',
+    star: '★★★',
     acc: '100%',
     eff: 'Has a 30% chance to make the target flinch.',
   },
   'heat crash': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
     pow: '43',
+    star: '★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   hex: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '31',
+    star: '★★★',
     acc: '100%',
     eff: 'Has double power if the target has a major status ailment.',
   },
   'high jump kick': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
     pow: '65',
+    star: '★★★★★',
     acc: '90%',
     eff: 'Damages the user if it misses.',
   },
   'hydro pump': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
     pow: '51',
+    star: '★★★★★',
     acc: '80%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'hyper fang': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '43',
+    star: '★★★★',
     acc: '90%',
     eff: 'Has a 10% chance to make the target flinch.',
   },
   'hyper voice': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
     pow: '44',
+    star: '★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   hypnosis: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
     pow: '—',
+    star: '',
     acc: '60%',
     eff: 'Puts each target to sleep.',
   },
   'ice ball': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
     pow: '18',
+    star: '★',
     acc: '90%',
     eff: 'Doubles in power with each consecutive successful use.',
   },
   'ice beam': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
     pow: '45',
+    star: '★★★★',
     acc: '100%',
     eff: 'Has a 10% chance to freeze each target.',
   },
   'icicle crash': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
     pow: '45',
+    star: '★★★★',
     acc: '90%',
     eff: 'Has a 30% chance to make the target flinch.',
   },
   'icy wind': {
+    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/row.png',
     pow: '34',
+    star: '★★★',
     acc: '95%',
     eff: "Has a 100% chance to lower each target's range by one tile.",
   },
   incinerate: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
     pow: '28',
+    star: '★★',
     acc: '100%',
     eff: "Permanently destroys each target's item if it is consumable.",
   },
   'iron head': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
     pow: '43',
+    star: '★★★★',
     acc: '100%',
     eff: 'Has a 30% chance to make the target flinch.',
   },
   'iron tail': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/row-knockback.png',
     pow: '45',
+    star: '★★★★',
     acc: '75%',
     eff: "Has a 30% chance to lower each target's Defense.",
   },
   judgment: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
     pow: '55',
+    star: '★★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'karate chop': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '31',
+    star: '★★★',
     acc: '100%',
     eff: 'Has an increased chance for a critical hit.',
   },
   'leaf blade': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '45',
+    star: '★★★★',
     acc: '100%',
     eff: 'Has an increased chance for a critical hit.',
   },
   'leaf storm': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
     pow: '52',
+    star: '★★★★★',
     acc: '90%',
     eff: "Lowers the user's Attack.",
   },
   lick: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '14',
+    star: '★',
     acc: '100%',
     eff: 'Has a 30% chance to paralyze the target.',
   },
   'low kick': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '31',
+    star: '★★★',
     acc: '90%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'mega drain': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '26',
+    star: '★★',
     acc: '100%',
     eff: 'Heals the user by half the damage dealt.',
   },
   'metal claw': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '31',
+    star: '★★★',
     acc: '95%',
     eff: "Has a 10% chance to raise the user's Attack.",
   },
   'meteor mash': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
     pow: '48',
+    star: '★★★★',
     acc: '85%',
     eff: "Has a 20% chance to raise the user's Attack.",
   },
   'mud bomb': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
     pow: '39',
+    star: '★★★',
     acc: '85%',
     eff: "Has a 30% chance to lower the target's accuracy.",
   },
   'mud-slap': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
     pow: '17',
+    star: '★',
     acc: '100%',
     eff: "Has a 100% chance to lower each target's accuracy.",
   },
   'night daze': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
     pow: '42',
+    star: '★★★★',
     acc: '95%',
     eff: "Has a 40% chance to lower each target's accuracy.",
   },
   'night slash': {
+    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/row.png',
     pow: '38',
+    star: '★★★',
     acc: '100%',
     eff: 'Has an increased chance for a critical hit.',
   },
   outrage: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
     pow: '41',
+    star: '★★★★',
     acc: '100%',
     eff: 'Hits 2 to 3 times in one turn.  User has 0 range on its next turn.',
   },
   'petal dance': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
     pow: '41',
+    star: '★★★★',
     acc: '100%',
     eff: 'Hits 2 to 3 times in one turn.  User has 0 range on its next turn.',
   },
   'poison fang': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '31',
+    star: '★★★',
     acc: '100%',
     eff: 'Has a 30% chance to badly poison the target.',
   },
   'poison jab': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '43',
+    star: '★★★★',
     acc: '100%',
     eff: 'Has a 30% chance to poison the target.',
   },
   'poison sting': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
     pow: '12',
+    star: '★',
     acc: '100%',
     eff: 'Has a 30% chance to poison each target.',
   },
   'poison tail': {
+    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/row.png',
     pow: '29',
+    star: '★★',
     acc: '100%',
     eff: 'Has a 10% chance to poison each target and an increased chance for a critical hit.',
   },
   pound: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '26',
+    star: '★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'powder snow': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
     pow: '24',
+    star: '★★',
     acc: '100%',
     eff: 'Has a 10% chance to freeze each target.',
   },
   psybeam: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
     pow: '35',
+    star: '★★★',
     acc: '100%',
     eff: 'Has a 10% chance to confuse each target.',
   },
   psychic: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-2-ahead.png',
     pow: '44',
+    star: '★★★★',
     acc: '100%',
     eff: "Has a 10% chance to lower each target's Defense.",
   },
   'psycho cut': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
     pow: '38',
+    star: '★★★',
     acc: '100%',
     eff: 'Has an increased chance for a critical hit.',
   },
   psyshock: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
     pow: '43',
+    star: '★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   psystrike: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/t-shape.png',
     pow: '45',
+    star: '★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'quick attack': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '31',
+    star: '★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'razor leaf': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
     pow: '31',
+    star: '★★★',
     acc: '95%',
     eff: 'Has an increased chance for a critical hit.',
   },
   'roar of time': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/2-rows.png',
     pow: '58',
+    star: '★★★★★',
     acc: '90%',
     eff: 'Cannot be used the turn after hitting.',
   },
   'rock blast': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
     pow: '10',
+    star: '★',
     acc: '90%',
     eff: 'Hits 2 to 5 times in one turn.',
   },
   'rock slide': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
     pow: '41',
+    star: '★★★★',
     acc: '90%',
     eff: 'Has a 30% chance to make each target flinch.',
   },
   'rock tomb': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
     pow: '31',
+    star: '★★★',
     acc: '80%',
     eff: "Has a 100% chance to lower the target's range by one tile.",
   },
   'rock wrecker': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
     pow: '58',
+    star: '★★★★★',
     acc: '90%',
     eff: 'Cannot be used the turn after hitting.',
   },
   'sacred sword': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '45',
+    star: '★★★★',
     acc: '100%',
     eff: "Ignores the target's stat modifiers.",
   },
   'shadow ball': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
     pow: '43',
+    star: '★★★★',
     acc: '100%',
     eff: "Has a 20% chance to lower the target's Defense.",
   },
   'shadow sneak': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '26',
+    star: '★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'sky drop': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '36',
+    star: '★★★',
     acc: '100%',
     eff: 'Lifts the target into the sky and hits at the beginning of the next turn.',
   },
   slash: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '41',
+    star: '★★★★',
     acc: '100%',
     eff: 'Has an increased chance for a critical hit.',
   },
   'sludge bomb': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
     pow: '44',
+    star: '★★★★',
     acc: '100%',
     eff: 'Has a 30% chance to poison each target.',
   },
   spark: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '39',
+    star: '★★★',
     acc: '100%',
     eff: 'Has a 30% chance to paralyze the target.',
   },
   splash: {
+    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/user.png',
     pow: '—',
+    star: '',
     acc: '—',
     eff: 'Does nothing.',
   },
   'stone edge': {
+    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/plus.png',
     pow: '45',
+    star: '★★★★',
     acc: '80%',
     eff: 'Has an increased chance for a critical hit.',
   },
   superpower: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
     pow: '55',
+    star: '★★★★★',
     acc: '100%',
     eff: "Lowers the user's Attack and Defense.",
   },
   tackle: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '31',
+    star: '★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'tail slap': {
+    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/row.png',
     pow: '23',
+    star: '★★',
     acc: '85%',
     eff: 'Hits 2 to 5 times in one turn.',
   },
   teleport: {
+    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/user.png',
     pow: '—',
+    star: '',
     acc: '—',
     eff: 'Teleports randomly.',
   },
   thunder: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
     pow: '51',
+    star: '★★★★★',
     acc: '70%',
     eff: 'Has a 30% chance to paralyze the target.',
   },
   thunderbolt: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
     pow: '45',
+    star: '★★★★',
     acc: '100%',
     eff: 'Has a 10% chance to paralyze each target.',
   },
   'thunder shock': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
     pow: '24',
+    star: '★★',
     acc: '100%',
     eff: 'Has a 10% chance to paralyze each target.',
   },
   twineedle: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
     pow: '26',
+    star: '★★',
     acc: '100%',
     eff: 'Hits twice in one turn.  Has a 20% chance to poison each target with each hit.',
   },
   venoshock: {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
     pow: '35',
+    star: '★★★',
     acc: '100%',
     eff: 'Has double power against poisoned Pokémon.',
   },
   'vine whip': {
+    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/row.png',
     pow: '24',
+    star: '★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'volt switch': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-switch-back.png',
     pow: '41',
+    star: '★★★★',
     acc: '100%',
     eff: 'User moves back one tile, switching places with any Pokémon already there.',
   },
   'volt tackle': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/row-2-ahead-advance-1.png',
     pow: '58',
+    star: '★★★★★',
     acc: '100%',
     eff: "Lowers the user's range and Defense until its next turn.  Has a 10% chance to paralyze each target.",
   },
   'wake-up slap': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '36',
+    star: '★★★',
     acc: '100%',
     eff: 'Has double power and wakes the target up if it is asleep.',
   },
   'water gun': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
     pow: '24',
+    star: '★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'water pulse': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
     pow: '36',
+    star: '★★★',
     acc: '100%',
     eff: 'Has a 20% chance to confuse each target.',
   },
   'wing attack': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
     pow: '31',
+    star: '★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'x-scissor': {
+    range:
+      'https://veekun.com//dex/media/chrome/conquest-move-ranges/x-shape.png',
     pow: '41',
+    star: '★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },

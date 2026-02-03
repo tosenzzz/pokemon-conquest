@@ -27,7 +27,10 @@ const addBox = (title, detail, tag = 'span') => {
   let dTitle = $(`<span>${title}</span>`);
   let dDetail = $(`<la></la>`);
   dDetail.html(detail);
-  dTitle.click(() => dDetail.show());
+  dTitle.click(function (e) {
+    e.stopPropagation();
+    dDetail.show();
+  });
   sdiv.append(dTitle, dDetail);
   return sdiv;
 };
@@ -44,6 +47,7 @@ $(function () {
   });
 
   const pokeImgs = {};
+  const pokeData = {};
   // Link pokemon to veekun.com
   $('#myTable>tbody>tr').each(function () {
     const tds = $(this).children();
@@ -53,17 +57,24 @@ $(function () {
     lnk.attr('target', '_blank');
     const id = String(+$(tds[0]).text()).padStart(3, '0');
     pokeImgs[name] = `https://www.serebii.net/conquest/pokemon/${id}.png`;
+    pokeData[name] = {
+      hp: +$(tds[6]).text(),
+      atk: +$(tds[7]).text(),
+      def: +$(tds[8]).text(),
+      spd: +$(tds[9]).text(),
+      total: +$(tds[10]).text(),
+    };
     // Set row-id by Poke name
     $(this).attr('id', 'poke-' + name);
 
     // Update Pokemon's move
     const tr = $(tds[4]).find('tr');
     tr.append(
-      `<td align="center" width="33%"><img src="${moveRanges[name]}" border="0"></td>`,
+      `<td align="center" width="33%"><img src="${pokeMoves[name].range}" border="0"></td>`,
     );
     var moveTd = tr.find('td:eq(1)');
     var moveNm = moveTd.text();
-    var move = pokeMoves[moveNm.trim().toLowerCase()];
+    var move = allMoves[moveNm.trim().toLowerCase()];
     moveTd.empty();
     if (!move) alert('No pokemon move: ' + moveNm);
     else {
@@ -132,12 +143,23 @@ $(function () {
         heroRankUp[hero].map((v, i) => `<div>${i + 1}. ${v}</div>`).join('') +
         '<table class="tbl">' +
         HeroLinks[hero]
-          .map(
-            (v) =>
-              `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
-                  <td><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"</td>
-                  <td><a href="#poke-${v.name}">${v.name}</a></td></tr>`,
-          )
+          .map((v) => {
+            var move = pokeMoves[v.name]?.name;
+            if (!move) {
+              ll('No move: ' + move);
+              return;
+            }
+            move = allMoves[move];
+            return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
+                ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
+                <td><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
+                <td><a href="#poke-${v.name}">${v.name}</a></td>
+                <td>${pokeData[v.name].total}</td>
+                <td style="text-align: center;"><div>${move.pow}</div><div>${move.star}</div></td>
+                <td>${move.acc}</td>
+                <td><img style="width: 30px;" src="${move.range}"></td>
+              </tr>`;
+          })
           .join('') +
         '</table>';
       handp.append(
@@ -292,8 +314,12 @@ $(function () {
   }
 
   // Hide msg-box
-  $('.skill la').on('click', function () {
-    $(this).hide();
+  $('body').on('click', function () {
+    $('la').hide();
+  });
+  $('.skill la').on('click', function (e) {
+    e.stopPropagation();
+    $('la').hide();
   });
 });
 

@@ -1,3 +1,49 @@
+/*
+
+// Hero-Pokemons link
+heroes = {};
+getHero = (nm) => {
+  $.get(`https://veekun.com/dex/conquest/warriors/${nm}`, function(data) {
+    dd = [];
+    $(data).find('.dex-pokemon-moves tbody:eq(1) tr').each(function () {
+      tds = $(this).children();
+      i = 0;
+      link = [];
+      // link = $(this).find('.max-link').get().map((v) => $(v).text())
+      for(i = 0; i < tds.length; i++) {
+        if (!$(tds[i]).hasClass('max-link')) {
+          break;
+        }
+        link.push(+$(tds[i]).text().replace('%', ''));
+      }
+      id = +$(tds[i+0]).find('span').attr('class').match(/sprite-icon-(\d+)/)[1];
+      name = $(tds[i+1]).text().trim();
+      dd.push({id, name, link});
+    });
+    // dd.sort((a,b) => {
+    //   for(i = a.link.length - 1; i >= 0; i--) {
+    //     if (a.link[i] != b.link[i]) return b.link[i] - a.link[i];
+    //   }
+    //   return a.id - b.id;
+    // });
+    // JSON.stringify(dd);
+    heroes[nm] = dd;
+    console.log('Done ' + nm);
+  });
+}
+plink1.map((line) => {
+  // 1. Tách phần trong ngoặc (nếu có)
+  let match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
+  const mainPart = match[1]; // Shingen - Rhyperior//Groudon
+  const extraPart = match[2] || ''; // (not Rhyhorn/Rhydon)
+  const [hero, pokes] = mainPart.split('-').map((s) => s.trim());
+  return hero;
+}).forEach(v => {
+  getHero(v);
+});
+JSON.stringify(heroes);
+
+*/
 var HeroLinks = {
   Oichi: [
     { id: 133, name: 'Eevee', link: [90, 90] },
