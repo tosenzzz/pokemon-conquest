@@ -107,10 +107,12 @@ table {
   left: 0;
   top: 12px;
 }
-la img { width: 20px; }
-la tr:nth-child(2n) { background: #f0f0f0; }
-la tr { vertical-align: middle;}
-la tr a { color: black !important; }
+.tbl img { width: 20px; }
+.tbl tr:nth-child(2n) { background: #f0f0f0; }
+.tbl tr { vertical-align: middle;}
+.tbl td, .tbl a { color: black !important; }
+.tbl tr.perfect-link:nth-child(2n) td.max-link { background: #afcfaf; }
+.tbl tr.perfect-link:nth-child(2n+1) td.max-link { background: #c0d8c0; }
 #myTable td:nth-child(n+12):nth-child(-n+15) { text-align: left; }
 .cen ul { padding-inline-start: 15px; }
 .pktype { margin-top: 10px; }

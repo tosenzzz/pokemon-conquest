@@ -126,35 +126,25 @@ $(function () {
       `<a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero}</a>`,
     );
 
-    // Hero rank-up
+    // Hero rank-up and pokemons max-link
     if (heroRankUp[hero]) {
+      var detail =
+        heroRankUp[hero].map((v, i) => `<div>${i + 1}. ${v}</div>`).join('') +
+        '<table class="tbl">' +
+        HeroLinks[hero]
+          .map(
+            (v) =>
+              `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
+                  <td><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"</td>
+                  <td><a href="#poke-${v.name}">${v.name}</a></td></tr>`,
+          )
+          .join('') +
+        '</table>';
       handp.append(
-        addBox(
-          `&nbsp;${'+'.repeat(heroRankUp[hero].length)}&nbsp;`,
-          heroRankUp[hero]
-            .map((v, i) => `<div>${i + 1}. ${v}</div>`)
-            .join('\n'),
-        ),
+        addBox(`&nbsp;${'+'.repeat(heroRankUp[hero].length)}&nbsp;`, detail),
       );
     } else {
       handp.append(`&nbsp;+&nbsp;`);
-    }
-
-    // Hero pokemons link
-    if (HeroLinks[hero]) {
-      handp.append(
-        addBox(
-          `***&nbsp;`,
-          HeroLinks[hero]
-            .map(
-              (v) =>
-                `<tr>${v.link.map((u) => `<td>${u}</td>`).join('')}
-                  <td><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"</td>
-                  <td><a href="#poke-${v.name}">${v.name}</a></td></tr>`,
-            )
-            .join('\n'),
-        ),
-      );
     }
 
     // Pokemons name

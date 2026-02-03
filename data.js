@@ -174,14 +174,15 @@ getHero = (nm) => {
       name = $(tds[i+1]).text().trim();
       dd.push({id, name, link});
     });
-    dd.sort((a,b) => {
-      for(i = a.link.length - 1; i >= 0; i--) {
-        if (a.link[i] != b.link[i]) return b.link[i] - a.link[i];
-      }
-      return a.id - b.id;
-    });
+    // dd.sort((a,b) => {
+    //   for(i = a.link.length - 1; i >= 0; i--) {
+    //     if (a.link[i] != b.link[i]) return b.link[i] - a.link[i];
+    //   }
+    //   return a.id - b.id;
+    // });
     // JSON.stringify(dd);
     heroes[nm] = dd;
+    console.log('Done ' + nm);
   });
 }
 plink1.map((line) => {
