@@ -1,57 +1,64 @@
-/*
+function initData() {
+  $('#myTable tr').each(function () {
+    const $cells = $(this).children();
+    // Lấy cột 5-9
+    const $move = $cells.slice(4, 9);
+    // Append xuống cuối
+    $(this).append($move);
+  });
 
-$('#myTable tr').each(function () {
-  const $cells = $(this).children();
-  // Lấy cột 5-9
-  const $move = $cells.slice(4, 9);
-  // Append xuống cuối
-  $(this).append($move);
-});
+  $('#myTable table tr').each(function () {
+    const $cells = $(this).children();
+    // Lấy cột Power
+    const $move = $cells.slice(2, 3);
+    // Append lên đầu
+    $(this).prepend($move);
+  });
 
-$('#myTable table tr').each(function () {
-  const $cells = $(this).children();
-  // Lấy cột Power
-  const $move = $cells.slice(2, 3);
-  // Append lên đầu
-  $(this).prepend($move);
-});
+  // Move link outside of table
+  $('#myTable>tbody>tr').each(function () {
+    const tds = $(this).children();
+    const lnk = $(tds[1]).find('a');
+    $(tds[1]).append(lnk);
+    $(tds[1]).find('table').remove();
+  });
 
-// Move link outside of table
-$('#myTable>tbody>tr').each(function () {
-  const tds = $(this).children();
-  const lnk = $(tds[1]).find('a');
-  $(tds[1]).append(lnk);
-  $(tds[1]).find('table').remove();
-});
+  // Get pokemons data (HP, Atk, Def, Spd): https://veekun.com/dex/conquest/pokemon
+  pks = {};
+  $('.dex-pokemon-moves>tbody>tr').each(function () {
+    const tds = $(this).children();
+    pks[$(tds[1]).text()] = [
+      $(tds[5]).text(),
+      $(tds[6]).text(),
+      $(tds[7]).text(),
+      $(tds[8]).text(),
+      $(tds[9]).text(),
+    ];
+  });
+  // Set pokemon data
+  $('#myTable>tbody>tr').each(function () {
+    const tds = $(this).children();
+    nm = $(tds[2]).text().trim();
+    pk = pks[nm] || ['0', '0', '0', '0', '0'];
 
-// Get pokemons data (HP, Atk, Def, Spd): https://veekun.com/dex/conquest/pokemon
-pks = {};
-$('.dex-pokemon-moves>tbody>tr').each(function () {
-  const tds = $(this).children();
-  pks[$(tds[1]).text()] = [$(tds[5]).text(), $(tds[6]).text(), $(tds[7]).text(), $(tds[8]).text(), $(tds[9]).text()]
-});
-// Set pokemon data
-$('#myTable>tbody>tr').each(function () {
-  const tds = $(this).children();
-  nm = $(tds[2]).text().trim();
-  pk = pks[nm] || ['0', '0', '0', '0', '0'];
-  
-  $(tds[9]).text(pk[0]);
-  $(tds[10]).text(pk[1]);
-  $(tds[11]).text(pk[2]);
-  $(tds[12]).text(pk[3]);
-  $(tds[13]).text(pk[4]);
-});
+    $(tds[9]).text(pk[0]);
+    $(tds[10]).text(pk[1]);
+    $(tds[11]).text(pk[2]);
+    $(tds[12]).text(pk[3]);
+    $(tds[13]).text(pk[4]);
+  });
 
-// Get Hero list 1
-a = [];
-$('#xx tbody tr').find('td:eq(1)').each((i, v) => {
-  a.push($(v).text());
-})
-// Hero list 2
-var data = [...plink1, ...plink2];
-var b = [];
-data.forEach((line) => {
+  // Get Hero list 1: https://veekun.com/dex/conquest/warriors
+  a = [];
+  $('.dex-pokemon-moves tbody tr')
+    .find('td:eq(1)')
+    .each((i, v) => {
+      a.push($(v).text());
+    });
+  // Hero list 2
+  var data = [...plink1, ...plink2];
+  var b = [];
+  data.forEach((line) => {
     // 1. Tách phần trong ngoặc (nếu có)
     let match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
     const mainPart = match[1]; // Shingen - Rhyperior//Groudon
@@ -59,12 +66,21 @@ data.forEach((line) => {
     const [hero, pokes] = mainPart.split('-').map((s) => s.trim());
     if (!pokes) return;
     b.push(hero);
-});
-// Filter
-console.log(b.filter(v => !a.includes(v)).sort().join(", "))
-console.log(a.filter(v => !b.includes(v)).sort().join(", "))
-
-*/
+  });
+  // Filter
+  console.log(
+    b
+      .filter((v) => !a.includes(v))
+      .sort()
+      .join(', '),
+  );
+  console.log(
+    a
+      .filter((v) => !b.includes(v))
+      .sort()
+      .join(', '),
+  );
+}
 
 // img.match(/([^/]+).gif$/)[1]
 var pokeTypes = [
@@ -232,7 +248,7 @@ Zweilous		JzqmWNCZZR`
   .sort();
 
 // Perfect Link Data
-const plink1 = `
+var plink1 = `
 Player ♂ - Eevee//Vaporeon//Jolteon//Flareon//Espeon
 Player ♂ - //Umbreon//Leafeon//Glaceon///Arceus
 Oichi - Jigglypuff//Wigglytuff (not Igglybuff)
@@ -249,6 +265,7 @@ Kanbei - Lampent//Chandelure (not Litwick)
 Kanetsugu - Kadabra//Alakazam (not Abra)
 Keiji - Bastiodon//Terrakion (not Shieldon)
 Kenshin - Gallade//Mewtwo (not Ralts/Kirlia/Gardevoir)
+Kiyomasa - Fraxure//Haxorus
 Kotarō - Zorua//Zoroark
 Kunoichi - Sneasel//Weavile
 Magoichi - Grovyle//Sceptile (not Treecko)
@@ -274,7 +291,7 @@ Yukimura - Charmeleon//Charizard (not Charmander)`
   .split('\n')
   .map((v) => v.trim());
 
-const plink2 = `
+var plink2 = `
 Akizane - Pichu/Pikachu/Raichu
 Asahi - Drilbur/Excadrill
 Bokuden - Shieldon/Bastiodon
@@ -284,7 +301,7 @@ Chikamasa - Wooper/Quagsire
 Chikayasu - Oshawott/Dewott/Samurott
 Chōan - Bidoof/Bibarel
 Dōsan - Ekans/Arbok
-Dōsetsu - Shinx/Luxio
+Dōsetsu - Shinx/Luxio/Luxray
 Ekei - Carnivine
 Fujitaka - Lapras
 Gen'an - Onix/Steelix
@@ -297,7 +314,7 @@ Hatsu - Igglybuff/Jigglypuff/Wigglytuff
 Hideaki - Venipede/Whirlipede/Scolipede
 Hidetada - Pawniard/Bisharp
 Hideyori - Chimchar/Monferno/Infernape
-Hiroko - Snorunt/Glalie
+Hiroko - Snorunt/Froslass
 Hisaaki - Scraggy/Scrafty
 Hisahide - Deino/Zweilous/Hydreigon
 Ise - Gothita/Gothorita/Gothitelle
@@ -320,7 +337,7 @@ Madoka - Roggenrola/Boldore/Gigalith
 Masakage - Charmander/Charmeleon/Charizard
 Masanobu - Litwick
 Masatoshi - Machop/Machoke/Machamp
-Masatoyo - Rhyhorn/Rhydon
+Masatoyo - Rhyhorn/Rhydon/Rhyperior
 Masatsuna - Beedrill
 Masayuki - Larvesta/Volcarona
 Morichika - Oshawott/Dewott/Samurott
@@ -345,7 +362,7 @@ Rikyū - Pansage/Simisage
 Sadamitsu - Munna/Musharna
 Sadatoshi - Cottonee/Whimsicott
 Saizō - Gastly/Haunter/Gengar
-Sandayū - Zubat/Golbat
+Sandayū - Zubat/Golbat/Crobat
 Saneyori - Chingling/Chimecho
 Seikurō - Skorupi/Drapion
 Sekisō - Joltik/Galvantula
@@ -355,7 +372,7 @@ Sessai - Larvesta/Volcarona
 Shigemoto - Cubchoo/Beartic
 Shigezane - Scyther/Scizor
 Shimoyama - Scraggy/Scrafty
-Shizuka - Rhyhorn/Rhydon
+Shizuka - Rhyhorn/Rhydon/Rhyperior
 Shōun - Mareep/Flaaffy/Ampharos
 Sōrin - Pichu/Pikachu/Raichu
 Sōun - Larvitar/Pupitar/Tyranitar
@@ -365,17 +382,17 @@ Tadasumi - Blitzle/Zebstrika
 Tadatsugu - Aron/Lairon/Aggron
 Tadatsune - Machop/Machoke/Machamp
 Takahiro - Abra/Kadabra/Alakazam
-Takahisa - Timburr/Gurdurr
+Takahisa - Timburr/Gurdurr/Conkeldurr
 Takakage - Treecko/Grovyle/Sceptile
 Takamoto - Snivy/Servine/Serperior
 Takanobu - Munchlax/Snorlax
-Takatane - Shinx/Luxio
+Takatane - Shinx/Luxio/Luxray
 Takatora - Litwick/Lampent/Chandelure
 Takayori - Panpour/Simipour
 Takeyoshi - Magikarp/Gyarados
 Tatsuko - Tepig/Pignite/Emboar
 Terumoto - Petilil/Lilligant
-Tokitaka - Timburr/Gurdurr
+Tokitaka - Timburr/Gurdurr/Conkeldurr
 Toku - Aron/Lairon/Aggron
 Tomonobu - Ralts/Kirlia/Gardevoir
 Tsunamoto - Snorunt/Glalie
@@ -393,7 +410,7 @@ Yasunaga - Venipede/Whirlipede/Scolipede
 Yasutomo - Joltik/Galvantula
 Yatarō - Treecko/Grovyle/Sceptile
 Yazaemon - Ekans/Arbok
-Yoshi - Zubat/Golbat
+Yoshi - Zubat/Golbat/Crobat
 Yoshiaki - Carnivine
 Yoshikiyo - Cubchoo/Beartic
 Yoshitatsu - Gastly/Haunter/Gengar
@@ -405,7 +422,7 @@ Yukitaka - Sandile/Krokorok/Krookodile`
   .sort();
 
 /*
-// Hero images
+// Hero images: https://veekun.com/dex/conquest/warriors
 a = {};
 $('#xx tbody tr').each((i, v) => {
   a[v.find('td:eq(1)').text()] = 'https://veekun.com' + v.find('img').attr('src')

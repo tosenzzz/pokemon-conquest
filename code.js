@@ -99,6 +99,7 @@ $(function () {
       if (!pokeSkills[v]) alert(`No skill ${v}`);
       $(ul).append(addBox(v, pokeSkills[v], 'li'));
     });
+
     // Update locations
     const locas = $(tds[13])
       .html()
@@ -111,6 +112,30 @@ $(function () {
     locas.forEach((v, i) => {
       ul.append(`<li>${v}</li>`);
     });
+
+    // Update Poke links (to heroes)
+    img1 = $(tds[1]).find('img').attr('src');
+    $(tds[1]).empty();
+    if (!PokeLinks[name]) {
+      alert('No PokeLinks ', name);
+      return;
+    }
+    var detail =
+      '<table class="tbl">' +
+      PokeLinks[name]
+        .sort((a, b) => a.hero.localeCompare(b.hero))
+        .map((v) => {
+          const color = !!lget(`${v.hero}-own`) ? 'has-hero' : '';
+          return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
+                <td class="${color}"><a href="#hero-${v.hero}">${v.hero}</a></td>
+                ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
+              </tr>`;
+        })
+        .join('') +
+      '</table>';
+    $(tds[1]).append(
+      addBox(`<img src="${img1}" border="0" class="imgpk">`, detail),
+    );
   });
 
   // HERO LIST
@@ -138,19 +163,28 @@ $(function () {
     );
 
     // Hero rank-up and pokemons max-link
+    var rankUpInfor = '';
     if (heroRankUp[hero]) {
-      var detail =
-        heroRankUp[hero].map((v, i) => `<div>${i + 1}. ${v}</div>`).join('') +
-        '<table class="tbl">' +
-        HeroLinks[hero]
-          .map((v) => {
-            var move = pokeMoves[v.name]?.name;
-            if (!move) {
-              ll('No move: ' + move);
-              return;
-            }
-            move = allMoves[move];
-            return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
+      rankUpInfor = heroRankUp[hero]
+        .map((v, i) => `<div>${i + 1}. ${v}</div>`)
+        .join('');
+    }
+    if (!HeroLinks[hero]) {
+      alert('No HeroLinks', hero);
+      return;
+    }
+    var detail =
+      rankUpInfor +
+      '<table class="tbl">' +
+      HeroLinks[hero]
+        .map((v) => {
+          var move = pokeMoves[v.name]?.name;
+          if (!move) {
+            ll('No move: ' + move);
+            return;
+          }
+          move = allMoves[move];
+          return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
                 ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
                 <td><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
                 <td><a href="#poke-${v.name}">${v.name}</a></td>
@@ -159,15 +193,15 @@ $(function () {
                 <td>${move.acc}</td>
                 <td><img style="width: 30px;" src="${move.range}"></td>
               </tr>`;
-          })
-          .join('') +
-        '</table>';
-      handp.append(
-        addBox(`&nbsp;${'+'.repeat(heroRankUp[hero].length)}&nbsp;`, detail),
-      );
-    } else {
-      handp.append(`&nbsp;+&nbsp;`);
-    }
+        })
+        .join('') +
+      '</table>';
+    handp.append(
+      addBox(
+        `&nbsp;${'+'.repeat(heroRankUp[hero]?.length || 1)}&nbsp;`,
+        detail,
+      ),
+    );
 
     // Pokemons name
     let pokel = [];
@@ -279,9 +313,9 @@ $(function () {
     if (map[poke]) {
       map[poke].forEach((v) => {
         const div = $(`<div style="margin-top:2px"></div>`);
-        const color = lget(`${v.hero}-own`) ? 'yellow' : 'aqua';
+        const color = lget(`${v.hero}-own`) ? 'aqua' : 'darkgray';
         $(div).append(
-          `<a href="#hero-${v.hero}" style="color:${color}">${v.prefix + v.hero}</a>`,
+          `<a href="#hero-${v.hero}" style="color: ${color}">${v.prefix + v.hero}</a>`,
         );
         $(td).append(div);
       });

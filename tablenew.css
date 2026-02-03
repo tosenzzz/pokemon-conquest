@@ -109,6 +109,7 @@ la {
   overflow: auto;
   max-height: 300px;
 }
+
 .tbl { width: 100%; }
 .tbl img { width: 20px; }
 .tbl tr:nth-child(2n) { background: #f0f0f0; }
@@ -127,3 +128,4 @@ la {
   max-width: 320px;
   margin-bottom: 10px;
 }
+.has-hero { background: aqua; }
