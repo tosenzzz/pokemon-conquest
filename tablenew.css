@@ -105,15 +105,15 @@ table {
   white-space: normal; z-index: 1000;
   width: 200px;
   left: 0;
-  top: 14px;
+  top: 12px;
 }
-#myTable td:nth-child(n+12):nth-child(-n+15) {
-  text-align: left;
-}
+la img { width: 20px; }
+la tr:nth-child(2n) { background: #f0f0f0; }
+la tr { vertical-align: middle;}
+la tr a { color: black !important; }
+#myTable td:nth-child(n+12):nth-child(-n+15) { text-align: left; }
 .cen ul { padding-inline-start: 15px; }
-.pktype {
-  margin-top: 10px;
-}
+.pktype { margin-top: 10px; }
 .pktype, .movetype {
   display: flex;
   align-items: center;

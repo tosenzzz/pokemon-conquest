@@ -25,12 +25,10 @@ const API = (type, url, data) => {
 const addBox = (title, detail, tag = 'span') => {
   let sdiv = $(`<${tag} class="skill"></${tag}>`);
   let dTitle = $(`<span>${title}</span>`);
-  let dDetail = $(`<la>${detail}</la>`);
+  let dDetail = $(`<la></la>`);
+  dDetail.html(detail);
+  dTitle.click(() => dDetail.show());
   sdiv.append(dTitle, dDetail);
-  dTitle.click(() => {
-    dDetail.show();
-    // setTimeout(() => dDetail.hide(), 5000);
-  });
   return sdiv;
 };
 
@@ -140,6 +138,23 @@ $(function () {
       );
     } else {
       handp.append(`&nbsp;+&nbsp;`);
+    }
+
+    // Hero pokemons link
+    if (HeroLinks[hero]) {
+      handp.append(
+        addBox(
+          `***&nbsp;`,
+          HeroLinks[hero]
+            .map(
+              (v) =>
+                `<tr>${v.link.map((u) => `<td>${u}</td>`).join('')}
+                  <td><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"</td>
+                  <td><a href="#poke-${v.name}">${v.name}</a></td></tr>`,
+            )
+            .join('\n'),
+        ),
+      );
     }
 
     // Pokemons name

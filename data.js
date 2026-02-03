@@ -112,6 +112,7 @@ $('.yy tr').each(function () {
   if (!dd[name]) dd[name] = [skill];
   else dd[name].push(skill);
 });
+JSON.stringify(dd);
 
 // Hero rank-up: https://bulbapedia.bulbagarden.net/wiki/Warlord
 dd = {};
@@ -128,6 +129,7 @@ $('.xx tr').each(function () {
     else dd[name].push(rank);
   }
 });
+JSON.stringify(dd);
 
 // Pokemon Skills/Abilities: https://bulbapedia.bulbagarden.net/wiki/List_of_Abilities_in_Pok%C3%A9mon_Conquest
 dd = {};
@@ -137,7 +139,7 @@ $('.xx tr').each(function () {
   val = $(tds[2]).text().trim();
   dd[key] = val;
 });
-dd;
+JSON.stringify(dd);
 
 // Pokemon Moves: https://veekun.com/dex/conquest/moves
 dd = {};
@@ -149,7 +151,50 @@ $('#xx tr').each(function () {
     acc: $(tds[5]).text().trim(),
     eff: $(tds[6]).text().trim(),
   };
-});dd;
+});
+JSON.stringify(dd);
+
+// Hero-Pokemons link
+heroes = {};
+getHero = (nm) => {
+  $.get(`https://veekun.com/dex/conquest/warriors/${nm}`, function(data) {
+    dd = [];
+    $(data).find('.dex-pokemon-moves tbody:eq(1) tr').each(function () {
+      tds = $(this).children();
+      i = 0;
+      link = [];
+      // link = $(this).find('.max-link').get().map((v) => $(v).text())
+      for(i = 0; i < tds.length; i++) {
+        if (!$(tds[i]).hasClass('max-link')) {
+          break;
+        }
+        link.push(+$(tds[i]).text().replace('%', ''));
+      }
+      id = +$(tds[i+0]).find('span').attr('class').match(/sprite-icon-(\d+)/)[1];
+      name = $(tds[i+1]).text().trim();
+      dd.push({id, name, link});
+    });
+    dd.sort((a,b) => {
+      for(i = a.link.length - 1; i >= 0; i--) {
+        if (a.link[i] != b.link[i]) return b.link[i] - a.link[i];
+      }
+      return a.id - b.id;
+    });
+    // JSON.stringify(dd);
+    heroes[nm] = dd;
+  });
+}
+plink1.map((line) => {
+  // 1. Tách phần trong ngoặc (nếu có)
+  let match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
+  const mainPart = match[1]; // Shingen - Rhyperior//Groudon
+  const extraPart = match[2] || ''; // (not Rhyhorn/Rhydon)
+  const [hero, pokes] = mainPart.split('-').map((s) => s.trim());
+  return hero;
+}).forEach(v => {
+  getHero(v);
+});
+JSON.stringify(heroes);
 
 */
 
@@ -347,11 +392,11 @@ Motochika - Dewott//Samurott (not Oshawott)
 Motonari - Servine//Serperior (not Snivy)
 Muneshige - Staravia//Staraptor (not Starly)
 Nene - Golbat//Crobat (not Zubat)
-Nō - Misdreavus//Mismagius
 Nobunaga - Hydreigon//Zekrom//Rayquaza (not Deino/Zwielous)
+Nō - Misdreavus//Mismagius
 Okuni - Larvesta//Volcarona
-Shingen - Rhyperior//Groudon (not Rhyhorn/Rhydon)
 Ranmaru - Riolu//Lucario
+Shingen - Rhyperior//Groudon (not Rhyhorn/Rhydon)
 Tadakatsu - Metagross//Dialga (not Beldum/Metang)
 Ujiyasu - Boldore//Gigalith (not Roggenrola)
 Yoshihiro - Gurdurr//Conkeldurr (not Timburr)
