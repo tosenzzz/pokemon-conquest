@@ -35,6 +35,18 @@ const addBox = (title, detail, tag = 'span') => {
   return sdiv;
 };
 
+const cpHeroLink = (a, b) => {
+  d1 = {'Player ♂': "0", 'Player ♀': '1', 'Oichi': '2'};
+  d2 = (v) => v.length > 1 ? "1": "2";
+  s1 = d1[a.hero] || "3";
+  s2 = d1[b.hero] || "3";
+  s1 += d2(a.link);
+  s2 += d2(b.link);
+  s1 += a.hero;
+  s2 += b.hero;
+  return s1.localeCompare(s2);
+}
+
 $(function () {
   // Column sort
   $('#myTable').tableSortable();
@@ -123,7 +135,7 @@ $(function () {
     var detail =
       '<table class="tbl">' +
       PokeLinks[name]
-        .sort((a, b) => a.hero.localeCompare(b.hero))
+        .sort(cpHeroLink)
         .map((v) => {
           const color = !!lget(`${v.hero}-own`) ? 'has-hero' : '';
           return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
