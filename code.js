@@ -25,14 +25,23 @@ const API = (type, url, data) => {
 const addBox = (title, detail, tag = 'span') => {
   let sdiv = $(`<${tag} class="skill"></${tag}>`);
   let dTitle = $(`<span>${title}</span>`);
-  let dDetail = $(`<la></la>`);
-  if (typeof detail == 'function') {
-    dDetail.append(detail());
-  } else {
-    dDetail.html(detail);
-  }
+  let dDetail = $(`<la>${detail}</la>`);
   dTitle.click(function (e) {
     e.stopPropagation();
+    dDetail.show();
+  });
+  sdiv.append(dTitle, dDetail);
+  return sdiv;
+};
+
+const addBoxV2 = (title, fn, ...pr) => {
+  let sdiv = $(`<span class="skill"></span>`);
+  let dTitle = $(`<span>${title}</span>`);
+  let dDetail = $(`<la></la>`);
+  dTitle.click(function (e) {
+    e.stopPropagation();
+    dDetail.empty();
+    fn(dDetail, ...pr);
     dDetail.show();
   });
   sdiv.append(dTitle, dDetail);
@@ -49,6 +58,69 @@ const cpHeroLink = (a, b) => {
   s1 += a.hero;
   s2 += b.hero;
   return s1.localeCompare(s2);
+};
+
+const showPokeDetail = (div, name) => {
+  if (!PokeLinks[name]) {
+    alert('No PokeLinks ', name);
+    return;
+  }
+  var detail =
+    '<table class="tbl">' +
+    PokeLinks[name]
+      .sort(cpHeroLink)
+      .map((v) => {
+        let color = '';
+        if (lget(`${v.hero}-poke-${name}`) == 'own') color = 'hero-has-poke ';
+        if (lget(`${v.hero}-own`)) color += 'has-hero';
+        return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
+                <td class="${color}"><a href="#hero-${v.hero}">${v.hero}</a>
+                  <span class="star" onclick="starClick(this, '${v.hero}','${name}')">★</span></td>
+                ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
+              </tr>`;
+      })
+      .join('') +
+    '</table>';
+  div.append(detail);
+};
+
+const showHeroDetail = (div, hero, pokeData) => {
+  if (!HeroLinks[hero]) {
+    alert('No HeroLinks', hero);
+    return;
+  }
+  var rankUpInfor = '';
+  if (heroRankUp[hero]) {
+    rankUpInfor = heroRankUp[hero]
+      .map((v, i) => `<div>${i + 1}. ${v}</div>`)
+      .join('');
+  }
+  div.empty();
+  var detail =
+    rankUpInfor +
+    '<table class="tbl">' +
+    HeroLinks[hero]
+      .map((v) => {
+        var move = pokeMoves[v.name]?.name;
+        if (!move) {
+          ll('No move: ' + move);
+          return;
+        }
+        move = allMoves[move];
+        return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
+                ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
+                <td><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
+                <td><a href="#poke-${v.name}">${v.name}</a></td>
+                <td>${pokeData[v.name].total}</td>
+                <td style="text-align: center;"><div>${move.pow}</div><div>${move.star}</div></td>
+                <td>${move.acc}</td>
+                <td><img style="width: 30px;" src="${move.range}"></td>
+              </tr>`;
+      })
+      .join('') +
+    '</table>';
+  div.append(detail);
+  div.show();
 };
 
 function starClick(e, hero, poke) {
@@ -142,28 +214,12 @@ $(function () {
     // Update Poke links (to heroes)
     img1 = $(tds[1]).find('img').attr('src');
     $(tds[1]).empty();
-    if (!PokeLinks[name]) {
-      alert('No PokeLinks ', name);
-      return;
-    }
-    var detail =
-      '<table class="tbl">' +
-      PokeLinks[name]
-        .sort(cpHeroLink)
-        .map((v) => {
-          let color = '';
-          if (lget(`${v.hero}-poke-${name}`) == 'own') color = 'hero-has-poke ';
-          if (lget(`${v.hero}-own`)) color += 'has-hero';
-          return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
-                <td class="${color}"><a href="#hero-${v.hero}">${v.hero}</a>
-                  <span class="star" onclick="starClick(this, '${v.hero}','${name}')">★</span></td>
-                ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
-              </tr>`;
-        })
-        .join('') +
-      '</table>';
     $(tds[1]).append(
-      addBox(`<img src="${img1}" border="0" class="imgpk">`, detail),
+      addBoxV2(
+        `<img src="${img1}" border="0" class="imgpk">`,
+        showPokeDetail,
+        name,
+      ),
     );
   });
   ll('Modify table: ', new Date().getTime() - startTime);
@@ -194,43 +250,12 @@ $(function () {
     );
 
     // Hero rank-up and pokemons max-link
-    var rankUpInfor = '';
-    if (heroRankUp[hero]) {
-      rankUpInfor = heroRankUp[hero]
-        .map((v, i) => `<div>${i + 1}. ${v}</div>`)
-        .join('');
-    }
-    if (!HeroLinks[hero]) {
-      alert('No HeroLinks', hero);
-      return;
-    }
-    var detail =
-      rankUpInfor +
-      '<table class="tbl">' +
-      HeroLinks[hero]
-        .map((v) => {
-          var move = pokeMoves[v.name]?.name;
-          if (!move) {
-            ll('No move: ' + move);
-            return;
-          }
-          move = allMoves[move];
-          return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
-                ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
-                <td><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
-                <td><a href="#poke-${v.name}">${v.name}</a></td>
-                <td>${pokeData[v.name].total}</td>
-                <td style="text-align: center;"><div>${move.pow}</div><div>${move.star}</div></td>
-                <td>${move.acc}</td>
-                <td><img style="width: 30px;" src="${move.range}"></td>
-              </tr>`;
-        })
-        .join('') +
-      '</table>';
     handp.append(
-      addBox(
+      addBoxV2(
         `&nbsp;${'+'.repeat(heroRankUp[hero]?.length || 1)}&nbsp;`,
-        detail,
+        showHeroDetail,
+        hero,
+        pokeData,
       ),
     );
 
