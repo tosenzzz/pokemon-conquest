@@ -237,27 +237,29 @@ $(function () {
     // Hero image
     const herod = $(`<div id="hero-${hero}" class="herod"></div>`);
     if (lget(`${hero}-own`)) herod.addClass('hero-own');
-    const add = $(`<img src="${heroImgs[hero]}" style="height:20px;"/>`).click(
-      () => {
-        herod.toggleClass('hero-own');
-        lset(`${hero}-own`, herod.hasClass('hero-own'));
-      },
-    );
-    herod.append(add);
-    const handp = $(`<div></div>`);
-    handp.append(
-      `<a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero}</a>`,
-    );
 
-    // Hero rank-up and pokemons max-link
-    handp.append(
+    // Show Hero detail: rank-up and pokemons max-link
+    herod.append(
       addBoxV2(
-        `&nbsp;${'+'.repeat(heroRankUp[hero]?.length || 1)}&nbsp;`,
+        `<img src="${heroImgs[hero]}" style="height:20px;"/>`,
         showHeroDetail,
         hero,
         pokeData,
       ),
     );
+
+    // Toggle has/not own Hero
+    const handp = $(`<div></div>`);
+    handp.append(
+      `<a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero}</a>`,
+    );
+    const add = $(
+      `<span>&nbsp;${'+'.repeat(heroRankUp[hero]?.length || 1)}&nbsp;</span>`,
+    ).click(() => {
+      herod.toggleClass('hero-own');
+      lset(`${hero}-own`, herod.hasClass('hero-own'));
+    });
+    handp.append(add);
 
     // Pokemons name
     let pokel = [];
