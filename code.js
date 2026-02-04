@@ -26,7 +26,11 @@ const addBox = (title, detail, tag = 'span') => {
   let sdiv = $(`<${tag} class="skill"></${tag}>`);
   let dTitle = $(`<span>${title}</span>`);
   let dDetail = $(`<la></la>`);
-  dDetail.html(detail);
+  if (typeof detail == 'function') {
+    dDetail.append(detail());
+  } else {
+    dDetail.html(detail);
+  }
   dTitle.click(function (e) {
     e.stopPropagation();
     dDetail.show();
@@ -36,16 +40,16 @@ const addBox = (title, detail, tag = 'span') => {
 };
 
 const cpHeroLink = (a, b) => {
-  d1 = {'Player ♂': "0", 'Player ♀': '1', 'Oichi': '2'};
-  d2 = (v) => v.length > 1 ? "1": "2";
-  s1 = d1[a.hero] || "3";
-  s2 = d1[b.hero] || "3";
+  d1 = { 'Player ♂': '0', 'Player ♀': '1', Oichi: '2' };
+  d2 = (v) => (v.length > 1 ? '1' : '2');
+  s1 = d1[a.hero] || '3';
+  s2 = d1[b.hero] || '3';
   s1 += d2(a.link);
   s2 += d2(b.link);
   s1 += a.hero;
   s2 += b.hero;
   return s1.localeCompare(s2);
-}
+};
 
 $(function () {
   // Column sort
@@ -80,7 +84,7 @@ $(function () {
     $(this).attr('id', 'poke-' + name);
 
     // Update Pokemon's move
-    const tr = $(tds[4]).find('tr');
+    var tr = $(tds[4]).find('tr');
     tr.append(
       `<td align="center" width="33%"><img src="${pokeMoves[name].range}" border="0"></td>`,
     );
@@ -132,19 +136,34 @@ $(function () {
       alert('No PokeLinks ', name);
       return;
     }
-    var detail =
-      '<table class="tbl">' +
-      PokeLinks[name]
-        .sort(cpHeroLink)
-        .map((v) => {
-          const color = !!lget(`${v.hero}-own`) ? 'has-hero' : '';
-          return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
-                <td class="${color}"><a href="#hero-${v.hero}">${v.hero}</a></td>
-                ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
-              </tr>`;
-        })
-        .join('') +
-      '</table>';
+    var detail = () => {
+      var tbl = $(`<table class="tbl"></table>`);
+      tbl.append(
+        PokeLinks[name].sort(cpHeroLink).map((v) => {
+          var tr = $(
+            `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}"></tr>`,
+          );
+          var td = $(`<td><a href="#hero-${v.hero}">${v.hero}</a></td>`);
+          if (lget(`${v.hero}-poke-${name}`) == 'own')
+            td.addClass('hero-has-poke');
+          if (lget(`${v.hero}-own`)) td.addClass('has-hero');
+          td.append(
+            $(`<span class="star">★</span>`).click(() => {
+              if (lget(`${v.hero}-poke-${name}`) == 'own') {
+                lset(`${v.hero}-poke-${name}`, '');
+              } else {
+                lset(`${v.hero}-poke-${name}`, 'own');
+              }
+              td.toggleClass('hero-has-poke');
+            }),
+          );
+          tr.append(td);
+          tr.append(v.link.map((u) => `<td class="max-link">${u}</td>`));
+          return tr;
+        }),
+      );
+      return tbl;
+    };
     $(tds[1]).append(
       addBox(`<img src="${img1}" border="0" class="imgpk">`, detail),
     );
@@ -365,7 +384,7 @@ $(function () {
   });
   $('.skill la').on('click', function (e) {
     e.stopPropagation();
-    $('la').hide();
+    // $('la').hide();
   });
 });
 
