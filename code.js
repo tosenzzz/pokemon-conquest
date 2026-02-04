@@ -51,7 +51,17 @@ const cpHeroLink = (a, b) => {
   return s1.localeCompare(s2);
 };
 
+function starClick(e, hero, poke) {
+  if (lget(`${hero}-poke-${poke}`) == 'own') {
+    lset(`${hero}-poke-${poke}`, '');
+  } else {
+    lset(`${hero}-poke-${poke}`, 'own');
+  }
+  $(e).parent().toggleClass('hero-has-poke');
+}
+
 $(function () {
+  let startTime = new Date().getTime();
   // Column sort
   $('#myTable').tableSortable();
 
@@ -136,38 +146,28 @@ $(function () {
       alert('No PokeLinks ', name);
       return;
     }
-    var detail = () => {
-      var tbl = $(`<table class="tbl"></table>`);
-      tbl.append(
-        PokeLinks[name].sort(cpHeroLink).map((v) => {
-          var tr = $(
-            `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}"></tr>`,
-          );
-          var td = $(`<td><a href="#hero-${v.hero}">${v.hero}</a></td>`);
-          if (lget(`${v.hero}-poke-${name}`) == 'own')
-            td.addClass('hero-has-poke');
-          if (lget(`${v.hero}-own`)) td.addClass('has-hero');
-          td.append(
-            $(`<span class="star">★</span>`).click(() => {
-              if (lget(`${v.hero}-poke-${name}`) == 'own') {
-                lset(`${v.hero}-poke-${name}`, '');
-              } else {
-                lset(`${v.hero}-poke-${name}`, 'own');
-              }
-              td.toggleClass('hero-has-poke');
-            }),
-          );
-          tr.append(td);
-          tr.append(v.link.map((u) => `<td class="max-link">${u}</td>`));
-          return tr;
-        }),
-      );
-      return tbl;
-    };
+    var detail =
+      '<table class="tbl">' +
+      PokeLinks[name]
+        .sort(cpHeroLink)
+        .map((v) => {
+          let color = '';
+          if (lget(`${v.hero}-poke-${name}`) == 'own') color = 'hero-has-poke ';
+          if (lget(`${v.hero}-own`)) color += 'has-hero';
+          return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
+                <td class="${color}"><a href="#hero-${v.hero}">${v.hero}</a>
+                  <span class="star" onclick="starClick(this, '${v.hero}','${name}')">★</span></td>
+                ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
+              </tr>`;
+        })
+        .join('') +
+      '</table>';
     $(tds[1]).append(
       addBox(`<img src="${img1}" border="0" class="imgpk">`, detail),
     );
   });
+  ll('Modify table: ', new Date().getTime() - startTime);
+  startTime = new Date().getTime();
 
   // HERO LIST
   const ppp = (line) => {
@@ -280,6 +280,8 @@ $(function () {
   plink1.forEach(ppp);
   $('#plink').append(`<div><h1>WARRIOR/POKEMON</h1></div>`);
   plink2.forEach(ppp);
+  ll('HERO LIST: ', new Date().getTime() - startTime);
+  startTime = new Date().getTime();
 
   // Password pokemon
   var pwdl = {};
@@ -316,6 +318,8 @@ $(function () {
       tx.append(div);
     }
   });
+  ll('Password pokemon: ', new Date().getTime() - startTime);
+  startTime = new Date().getTime();
 
   // Fill Heroes vào pokemon
   var data = [...plink1, ...plink2];
@@ -352,6 +356,8 @@ $(function () {
       });
     }
   });
+  ll('Fill Heroes vào pokemon: ', new Date().getTime() - startTime);
+  startTime = new Date().getTime();
 
   // Filter Pokemon
   pokeTypes.forEach((v) => {
@@ -370,6 +376,8 @@ $(function () {
   $('.movetype img').click(function () {
     filterPokemon(4, $(this).attr('src'));
   });
+  ll('Filter Pokemons move: ', new Date().getTime() - startTime);
+  startTime = new Date().getTime();
 
   // Sync button
   if (lget('host') && lget('key')) {
@@ -386,6 +394,9 @@ $(function () {
     e.stopPropagation();
     // $('la').hide();
   });
+
+  ll('End: ', new Date().getTime() - startTime);
+  startTime = new Date().getTime();
 });
 
 async function syncData() {
