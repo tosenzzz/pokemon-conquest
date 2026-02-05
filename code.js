@@ -62,8 +62,10 @@ const showPokeDetail = (div, name) => {
         if (lget(`${v.hero}-own`)) color += 'has-hero';
         return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
                 <td class="${color}">
-                  <a href="#hero-${v.hero}">${v.hero}</a>
-                  <span class="star" onclick="starClick(this, '${v.hero.replace("'", "\\'")}', '${name}')">★</span>
+                  <div class="dstar">
+                    <a href="#hero-${v.hero}">${v.hero}</a>
+                    <span class="star" onclick="starClick(this, '${v.hero.replace("'", "\\'")}', '${name}')">★</span>
+                  </div>
                 </td>
                 ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
               </tr>`;
@@ -102,8 +104,10 @@ const showHeroDetail = (div, hero) => {
                 ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
                 <td><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
                 <td class="${color}">
-                  <a href="#poke-${v.name}">${v.name}</a>
-                  <span class="star" onclick="starClick(this, '${hero.replace("'", "\\'")}', '${v.name}')">★</span>
+                  <div class="dstar">
+                    <a href="#poke-${v.name}">${v.name}</a>
+                    <span class="star" onclick="starClick(this, '${hero.replace("'", "\\'")}', '${v.name}')">★</span>
+                  </div>
                 </td>
                 <td>${pokeData[v.name].total}</td>
                 <td style="text-align: center;"><div>${move.pow}</div><div>${move.star}</div></td>
@@ -123,7 +127,7 @@ function starClick(e, hero, poke) {
   } else {
     lset(`${hero}-poke-${poke}`, 'own');
   }
-  $(e).parent().toggleClass('hero-has-poke');
+  $(e).closest('td').toggleClass('hero-has-poke');
 }
 
 $(function () {

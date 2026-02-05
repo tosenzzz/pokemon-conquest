@@ -103,7 +103,7 @@ la {
   display: none; padding: 5px; position: absolute;
   background-color: white; color: black;
   white-space: normal; z-index: 1000;
-  min-width: 200px;
+  min-width: 150px;
   left: 0;
   top: 12px;
   overflow: auto;
@@ -130,5 +130,7 @@ la {
 }
 .has-hero { background: aqua; }
 .hero-has-poke { background: yellow; }
-.star { float: right; color: #aac33c; }
+.star { float: right; color: #aac33c; margin-left: 5px; }
+.dstar { display: flex; align-items: center; }
+.dstar a { flex: 1; }
 .HeroLinks { height:20px; }
