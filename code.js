@@ -61,8 +61,10 @@ const showPokeDetail = (div, name) => {
         if (lget(`${v.hero}-poke-${name}`) == 'own') color = 'hero-has-poke ';
         if (lget(`${v.hero}-own`)) color += 'has-hero';
         return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
-                <td class="${color}"><a href="#hero-${v.hero}">${v.hero}</a>
-                  <span class="star" onclick="starClick(this, '${v.hero.replace("'", "\\'")}', '${name}')">★</span></td>
+                <td class="${color}">
+                  <a href="#hero-${v.hero}">${v.hero}</a>
+                  <span class="star" onclick="starClick(this, '${v.hero.replace("'", "\\'")}', '${name}')">★</span>
+                </td>
                 ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
               </tr>`;
       })
@@ -94,10 +96,15 @@ const showHeroDetail = (div, hero) => {
           return;
         }
         move = allMoves[move];
+        let color = '';
+        if (lget(`${hero}-poke-${v.name}`) == 'own') color = 'hero-has-poke ';
         return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
                 ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
                 <td><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
-                <td><a href="#poke-${v.name}">${v.name}</a></td>
+                <td class="${color}">
+                  <a href="#poke-${v.name}">${v.name}</a>
+                  <span class="star" onclick="starClick(this, '${hero.replace("'", "\\'")}', '${v.name}')">★</span>
+                </td>
                 <td>${pokeData[v.name].total}</td>
                 <td style="text-align: center;"><div>${move.pow}</div><div>${move.star}</div></td>
                 <td>${move.acc}</td>
@@ -135,14 +142,6 @@ $(function () {
     $('.sbar').append(syncBtn);
     syncBtn.click(() => syncData());
   }
-
-  // Hide msg-box
-  $('body').on('click', function () {
-    $('la').hide();
-  });
-  $('.skill la').on('click', function (e) {
-    e.stopPropagation();
-  });
 
   // Filter Pokemon
   pokeTypes.forEach((v) => {
@@ -374,10 +373,15 @@ $(function () {
     la.show();
   });
 
-  ll('HERO LIST: ', new Date().getTime() - startTime);
-  startTime = new Date().getTime();
+  // Hide msg-box
+  $('body').on('click', function () {
+    $('la').hide();
+  });
+  $('.skill la').on('click', function (e) {
+    e.stopPropagation();
+  });
 
-  ll('End: ', new Date().getTime() - startTime);
+  ll('HERO LIST: ', new Date().getTime() - startTime);
   startTime = new Date().getTime();
 });
 
