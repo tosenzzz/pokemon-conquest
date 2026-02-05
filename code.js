@@ -21,17 +21,16 @@ const API = (type, url, data) => {
     });
   });
 };
-
-const addBox = (title, detail, tag = 'span') => {
-  let sdiv = $(`<${tag} class="skill"></${tag}>`);
-  let dTitle = $(`<span>${title}</span>`);
-  let dDetail = $(`<la>${detail}</la>`);
-  dTitle.click(function (e) {
-    e.stopPropagation();
-    dDetail.show();
-  });
-  sdiv.append(dTitle, dDetail);
-  return sdiv;
+const cpHeroLink = (a, b) => {
+  d1 = { 'Player ♂': '0', 'Player ♀': '1', Oichi: '2' };
+  d2 = (v) => (v.length > 1 ? '1' : '2');
+  s1 = d1[a.hero] || '3';
+  s2 = d1[b.hero] || '3';
+  s1 += d2(a.link);
+  s2 += d2(b.link);
+  s1 += a.hero;
+  s2 += b.hero;
+  return s1.localeCompare(s2);
 };
 
 const addBoxV2 = (title, fn, ...pr) => {
@@ -46,18 +45,6 @@ const addBoxV2 = (title, fn, ...pr) => {
   });
   sdiv.append(dTitle, dDetail);
   return sdiv;
-};
-
-const cpHeroLink = (a, b) => {
-  d1 = { 'Player ♂': '0', 'Player ♀': '1', Oichi: '2' };
-  d2 = (v) => (v.length > 1 ? '1' : '2');
-  s1 = d1[a.hero] || '3';
-  s2 = d1[b.hero] || '3';
-  s1 += d2(a.link);
-  s2 += d2(b.link);
-  s1 += a.hero;
-  s2 += b.hero;
-  return s1.localeCompare(s2);
 };
 
 const showPokeDetail = (div, name) => {
@@ -75,16 +62,17 @@ const showPokeDetail = (div, name) => {
         if (lget(`${v.hero}-own`)) color += 'has-hero';
         return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
                 <td class="${color}"><a href="#hero-${v.hero}">${v.hero}</a>
-                  <span class="star" onclick="starClick(this, '${v.hero}','${name}')">★</span></td>
+                  <span class="star" onclick="starClick(this, '${v.hero.replace("'", "\\'")}', '${name}')">★</span></td>
                 ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
               </tr>`;
       })
       .join('') +
     '</table>';
+  div.empty();
   div.append(detail);
 };
 
-const showHeroDetail = (div, hero, pokeData) => {
+const showHeroDetail = (div, hero) => {
   if (!HeroLinks[hero]) {
     alert('No HeroLinks', hero);
     return;
@@ -95,7 +83,6 @@ const showHeroDetail = (div, hero, pokeData) => {
       .map((v, i) => `<div>${i + 1}. ${v}</div>`)
       .join('');
   }
-  div.empty();
   var detail =
     rankUpInfor +
     '<table class="tbl">' +
@@ -119,8 +106,8 @@ const showHeroDetail = (div, hero, pokeData) => {
       })
       .join('') +
     '</table>';
+  div.empty();
   div.append(detail);
-  div.show();
 };
 
 function starClick(e, hero, poke) {
@@ -134,8 +121,6 @@ function starClick(e, hero, poke) {
 
 $(function () {
   let startTime = new Date().getTime();
-  // Column sort
-  $('#myTable').tableSortable();
 
   // Search Enter-key
   $('#search').on('keyup', function (e) {
@@ -144,171 +129,76 @@ $(function () {
     }
   });
 
-  const pokeImgs = {};
-  const pokeData = {};
+  // Sync button
+  if (lget('host') && lget('key')) {
+    const syncBtn = $(`<button>Sync</button>`);
+    $('.sbar').append(syncBtn);
+    syncBtn.click(() => syncData());
+  }
+
+  // Hide msg-box
+  $('body').on('click', function () {
+    $('la').hide();
+  });
+  $('.skill la').on('click', function (e) {
+    e.stopPropagation();
+  });
+
+  // Filter Pokemon
+  pokeTypes.forEach((v) => {
+    var img = $(`<img src="${v}" border="0" id=${v.match(/([^/]+).gif$/)[1]}>`);
+    $('.pktype').append(img);
+  });
+  $('.pktype img').click(function () {
+    filterPokemon(3, $(this).attr('src'));
+  });
+
+  // Filter Pokemon's move
+  pokeTypes.forEach((v) => {
+    var img = $(`<img src="${v}" border="0" id=${v.match(/([^/]+).gif$/)[1]}>`);
+    $('.movetype').append(img);
+  });
+  $('.movetype img').click(function () {
+    filterPokemon(4, $(this).attr('src'));
+  });
+  ll('Filter Pokemons move: ', new Date().getTime() - startTime);
+  startTime = new Date().getTime();
+
   // Link pokemon to veekun.com
   $('#myTable>tbody>tr').each(function () {
     const tds = $(this).children();
     const lnk = $(tds[2]).find('a');
     const name = lnk.text().trim();
-    lnk.attr('href', `https://veekun.com/dex/conquest/pokemon/${name}`);
-    lnk.attr('target', '_blank');
-    const id = String(+$(tds[0]).text()).padStart(3, '0');
-    pokeImgs[name] = `https://www.serebii.net/conquest/pokemon/${id}.png`;
-    pokeData[name] = {
-      hp: +$(tds[6]).text(),
-      atk: +$(tds[7]).text(),
-      def: +$(tds[8]).text(),
-      spd: +$(tds[9]).text(),
-      total: +$(tds[10]).text(),
-    };
-    // Set row-id by Poke name
-    $(this).attr('id', 'poke-' + name);
-
-    // Update Pokemon's move
-    var tr = $(tds[4]).find('tr');
-    tr.append(
-      `<td align="center" width="33%"><img src="${pokeMoves[name].range}" border="0"></td>`,
-    );
-    var moveTd = tr.find('td:eq(1)');
-    var moveNm = moveTd.text();
-    var move = allMoves[moveNm.trim().toLowerCase()];
-    moveTd.empty();
-    if (!move) alert('No pokemon move: ' + moveNm);
-    else {
-      moveTd.append(addBox(moveNm, move.eff));
-      tr.find('td:eq(0)').html(
-        tr.find('td:eq(0)').html().replace('Power', move.pow),
-      );
-      tr.find('td:eq(2)').prepend(`${move.acc}<br>`);
-    }
-
-    // Update Poke skill
-    const pskills = [];
-    $(tds[11])
-      .find('a')
-      .each(function () {
-        pskills.push($(this).text().trim());
-      });
-    $(tds[11]).empty();
-    var ul = $(`<ul></ul>`);
-    $(tds[11]).append(ul);
-    pskills.forEach((v, i) => {
-      if (!pokeSkills[v]) alert(`No skill ${v}`);
-      $(ul).append(addBox(v, pokeSkills[v], 'li'));
-    });
-
-    // Update locations
-    const locas = $(tds[13])
-      .html()
-      .split('<br>')
-      .map((v) => v.trim())
-      .filter((v) => !!v);
-    $(tds[13]).empty();
-    var ul = $(`<ul></ul>`);
-    $(tds[13]).append(ul);
-    locas.forEach((v, i) => {
-      ul.append(`<li>${v}</li>`);
-    });
-
-    // Update Poke links (to heroes)
-    img1 = $(tds[1]).find('img').attr('src');
-    $(tds[1]).empty();
-    $(tds[1]).append(
-      addBoxV2(
-        `<img src="${img1}" border="0" class="imgpk">`,
-        showPokeDetail,
-        name,
-      ),
-    );
   });
   ll('Modify table: ', new Date().getTime() - startTime);
   startTime = new Date().getTime();
 
-  // HERO LIST
-  const ppp = (line) => {
-    // 1. Tách phần trong ngoặc (nếu có)
-    let match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
-    const mainPart = match[1]; // Shingen - Rhyperior//Groudon
-    const extraPart = match[2] || ''; // (not Rhyhorn/Rhydon)
-    // 2. Tách hero và pokemon
-    const [hero, pokes] = mainPart.split('-').map((s) => s.trim());
+  // Show Pokemon move detail
+  $('.allMoves').click(function (e) {
+    e.stopPropagation();
+    var la = $(this).next();
+    var move = allMoves[$(this).text().trim().toLowerCase()];
+    la.text(move.eff);
+    la.show();
+  });
 
-    // Hero image
-    const herod = $(`<div id="hero-${hero}" class="herod"></div>`);
-    if (lget(`${hero}-own`)) herod.addClass('hero-own');
+  // Show Pokemon skill detail
+  $('.pokeSkills').click(function (e) {
+    e.stopPropagation();
+    var la = $(this).next();
+    var v = $(this).text().trim();
+    la.text(pokeSkills[v]);
+    la.show();
+  });
 
-    // Show Hero detail: rank-up and pokemons max-link
-    herod.append(
-      addBoxV2(
-        `<img src="${heroImgs[hero]}" style="height:20px;"/>`,
-        showHeroDetail,
-        hero,
-        pokeData,
-      ),
-    );
-
-    // Toggle has/not own Hero
-    const handp = $(`<div></div>`);
-    handp.append(
-      `<a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero}</a>`,
-    );
-    const add = $(
-      `<span>&nbsp;${'+'.repeat(heroRankUp[hero]?.length || 1)}&nbsp;</span>`,
-    ).click(() => {
-      herod.toggleClass('hero-own');
-      lset(`${hero}-own`, herod.hasClass('hero-own'));
-    });
-    handp.append(add);
-
-    // Pokemons name
-    let pokel = [];
-    const regex = /([\/]*)([^\/]+)/g;
-    while ((match = regex.exec(pokes)) !== null) {
-      const prefix = match[1]; // /// hoặc /
-      const poke = match[2].trim(); // Pokemon
-      const pk = $(`<a href="#poke-${poke}">${poke}</a>`);
-      if (lget(`${hero}-poke-${poke}`) == 'own') {
-        pk.addClass('poke-own');
-      } else if (lget(`${hero}-poke-${poke}`)) {
-        pk.addClass('poke-want');
-      }
-      pokel.push([poke, pk, prefix]);
-      handp.append(prefix, pk);
-    }
-    // handp.append(extraPart);
-    herod.append(handp);
-
-    // Pokemons images
-    pokel.forEach((pk) => {
-      var pokd = $(`<div class="pklink"><img src="${pokeImgs[pk[0]]}"/></div>`);
-      pokd.click(() => {
-        if (!pk[1].hasClass('poke-want') && !pk[1].hasClass('poke-own')) {
-          pk[1].toggleClass('poke-want');
-          lset(`${hero}-poke-${pk[0]}`, 'want');
-        } else if (pk[1].hasClass('poke-own')) {
-          pk[1].toggleClass('poke-own');
-          lset(`${hero}-poke-${pk[0]}`, '');
-        } else if (pk[1].hasClass('poke-want')) {
-          pk[1].toggleClass('poke-want');
-          pk[1].toggleClass('poke-own');
-          lset(`${hero}-poke-${pk[0]}`, 'own');
-        }
-      });
-      herod.append(pokd);
-    });
-    // Hero skills
-    (heroSkills[hero] || []).forEach((v, i) => {
-      herod.append(addBox(`${i + 1}.${v}`, skillsList[v]));
-    });
-    $('#plink').append(herod);
-  };
-  $('#plink').append(`<div><h1>WARLORD/POKEMON</h1></div>`);
-  plink1.forEach(ppp);
-  $('#plink').append(`<div><h1>WARRIOR/POKEMON</h1></div>`);
-  plink2.forEach(ppp);
-  ll('HERO LIST: ', new Date().getTime() - startTime);
-  startTime = new Date().getTime();
+  // Show Pokemon detail
+  $('.PokeLinks').click(function (e) {
+    e.stopPropagation();
+    var la = $(this).next();
+    var name = $(this).attr('name').trim();
+    showPokeDetail(la, name);
+    la.show();
+  });
 
   // Password pokemon
   var pwdl = {};
@@ -326,12 +216,6 @@ $(function () {
       });
     }
   });
-  // // Show password list
-  // Object.keys(pwdl).forEach((k) => {
-  //   $('#pwd').append(
-  //     `${k}${k.length > 7 ? '\t' : '\t\t'}${pwdl[k].join(' ')}\n`,
-  //   );
-  // });
   // Fill password vào pokemon
   document.querySelectorAll('#myTable>tbody>tr').forEach((tr) => {
     const tx = tr.children[1];
@@ -386,41 +270,112 @@ $(function () {
   ll('Fill Heroes vào pokemon: ', new Date().getTime() - startTime);
   startTime = new Date().getTime();
 
-  // Filter Pokemon
-  pokeTypes.forEach((v) => {
-    var img = $(`<img src="${v}" border="0" id=${v.match(/([^/]+).gif$/)[1]}>`);
-    $('.pktype').append(img);
-  });
-  $('.pktype img').click(function () {
-    filterPokemon(3, $(this).attr('src'));
-  });
+  // HERO LIST
+  const ppp = (line) => {
+    // 1. Tách phần trong ngoặc (nếu có)
+    let match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
+    const mainPart = match[1]; // Shingen - Rhyperior//Groudon
+    const extraPart = match[2] || ''; // (not Rhyhorn/Rhydon)
+    // 2. Tách hero và pokemon
+    const [hero, pokes] = mainPart.split('-').map((s) => s.trim());
 
-  // Filter Pokemon's move
-  pokeTypes.forEach((v) => {
-    var img = $(`<img src="${v}" border="0" id=${v.match(/([^/]+).gif$/)[1]}>`);
-    $('.movetype').append(img);
-  });
-  $('.movetype img').click(function () {
-    filterPokemon(4, $(this).attr('src'));
-  });
-  ll('Filter Pokemons move: ', new Date().getTime() - startTime);
-  startTime = new Date().getTime();
+    // Hero image
+    const herod = $(`<div id="hero-${hero}" class="herod"></div>`);
+    if (lget(`${hero}-own`)) herod.addClass('hero-own');
 
-  // Sync button
-  if (lget('host') && lget('key')) {
-    const syncBtn = $(`<button>Sync</button>`);
-    $('.sbar').append(syncBtn);
-    syncBtn.click(() => syncData());
-  }
+    // Show Hero detail: rank-up and pokemons max-link
+    herod.append(
+      `<span class="skill">
+        <img src="${heroImgs[hero]}" class="HeroLinks" name="${hero}">
+      	<la></la>
+      </span>`,
+    );
 
-  // Hide msg-box
-  $('body').on('click', function () {
-    $('la').hide();
-  });
-  $('.skill la').on('click', function (e) {
+    // Toggle has/not own Hero
+    const handp = $(`<div></div>`);
+    handp.append(
+      `<a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero}</a>`,
+    );
+    const add = $(
+      `<span>&nbsp;${'+'.repeat(heroRankUp[hero]?.length || 1)}&nbsp;</span>`,
+    ).click(() => {
+      herod.toggleClass('hero-own');
+      lset(`${hero}-own`, herod.hasClass('hero-own'));
+    });
+    handp.append(add);
+
+    // Pokemons name
+    let pokel = [];
+    const regex = /([\/]*)([^\/]+)/g;
+    while ((match = regex.exec(pokes)) !== null) {
+      const prefix = match[1]; // /// hoặc /
+      const poke = match[2].trim(); // Pokemon
+      const pk = $(`<a href="#poke-${poke}">${poke}</a>`);
+      if (lget(`${hero}-poke-${poke}`) == 'own') {
+        pk.addClass('poke-own');
+      } else if (lget(`${hero}-poke-${poke}`)) {
+        pk.addClass('poke-want');
+      }
+      pokel.push([poke, pk, prefix]);
+      handp.append(prefix, pk);
+    }
+    // handp.append(extraPart);
+    herod.append(handp);
+
+    // Pokemons images
+    pokel.forEach((pk) => {
+      var pokd = $(
+        `<div class="pklink"><img pk="${pk[0]}" src="${pokeImgs[pk[0]]}"/></div>`,
+      );
+      pokd.click(() => {
+        if (!pk[1].hasClass('poke-want') && !pk[1].hasClass('poke-own')) {
+          pk[1].toggleClass('poke-want');
+          lset(`${hero}-poke-${pk[0]}`, 'want');
+        } else if (pk[1].hasClass('poke-own')) {
+          pk[1].toggleClass('poke-own');
+          lset(`${hero}-poke-${pk[0]}`, '');
+        } else if (pk[1].hasClass('poke-want')) {
+          pk[1].toggleClass('poke-want');
+          pk[1].toggleClass('poke-own');
+          lset(`${hero}-poke-${pk[0]}`, 'own');
+        }
+      });
+      herod.append(pokd);
+    });
+    // Hero skills
+    (heroSkills[hero] || []).forEach((v, i) => {
+      herod.append(
+        `<span class="skill"><span class="skillsList">${i + 1}.${v}</span><la></la></span>`,
+      );
+    });
+    $('#plink').append(herod);
+  };
+  $('#plink').append(`<div><h1>WARLORD/POKEMON</h1></div>`);
+  plink1.forEach(ppp);
+  $('#plink').append(`<div><h1>WARRIOR/POKEMON</h1></div>`);
+  plink2.forEach(ppp);
+  // Show Hero detail
+  $('.HeroLinks').click(function (e) {
     e.stopPropagation();
-    // $('la').hide();
+    var la = $(this).next();
+    var name = $(this).attr('name').trim();
+    showHeroDetail(la, name);
+    la.show();
   });
+  // Show Hero skill detail
+  $('.skillsList').click(function (e) {
+    e.stopPropagation();
+    var la = $(this).next();
+    var v = $(this)
+      .text()
+      .trim()
+      .match(/\d+\.(.*)/)[1];
+    la.text(skillsList[v]);
+    la.show();
+  });
+
+  ll('HERO LIST: ', new Date().getTime() - startTime);
+  startTime = new Date().getTime();
 
   ll('End: ', new Date().getTime() - startTime);
   startTime = new Date().getTime();
