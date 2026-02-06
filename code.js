@@ -74,6 +74,7 @@ const showPokeDetail = (div, name) => {
     '</table>';
   div.empty();
   div.append(detail);
+  div.append($(`<button class="close">✖</button>`).click(() => div.hide()));
 };
 
 const showHeroDetail = (div, hero) => {
@@ -119,6 +120,7 @@ const showHeroDetail = (div, hero) => {
     '</table>';
   div.empty();
   div.append(detail);
+  div.append($(`<button class="close">✖</button>`).click(() => div.hide()));
 };
 
 function starClick(e, hero, poke) {
