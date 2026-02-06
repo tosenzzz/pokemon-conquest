@@ -91,7 +91,7 @@ const showHeroDetail = (div, hero, close) => {
     alert('No HeroLinks', hero);
     return;
   }
-  var rankUpInfor = `<div class="hero-name">${hero}</div>`;
+  var rankUpInfor = `<div class="hero-name"><img src="${heroImgs[hero]}" class="HeroLinks" name="${hero}">${hero}</div>`;
   if (heroRankUp[hero]) {
     rankUpInfor += heroRankUp[hero]
       .map((v, i) => `<div>${i + 1}. ${v}</div>`)
