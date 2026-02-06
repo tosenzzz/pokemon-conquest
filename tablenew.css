@@ -139,5 +139,5 @@ la .close { width: 100%; margin-top: 5px; border: 1px; color: red; }
 .dstar { display: flex; align-items: center; }
 .dstar a { flex: 1; }
 .star { color: #aac33c; margin-left: 5px; }
-.show { color: #a7ad8b; margin-left: 5px; }
 .HeroLinks { height:20px; }
+.hero-name { font-size: 14px; background-color: #e9e6ba; text-align: center; }

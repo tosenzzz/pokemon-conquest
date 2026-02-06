@@ -65,10 +65,9 @@ const showPokeDetail = (div, name) => {
                   <div class="dstar">
                     <a href="#hero-${v.hero}">${v.hero}</a>
                     <span class="star" onclick="starClick(this, '${v.hero.replace("'", "\\'")}', '${name}')">★</span>
-                    <span class="show" name="${v.hero}">▶</span>
                   </div>
                 </td>
-                ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
+                ${v.link.map((u) => `<td class="max-link show" name="${v.hero}">${u}</td>`).join('')}
               </tr>`;
       })
       .join('') +
@@ -83,6 +82,7 @@ const showPokeDetail = (div, name) => {
   div.find('.show').click(function () {
     var divDe = div.closest('.divLa').find('.more');
     showHeroDetail(divDe, $(this).attr('name'), '.more');
+    divDe.show();
   });
 };
 
@@ -91,9 +91,9 @@ const showHeroDetail = (div, hero, close) => {
     alert('No HeroLinks', hero);
     return;
   }
-  var rankUpInfor = '';
+  var rankUpInfor = `<div class="hero-name">${hero}</div>`;
   if (heroRankUp[hero]) {
-    rankUpInfor = heroRankUp[hero]
+    rankUpInfor += heroRankUp[hero]
       .map((v, i) => `<div>${i + 1}. ${v}</div>`)
       .join('');
   }
