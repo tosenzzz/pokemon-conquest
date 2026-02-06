@@ -65,6 +65,7 @@ const showPokeDetail = (div, name) => {
                   <div class="dstar">
                     <a href="#hero-${v.hero}">${v.hero}</a>
                     <span class="star" onclick="starClick(this, '${v.hero.replace("'", "\\'")}', '${name}')">★</span>
+                    <span class="show" name="${v.hero}">▶</span>
                   </div>
                 </td>
                 ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
@@ -73,11 +74,19 @@ const showPokeDetail = (div, name) => {
       .join('') +
     '</table>';
   div.empty();
-  div.append(detail);
-  div.append($(`<button class="close">✖</button>`).click(() => div.hide()));
+  div.append($('<div class="divTbl">').append(detail));
+  div.append(
+    $(`<button class="close">✖</button>`).click(() =>
+      div.closest('la').hide(),
+    ),
+  );
+  div.find('.show').click(function () {
+    var divDe = div.closest('.divLa').find('.more');
+    showHeroDetail(divDe, $(this).attr('name'), '.more');
+  });
 };
 
-const showHeroDetail = (div, hero) => {
+const showHeroDetail = (div, hero, close) => {
   if (!HeroLinks[hero]) {
     alert('No HeroLinks', hero);
     return;
@@ -119,8 +128,12 @@ const showHeroDetail = (div, hero) => {
       .join('') +
     '</table>';
   div.empty();
-  div.append(detail);
-  div.append($(`<button class="close">✖</button>`).click(() => div.hide()));
+  div.append($('<div class="divTbl">').append(detail));
+  div.append(
+    $(`<button class="close">✖</button>`).click(() =>
+      div.closest(close || 'la').hide(),
+    ),
+  );
 };
 
 function starClick(e, hero, poke) {
@@ -201,7 +214,11 @@ $(function () {
     e.stopPropagation();
     var la = $(this).next();
     var name = $(this).attr('name').trim();
-    showPokeDetail(la, name);
+    var div1 = $('<div class="divLa">');
+    var div2 = $('<div>');
+    la.empty().append(div1);
+    div1.append(div2, '<div class="more">');
+    showPokeDetail(div2, name);
     la.show();
   });
 
@@ -364,7 +381,9 @@ $(function () {
     e.stopPropagation();
     var la = $(this).next();
     var name = $(this).attr('name').trim();
-    showHeroDetail(la, name);
+    var div = $('<div>');
+    la.empty().append(div);
+    showHeroDetail(div, name);
     la.show();
   });
   // Show Hero skill detail
