@@ -60,8 +60,8 @@ const showPokeDetail = (div, name) => {
         let color = '';
         if (lget(`${v.hero}-poke-${name}`) == 'own') color = 'hero-has-poke ';
         if (lget(`${v.hero}-own`)) color += 'has-hero';
-        return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
-                <td class="${color}">
+        return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
+                <td class="${color}" name="${v.hero}-${name}">
                   <div class="dstar">
                     <a href="#hero-${v.hero}">${v.hero}</a>
                     <span class="star" onclick="starClick(this, '${v.hero.replace("'", "\\'")}', '${name}')">★</span>
@@ -110,10 +110,10 @@ const showHeroDetail = (div, hero, close) => {
         move = allMoves[move];
         let color = '';
         if (lget(`${hero}-poke-${v.name}`) == 'own') color = 'hero-has-poke ';
-        return `<tr class="${v.link.includes(100) ? 'perfect-link' : ''}">
+        return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
                 ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
                 <td><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
-                <td class="${color}">
+                <td class="${color}" name="${hero}-${v.name}">
                   <div class="dstar">
                     <a href="#poke-${v.name}">${v.name}</a>
                     <span class="star" onclick="starClick(this, '${hero.replace("'", "\\'")}', '${v.name}')">★</span>
@@ -142,7 +142,7 @@ function starClick(e, hero, poke) {
   } else {
     lset(`${hero}-poke-${poke}`, 'own');
   }
-  $(e).closest('td').toggleClass('hero-has-poke');
+  $(`.divTbl td[name="${hero}-${poke}"]`).toggleClass('hero-has-poke');
 }
 
 $(function () {
