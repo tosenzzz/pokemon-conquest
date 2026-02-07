@@ -1801,6 +1801,7 @@ JSON.stringify(dd);
 */
 var heroSkills = {
   'Player ♂': ['Top Speed', 'Courage', 'Motivate'],
+  'Player ♀': ['Top Speed', 'Courage', 'Motivate'],
   Aya: ['Sweet Song', 'Compassion'],
   Ginchiyo: ['Bustle', 'Thunderclap'],
   Gracia: ['Added Bonus', 'Bewilder'],
@@ -2022,6 +2023,11 @@ JSON.stringify(dd);
 */
 var heroRankUp = {
   'Player ♂': [
+    'Base Rank',
+    'Automatic transformation during The Legend of Ransei (Base Rank in all other stories)',
+    '80% link with an Eeveelution (not Eevee) in Two Heroes of Ransei.',
+  ],
+  'Player ♀': [
     'Base Rank',
     'Automatic transformation during The Legend of Ransei (Base Rank in all other stories)',
     '80% link with an Eeveelution (not Eevee) in Two Heroes of Ransei.',

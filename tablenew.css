@@ -105,6 +105,7 @@ la {
   white-space: normal; z-index: 1000;
   left: 0;
   top: 12px;
+  min-width: 100px;
 }
 la .close { width: 100%; margin-top: 5px; border: 1px; color: red; }
 .divTbl {
@@ -126,7 +127,7 @@ la .close { width: 100%; margin-top: 5px; border: 1px; color: red; }
 .tbl tr.ninety-link:nth-child(2n) td.max-link { background: #afcfaf; }
 .tbl tr.ninety-link:nth-child(2n+1) td.max-link { background: #c0d8c0; }
 #myTable td:nth-child(n+12):nth-child(-n+15) { text-align: left; }
-.cen ul { padding-inline-start: 15px; }
+.cen ul { padding-inline-start: 15px; margin-top: 0px; margin-bottom: 5px; }
 .pktype { margin-top: 10px; }
 .pktype, .movetype {
   display: flex;
@@ -150,3 +151,4 @@ la .close { width: 100%; margin-top: 5px; border: 1px; color: red; }
   align-items: center;
   justify-content: center;
 }
+.hero-skill { text-align: left; margin-top: 5px; }

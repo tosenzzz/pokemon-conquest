@@ -91,14 +91,19 @@ const showHeroDetail = (div, hero, close) => {
     alert('No HeroLinks', hero);
     return;
   }
-  var rankUpInfor = `<div class="hero-name"><img src="${heroImgs[hero]}" class="HeroLinks" name="${hero}">${hero}</div>`;
+  var heroName = `<div class="hero-name"><img src="${heroImgs[hero]}" class="HeroLinks" name="${hero}"/>${hero}</div>`;
+  var heroSkill = $(`<div class="hero-skill"></div>`);
   if (heroRankUp[hero]) {
-    rankUpInfor += heroRankUp[hero]
-      .map((v, i) => `<div>${i + 1}. ${v}</div>`)
-      .join('');
+    $(`<div>Rank-Up</div>`).appendTo(heroSkill);
+    var rankUp = $(`<ul>`).appendTo(heroSkill);
+    rankUp.append(heroRankUp[hero].map((v, i) => `<li>${i + 1}. ${v}</li>`));
   }
+  $(`<div>Skills</div>`).appendTo(heroSkill);
+  var skillL = $(`<ul>`).appendTo(heroSkill);
+  heroSkills[hero].forEach((v, i) => {
+    skillL.append(`<li>${i + 1}.${v}: ${skillsList[v]}</li>`);
+  });
   var detail =
-    rankUpInfor +
     '<table class="tbl">' +
     HeroLinks[hero]
       .map((v) => {
@@ -128,7 +133,7 @@ const showHeroDetail = (div, hero, close) => {
       .join('') +
     '</table>';
   div.empty();
-  div.append($('<div class="divTbl">').append(detail));
+  div.append($('<div class="divTbl">').append(heroName, heroSkill, detail));
   div.append(
     $(`<button class="close">✖</button>`).click(() =>
       div.closest(close || 'la').hide(),
@@ -365,7 +370,11 @@ $(function () {
       herod.append(pokd);
     });
     // Hero skills
-    (heroSkills[hero] || []).forEach((v, i) => {
+    if (!heroSkills[hero]) {
+      alert('No hero skill ' + hero);
+      return;
+    }
+    heroSkills[hero].forEach((v, i) => {
       herod.append(
         `<span class="skill"><span class="skillsList">${i + 1}.${v}</span><la></la></span>`,
       );
