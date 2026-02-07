@@ -4,6 +4,12 @@ const lset = (key, val) => {
   localStorage.setItem('version', +(lget('version') || 0) + 1);
   localStorage.setItem(key, JSON.stringify(val));
 };
+const ladd = (key, val) => {
+  data = lget(key) || [];
+  data.push(val);
+  localStorage.setItem('version', +(lget('version') || 0) + 1);
+  localStorage.setItem(key, JSON.stringify(data));
+};
 const API = (type, url, data) => {
   return new Promise((ok, err) => {
     $.ajax({
@@ -32,6 +38,24 @@ const cpHeroLink = (a, b) => {
   s2 += b.hero;
   return s1.localeCompare(s2);
 };
+function sortByPos(arr) {
+  const result = [...arr];
+  for (let i = 0; i < result.length; i++) {
+    const item = result[i];
+    if (!item.pos) continue;
+    const targetIndex = result.findIndex((x) => x.name === item.pos);
+    if (targetIndex === -1) continue;
+    // Nếu đã đúng vị trí (đứng trước target) thì bỏ qua
+    if (i === targetIndex - 1) continue;
+    // Gỡ item ra
+    result.splice(i, 1);
+    // Nếu item nằm trước target ban đầu thì index bị lệch 1
+    const insertIndex = i < targetIndex ? targetIndex - 1 : targetIndex;
+    // Chèn lại trước target
+    result.splice(insertIndex, 0, item);
+  }
+  return result;
+}
 
 const addBoxV2 = (title, fn, ...pr) => {
   let sdiv = $(`<span class="skill"></span>`);
@@ -105,7 +129,7 @@ const showHeroDetail = (div, hero, close) => {
   });
   var detail =
     '<table class="tbl">' +
-    HeroLinks[hero]
+    sortByPos(HeroLinks[hero])
       .map((v) => {
         var move = pokeMoves[v.name]?.name;
         if (!move) {
@@ -117,7 +141,7 @@ const showHeroDetail = (div, hero, close) => {
         if (lget(`${hero}-poke-${v.name}`) == 'own') color = 'hero-has-poke ';
         return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
                 ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
-                <td><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
+                <td class="add-poke" name="${v.name}"><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
                 <td class="${color}" name="${hero}-${v.name}">
                   <div class="dstar">
                     <a href="#poke-${v.name}">${v.name}</a>
@@ -139,6 +163,28 @@ const showHeroDetail = (div, hero, close) => {
       div.closest(close || 'la').hide(),
     ),
   );
+  div.find('.add-poke').click(function () {
+    id = +prompt('Add Pokemon to Hero:', '0');
+    pkm = Object.values(pokeData).find((a) => a.id == id);
+    if (!pkm) {
+      alert(`No Pokemon with ID [${id}]!`);
+      return;
+    }
+    if (!!HeroLinks[hero].find((a) => a.id == id)) {
+      alert(`Hero with Pokemon [${pkm.name}] existed!`);
+      return;
+    }
+    pkm = {
+      id: id,
+      name: pkm.name,
+      link: [...HeroLinks[hero][0].link].fill(60),
+      pos: $(this).attr('name'),
+    };
+    HeroLinks[hero].push(pkm);
+    PokeLinks[pkm.name].push({ hero: hero, link: pkm.link });
+    ladd('HeroLinks', { hero, pkm });
+    showHeroDetail(div, hero, close);
+  });
 };
 
 function starClick(e, hero, poke) {
@@ -152,6 +198,14 @@ function starClick(e, hero, poke) {
 
 $(function () {
   let startTime = new Date().getTime();
+
+  // Add addition data to HeroLinks
+  var addData = lget('HeroLinks') || [];
+  addData.forEach((v) => {
+    var { hero, pkm } = v;
+    HeroLinks[hero].push(pkm);
+    PokeLinks[pkm.name].push({ hero: hero, link: pkm.link });
+  });
 
   // Search Enter-key
   $('#search').on('keyup', function (e) {

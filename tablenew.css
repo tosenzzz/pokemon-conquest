@@ -122,8 +122,8 @@ la .close { width: 100%; margin-top: 5px; border: 1px; color: red; }
 .tbl tr:nth-child(2n) { background: #f0f0f0; }
 .tbl tr { vertical-align: middle;}
 .tbl td, .tbl a { color: black !important; }
-.tbl tr.hundred-link:nth-child(2n) td.max-link { background: #e5e327; }
-.tbl tr.hundred-link:nth-child(2n+1) td.max-link { background: #f7f569; }
+.tbl tr.hundred-link:nth-child(2n) td.max-link { background: #f5f500; }
+.tbl tr.hundred-link:nth-child(2n+1) td.max-link { background: yellow; }
 .tbl tr.ninety-link:nth-child(2n) td.max-link { background: #afcfaf; }
 .tbl tr.ninety-link:nth-child(2n+1) td.max-link { background: #c0d8c0; }
 #myTable td:nth-child(n+12):nth-child(-n+15) { text-align: left; }
@@ -137,8 +137,10 @@ la .close { width: 100%; margin-top: 5px; border: 1px; color: red; }
   max-width: 320px;
   margin-bottom: 10px;
 }
-.has-hero { background: aqua; }
-.hero-has-poke { background: yellow; }
+.tbl tr:nth-child(2n) .has-hero { background: #21dcdc; }
+.tbl tr:nth-child(2n+1) .has-hero { background: aqua; }
+.tbl tr:nth-child(2n) .hero-has-poke { background: #f5f500; }
+.tbl tr:nth-child(2n+1) .hero-has-poke { background: yellow; }
 .dstar { display: flex; align-items: center; }
 .dstar a { flex: 1; }
 .star { color: #aac33c; margin-left: 5px; }
