@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pokémon Conquest Calculator</title>
+  <style>
+    body {
+      font-family: Arial;
+    }
+
+    fieldset {
+      margin: 10px;
+      padding: 10px;
+    }
+
+    label {
+      display: inline-block;
+    }
+
+    pre {
+      background: #eee;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>IV Calculator</h2>
+
+  <fieldset>
+    <label>Pokémon</label>
+    <input list="pokemonList" id="ivPokemon">
+    <datalist id="pokemonList"></datalist>
+  </fieldset>
+
+  <fieldset>
+    <legend>Stats</legend>
+    HP <input id="ivHP"><br>
+    Atk <input id="ivAtk"><br>
+    Def <input id="ivDef"><br>
+    Spe <input id="ivSpe">
+  </fieldset>
+
+  <fieldset>
+    <legend>Link / Energy</legend>
+    Link % <input id="ivLink"><br><br>
+    <input type="radio" name="ivEnergy" value="110">Very High<br>
+    <input type="radio" name="ivEnergy" value="105">High<br>
+    <input type="radio" name="ivEnergy" value="100" checked>Medium<br>
+    <input type="radio" name="ivEnergy" value="95">Low<br>
+    <input type="radio" name="ivEnergy" value="90">Very Low
+  </fieldset>
+
+  <button onclick="executeIVCalc()">Calculate IVs</button>
+  <pre id="ivResult"></pre>
+
+  <hr>
+
+  <h2>Stat Calculator</h2>
+
+  <fieldset>
+    <label>Pokémon</label>
+    <input list="pokemonList" id="statPokemon">
+  </fieldset>
+
+  <fieldset>
+    <legend>IVs</legend>
+    HP <input id="statIVHP"><br>
+    Atk <input id="statIVAtk"><br>
+    Def <input id="statIVDef"><br>
+    Spe <input id="statIVSpe">
+  </fieldset>
+
+  <fieldset>
+    <legend>Link / Energy</legend>
+    Link % <input id="statLink"><br><br>
+    <input type="radio" name="statEnergy" value="110">Very High<br>
+    <input type="radio" name="statEnergy" value="105">High<br>
+    <input type="radio" name="statEnergy" value="100" checked>Medium<br>
+    <input type="radio" name="statEnergy" value="95">Low<br>
+    <input type="radio" name="statEnergy" value="90">Very Low
+  </fieldset>
+
+  <button onclick="executeStatCalc()">Calculate Stats</button>
+  <pre id="statResult"></pre>
+
+  <script src="ivs.js"></script>
+</body>
+
+</html>

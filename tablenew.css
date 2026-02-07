@@ -154,3 +154,17 @@ la .close { width: 100%; margin-top: 5px; border: 1px; color: red; }
   justify-content: center;
 }
 .hero-skill { text-align: left; margin-top: 5px; }
+.ivs {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.ivs input {
+  width: 30px;
+}
+.ivs * {
+  font-size: 9px;
+}
+.ivs pre {margin: 0;}

@@ -76,6 +76,22 @@ const showPokeDetail = (div, name) => {
     alert('No PokeLinks ', name);
     return;
   }
+  var ivs = `<div class="ivs">
+    <input id="ivHP" placeholder="HP">
+    <input id="ivAtk" placeholder="ATK">
+    <input id="ivDef" placeholder="DEF">
+    <input id="ivSpe" placeholder="SPD">
+    <input id="ivLink" placeholder="Lnk">
+    <select name="ivEnergy" id="ivEnergy">
+      <option value="110">Very High</option>
+      <option value="105">High</option>
+      <option value="100">Medium</option>
+      <option value="95">Low</option>
+      <option value="90">Very Low</option>
+    </select>
+    <button onclick="executeIVCalc('${name}')">Calculate IVs</button>
+    <pre id="ivResult"></pre>
+  </div>`;
   var detail =
     '<table class="tbl">' +
     PokeLinks[name]
@@ -97,7 +113,7 @@ const showPokeDetail = (div, name) => {
       .join('') +
     '</table>';
   div.empty();
-  div.append($('<div class="divTbl">').append(detail));
+  div.append($('<div class="divTbl">').append(ivs, detail));
   div.append(
     $(`<button class="close">✖</button>`).click(() =>
       div.closest('la').hide(),
