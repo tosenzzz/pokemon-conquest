@@ -274,8 +274,7 @@ function executeIVCalc(e) {
   var tdIvs = $(`.divTbl td[name="${hero}-ivs-${poke}"]`);
   tdIvs.text(total + '%');
   tdIvs.removeClass(['max-ivs', 'good-ivs']);
-  if (total >= 90) tdIvs.addClass('max-ivs');
-  else if (total >= 80) tdIvs.addClass('good-ivs');
+  tdIvs.addClass(cssIVs(total));
 
   lset(`${hero}-ivs-${poke}`, {
     stats,
@@ -286,6 +285,12 @@ function executeIVCalc(e) {
     maxStats,
     total,
   });
+}
+
+function cssIVs(total) {
+  if (total >= 85) return 'max-ivs';
+  else if (total >= 70) return 'good-ivs';
+  return;
 }
 
 function showIVs(div, stats, link, energy, min, max, maxStats) {
@@ -338,6 +343,6 @@ function showIVs(div, stats, link, energy, min, max, maxStats) {
       <td>${stats.reduce((tt, v) => tt + v, 0) - maxTt}</td>
     </tr>`,
   );
-  div.find('#ivResult').html(out);
+  $('<table>').appendTo(div.find('#ivResult')).html(out);
   return total;
 }

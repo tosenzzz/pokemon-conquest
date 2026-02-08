@@ -89,8 +89,7 @@ const showPokeDetail = (div, name) => {
         var cIVs = '';
         if (ivsData) {
           total = ivsData.total + '%';
-          if (ivsData.total >= 90) cIVs = 'max-ivs';
-          else if (ivsData.total >= 80) cIVs = 'good-ivs';
+          cIVs = cssIVs(ivsData.total);
         }
         return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
                 <td class="${color}" name="${v.hero}-${name}">
@@ -125,6 +124,36 @@ const showPokeDetail = (div, name) => {
   });
 };
 
+const getIVsDiv = (div, hero, poke) => {
+  var ivs = $(`
+      <div class="ivs">
+        <div class="ivs-cal">
+          <input id="ivHP" inputmode="numeric" placeholder="HP">
+          <input id="ivAtk" inputmode="numeric" placeholder="ATK">
+          <input id="ivDef" inputmode="numeric" placeholder="DEF">
+          <input id="ivSpe" inputmode="numeric" placeholder="SPD">
+          <input id="ivLink" inputmode="numeric" placeholder="Lnk">
+          <select name="ivEnergy" id="ivEnergy">
+            <option value="110">↑</option>
+            <option value="105">↗</option>
+            <option value="100">→</option>
+            <option value="95">↘</option>
+            <option value="90">↓</option>
+          </select>
+          <button onclick="executeIVCalc(this)">IVs</button>
+        </div>
+        <div id="ivResult" class="ivs-cal"></div>
+      </div>`).appendTo(div);
+  ivs.attr('poke', poke);
+  ivs.attr('hero', hero);
+  var ivsData = lget(`${hero}-ivs-${poke}`);
+  if (ivsData) {
+    var { stats, link, energy, min, max, maxStats } = ivsData;
+    showIVs(ivs, stats, link, energy, min, max, maxStats);
+  }
+  return ivs;
+};
+
 const showHeroDetail = (div, hero, close, poke) => {
   if (!HeroLinks[hero]) {
     alert('No HeroLinks', hero);
@@ -144,32 +173,7 @@ const showHeroDetail = (div, hero, close, poke) => {
   });
 
   if (poke) {
-    var ivs = $(`
-      <div class="ivs">
-        <div class="ivs-cal">
-          <input id="ivHP" inputmode="numeric" placeholder="HP">
-          <input id="ivAtk" inputmode="numeric" placeholder="ATK">
-          <input id="ivDef" inputmode="numeric" placeholder="DEF">
-          <input id="ivSpe" inputmode="numeric" placeholder="SPD">
-          <input id="ivLink" inputmode="numeric" placeholder="Lnk">
-          <select name="ivEnergy" id="ivEnergy">
-            <option value="110">↑</option>
-            <option value="105">↗</option>
-            <option value="100">→</option>
-            <option value="95">↘</option>
-            <option value="90">↓</option>
-          </select>
-          <button onclick="executeIVCalc(this)">IVs</button>
-          <div id="ivResult"></div>
-        </div>
-      </div>`).appendTo(heroSkill);
-    ivs.attr('poke', poke);
-    ivs.attr('hero', hero);
-    var ivsData = lget(`${hero}-ivs-${poke}`);
-    if (ivsData) {
-      var { stats, link, energy, min, max, maxStats } = ivsData;
-      showIVs(ivs, stats, link, energy, min, max, maxStats);
-    }
+    getIVsDiv(heroSkill, hero, poke);
   }
 
   var detail =
@@ -189,12 +193,11 @@ const showHeroDetail = (div, hero, close, poke) => {
         var cIVs = '';
         if (ivsData) {
           total = ivsData.total + '%';
-          if (ivsData.total >= 90) cIVs = 'max-ivs';
-          else if (ivsData.total >= 80) cIVs = 'good-ivs';
+          cIVs = cssIVs(ivsData.total);
         }
         return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
                 ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
-                <td name="${hero}-ivs-${v.name}" class="${cIVs}" hero="${hero}">${total}</td>
+                <td name="${hero}-ivs-${v.name}" class="show ${cIVs}" hero="${hero}" poke="${v.name}">${total}</td>
                 <td class="add-poke" name="${v.name}"><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
                 <td class="${color}" name="${hero}-${v.name}">
                   <div class="dstar">
@@ -238,6 +241,15 @@ const showHeroDetail = (div, hero, close, poke) => {
     PokeLinks[pkm.name].push({ hero: hero, link: pkm.link });
     ladd('HeroLinks', { hero, pkm });
     showHeroDetail(div, hero, close, poke);
+  });
+  div.find('.show').click(function () {
+    var divDe = div.closest('.divLa').find('.more');
+    divDe.empty();
+    getIVsDiv(divDe, hero, $(this).attr('poke'));
+    divDe.append(
+      $(`<button class="close">✖</button>`).click(() => divDe.hide()),
+    );
+    divDe.show();
   });
 };
 
@@ -498,9 +510,11 @@ $(function () {
     e.stopPropagation();
     var la = $(this).next();
     var name = $(this).attr('name').trim();
-    var div = $('<div>');
-    la.empty().append(div);
-    showHeroDetail(div, name, 'la');
+    var div1 = $('<div class="divLa">');
+    var div2 = $('<div>');
+    la.empty().append(div1);
+    div1.append(div2, '<div class="more">');
+    showHeroDetail(div2, name, 'la');
     la.show();
   });
   // Show Hero skill detail
