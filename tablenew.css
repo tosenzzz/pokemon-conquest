@@ -160,6 +160,7 @@ ul { padding-inline-start: 15px; margin-top: 0px; margin-bottom: 5px; }
 .hero-skill { text-align: left; margin-top: 5px; }
 .ivs {
   margin-bottom: 5px;
+  min-width: 100px;
 }
 .ivs input {
   width: 30px;
@@ -175,6 +176,13 @@ ul { padding-inline-start: 15px; margin-top: 0px; margin-bottom: 5px; }
   justify-content: center;
 }
 .ivs pre {margin: 0;}
+.ivs img {width: 50px;}
+.ivs-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #c800f5;
+}
 #ivResult td {
   text-align: center;
 }

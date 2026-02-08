@@ -10,6 +10,17 @@ const ladd = (key, val) => {
   localStorage.setItem('version', +(lget('version') || 0) + 1);
   localStorage.setItem(key, JSON.stringify(data));
 };
+const lrem = (key, hero, poke) => {
+  data = lget(key) || [];
+  idx = data.findIndex((v) => v.hero == hero && v.pkm.name == poke);
+  item = null;
+  if (idx >= 0) {
+    item = data.splice(idx, 1);
+    localStorage.setItem('version', +(lget('version') || 0) + 1);
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+  return item;
+};
 const API = (type, url, data) => {
   return new Promise((ok, err) => {
     $.ajax({
@@ -85,7 +96,7 @@ const showPokeDetail = (div, name) => {
         if (lget(`${v.hero}-poke-${name}`) == 'own') color = 'hero-has-poke ';
         if (lget(`${v.hero}-own`)) color += 'has-hero';
         var ivsData = lget(`${v.hero}-ivs-${name}`);
-        var total = 'NA';
+        var total = '&nbsp;';
         var cIVs = '';
         if (ivsData) {
           total = ivsData.total + '%';
@@ -127,6 +138,7 @@ const showPokeDetail = (div, name) => {
 const getIVsDiv = (div, hero, poke) => {
   var ivs = $(`
       <div class="ivs">
+        <div class="ivs-img"><img src="${pokeImgs[poke]}"/> ˚ʚ♡ɞ˚ <img src="${heroImgs[hero]}"/></div>
         <div class="ivs-cal">
           <input id="ivHP" inputmode="numeric" placeholder="HP">
           <input id="ivAtk" inputmode="numeric" placeholder="ATK">
@@ -189,16 +201,16 @@ const showHeroDetail = (div, hero, close, poke) => {
         let color = '';
         if (lget(`${hero}-poke-${v.name}`) == 'own') color = 'hero-has-poke ';
         var ivsData = lget(`${hero}-ivs-${v.name}`);
-        var total = 'NA';
+        var total = '&nbsp;';
         var cIVs = '';
         if (ivsData) {
           total = ivsData.total + '%';
           cIVs = cssIVs(ivsData.total);
         }
         return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
-                ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
-                <td name="${hero}-ivs-${v.name}" class="show ${cIVs}" hero="${hero}" poke="${v.name}">${total}</td>
-                <td class="add-poke" name="${v.name}"><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
+                ${v.link.map((u) => `<td class="max-link show" poke="${v.name}">${u}</td>`).join('')}
+                <td name="${hero}-ivs-${v.name}" class="show ${cIVs}" poke="${v.name}">${total}</td>
+                <td class="add-poke" hero="${hero}" poke="${v.name}"><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
                 <td class="${color}" name="${hero}-${v.name}">
                   <div class="dstar">
                     <a href="#poke-${v.name}">${v.name}</a>
@@ -221,25 +233,43 @@ const showHeroDetail = (div, hero, close, poke) => {
     ),
   );
   div.find('.add-poke').click(function () {
-    id = +prompt('Add Pokemon to Hero:', '0');
-    pkm = Object.values(pokeData).find((a) => a.id == id);
-    if (!pkm) {
-      alert(`No Pokemon with ID [${id}]!`);
-      return;
+    var hero = $(this).attr('hero');
+    var poke = $(this).attr('poke');
+    id = +prompt('Add Pokemon to Hero:', '');
+    if (!id) return;
+    if (id == -1) {
+      var item = lrem('HeroLinks', hero, poke);
+      if (item) {
+        var pkm = item[0].pkm;
+        HeroLinks[hero].splice(
+          HeroLinks[hero].findIndex((v) => v.id == pkm.id),
+          1,
+        );
+        PokeLinks[pkm.name].splice(
+          PokeLinks[pkm.name].findIndex((v) => v.hero == hero),
+          1,
+        );
+      }
+    } else {
+      pkm = Object.values(pokeData).find((a) => a.id == id);
+      if (!pkm) {
+        alert(`No Pokemon with ID [${id}]!`);
+        return;
+      }
+      if (!!HeroLinks[hero].find((a) => a.id == id)) {
+        alert(`Hero with Pokemon [${pkm.name}] existed!`);
+        return;
+      }
+      pkm = {
+        id: id,
+        name: pkm.name,
+        link: [...HeroLinks[hero][0].link].fill(60),
+        pos: poke,
+      };
+      HeroLinks[hero].push(pkm);
+      PokeLinks[pkm.name].push({ hero: hero, link: pkm.link });
+      ladd('HeroLinks', { hero, pkm });
     }
-    if (!!HeroLinks[hero].find((a) => a.id == id)) {
-      alert(`Hero with Pokemon [${pkm.name}] existed!`);
-      return;
-    }
-    pkm = {
-      id: id,
-      name: pkm.name,
-      link: [...HeroLinks[hero][0].link].fill(60),
-      pos: $(this).attr('name'),
-    };
-    HeroLinks[hero].push(pkm);
-    PokeLinks[pkm.name].push({ hero: hero, link: pkm.link });
-    ladd('HeroLinks', { hero, pkm });
     showHeroDetail(div, hero, close, poke);
   });
   div.find('.show').click(function () {
