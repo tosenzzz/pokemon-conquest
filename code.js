@@ -179,6 +179,11 @@ const showHeroDetail = (div, hero, close, poke) => {
   div.empty();
   var heroName = `<div class="hero-name"><img src="${heroImgs[hero]}" class="HeroLinks" name="${hero}"/>${hero}</div>`;
   var heroSkill = $(`<div class="hero-skill"></div>`);
+  if (!heroCap[hero]) {
+    alert('No hero capacity ' + hero);
+    return;
+  }
+  $(`<div>Capacity: ${heroCap[hero].join('/')}</div>`).appendTo(heroSkill);
   if (heroRankUp[hero]) {
     $(`<div>Rank-Up</div>`).appendTo(heroSkill);
     var rankUp = $(`<ul>`).appendTo(heroSkill);
