@@ -264,50 +264,54 @@ function executeIVCalc(e) {
   var link = Number(div.find('#ivLink').val());
   var energy = +div.find('#ivEnergy').val();
 
-  var [min, max] = CalcIVs(stats, DataDict[poke], link, energy);
-  var maxStats = CalcStats([31, 31, 31, 31], DataDict[poke], link, energy);
+  if (link > 0) {
+    var [min, max] = CalcIVs(stats, DataDict[poke], link, energy);
+    var maxStats = CalcStats([31, 31, 31, 31], DataDict[poke], link, energy);
 
-  if (!hero) {
-    if (link > 0) {
-      showIVs(div, stats, link, energy, min, max, maxStats);
-    } else {
-      // Find all valid IVs
-      for (link = 30; link <= 100; link++) {
-        var [min, max] = CalcIVs(stats, DataDict[poke], link, energy);
-        var maxStats = CalcStats(
-          [31, 31, 31, 31],
-          DataDict[poke],
-          link,
-          energy,
-        );
-        if (
-          !min.some((v) => v == -1000 || v == 1000) &&
-          !max.some((v) => v == -1000 || v == 1000)
-        ) {
-          showIVs(div, stats, link, energy, min, max, maxStats);
-        }
-      }
-      div.find('#ivHP').val('');
-      div.find('#ivAtk').val('');
-      div.find('#ivDef').val('');
-      div.find('#ivSpe').val('');
-      div.find('#ivLink').val('');
+    if (!hero) showIVs(div, stats, link, energy, min, max, maxStats);
+    else {
+      var total = showIVs(div, stats, link, energy, min, max, maxStats);
+      var tdIvs = $(`.divTbl td[name="${hero}-ivs-${poke}"]`);
+      tdIvs.text(total + '%');
+      tdIvs.removeClass(['max-ivs', 'good-ivs']);
+      tdIvs.addClass(cssIVs(total));
+      lset(`${hero}-ivs-${poke}`, {
+        stats,
+        link,
+        energy,
+        min,
+        max,
+        maxStats,
+        total,
+      });
     }
   } else {
-    var total = showIVs(div, stats, link, energy, min, max, maxStats);
-    var tdIvs = $(`.divTbl td[name="${hero}-ivs-${poke}"]`);
-    tdIvs.text(total + '%');
-    tdIvs.removeClass(['max-ivs', 'good-ivs']);
-    tdIvs.addClass(cssIVs(total));
-    lset(`${hero}-ivs-${poke}`, {
-      stats,
-      link,
-      energy,
-      min,
-      max,
-      maxStats,
-      total,
-    });
+    // Find all valid IVs
+    for (link = 1; link <= 100; link++) {
+      var [min, max] = CalcIVs(stats, DataDict[poke], link, energy);
+      var maxStats = CalcStats([31, 31, 31, 31], DataDict[poke], link, energy);
+      if (
+        !min.some((v) => v == -1000 || v == 1000) &&
+        !max.some((v) => v == -1000 || v == 1000)
+      ) {
+        showIVs(div, stats, link, energy, min, max, maxStats);
+      }
+    }
+    div.find('#ivHP').val('');
+    div.find('#ivAtk').val('');
+    div.find('#ivDef').val('');
+    div.find('#ivSpe').val('');
+    div.find('#ivLink').val('');
+    if (!!hero) {
+      div.find('.add').click(function () {
+        div.find('#ivHP').val(stats[0]);
+        div.find('#ivAtk').val(stats[1]);
+        div.find('#ivDef').val(stats[2]);
+        div.find('#ivSpe').val(stats[3]);
+        div.find('#ivLink').val($(this).text().replace('%', ''));
+        div.find('#ivEnergy').val(energy);
+      });
+    }
   }
 }
 
@@ -326,7 +330,9 @@ function showIVs(div, stats, link, energy, min, max, maxStats) {
   div.find('#ivEnergy').val(energy);
 
   const labels = ['HP', 'Atk', 'Def', 'Spe'];
-  let out = [`<tr><td>${link}%</td><th>IVs</th><th>Max</th><th>Diff</th></tr>`];
+  let out = [
+    `<tr><td class="add">${link}%</td><th>IVs</th><th>Max</th><th>Diff</th></tr>`,
+  ];
   let total = 0;
   let maxTt = 0;
   for (let i = 0; i < 4; i++) {
@@ -338,7 +344,6 @@ function showIVs(div, stats, link, energy, min, max, maxStats) {
       out.push(
         `<tr>
           <th>${labels[i]}</th>
-          <!--<td>${min[i]}</td>-->
           <td>${Math.trunc((min[i] * 100) / 31)}%</td>
           <td>${maxStats[i]}</td>
           <td>${stats[i] - maxStats[i]}</td>
@@ -350,7 +355,6 @@ function showIVs(div, stats, link, energy, min, max, maxStats) {
       out.push(
         `<tr>
           <th>${labels[i]}</th>
-          <!--<td>${min[i]}-${max[i]}</td>-->
           <td>${Math.trunc((max[i] * 100) / 31)}%</td>
           <td>${maxStats[i]}</td>
           <td>${stats[i] - maxStats[i]}</td>
