@@ -237,14 +237,22 @@ function calculateIVs(statList, baseList, link, energy) {
   return [min, max];
 }
 
+function calculateStats(ivList, baseList, link, energy) {
+  return ivList.map((iv, i) => {
+    if (iv < 0 || iv > 31) return 'Err';
+    return calculateOneStat(baseList[i], iv, link, energy);
+  });
+}
+
 /* --- EXECUTION --- */
 
 function executeIVCalc(e) {
   var div = $(e).closest('.ivs');
-  var name = div.attr('name');
-  if (!DataDict[name]) {
-    alert('No pokemon ' + name);
+  var poke = div.attr('poke');
+  if (!DataDict[poke]) {
+    alert('No pokemon ' + poke);
   }
+  var hero = div.attr('hero');
 
   const stats = [
     Number(div.find('#ivHP').val()),
@@ -252,27 +260,80 @@ function executeIVCalc(e) {
     Number(div.find('#ivDef').val()),
     Number(div.find('#ivSpe').val()),
   ];
-
   const link = Number(div.find('#ivLink').val());
   const energy = +div.find('#ivEnergy').val();
 
-  const [min, max] = calculateIVs(stats, DataDict[name], link, energy);
+  const [min, max] = calculateIVs(stats, DataDict[poke], link, energy);
+  const maxStats = calculateStats(
+    [31, 31, 31, 31],
+    DataDict[poke],
+    link,
+    energy,
+  );
+  var total = showIVs(div, stats, link, energy, min, max, maxStats);
+  $(`.divTbl td[name="${hero}-ivs-${poke}"]`).text(total + '%');
+
+  lset(`${hero}-ivs-${poke}`, {
+    stats,
+    link,
+    energy,
+    min,
+    max,
+    maxStats,
+    total,
+  });
+}
+
+function showIVs(div, stats, link, energy, min, max, maxStats) {
+  div.find('#ivHP').val(stats[0]);
+  div.find('#ivAtk').val(stats[1]);
+  div.find('#ivDef').val(stats[2]);
+  div.find('#ivSpe').val(stats[3]);
+  div.find('#ivLink').val(link);
+  div.find('#ivEnergy').val(energy);
 
   const labels = ['HP', 'Atk', 'Def', 'Spe'];
-  let out = '';
-
+  let out = [`<tr><th></th><th>IVs</th><th>Max</th><th>Diff</th></tr>`];
   let total = 0;
+  let maxTt = 0;
   for (let i = 0; i < 4; i++) {
     if (min[i] === -1000 || max[i] === 1000) {
-      out += `${labels[i]}: Err\n`;
+      out.push(`<tr><th>${labels[i]}</th><td>ERR</td></tr>`);
     } else if (min[i] === max[i]) {
       total += min[i];
-      out += `${labels[i]}: ${min[i]} (${Math.trunc((min[i] * 100) / 31)}%)\n`;
+      maxTt += maxStats[i];
+      out.push(
+        `<tr>
+          <th>${labels[i]}</th>
+          <!--<td>${min[i]}</td>-->
+          <td>${Math.trunc((min[i] * 100) / 31)}%</td>
+          <td>${maxStats[i]}</td>
+          <td>${stats[i] - maxStats[i]}</td>
+        </tr>`,
+      );
     } else {
       total += max[i];
-      out += `${labels[i]}: ${min[i]}-${max[i]} (${Math.trunc((max[i] * 100) / 31)}%)\n`;
+      maxTt += maxStats[i];
+      out.push(
+        `<tr>
+          <th>${labels[i]}</th>
+          <!--<td>${min[i]}-${max[i]}</td>-->
+          <td>${Math.trunc((max[i] * 100) / 31)}%</td>
+          <td>${maxStats[i]}</td>
+          <td>${stats[i] - maxStats[i]}</td>
+        </tr>`,
+      );
     }
   }
-  out += `Total: ${Math.trunc((total * 100) / 31 / 4)}%`;
-  div.find('#ivResult').text(out.trim());
+  total = Math.trunc((total * 100) / 31 / 4);
+  out.push(
+    `<tr>
+      <th>Total</th>
+      <td>${total}%</td>
+      <td>${maxTt}</td>
+      <td>${stats.reduce((tt, v) => tt + v, 0) - maxTt}</td>
+    </tr>`,
+  );
+  div.find('#ivResult').html(out);
+  return total;
 }

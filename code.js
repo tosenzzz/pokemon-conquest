@@ -76,23 +76,6 @@ const showPokeDetail = (div, name) => {
     alert('No PokeLinks ', name);
     return;
   }
-  var ivs = $(`<div class="ivs">
-    <input id="ivHP" inputmode="numeric" placeholder="HP">
-    <input id="ivAtk" inputmode="numeric" placeholder="ATK">
-    <input id="ivDef" inputmode="numeric" placeholder="DEF">
-    <input id="ivSpe" inputmode="numeric" placeholder="SPD">
-    <input id="ivLink" inputmode="numeric" placeholder="Lnk">
-    <select name="ivEnergy" id="ivEnergy">
-      <option value="110">Very High</option>
-      <option value="105">High</option>
-      <option value="100">Medium</option>
-      <option value="95">Low</option>
-      <option value="90">Very Low</option>
-    </select>
-    <button onclick="executeIVCalc(this)">Calculate IVs</button>
-    <pre id="ivResult"></pre>
-  </div>`);
-  ivs.attr('name', name);
   var detail =
     '<table class="tbl">' +
     PokeLinks[name]
@@ -101,6 +84,11 @@ const showPokeDetail = (div, name) => {
         let color = '';
         if (lget(`${v.hero}-poke-${name}`) == 'own') color = 'hero-has-poke ';
         if (lget(`${v.hero}-own`)) color += 'has-hero';
+        var ivsData = lget(`${v.hero}-ivs-${name}`);
+        var total = 'NA';
+        if (ivsData) {
+          total = ivsData.total + '%';
+        }
         return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
                 <td class="${color}" name="${v.hero}-${name}">
                   <div class="dstar">
@@ -108,13 +96,20 @@ const showPokeDetail = (div, name) => {
                     <span class="star" onclick="starClick(this, '${v.hero.replace("'", "\\'")}', '${name}')">★</span>
                   </div>
                 </td>
-                ${v.link.map((u) => `<td class="max-link show" name="${v.hero}">${u}</td>`).join('')}
+                ${v.link
+                  .concat(Array(Math.max(0, 3 - v.link.length)).fill(''))
+                  .map(
+                    (u) =>
+                      `<td class="max-link show" hero="${v.hero}">${u}</td>`,
+                  )
+                  .join('')}
+                <td name="${v.hero}-ivs-${name}" class="show" hero="${v.hero}">${total}</td>
               </tr>`;
       })
       .join('') +
     '</table>';
   div.empty();
-  div.append($('<div class="divTbl">').append(ivs, detail));
+  div.append($('<div class="divTbl">').append(detail));
   div.append(
     $(`<button class="close">✖</button>`).click(() =>
       div.closest('la').hide(),
@@ -122,12 +117,12 @@ const showPokeDetail = (div, name) => {
   );
   div.find('.show').click(function () {
     var divDe = div.closest('.divLa').find('.more');
-    showHeroDetail(divDe, $(this).attr('name'), '.more');
+    showHeroDetail(divDe, $(this).attr('hero'), '.more', name);
     divDe.show();
   });
 };
 
-const showHeroDetail = (div, hero, close) => {
+const showHeroDetail = (div, hero, close, poke) => {
   if (!HeroLinks[hero]) {
     alert('No HeroLinks', hero);
     return;
@@ -142,8 +137,38 @@ const showHeroDetail = (div, hero, close) => {
   $(`<div>Skills</div>`).appendTo(heroSkill);
   var skillL = $(`<ul>`).appendTo(heroSkill);
   heroSkills[hero].forEach((v, i) => {
-    skillL.append(`<li>${i + 1}.${v}: ${skillsList[v]}</li>`);
+    skillL.append(`<li>${i + 1}. ${v}: ${skillsList[v]}</li>`);
   });
+
+  if (poke) {
+    var ivs = $(`
+      <div class="ivs">
+        <div class="ivs-cal">
+          <input id="ivHP" inputmode="numeric" placeholder="HP">
+          <input id="ivAtk" inputmode="numeric" placeholder="ATK">
+          <input id="ivDef" inputmode="numeric" placeholder="DEF">
+          <input id="ivSpe" inputmode="numeric" placeholder="SPD">
+          <input id="ivLink" inputmode="numeric" placeholder="Lnk">
+          <select name="ivEnergy" id="ivEnergy">
+            <option value="110">↑</option>
+            <option value="105">↗</option>
+            <option value="100">→</option>
+            <option value="95">↘</option>
+            <option value="90">↓</option>
+          </select>
+          <button onclick="executeIVCalc(this)">IVs</button>
+          <div id="ivResult"></div>
+        </div>
+      </div>`).appendTo(heroSkill);
+    ivs.attr('poke', poke);
+    ivs.attr('hero', hero);
+    var ivsData = lget(`${hero}-ivs-${poke}`);
+    if (ivsData) {
+      var { stats, link, energy, min, max, maxStats } = ivsData;
+      showIVs(ivs, stats, link, energy, min, max, maxStats);
+    }
+  }
+
   var detail =
     '<table class="tbl">' +
     sortByPos(HeroLinks[hero])
@@ -200,7 +225,7 @@ const showHeroDetail = (div, hero, close) => {
     HeroLinks[hero].push(pkm);
     PokeLinks[pkm.name].push({ hero: hero, link: pkm.link });
     ladd('HeroLinks', { hero, pkm });
-    showHeroDetail(div, hero, close);
+    showHeroDetail(div, hero, close, poke);
   });
 };
 
@@ -463,7 +488,7 @@ $(function () {
     var name = $(this).attr('name').trim();
     var div = $('<div>');
     la.empty().append(div);
-    showHeroDetail(div, name);
+    showHeroDetail(div, name, 'la');
     la.show();
   });
   // Show Hero skill detail

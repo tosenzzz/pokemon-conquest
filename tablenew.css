@@ -127,7 +127,7 @@ la .close { width: 100%; margin-top: 5px; border: 1px; color: red; }
 .tbl tr.ninety-link:nth-child(2n) td.max-link { background: #afcfaf; }
 .tbl tr.ninety-link:nth-child(2n+1) td.max-link { background: #c0d8c0; }
 #myTable td:nth-child(n+12):nth-child(-n+15) { text-align: left; }
-.cen ul { padding-inline-start: 15px; margin-top: 0px; margin-bottom: 5px; }
+ul { padding-inline-start: 15px; margin-top: 0px; margin-bottom: 5px; }
 .pktype { margin-top: 10px; }
 .pktype, .movetype {
   display: flex;
@@ -155,10 +155,6 @@ la .close { width: 100%; margin-top: 5px; border: 1px; color: red; }
 }
 .hero-skill { text-align: left; margin-top: 5px; }
 .ivs {
-  display: flex;
-  gap: 2px;
-  flex-wrap: wrap;
-  justify-content: center;
   margin-bottom: 5px;
 }
 .ivs input {
@@ -167,4 +163,13 @@ la .close { width: 100%; margin-top: 5px; border: 1px; color: red; }
 .ivs * {
   font-size: 9px;
 }
+.ivs-cal {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .ivs pre {margin: 0;}
+#ivResult td {
+  text-align: center;
+}
