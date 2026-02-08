@@ -210,7 +210,7 @@ function calculateOneStat(base, iv, link, energy) {
   );
 }
 
-function calculateIVs(statList, baseList, link, energy) {
+function CalcIVs(statList, baseList, link, energy) {
   let min = [-1, -1, -1, -1];
   let max = [-1, -1, -1, -1];
 
@@ -237,7 +237,7 @@ function calculateIVs(statList, baseList, link, energy) {
   return [min, max];
 }
 
-function calculateStats(ivList, baseList, link, energy) {
+function CalcStats(ivList, baseList, link, energy) {
   return ivList.map((iv, i) => {
     if (iv < 0 || iv > 31) return 'Err';
     return calculateOneStat(baseList[i], iv, link, energy);
@@ -253,6 +253,7 @@ function executeIVCalc(e) {
     alert('No pokemon ' + poke);
   }
   var hero = div.attr('hero');
+  div.find('#ivResult').empty();
 
   const stats = [
     Number(div.find('#ivHP').val()),
@@ -260,31 +261,54 @@ function executeIVCalc(e) {
     Number(div.find('#ivDef').val()),
     Number(div.find('#ivSpe').val()),
   ];
-  const link = Number(div.find('#ivLink').val());
-  const energy = +div.find('#ivEnergy').val();
+  var link = Number(div.find('#ivLink').val());
+  var energy = +div.find('#ivEnergy').val();
 
-  const [min, max] = calculateIVs(stats, DataDict[poke], link, energy);
-  const maxStats = calculateStats(
-    [31, 31, 31, 31],
-    DataDict[poke],
-    link,
-    energy,
-  );
-  var total = showIVs(div, stats, link, energy, min, max, maxStats);
-  var tdIvs = $(`.divTbl td[name="${hero}-ivs-${poke}"]`);
-  tdIvs.text(total + '%');
-  tdIvs.removeClass(['max-ivs', 'good-ivs']);
-  tdIvs.addClass(cssIVs(total));
+  var [min, max] = CalcIVs(stats, DataDict[poke], link, energy);
+  var maxStats = CalcStats([31, 31, 31, 31], DataDict[poke], link, energy);
 
-  lset(`${hero}-ivs-${poke}`, {
-    stats,
-    link,
-    energy,
-    min,
-    max,
-    maxStats,
-    total,
-  });
+  if (!hero) {
+    if (link > 0) {
+      showIVs(div, stats, link, energy, min, max, maxStats);
+    } else {
+      // Find all valid IVs
+      for (link = 30; link <= 100; link++) {
+        var [min, max] = CalcIVs(stats, DataDict[poke], link, energy);
+        var maxStats = CalcStats(
+          [31, 31, 31, 31],
+          DataDict[poke],
+          link,
+          energy,
+        );
+        if (
+          !min.some((v) => v == -1000 || v == 1000) &&
+          !max.some((v) => v == -1000 || v == 1000)
+        ) {
+          showIVs(div, stats, link, energy, min, max, maxStats);
+        }
+      }
+      div.find('#ivHP').val('');
+      div.find('#ivAtk').val('');
+      div.find('#ivDef').val('');
+      div.find('#ivSpe').val('');
+      div.find('#ivLink').val('');
+    }
+  } else {
+    var total = showIVs(div, stats, link, energy, min, max, maxStats);
+    var tdIvs = $(`.divTbl td[name="${hero}-ivs-${poke}"]`);
+    tdIvs.text(total + '%');
+    tdIvs.removeClass(['max-ivs', 'good-ivs']);
+    tdIvs.addClass(cssIVs(total));
+    lset(`${hero}-ivs-${poke}`, {
+      stats,
+      link,
+      energy,
+      min,
+      max,
+      maxStats,
+      total,
+    });
+  }
 }
 
 function cssIVs(total) {
@@ -302,7 +326,7 @@ function showIVs(div, stats, link, energy, min, max, maxStats) {
   div.find('#ivEnergy').val(energy);
 
   const labels = ['HP', 'Atk', 'Def', 'Spe'];
-  let out = [`<tr><th></th><th>IVs</th><th>Max</th><th>Diff</th></tr>`];
+  let out = [`<tr><td>${link}%</td><th>IVs</th><th>Max</th><th>Diff</th></tr>`];
   let total = 0;
   let maxTt = 0;
   for (let i = 0; i < 4; i++) {

@@ -87,6 +87,8 @@ const showPokeDetail = (div, name) => {
     alert('No PokeLinks ', name);
     return;
   }
+  div.empty();
+  var divIvs = getIVsDiv('', name);
   var detail =
     '<table class="tbl">' +
     PokeLinks[name]
@@ -121,8 +123,7 @@ const showPokeDetail = (div, name) => {
       })
       .join('') +
     '</table>';
-  div.empty();
-  div.append($('<div class="divTbl">').append(detail));
+  div.append($('<div class="divTbl">').append(divIvs, detail));
   div.append(
     $(`<button class="close">✖</button>`).click(() =>
       div.closest('la').hide(),
@@ -135,10 +136,9 @@ const showPokeDetail = (div, name) => {
   });
 };
 
-const getIVsDiv = (div, hero, poke) => {
+const getIVsDiv = (hero, poke) => {
   var ivs = $(`
       <div class="ivs">
-        <div class="ivs-img"><img src="${pokeImgs[poke]}"/> ˚ʚ♡ɞ˚ <img src="${heroImgs[hero]}"/></div>
         <div class="ivs-cal">
           <input id="ivHP" inputmode="numeric" placeholder="HP">
           <input id="ivAtk" inputmode="numeric" placeholder="ATK">
@@ -155,13 +155,18 @@ const getIVsDiv = (div, hero, poke) => {
           <button onclick="executeIVCalc(this)">IVs</button>
         </div>
         <div id="ivResult" class="ivs-cal"></div>
-      </div>`).appendTo(div);
+      </div>`);
   ivs.attr('poke', poke);
-  ivs.attr('hero', hero);
-  var ivsData = lget(`${hero}-ivs-${poke}`);
-  if (ivsData) {
-    var { stats, link, energy, min, max, maxStats } = ivsData;
-    showIVs(ivs, stats, link, energy, min, max, maxStats);
+  if (!!hero) {
+    ivs.prepend(
+      `<div class="ivs-img"><img src="${pokeImgs[poke]}"/> ˚ʚ♡ɞ˚ <img src="${heroImgs[hero]}"/></div>`,
+    );
+    ivs.attr('hero', hero);
+    var ivsData = lget(`${hero}-ivs-${poke}`);
+    if (ivsData) {
+      var { stats, link, energy, min, max, maxStats } = ivsData;
+      showIVs(ivs, stats, link, energy, min, max, maxStats);
+    }
   }
   return ivs;
 };
@@ -171,6 +176,7 @@ const showHeroDetail = (div, hero, close, poke) => {
     alert('No HeroLinks', hero);
     return;
   }
+  div.empty();
   var heroName = `<div class="hero-name"><img src="${heroImgs[hero]}" class="HeroLinks" name="${hero}"/>${hero}</div>`;
   var heroSkill = $(`<div class="hero-skill"></div>`);
   if (heroRankUp[hero]) {
@@ -185,7 +191,7 @@ const showHeroDetail = (div, hero, close, poke) => {
   });
 
   if (poke) {
-    getIVsDiv(heroSkill, hero, poke);
+    heroSkill.append(getIVsDiv(hero, poke));
   }
 
   var detail =
@@ -225,7 +231,6 @@ const showHeroDetail = (div, hero, close, poke) => {
       })
       .join('') +
     '</table>';
-  div.empty();
   div.append($('<div class="divTbl">').append(heroName, heroSkill, detail));
   div.append(
     $(`<button class="close">✖</button>`).click(() =>
@@ -275,7 +280,7 @@ const showHeroDetail = (div, hero, close, poke) => {
   div.find('.show').click(function () {
     var divDe = div.closest('.divLa').find('.more');
     divDe.empty();
-    getIVsDiv(divDe, hero, $(this).attr('poke'));
+    divDe.append(getIVsDiv(hero, $(this).attr('poke')));
     divDe.append(
       $(`<button class="close">✖</button>`).click(() => divDe.hide()),
     );

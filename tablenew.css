@@ -186,3 +186,9 @@ ul { padding-inline-start: 15px; margin-top: 0px; margin-bottom: 5px; }
 #ivResult td {
   text-align: center;
 }
+.ivs #ivResult {
+  margin-top: 2px;
+}
+.ivs #ivResult table {
+  border: 1px solid #b6b6ec;
+}
