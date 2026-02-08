@@ -271,7 +271,11 @@ function executeIVCalc(e) {
     energy,
   );
   var total = showIVs(div, stats, link, energy, min, max, maxStats);
-  $(`.divTbl td[name="${hero}-ivs-${poke}"]`).text(total + '%');
+  var tdIvs = $(`.divTbl td[name="${hero}-ivs-${poke}"]`);
+  tdIvs.text(total + '%');
+  tdIvs.removeClass(['max-ivs', 'good-ivs']);
+  if (total >= 90) tdIvs.addClass('max-ivs');
+  else if (total >= 80) tdIvs.addClass('good-ivs');
 
   lset(`${hero}-ivs-${poke}`, {
     stats,

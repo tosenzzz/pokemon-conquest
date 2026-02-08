@@ -86,8 +86,11 @@ const showPokeDetail = (div, name) => {
         if (lget(`${v.hero}-own`)) color += 'has-hero';
         var ivsData = lget(`${v.hero}-ivs-${name}`);
         var total = 'NA';
+        var cIVs = '';
         if (ivsData) {
           total = ivsData.total + '%';
+          if (ivsData.total >= 90) cIVs = 'max-ivs';
+          else if (ivsData.total >= 80) cIVs = 'good-ivs';
         }
         return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
                 <td class="${color}" name="${v.hero}-${name}">
@@ -103,7 +106,7 @@ const showPokeDetail = (div, name) => {
                       `<td class="max-link show" hero="${v.hero}">${u}</td>`,
                   )
                   .join('')}
-                <td name="${v.hero}-ivs-${name}" class="show" hero="${v.hero}">${total}</td>
+                <td name="${v.hero}-ivs-${name}" class="show ${cIVs}" hero="${v.hero}">${total}</td>
               </tr>`;
       })
       .join('') +
@@ -181,8 +184,17 @@ const showHeroDetail = (div, hero, close, poke) => {
         move = allMoves[move];
         let color = '';
         if (lget(`${hero}-poke-${v.name}`) == 'own') color = 'hero-has-poke ';
+        var ivsData = lget(`${hero}-ivs-${v.name}`);
+        var total = 'NA';
+        var cIVs = '';
+        if (ivsData) {
+          total = ivsData.total + '%';
+          if (ivsData.total >= 90) cIVs = 'max-ivs';
+          else if (ivsData.total >= 80) cIVs = 'good-ivs';
+        }
         return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
                 ${v.link.map((u) => `<td class="max-link">${u}</td>`).join('')}
+                <td name="${hero}-ivs-${v.name}" class="${cIVs}" hero="${hero}">${total}</td>
                 <td class="add-poke" name="${v.name}"><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
                 <td class="${color}" name="${hero}-${v.name}">
                   <div class="dstar">
