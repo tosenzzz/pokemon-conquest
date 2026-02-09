@@ -246,6 +246,7 @@ function CalcStats(ivList, baseList, link, energy) {
 
 /* --- EXECUTION --- */
 
+var maxIVs = [31, 31, 31, 31];
 function executeIVCalc(e) {
   var div = $(e).closest('.ivs');
   var poke = div.attr('poke');
@@ -263,15 +264,14 @@ function executeIVCalc(e) {
   ];
   var link = Number(div.find('#ivLink').val());
   var energy = +div.find('#ivEnergy').val();
-  var maxIVs = [31, 31, 31, 31];
 
   if (link > 0 && stats.some((v) => v > 0)) {
     var [min, max] = CalcIVs(stats, DataDict[poke], link, energy);
     var maxStats = CalcStats([31, 31, 31, 31], DataDict[poke], link, energy);
 
-    if (!hero) showIVs(div, stats, link, energy, min, max, maxStats);
+    if (!hero) showIVs(div, stats, link, energy, min, max, maxStats, poke);
     else {
-      var total = showIVs(div, stats, link, energy, min, max, maxStats);
+      var total = showIVs(div, stats, link, energy, min, max, maxStats, poke);
       var tdIvs = $(`.divTbl td[name="${hero}-ivs-${poke}"]`);
       tdIvs.text(total + '%');
       tdIvs.removeClass(['max-ivs', 'good-ivs']);
@@ -296,7 +296,7 @@ function executeIVCalc(e) {
           !min.some((v) => v == -1000 || v == 1000) &&
           !max.some((v) => v == -1000 || v == 1000)
         ) {
-          showIVs(div, stats, link, energy, min, max, maxStats);
+          showIVs(div, stats, link, energy, min, max, maxStats, poke);
         }
       }
       setVals(div, '', '', '', '', '', energy);
@@ -304,12 +304,9 @@ function executeIVCalc(e) {
       // Find Max Stats
       var maxStats = CalcStats(maxIVs, DataDict[poke], link, energy);
       stats = maxStats;
-      showIVs(div, maxStats, link, energy, maxIVs, maxIVs, maxStats);
+      showIVs(div, maxStats, link, energy, maxIVs, maxIVs, maxStats, poke);
       setVals(div, '', '', '', '', link, energy);
     }
-    div.find('.add').click(function () {
-      setVals(div, ...stats, $(this).text().replace('%', ''), energy);
-    });
   }
 }
 
@@ -328,12 +325,13 @@ function setVals(div, hp, atk, def, spd, lnk, ener) {
   div.find('#ivEnergy').val(ener);
 }
 
-function showIVs(div, stats, link, energy, min, max, maxStats) {
+var CopyIVs = [];
+function showIVs(div, stats, link, energy, min, max, maxStats, poke) {
   setVals(div, ...stats, link, energy);
 
   const labels = ['HP', 'Atk', 'Def', 'Spe'];
   let out = [
-    `<tr><td class="add">${link}%</td><th>IVs</th><th>Max</th><th>Diff</th></tr>`,
+    `<tr><td class="add">${link}%</td><th class="paste">IVs</th><th>Max</th><th>Diff</th></tr>`,
   ];
   let total = 0;
   let maxTt = 0;
@@ -364,15 +362,34 @@ function showIVs(div, stats, link, energy, min, max, maxStats) {
       );
     }
   }
-  total = Math.trunc((total * 100) / 31 / 4);
+  total = Math.trunc((total * 100) / (31 * 4));
   out.push(
     `<tr>
       <th>Total</th>
-      <td>${total}%</td>
+      <td class="${cssIVs(total)} copy">${total}%</td>
       <td>${maxTt}</td>
       <td>${stats.reduce((tt, v) => tt + v, 0) - maxTt}</td>
     </tr>`,
   );
-  $('<table>').appendTo(div.find('#ivResult')).html(out);
+  var tbl = $(`<table class="tbl" style="width: initial;">`);
+  tbl.appendTo(div.find('#ivResult')).html(out);
+
+  tbl.find('.add').click(function () {
+    setVals(div, ...stats, $(this).text().replace('%', ''), energy);
+  });
+  tbl.find('.copy').attr('IVs', max);
+  tbl.find('.copy').click(function () {
+    CopyIVs = $(this)
+      .attr('IVs')
+      .split(',')
+      .map((v) => +v);
+    alert('Copied IVs: ' + JSON.stringify(CopyIVs));
+  });
+  tbl.find('.paste').click(function () {
+    var maxStats = CalcStats(maxIVs, DataDict[poke], link, energy);
+    var copyStats = CalcStats(CopyIVs, DataDict[poke], link, energy);
+    div.find('#ivResult').empty();
+    showIVs(div, copyStats, link, energy, CopyIVs, CopyIVs, maxStats, poke);
+  });
   return total;
 }

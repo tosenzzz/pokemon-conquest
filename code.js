@@ -165,7 +165,7 @@ const getIVsDiv = (hero, poke) => {
     var ivsData = lget(`${hero}-ivs-${poke}`);
     if (ivsData) {
       var { stats, link, energy, min, max, maxStats } = ivsData;
-      showIVs(ivs, stats, link, energy, min, max, maxStats);
+      showIVs(ivs, stats, link, energy, min, max, maxStats, poke);
     }
   }
   return ivs;
