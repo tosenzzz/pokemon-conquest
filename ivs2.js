@@ -255,7 +255,7 @@ function executeIVCalc(e) {
   var hero = div.attr('hero');
   div.find('#ivResult').empty();
 
-  const stats = [
+  var stats = [
     Number(div.find('#ivHP').val()),
     Number(div.find('#ivAtk').val()),
     Number(div.find('#ivDef').val()),
@@ -263,8 +263,9 @@ function executeIVCalc(e) {
   ];
   var link = Number(div.find('#ivLink').val());
   var energy = +div.find('#ivEnergy').val();
+  var maxIVs = [31, 31, 31, 31];
 
-  if (link > 0) {
+  if (link > 0 && stats.some((v) => v > 0)) {
     var [min, max] = CalcIVs(stats, DataDict[poke], link, energy);
     var maxStats = CalcStats([31, 31, 31, 31], DataDict[poke], link, energy);
 
@@ -286,32 +287,29 @@ function executeIVCalc(e) {
       });
     }
   } else {
-    // Find all valid IVs
-    for (link = 1; link <= 100; link++) {
-      var [min, max] = CalcIVs(stats, DataDict[poke], link, energy);
-      var maxStats = CalcStats([31, 31, 31, 31], DataDict[poke], link, energy);
-      if (
-        !min.some((v) => v == -1000 || v == 1000) &&
-        !max.some((v) => v == -1000 || v == 1000)
-      ) {
-        showIVs(div, stats, link, energy, min, max, maxStats);
+    if (link <= 0) {
+      // Find all valid IVs
+      for (link = 1; link <= 100; link++) {
+        var [min, max] = CalcIVs(stats, DataDict[poke], link, energy);
+        var maxStats = CalcStats(maxIVs, DataDict[poke], link, energy);
+        if (
+          !min.some((v) => v == -1000 || v == 1000) &&
+          !max.some((v) => v == -1000 || v == 1000)
+        ) {
+          showIVs(div, stats, link, energy, min, max, maxStats);
+        }
       }
+      setVals(div, '', '', '', '', '', energy);
+    } else {
+      // Find Max Stats
+      var maxStats = CalcStats(maxIVs, DataDict[poke], link, energy);
+      stats = maxStats;
+      showIVs(div, maxStats, link, energy, maxIVs, maxIVs, maxStats);
+      setVals(div, '', '', '', '', link, energy);
     }
-    div.find('#ivHP').val('');
-    div.find('#ivAtk').val('');
-    div.find('#ivDef').val('');
-    div.find('#ivSpe').val('');
-    div.find('#ivLink').val('');
-    if (!!hero) {
-      div.find('.add').click(function () {
-        div.find('#ivHP').val(stats[0]);
-        div.find('#ivAtk').val(stats[1]);
-        div.find('#ivDef').val(stats[2]);
-        div.find('#ivSpe').val(stats[3]);
-        div.find('#ivLink').val($(this).text().replace('%', ''));
-        div.find('#ivEnergy').val(energy);
-      });
-    }
+    div.find('.add').click(function () {
+      setVals(div, ...stats, $(this).text().replace('%', ''), energy);
+    });
   }
 }
 
@@ -321,13 +319,17 @@ function cssIVs(total) {
   return;
 }
 
+function setVals(div, hp, atk, def, spd, lnk, ener) {
+  div.find('#ivHP').val(hp);
+  div.find('#ivAtk').val(atk);
+  div.find('#ivDef').val(def);
+  div.find('#ivSpe').val(spd);
+  div.find('#ivLink').val(lnk);
+  div.find('#ivEnergy').val(ener);
+}
+
 function showIVs(div, stats, link, energy, min, max, maxStats) {
-  div.find('#ivHP').val(stats[0]);
-  div.find('#ivAtk').val(stats[1]);
-  div.find('#ivDef').val(stats[2]);
-  div.find('#ivSpe').val(stats[3]);
-  div.find('#ivLink').val(link);
-  div.find('#ivEnergy').val(energy);
+  setVals(div, ...stats, link, energy);
 
   const labels = ['HP', 'Atk', 'Def', 'Spe'];
   let out = [
