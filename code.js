@@ -82,6 +82,17 @@ const addBoxV2 = (title, fn, ...pr) => {
   return sdiv;
 };
 
+const getIVs = (hero, poke) => {
+  var ivsData = lget(`${hero}-ivs-${poke}`);
+  var total = '&nbsp;';
+  var cIVs = '';
+  if (ivsData) {
+    total = ivsData.total + '%';
+    cIVs = cssIVs(ivsData.total);
+  }
+  return { total, cIVs };
+};
+
 const showPokeDetail = (div, name) => {
   if (!PokeLinks[name]) {
     alert('No PokeLinks ', name);
@@ -98,12 +109,7 @@ const showPokeDetail = (div, name) => {
         if (lget(`${v.hero}-poke-${name}`) == 'own') color = 'hero-has-poke ';
         if (lget(`${v.hero}-own`)) color += 'has-hero';
         var ivsData = lget(`${v.hero}-ivs-${name}`);
-        var total = '&nbsp;';
-        var cIVs = '';
-        if (ivsData) {
-          total = ivsData.total + '%';
-          cIVs = cssIVs(ivsData.total);
-        }
+        var { total, cIVs } = getIVs(v.hero, name);
         return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
                 <td class="${color}" name="${v.hero}-${name}">
                   <div class="dstar">
@@ -211,13 +217,7 @@ const showHeroDetail = (div, hero, close, poke) => {
         move = allMoves[move];
         let color = '';
         if (lget(`${hero}-poke-${v.name}`) == 'own') color = 'hero-has-poke ';
-        var ivsData = lget(`${hero}-ivs-${v.name}`);
-        var total = '&nbsp;';
-        var cIVs = '';
-        if (ivsData) {
-          total = ivsData.total + '%';
-          cIVs = cssIVs(ivsData.total);
-        }
+        var { total, cIVs } = getIVs(hero, v.name);
         return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
                 ${v.link.map((u) => `<td class="max-link show" poke="${v.name}">${u}</td>`).join('')}
                 <td name="${hero}-ivs-${v.name}" class="show ${cIVs}" poke="${v.name}">${total}</td>
@@ -330,7 +330,7 @@ function genHero(div, line) {
   );
 
   herod.append(
-    `<td class="cen"><a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero}</a></td>`,
+    `<td class="cen"><a class="hrname" href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero}</a></td>`,
   );
   $(`<td class="cen">${'★'.repeat(heroRankUp[hero]?.length || 1)}</td>`)
     .click(() => {
@@ -342,6 +342,11 @@ function genHero(div, line) {
   // Pokemons
   pokes = pokes.concat(Array(Math.max(0, 3 - pokes.length)).fill(''));
   pokes.forEach((poke) => {
+    // IVs
+    var { total, cIVs } = getIVs(hero, poke);
+    $(`<td name="${hero}-ivs-${poke}" class="${cIVs}">${total}</td>`).appendTo(
+      herod,
+    );
     // Image
     $(
       `<td class="cen pklink">${poke ? `<img pk="${poke}" src="${pokeImgs[poke]}"/>` : ''}</td>`,

@@ -97,7 +97,7 @@ table {
 }
 .imgpk { width: 60px; }
 #plink, #pwd { margin-left: 10px; }
-.hero-own, .hero-own a { color: aqua; }
+.hero-own a.hrname { color: aqua; }
 a.poke-want { color: red; }
 .pklink img { width: 20px; background-color: white; }
 .skill { position: relative; }
