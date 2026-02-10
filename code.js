@@ -311,7 +311,7 @@ function filterHero(val) {
     $('#plink td.pf-poke').parent().show();
   } else if (val == 'good-ivs') {
     $('#plink tr').hide();
-    $('#plink td.good-ivs, #plink td.max-ivs').parent().show();
+    $('#plink td div.good-ivs, #plink td div.max-ivs').parent().parent().show();
   } else {
     genHeroList();
   }
@@ -334,6 +334,14 @@ function genHeroList() {
     div1.append(div2, '<div class="more">');
     showHeroDetail(div2, name, 'la');
     la.show();
+  });
+
+  // Hide msg-box
+  $('body').on('click', function () {
+    $('la').hide();
+  });
+  $('.skill la').on('click', function (e) {
+    e.stopPropagation();
   });
 }
 
@@ -366,18 +374,18 @@ function genHero(div, line) {
   sortByPos(HeroLinks[hero]).forEach((v) => {
     var poke = v.name;
     if (lget(`${hero}-poke-${poke}`) == 'own') {
-      // Image
-      var img = $(
-        `<td class="cen pklink"><a href="#poke-${poke}"><img pk="${poke}" src="${pokeImgs[poke]}"/></a></td>`,
+      var { total, cIVs } = getIVs(hero, poke);
+      var td = $(
+        `<td class="cen pklink">
+          <div class="flex0 ${cIVs}">
+            <div name="${hero}-ivs-${poke}">${total}</div>
+            <a href="#poke-${poke}"><img pk="${poke}" src="${pokeImgs[poke]}"/></a>
+          </div>
+        </td>`,
       ).appendTo(herod);
       if (v.link.includes(100)) {
-        img.addClass('pf-poke');
+        td.addClass('pf-poke');
       }
-      // IVs
-      var { total, cIVs } = getIVs(hero, poke);
-      $(
-        `<td name="${hero}-ivs-${poke}" class="${cIVs}">${total}</td>`,
-      ).appendTo(herod);
     }
   });
 
@@ -526,17 +534,6 @@ $(function () {
 
   // HERO LIST
   genHeroList();
-
-  // Hide msg-box
-  $('body').on('click', function () {
-    $('la').hide();
-  });
-  $('.skill la').on('click', function (e) {
-    e.stopPropagation();
-  });
-
-  ll('HERO LIST: ', new Date().getTime() - startTime);
-  startTime = new Date().getTime();
 });
 
 async function syncData() {
