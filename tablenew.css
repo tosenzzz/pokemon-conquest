@@ -98,13 +98,7 @@ table {
 .imgpk { width: 60px; }
 #plink, #pwd { margin-left: 10px; }
 .hero-own, .hero-own a { color: aqua; }
-a.poke-own { color: yellow; }
 a.poke-want { color: red; }
-.herod {display: flex; align-items: center; gap: 5px; white-space: nowrap; margin-bottom: 2px; }
-.pklink {
-  /* overflow: clip; */
-  border-radius: 50%;
-}
 .pklink img { width: 20px; background-color: white; }
 .skill { position: relative; }
 la {

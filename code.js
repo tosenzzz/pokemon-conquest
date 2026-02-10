@@ -304,14 +304,87 @@ function starClick(e, hero, poke) {
 
 function filterHero(val) {
   if (val == 'own') {
-    $('#plink>div').hide();
-    $('#plink>div.hero-own').show();
+    $('#plink tr').hide();
+    $('#plink tr.hero-own').show();
   } else if (val == 'own-100') {
-    $('#plink>div').hide();
-    $('#plink a.poke-own').parent().parent().show();
+    $('#plink tr').hide();
+    $('#plink a.hero-has-poke').parent().parent().show();
   } else {
-    $('#plink>div').show();
+    $('#plink tr').show();
   }
+}
+
+function genHero(div, line) {
+  var { hero, pokes } = line;
+
+  // Hero line
+  const herod = $(`<tr id="hero-${hero}"></tr>`);
+  if (lget(`${hero}-own`)) herod.addClass('hero-own');
+
+  // Show Hero detail
+  herod.append(
+    `<td class="cen"><span class="skill">
+        <img src="${heroImgs[hero]}" class="HeroLinks" name="${hero}">
+      	<la></la>
+      </span></td>`,
+  );
+
+  herod.append(
+    `<td class="cen"><a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero}</a></td>`,
+  );
+  $(`<td class="cen">${'★'.repeat(heroRankUp[hero]?.length || 1)}</td>`)
+    .click(() => {
+      herod.toggleClass('hero-own');
+      lset(`${hero}-own`, herod.hasClass('hero-own'));
+    })
+    .appendTo(herod);
+
+  // Pokemons
+  pokes = pokes.concat(Array(Math.max(0, 3 - pokes.length)).fill(''));
+  pokes.forEach((poke) => {
+    // Image
+    $(
+      `<td class="cen pklink">${poke ? `<img pk="${poke}" src="${pokeImgs[poke]}"/>` : ''}</td>`,
+    )
+      .click(() => {
+        if (!pk.hasClass('poke-want') && !pk.hasClass('hero-has-poke')) {
+          pk.toggleClass('poke-want');
+          lset(`${hero}-poke-${poke}`, 'want');
+        } else if (pk.hasClass('hero-has-poke')) {
+          pk.toggleClass('hero-has-poke');
+          lset(`${hero}-poke-${poke}`, '');
+        } else if (pk.hasClass('poke-want')) {
+          pk.toggleClass('poke-want');
+          pk.toggleClass('hero-has-poke');
+          lset(`${hero}-poke-${poke}`, 'own');
+        }
+      })
+      .appendTo(herod);
+    // Name
+    const pk = $(`<a href="#poke-${poke}">${poke}</a>`).attr(
+      'name',
+      `${hero}-${poke}`,
+    );
+    if (lget(`${hero}-poke-${poke}`) == 'own') {
+      pk.addClass('hero-has-poke');
+    } else if (lget(`${hero}-poke-${poke}`)) {
+      pk.addClass('poke-want');
+    }
+    pk.appendTo($(`<td class="cen">`).appendTo(herod));
+  });
+
+  // Hero skills
+  if (!heroSkills[hero]) {
+    alert('No hero skill ' + hero);
+    return;
+  }
+
+  heroSkills[hero].forEach((v, i) => {
+    herod.append(
+      `<td class="cen"><span class="skill"><span class="skillsList">${v}</span><la></la></span></td>`,
+    );
+  });
+  div.append(herod);
 }
 
 $(function () {
@@ -432,39 +505,20 @@ $(function () {
   startTime = new Date().getTime();
 
   // Fill Heroes vào pokemon
-  var data = [...plink1, ...plink2];
-  var map = {};
-  data.forEach((line) => {
-    // 1. Tách phần trong ngoặc (nếu có)
-    let match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
-    const mainPart = match[1]; // Shingen - Rhyperior//Groudon
-    const extraPart = match[2] || ''; // (not Rhyhorn/Rhydon)
-    const [hero, pokes] = mainPart.split('-').map((s) => s.trim());
-    if (!pokes) return;
-
-    // 2. Tách theo pokemon nhưng giữ separator
-    const regex = /([\/]*)([^\/]+)/g;
-    while ((match = regex.exec(pokes)) !== null) {
-      const prefix = match[1]; // /// hoặc /
-      const poke = match[2]; // Pokemon
-      if (!map[poke]) map[poke] = [];
-      map[poke].push({ hero, prefix });
-    }
-  });
   document.querySelectorAll('#myTable>tbody>tr').forEach((tr) => {
     const td = tr.children[2];
     if (!td) return;
     const poke = td.textContent.trim();
-    if (map[poke]) {
-      map[poke].forEach((v) => {
+    if (plinkX[poke]) {
+      plinkX[poke].forEach((hero) => {
         const div = $(`<div style="margin-top:2px"></div>`);
         const color = [
-          lget(`${v.hero}-poke-${poke}`) == 'own' ? 'hero-has-poke' : '',
-          lget(`${v.hero}-own`) ? 'has-hero' : 'no-hero',
+          lget(`${hero}-poke-${poke}`) == 'own' ? 'hero-has-poke' : '',
+          lget(`${hero}-own`) ? 'has-hero' : 'no-hero',
         ];
-        $(`<a href="#hero-${v.hero}"">${v.prefix + v.hero}</a>`)
+        $(`<a href="#hero-${hero}"">${hero}</a>`)
           .addClass(color)
-          .attr('name', `${v.hero}-${poke}`)
+          .attr('name', `${hero}-${poke}`)
           .appendTo(div);
         $(td).append(div);
       });
@@ -474,99 +528,9 @@ $(function () {
   startTime = new Date().getTime();
 
   // HERO LIST
-  const ppp = (line) => {
-    // 1. Tách phần trong ngoặc (nếu có)
-    let match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
-    const mainPart = match[1]; // Shingen - Rhyperior//Groudon
-    const extraPart = match[2] || ''; // (not Rhyhorn/Rhydon)
-    // 2. Tách hero và pokemon
-    const [hero, pokes] = mainPart.split('-').map((s) => s.trim());
+  plink1.forEach((v) => genHero($('#plink #tbl1'), v));
+  plink2.forEach((v) => genHero($('#plink #tbl2'), v));
 
-    // Hero image
-    const herod = $(`<div id="hero-${hero}" class="herod"></div>`);
-    if (lget(`${hero}-own`)) herod.addClass('hero-own');
-
-    // Show Hero detail: rank-up and pokemons max-link
-    herod.append(
-      `<span class="skill">
-        <img src="${heroImgs[hero]}" class="HeroLinks" name="${hero}">
-      	<la></la>
-      </span>`,
-    );
-
-    // Toggle has/not own Hero
-    const handp = $(`<div></div>`);
-    handp.append(
-      `<a href="https://veekun.com/dex/conquest/warriors/${hero}" target="_blank">${hero}</a>`,
-    );
-    const add = $(
-      `<span>&nbsp;${'+'.repeat(heroRankUp[hero]?.length || 1)}&nbsp;</span>`,
-    ).click(() => {
-      herod.toggleClass('hero-own');
-      lset(`${hero}-own`, herod.hasClass('hero-own'));
-    });
-    handp.append(add);
-
-    // Pokemons name
-    let pokel = [];
-    const regex = /([\/]*)([^\/]+)/g;
-    while ((match = regex.exec(pokes)) !== null) {
-      const prefix = match[1]; // /// hoặc /
-      const poke = match[2].trim(); // Pokemon
-      const pk = $(`<a href="#poke-${poke}">${poke}</a>`);
-      if (lget(`${hero}-poke-${poke}`) == 'own') {
-        pk.addClass('poke-own');
-      } else if (lget(`${hero}-poke-${poke}`)) {
-        pk.addClass('poke-want');
-      }
-      pokel.push([poke, pk, prefix]);
-      handp.append(prefix, pk);
-    }
-    // handp.append(extraPart);
-    herod.append(handp);
-
-    // Pokemons images
-    pokel.forEach((pk) => {
-      var pokd = $(
-        `<div class="pklink"><img pk="${pk[0]}" src="${pokeImgs[pk[0]]}"/></div>`,
-      );
-      pokd.click(() => {
-        if (!pk[1].hasClass('poke-want') && !pk[1].hasClass('poke-own')) {
-          pk[1].toggleClass('poke-want');
-          lset(`${hero}-poke-${pk[0]}`, 'want');
-        } else if (pk[1].hasClass('poke-own')) {
-          pk[1].toggleClass('poke-own');
-          lset(`${hero}-poke-${pk[0]}`, '');
-        } else if (pk[1].hasClass('poke-want')) {
-          pk[1].toggleClass('poke-want');
-          pk[1].toggleClass('poke-own');
-          lset(`${hero}-poke-${pk[0]}`, 'own');
-        }
-      });
-      herod.append(pokd);
-    });
-    // Hero skills
-    if (!heroSkills[hero]) {
-      alert('No hero skill ' + hero);
-      return;
-    }
-    heroSkills[hero].forEach((v, i) => {
-      herod.append(
-        `<span class="skill"><span class="skillsList">${i + 1}.${v}</span><la></la></span>`,
-      );
-    });
-    $('#plink').append(herod);
-  };
-  $('#plink').append(
-    `<d2 class="flex1"><h1>WARLORD</h1>
-      Filter: <button onclick="filterHero('all')">ALL</button>
-      <button onclick="filterHero('own')">Own</button>
-      <button onclick="filterHero('own-100')">Own(100% Link)</button>
-    </d2>`,
-  );
-  plink1.forEach(ppp);
-  $('#plink').append(`<d2><h1>WARRIOR</h1></d2>`);
-  plink2.forEach(ppp);
   // Show Hero detail
   $('.HeroLinks').click(function (e) {
     e.stopPropagation();
@@ -583,10 +547,7 @@ $(function () {
   $('.skillsList').click(function (e) {
     e.stopPropagation();
     var la = $(this).next();
-    var v = $(this)
-      .text()
-      .trim()
-      .match(/\d+\.(.*)/)[1];
+    var v = $(this).text().trim();
     la.text(skillsList[v]);
     la.show();
   });

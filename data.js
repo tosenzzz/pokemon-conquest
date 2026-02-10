@@ -248,179 +248,195 @@ Zweilous		JzqmWNCZZR`
   .sort();
 
 // Perfect Link Data
-var plink1 = `
-Player ♂ - Eevee//Vaporeon//Jolteon
-Player ♂ - //Flareon//Espeon//Umbreon
-Player ♂ - //Leafeon//Glaceon///Arceus
-Oichi - Jigglypuff//Wigglytuff (not Igglybuff)
-Hideyoshi - Monferno//Infernape///Reshiram (not Chimchar)
-Aya - Snorunt//Froslass(not Glalie)
-Ginchiyo - Luxio//Luxray (not Shinx)
-Gracia - Gothorita//Gothitelle (not Gothita)
-Hanbei - Pikachu//Raichu (not Pichu)
-Hanzō - Haunter//Gengar (not Gastly)
-Ieyasu - Aggron//Registeel (not Aron/Lairon)
-Ina - Prinplup//Empoleon (not Piplup)
-Kai - Darumaka//Darmanitan
-Kanbei - Lampent//Chandelure (not Litwick)
-Kanetsugu - Kadabra//Alakazam (not Abra)
-Keiji - Bastiodon//Terrakion (not Shieldon)
-Kenshin - Gallade//Mewtwo (not Ralts/Kirlia/Gardevoir)
-Kiyomasa - Fraxure//Haxorus
-Kotarō - Zorua//Zoroark
-Kunoichi - Sneasel//Weavile
-Magoichi - Grovyle//Sceptile (not Treecko)
-Masamune - Rufflet//Braviary
-Masanori - Krokorok//Krookodile (not Sandile)
-Mitsuhide - Lapras//Articuno
-Mitsunari - Pawniard//Bisharp
-Motochika - Dewott//Samurott (not Oshawott)
-Motonari - Servine//Serperior (not Snivy)
-Muneshige - Staravia//Staraptor (not Starly)
-Nene - Golbat//Crobat (not Zubat)
-Nobunaga - Hydreigon//Zekrom//Rayquaza (not Deino/Zwielous)
-Nō - Misdreavus//Mismagius
-Okuni - Larvesta//Volcarona
-Ranmaru - Riolu//Lucario
-Shingen - Rhyperior//Groudon (not Rhyhorn/Rhydon)
-Tadakatsu - Metagross//Dialga (not Beldum/Metang)
-Ujiyasu - Boldore//Gigalith (not Roggenrola)
-Yoshihiro - Gurdurr//Conkeldurr (not Timburr)
-Yoshimoto - Pineco//Forretress
-Yukimura - Charmeleon//Charizard (not Charmander)`
-  .trim()
-  .split('\n')
-  .map((v) => v.trim());
-
-var plink2 = `
-Akizane - Pichu/Pikachu/Raichu
-Asahi - Drilbur/Excadrill
-Bokuden - Shieldon/Bastiodon
-Bokuzen - Gastly/Haunter/Gengar
-Chacha - Minccino/Cinccino
-Chikamasa - Wooper/Quagsire
-Chikayasu - Oshawott/Dewott/Samurott
-Chōan - Bidoof/Bibarel
-Dōsan - Ekans/Arbok
-Dōsetsu - Shinx/Luxio/Luxray
-Ekei - Carnivine
-Fujitaka - Lapras
-Gen'an - Onix/Steelix
-Genba - Scraggy/Scrafty
-Gotoku - Deino/Zweilous/Hydreigon
-Gō - Piplup/Prinplup/Empoleon
-Hana - Munna/Musharna
-Haruyuki - Rufflet/Braviary
-Hatsu - Igglybuff/Jigglypuff/Wigglytuff
-Hideaki - Venipede/Whirlipede/Scolipede
-Hidetada - Pawniard/Bisharp
-Hideyori - Chimchar/Monferno/Infernape
-Hiroko - Snorunt/Froslass
-Hisaaki - Scraggy/Scrafty
-Hisahide - Deino/Zweilous/Hydreigon
-Ise - Gothita/Gothorita/Gothitelle
-Jinpachi - Misdreavus/Mismagius
-Jūbei - Ralts/Kirlia/Gallade
-Jūzō - Pansear/Simisear
-Kagekatsu - Ralts/Kirlia/Gardevoir
-Kagetsuna - Dratini/Dragonair/Dragonite
-Kame - Pineco/Forretress
-Kanemori - Croagunk/Toxicroak
-Kashinkoji - Skorupi/Drapion
-Katsuyori - Larvitar/Pupitar/Tyranitar
-Kazumasu - Axew/Fraxure/Haxorus
-Kei - Drilbur/Excadrill
-Kitsuno - Dratini/Dragonair/Dragonite
-Kiyo - Blitzle/Zebstrika
-Koroku - Timburr/Gurdurr
-Maa - Litwick/Lampent/Chandelure
-Madoka - Roggenrola/Boldore/Gigalith
-Masakage - Charmander/Charmeleon/Charizard
-Masanobu - Litwick
-Masatoshi - Machop/Machoke/Machamp
-Masatoyo - Rhyhorn/Rhydon/Rhyperior
-Masatsuna - Beedrill
-Masayuki - Larvesta/Volcarona
-Morichika - Oshawott/Dewott/Samurott
-Morikiyo - Croagunk/Toxicroak
-Morinari - Duskull/Dusclops/Dusknoir
-Motoharu - Axew/Fraxure/Haxorus
-Motozane - Joltik/Galvantula
-Munenori - Scyther/Scizor
-Munetoki - Rufflet/Braviary
-Munezane - Starly/Staravia/Staraptor
-Murashige - Treecko/Grovyle/Sceptile
-Nagahide - Dratini/Dragonair/Dragonite
-Nagayasu - Darumaka/Darmanitan
-Nagayoshi - Riolu/Lucario
-Naka - Drilbur/Excadrill
-Naoie - Deino/Zweilous/Hydreigon
-Naomasa - Tepig/Pignite/Emboar
-Nobuchika - Magikarp/Gyarados
-Norishige - Mareep/Flaaffy/Ampharos
-Omi - Beedrill
-Rikyū - Pansage/Simisage
-Sadamitsu - Munna/Musharna
-Sadatoshi - Cottonee/Whimsicott
-Saizō - Gastly/Haunter/Gengar
-Sandayū - Zubat/Golbat/Crobat
-Saneyori - Chingling/Chimecho
-Seikurō - Skorupi/Drapion
-Sekisō - Joltik/Galvantula
-Sen - Chingling/Chimecho
-Sena - Beedrill
-Sessai - Larvesta/Volcarona
-Shigemoto - Cubchoo/Beartic
-Shigezane - Scyther/Scizor
-Shimoyama - Scraggy/Scrafty
-Shizuka - Rhyhorn/Rhydon/Rhyperior
-Shōun - Mareep/Flaaffy/Ampharos
-Sōrin - Pichu/Pikachu/Raichu
-Sōun - Larvitar/Pupitar/Tyranitar
-Tadamoto - Croagunk/Toxicroak
-Tadaoki - Gothita/Gothorita/Gothitelle
-Tadasumi - Blitzle/Zebstrika
-Tadatsugu - Aron/Lairon/Aggron
-Tadatsune - Machop/Machoke/Machamp
-Takahiro - Abra/Kadabra/Alakazam
-Takahisa - Timburr/Gurdurr/Conkeldurr
-Takakage - Treecko/Grovyle/Sceptile
-Takamoto - Snivy/Servine/Serperior
-Takanobu - Munchlax/Snorlax
-Takatane - Shinx/Luxio/Luxray
-Takatora - Litwick/Lampent/Chandelure
-Takayori - Panpour/Simipour
-Takeyoshi - Magikarp/Gyarados
-Tatsuko - Tepig/Pignite/Emboar
-Terumoto - Petilil/Lilligant
-Tokitaka - Timburr/Gurdurr/Conkeldurr
-Toku - Aron/Lairon/Aggron
-Tomonobu - Ralts/Kirlia/Gardevoir
-Tsunamoto - Snorunt/Glalie
-Tsunehisa - Meowth/Persian
-Ujichika - Sewaddle/Swadloon/Leavanny
-Ujihiro - Sewaddle/Swadloon/Leavanny
-Ujikuni - Anorith/Armaldo
-Ujinao - Anorith/Armaldo
-Ujisato - Snivy/Servine/Serperior
-Ujiteru - Shieldon/Bastiodon
-Ujizane - Pineco/Forretress
-Ume - Drilbur/Excadrill
-Yasumasa - Dratini/Dragonair/Dragonite
-Yasunaga - Venipede/Whirlipede/Scolipede
-Yasutomo - Joltik/Galvantula
-Yatarō - Treecko/Grovyle/Sceptile
-Yazaemon - Ekans/Arbok
-Yoshi - Zubat/Golbat/Crobat
-Yoshiaki - Carnivine
-Yoshikiyo - Cubchoo/Beartic
-Yoshitatsu - Gastly/Haunter/Gengar
-Yukimasa - Spheal/Sealeo/Walrein
-Yukitaka - Sandile/Krokorok/Krookodile`
-  .trim()
-  .split('\n')
-  .map((v) => v.trim())
-  .sort();
+/*
+  var data = [...plink1];
+  var b = [];
+  data.forEach((line) => {
+    // 1. Tách phần trong ngoặc (nếu có)
+    var match = line.match(/^(.*?)(\s*\([^)]*\))?$/);
+    var mainPart = match[1]; // Shingen - Rhyperior//Groudon
+    var extraPart = match[2] || ''; // (not Rhyhorn/Rhydon)
+    var [hero, pokes] = mainPart.split('-').map((s) => s.trim());
+    pokes = pokes.split('/').filter(v => !!v)
+    b.push({hero, pokes});
+  });
+JSON.stringify(b);
+*/
+var plink1 = [
+  { hero: 'Player ♂', pokes: ['Eevee', 'Vaporeon', 'Jolteon'] },
+  { hero: 'Player ♂', pokes: ['Flareon', 'Espeon', 'Umbreon'] },
+  { hero: 'Player ♂', pokes: ['Leafeon', 'Glaceon', 'Arceus'] },
+  { hero: 'Oichi', pokes: ['Jigglypuff', 'Wigglytuff'] },
+  { hero: 'Hideyoshi', pokes: ['Monferno', 'Infernape', 'Reshiram'] },
+  { hero: 'Aya', pokes: ['Snorunt', 'Froslass'] },
+  { hero: 'Ginchiyo', pokes: ['Luxio', 'Luxray'] },
+  { hero: 'Gracia', pokes: ['Gothorita', 'Gothitelle'] },
+  { hero: 'Hanbei', pokes: ['Pikachu', 'Raichu'] },
+  { hero: 'Hanzō', pokes: ['Haunter', 'Gengar'] },
+  { hero: 'Ieyasu', pokes: ['Aggron', 'Registeel'] },
+  { hero: 'Ina', pokes: ['Prinplup', 'Empoleon'] },
+  { hero: 'Kai', pokes: ['Darumaka', 'Darmanitan'] },
+  { hero: 'Kanbei', pokes: ['Lampent', 'Chandelure'] },
+  { hero: 'Kanetsugu', pokes: ['Kadabra', 'Alakazam'] },
+  { hero: 'Keiji', pokes: ['Bastiodon', 'Terrakion'] },
+  { hero: 'Kenshin', pokes: ['Gallade', 'Mewtwo'] },
+  { hero: 'Kiyomasa', pokes: ['Fraxure', 'Haxorus'] },
+  { hero: 'Kotarō', pokes: ['Zorua', 'Zoroark'] },
+  { hero: 'Kunoichi', pokes: ['Sneasel', 'Weavile'] },
+  { hero: 'Magoichi', pokes: ['Grovyle', 'Sceptile'] },
+  { hero: 'Masamune', pokes: ['Rufflet', 'Braviary'] },
+  { hero: 'Masanori', pokes: ['Krokorok', 'Krookodile'] },
+  { hero: 'Mitsuhide', pokes: ['Lapras', 'Articuno'] },
+  { hero: 'Mitsunari', pokes: ['Pawniard', 'Bisharp'] },
+  { hero: 'Motochika', pokes: ['Dewott', 'Samurott'] },
+  { hero: 'Motonari', pokes: ['Servine', 'Serperior'] },
+  { hero: 'Muneshige', pokes: ['Staravia', 'Staraptor'] },
+  { hero: 'Nene', pokes: ['Golbat', 'Crobat'] },
+  { hero: 'Nobunaga', pokes: ['Hydreigon', 'Zekrom', 'Rayquaza'] },
+  { hero: 'Nō', pokes: ['Misdreavus', 'Mismagius'] },
+  { hero: 'Okuni', pokes: ['Larvesta', 'Volcarona'] },
+  { hero: 'Ranmaru', pokes: ['Riolu', 'Lucario'] },
+  { hero: 'Shingen', pokes: ['Rhyperior', 'Groudon'] },
+  { hero: 'Tadakatsu', pokes: ['Metagross', 'Dialga'] },
+  { hero: 'Ujiyasu', pokes: ['Boldore', 'Gigalith'] },
+  { hero: 'Yoshihiro', pokes: ['Gurdurr', 'Conkeldurr'] },
+  { hero: 'Yoshimoto', pokes: ['Pineco', 'Forretress'] },
+  { hero: 'Yukimura', pokes: ['Charmeleon', 'Charizard'] },
+];
+var plink2 = [
+  { hero: 'Akizane', pokes: ['Pichu', 'Pikachu', 'Raichu'] },
+  { hero: 'Asahi', pokes: ['Drilbur', 'Excadrill'] },
+  { hero: 'Bokuden', pokes: ['Shieldon', 'Bastiodon'] },
+  { hero: 'Bokuzen', pokes: ['Gastly', 'Haunter', 'Gengar'] },
+  { hero: 'Chacha', pokes: ['Minccino', 'Cinccino'] },
+  { hero: 'Chikamasa', pokes: ['Wooper', 'Quagsire'] },
+  { hero: 'Chikayasu', pokes: ['Oshawott', 'Dewott', 'Samurott'] },
+  { hero: 'Chōan', pokes: ['Bidoof', 'Bibarel'] },
+  { hero: 'Dōsan', pokes: ['Ekans', 'Arbok'] },
+  { hero: 'Dōsetsu', pokes: ['Shinx', 'Luxio', 'Luxray'] },
+  { hero: 'Ekei', pokes: ['Carnivine'] },
+  { hero: 'Fujitaka', pokes: ['Lapras'] },
+  { hero: "Gen'an", pokes: ['Onix', 'Steelix'] },
+  { hero: 'Genba', pokes: ['Scraggy', 'Scrafty'] },
+  { hero: 'Gotoku', pokes: ['Deino', 'Zweilous', 'Hydreigon'] },
+  { hero: 'Gō', pokes: ['Piplup', 'Prinplup', 'Empoleon'] },
+  { hero: 'Hana', pokes: ['Munna', 'Musharna'] },
+  { hero: 'Haruyuki', pokes: ['Rufflet', 'Braviary'] },
+  { hero: 'Hatsu', pokes: ['Igglybuff', 'Jigglypuff', 'Wigglytuff'] },
+  { hero: 'Hideaki', pokes: ['Venipede', 'Whirlipede', 'Scolipede'] },
+  { hero: 'Hidetada', pokes: ['Pawniard', 'Bisharp'] },
+  { hero: 'Hideyori', pokes: ['Chimchar', 'Monferno', 'Infernape'] },
+  { hero: 'Hiroko', pokes: ['Snorunt', 'Froslass'] },
+  { hero: 'Hisaaki', pokes: ['Scraggy', 'Scrafty'] },
+  { hero: 'Hisahide', pokes: ['Deino', 'Zweilous', 'Hydreigon'] },
+  { hero: 'Ise', pokes: ['Gothita', 'Gothorita', 'Gothitelle'] },
+  { hero: 'Jinpachi', pokes: ['Misdreavus', 'Mismagius'] },
+  { hero: 'Jūbei', pokes: ['Ralts', 'Kirlia', 'Gallade'] },
+  { hero: 'Jūzō', pokes: ['Pansear', 'Simisear'] },
+  { hero: 'Kagekatsu', pokes: ['Ralts', 'Kirlia', 'Gardevoir'] },
+  { hero: 'Kagetsuna', pokes: ['Dratini', 'Dragonair', 'Dragonite'] },
+  { hero: 'Kame', pokes: ['Pineco', 'Forretress'] },
+  { hero: 'Kanemori', pokes: ['Croagunk', 'Toxicroak'] },
+  { hero: 'Kashinkoji', pokes: ['Skorupi', 'Drapion'] },
+  { hero: 'Katsuyori', pokes: ['Larvitar', 'Pupitar', 'Tyranitar'] },
+  { hero: 'Kazumasu', pokes: ['Axew', 'Fraxure', 'Haxorus'] },
+  { hero: 'Kei', pokes: ['Drilbur', 'Excadrill'] },
+  { hero: 'Kitsuno', pokes: ['Dratini', 'Dragonair', 'Dragonite'] },
+  { hero: 'Kiyo', pokes: ['Blitzle', 'Zebstrika'] },
+  { hero: 'Koroku', pokes: ['Timburr', 'Gurdurr'] },
+  { hero: 'Maa', pokes: ['Litwick', 'Lampent', 'Chandelure'] },
+  { hero: 'Madoka', pokes: ['Roggenrola', 'Boldore', 'Gigalith'] },
+  { hero: 'Masakage', pokes: ['Charmander', 'Charmeleon', 'Charizard'] },
+  { hero: 'Masanobu', pokes: ['Litwick'] },
+  { hero: 'Masatoshi', pokes: ['Machop', 'Machoke', 'Machamp'] },
+  { hero: 'Masatoyo', pokes: ['Rhyhorn', 'Rhydon', 'Rhyperior'] },
+  { hero: 'Masatsuna', pokes: ['Beedrill'] },
+  { hero: 'Masayuki', pokes: ['Larvesta', 'Volcarona'] },
+  { hero: 'Morichika', pokes: ['Oshawott', 'Dewott', 'Samurott'] },
+  { hero: 'Morikiyo', pokes: ['Croagunk', 'Toxicroak'] },
+  { hero: 'Morinari', pokes: ['Duskull', 'Dusclops', 'Dusknoir'] },
+  { hero: 'Motoharu', pokes: ['Axew', 'Fraxure', 'Haxorus'] },
+  { hero: 'Motozane', pokes: ['Joltik', 'Galvantula'] },
+  { hero: 'Munenori', pokes: ['Scyther', 'Scizor'] },
+  { hero: 'Munetoki', pokes: ['Rufflet', 'Braviary'] },
+  { hero: 'Munezane', pokes: ['Starly', 'Staravia', 'Staraptor'] },
+  { hero: 'Murashige', pokes: ['Treecko', 'Grovyle', 'Sceptile'] },
+  { hero: 'Nagahide', pokes: ['Dratini', 'Dragonair', 'Dragonite'] },
+  { hero: 'Nagayasu', pokes: ['Darumaka', 'Darmanitan'] },
+  { hero: 'Nagayoshi', pokes: ['Riolu', 'Lucario'] },
+  { hero: 'Naka', pokes: ['Drilbur', 'Excadrill'] },
+  { hero: 'Naoie', pokes: ['Deino', 'Zweilous', 'Hydreigon'] },
+  { hero: 'Naomasa', pokes: ['Tepig', 'Pignite', 'Emboar'] },
+  { hero: 'Nobuchika', pokes: ['Magikarp', 'Gyarados'] },
+  { hero: 'Norishige', pokes: ['Mareep', 'Flaaffy', 'Ampharos'] },
+  { hero: 'Omi', pokes: ['Beedrill'] },
+  { hero: 'Rikyū', pokes: ['Pansage', 'Simisage'] },
+  { hero: 'Sadamitsu', pokes: ['Munna', 'Musharna'] },
+  { hero: 'Sadatoshi', pokes: ['Cottonee', 'Whimsicott'] },
+  { hero: 'Saizō', pokes: ['Gastly', 'Haunter', 'Gengar'] },
+  { hero: 'Sandayū', pokes: ['Zubat', 'Golbat', 'Crobat'] },
+  { hero: 'Saneyori', pokes: ['Chingling', 'Chimecho'] },
+  { hero: 'Seikurō', pokes: ['Skorupi', 'Drapion'] },
+  { hero: 'Sekisō', pokes: ['Joltik', 'Galvantula'] },
+  { hero: 'Sen', pokes: ['Chingling', 'Chimecho'] },
+  { hero: 'Sena', pokes: ['Beedrill'] },
+  { hero: 'Sessai', pokes: ['Larvesta', 'Volcarona'] },
+  { hero: 'Shigemoto', pokes: ['Cubchoo', 'Beartic'] },
+  { hero: 'Shigezane', pokes: ['Scyther', 'Scizor'] },
+  { hero: 'Shimoyama', pokes: ['Scraggy', 'Scrafty'] },
+  { hero: 'Shizuka', pokes: ['Rhyhorn', 'Rhydon', 'Rhyperior'] },
+  { hero: 'Shōun', pokes: ['Mareep', 'Flaaffy', 'Ampharos'] },
+  { hero: 'Sōrin', pokes: ['Pichu', 'Pikachu', 'Raichu'] },
+  { hero: 'Sōun', pokes: ['Larvitar', 'Pupitar', 'Tyranitar'] },
+  { hero: 'Tadamoto', pokes: ['Croagunk', 'Toxicroak'] },
+  { hero: 'Tadaoki', pokes: ['Gothita', 'Gothorita', 'Gothitelle'] },
+  { hero: 'Tadasumi', pokes: ['Blitzle', 'Zebstrika'] },
+  { hero: 'Tadatsugu', pokes: ['Aron', 'Lairon', 'Aggron'] },
+  { hero: 'Tadatsune', pokes: ['Machop', 'Machoke', 'Machamp'] },
+  { hero: 'Takahiro', pokes: ['Abra', 'Kadabra', 'Alakazam'] },
+  { hero: 'Takahisa', pokes: ['Timburr', 'Gurdurr', 'Conkeldurr'] },
+  { hero: 'Takakage', pokes: ['Treecko', 'Grovyle', 'Sceptile'] },
+  { hero: 'Takamoto', pokes: ['Snivy', 'Servine', 'Serperior'] },
+  { hero: 'Takanobu', pokes: ['Munchlax', 'Snorlax'] },
+  { hero: 'Takatane', pokes: ['Shinx', 'Luxio', 'Luxray'] },
+  { hero: 'Takatora', pokes: ['Litwick', 'Lampent', 'Chandelure'] },
+  { hero: 'Takayori', pokes: ['Panpour', 'Simipour'] },
+  { hero: 'Takeyoshi', pokes: ['Magikarp', 'Gyarados'] },
+  { hero: 'Tatsuko', pokes: ['Tepig', 'Pignite', 'Emboar'] },
+  { hero: 'Terumoto', pokes: ['Petilil', 'Lilligant'] },
+  { hero: 'Tokitaka', pokes: ['Timburr', 'Gurdurr', 'Conkeldurr'] },
+  { hero: 'Toku', pokes: ['Aron', 'Lairon', 'Aggron'] },
+  { hero: 'Tomonobu', pokes: ['Ralts', 'Kirlia', 'Gardevoir'] },
+  { hero: 'Tsunamoto', pokes: ['Snorunt', 'Glalie'] },
+  { hero: 'Tsunehisa', pokes: ['Meowth', 'Persian'] },
+  { hero: 'Ujichika', pokes: ['Sewaddle', 'Swadloon', 'Leavanny'] },
+  { hero: 'Ujihiro', pokes: ['Sewaddle', 'Swadloon', 'Leavanny'] },
+  { hero: 'Ujikuni', pokes: ['Anorith', 'Armaldo'] },
+  { hero: 'Ujinao', pokes: ['Anorith', 'Armaldo'] },
+  { hero: 'Ujisato', pokes: ['Snivy', 'Servine', 'Serperior'] },
+  { hero: 'Ujiteru', pokes: ['Shieldon', 'Bastiodon'] },
+  { hero: 'Ujizane', pokes: ['Pineco', 'Forretress'] },
+  { hero: 'Ume', pokes: ['Drilbur', 'Excadrill'] },
+  { hero: 'Yasumasa', pokes: ['Dratini', 'Dragonair', 'Dragonite'] },
+  { hero: 'Yasunaga', pokes: ['Venipede', 'Whirlipede', 'Scolipede'] },
+  { hero: 'Yasutomo', pokes: ['Joltik', 'Galvantula'] },
+  { hero: 'Yatarō', pokes: ['Treecko', 'Grovyle', 'Sceptile'] },
+  { hero: 'Yazaemon', pokes: ['Ekans', 'Arbok'] },
+  { hero: 'Yoshi', pokes: ['Zubat', 'Golbat', 'Crobat'] },
+  { hero: 'Yoshiaki', pokes: ['Carnivine'] },
+  { hero: 'Yoshikiyo', pokes: ['Cubchoo', 'Beartic'] },
+  { hero: 'Yoshitatsu', pokes: ['Gastly', 'Haunter', 'Gengar'] },
+  { hero: 'Yukimasa', pokes: ['Spheal', 'Sealeo', 'Walrein'] },
+  { hero: 'Yukitaka', pokes: ['Sandile', 'Krokorok', 'Krookodile'] },
+];
+var plinkX = {};
+[...plink1, ...plink2].forEach((line) => {
+  var { hero, pokes } = line;
+  pokes.forEach((poke) => {
+    if (!plinkX[poke]) plinkX[poke] = [];
+    plinkX[poke].push(hero);
+  });
+});
 
 /*
 // Hero images: https://veekun.com/dex/conquest/warriors
