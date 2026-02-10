@@ -100,6 +100,7 @@ table {
 .hero-own a.hrname { color: aqua; }
 a.poke-want { color: red; }
 .pklink img { width: 20px; background-color: white; }
+.pf-poke img { width: 20px; background-color: yellow; }
 .skill { position: relative; }
 la {
   display: none; padding: 5px; position: absolute;

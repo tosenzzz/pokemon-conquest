@@ -84,7 +84,7 @@ const addBoxV2 = (title, fn, ...pr) => {
 
 const getIVs = (hero, poke) => {
   var ivsData = lget(`${hero}-ivs-${poke}`);
-  var total = '&nbsp;';
+  var total = '';
   var cIVs = '';
   if (ivsData) {
     total = ivsData.total + '%';
@@ -308,10 +308,33 @@ function filterHero(val) {
     $('#plink tr.hero-own').show();
   } else if (val == 'own-100') {
     $('#plink tr').hide();
-    $('#plink a.hero-has-poke').parent().parent().show();
+    $('#plink td.pf-poke').parent().show();
+  } else if (val == 'good-ivs') {
+    $('#plink tr').hide();
+    $('#plink td.good-ivs, #plink td.max-ivs').parent().show();
   } else {
-    $('#plink tr').show();
+    genHeroList();
   }
+}
+
+function genHeroList() {
+  $('#plink #tbl1').empty();
+  $('#plink #tbl2').empty();
+  plink1.forEach((v) => genHero($('#plink #tbl1'), v));
+  plink2.forEach((v) => genHero($('#plink #tbl2'), v));
+
+  // Show Hero detail
+  $('.HeroLinks').click(function (e) {
+    e.stopPropagation();
+    var la = $(this).next();
+    var name = $(this).attr('name').trim();
+    var div1 = $('<div class="divLa">');
+    var div2 = $('<div>');
+    la.empty().append(div1);
+    div1.append(div2, '<div class="more">');
+    showHeroDetail(div2, name, 'la');
+    la.show();
+  });
 }
 
 function genHero(div, line) {
@@ -340,55 +363,24 @@ function genHero(div, line) {
     .appendTo(herod);
 
   // Pokemons
-  pokes = pokes.concat(Array(Math.max(0, 3 - pokes.length)).fill(''));
-  pokes.forEach((poke) => {
-    // IVs
-    var { total, cIVs } = getIVs(hero, poke);
-    $(`<td name="${hero}-ivs-${poke}" class="${cIVs}">${total}</td>`).appendTo(
-      herod,
-    );
-    // Image
-    $(
-      `<td class="cen pklink">${poke ? `<img pk="${poke}" src="${pokeImgs[poke]}"/>` : ''}</td>`,
-    )
-      .click(() => {
-        if (!pk.hasClass('poke-want') && !pk.hasClass('hero-has-poke')) {
-          pk.toggleClass('poke-want');
-          lset(`${hero}-poke-${poke}`, 'want');
-        } else if (pk.hasClass('hero-has-poke')) {
-          pk.toggleClass('hero-has-poke');
-          lset(`${hero}-poke-${poke}`, '');
-        } else if (pk.hasClass('poke-want')) {
-          pk.toggleClass('poke-want');
-          pk.toggleClass('hero-has-poke');
-          lset(`${hero}-poke-${poke}`, 'own');
-        }
-      })
-      .appendTo(herod);
-    // Name
-    const pk = $(`<a href="#poke-${poke}">${poke}</a>`).attr(
-      'name',
-      `${hero}-${poke}`,
-    );
+  sortByPos(HeroLinks[hero]).forEach((v) => {
+    var poke = v.name;
     if (lget(`${hero}-poke-${poke}`) == 'own') {
-      pk.addClass('hero-has-poke');
-    } else if (lget(`${hero}-poke-${poke}`)) {
-      pk.addClass('poke-want');
+      // Image
+      var img = $(
+        `<td class="cen pklink"><a href="#poke-${poke}"><img pk="${poke}" src="${pokeImgs[poke]}"/></a></td>`,
+      ).appendTo(herod);
+      if (v.link.includes(100)) {
+        img.addClass('pf-poke');
+      }
+      // IVs
+      var { total, cIVs } = getIVs(hero, poke);
+      $(
+        `<td name="${hero}-ivs-${poke}" class="${cIVs}">${total}</td>`,
+      ).appendTo(herod);
     }
-    pk.appendTo($(`<td class="cen">`).appendTo(herod));
   });
 
-  // Hero skills
-  if (!heroSkills[hero]) {
-    alert('No hero skill ' + hero);
-    return;
-  }
-
-  heroSkills[hero].forEach((v, i) => {
-    herod.append(
-      `<td class="cen"><span class="skill"><span class="skillsList">${v}</span><la></la></span></td>`,
-    );
-  });
   div.append(herod);
 }
 
@@ -533,29 +525,7 @@ $(function () {
   startTime = new Date().getTime();
 
   // HERO LIST
-  plink1.forEach((v) => genHero($('#plink #tbl1'), v));
-  plink2.forEach((v) => genHero($('#plink #tbl2'), v));
-
-  // Show Hero detail
-  $('.HeroLinks').click(function (e) {
-    e.stopPropagation();
-    var la = $(this).next();
-    var name = $(this).attr('name').trim();
-    var div1 = $('<div class="divLa">');
-    var div2 = $('<div>');
-    la.empty().append(div1);
-    div1.append(div2, '<div class="more">');
-    showHeroDetail(div2, name, 'la');
-    la.show();
-  });
-  // Show Hero skill detail
-  $('.skillsList').click(function (e) {
-    e.stopPropagation();
-    var la = $(this).next();
-    var v = $(this).text().trim();
-    la.text(skillsList[v]);
-    la.show();
-  });
+  genHeroList();
 
   // Hide msg-box
   $('body').on('click', function () {

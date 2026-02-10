@@ -263,9 +263,20 @@ Zweilous		JzqmWNCZZR`
 JSON.stringify(b);
 */
 var plink1 = [
-  { hero: 'Player ♂', pokes: ['Eevee', 'Vaporeon', 'Jolteon'] },
-  { hero: 'Player ♂', pokes: ['Flareon', 'Espeon', 'Umbreon'] },
-  { hero: 'Player ♂', pokes: ['Leafeon', 'Glaceon', 'Arceus'] },
+  {
+    hero: 'Player ♂',
+    pokes: [
+      'Eevee',
+      'Vaporeon',
+      'Jolteon',
+      'Flareon',
+      'Espeon',
+      'Umbreon',
+      'Leafeon',
+      'Glaceon',
+      'Arceus',
+    ],
+  },
   { hero: 'Oichi', pokes: ['Jigglypuff', 'Wigglytuff'] },
   { hero: 'Hideyoshi', pokes: ['Monferno', 'Infernape', 'Reshiram'] },
   { hero: 'Aya', pokes: ['Snorunt', 'Froslass'] },
