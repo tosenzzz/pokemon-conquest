@@ -82,6 +82,14 @@
   .dextable { border: 0; border-collapse: seperate; }
 }
 
+/* 
+##############################################################################
+*/
+.flex1 {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
 table {
   font-size: 9px;
   border-spacing: 0px;
@@ -90,8 +98,8 @@ table {
 .imgpk { width: 60px; }
 #plink, #pwd { margin-left: 10px; }
 .hero-own, .hero-own a { color: aqua; }
-.poke-own { color: yellow !important; }
-.poke-want { color: red !important; }
+a.poke-own { color: yellow; }
+a.poke-want { color: red; }
 .herod {display: flex; align-items: center; gap: 5px; white-space: nowrap; margin-bottom: 2px; }
 .pklink {
   /* overflow: clip; */
@@ -121,15 +129,15 @@ la .close { width: 100%; margin-top: 5px; border: 1px; color: red; }
 .tbl img { width: 20px; }
 .tbl tr:nth-child(2n) { background: #f0f0f0; }
 .tbl tr { vertical-align: middle;}
-.tbl td, .tbl a { color: black !important; }
+.tbl td, .tbl a { color: black; }
 .tbl tr.hundred-link:nth-child(2n) td.max-link { background: #f5f500; }
 .tbl tr.hundred-link:nth-child(2n+1) td.max-link { background: yellow; }
 .tbl tr.ninety-link:nth-child(2n) td.max-link { background: #afcfaf; }
 .tbl tr.ninety-link:nth-child(2n+1) td.max-link { background: #c0d8c0; }
 .tbl tr:nth-child(2n) td.max-ivs { background: #c800f5; }
-.tbl tr:nth-child(2n+1) td.max-ivs { background: #d051ed; }
+.tbl tr:nth-child(2n+1) td.max-ivs, td.max-ivs { background: #d051ed; }
 .tbl tr:nth-child(2n) td.good-ivs { background: #7bce99; }
-.tbl tr:nth-child(2n+1) td.good-ivs { background: #71e69c; }
+.tbl tr:nth-child(2n+1) td.good-ivs, td.good-ivs { background: #71e69c; }
 #myTable td:nth-child(n+12):nth-child(-n+15) { text-align: left; }
 ul { padding-inline-start: 15px; margin-top: 0px; margin-bottom: 5px; }
 .pktype { margin-top: 10px; }
@@ -145,6 +153,10 @@ ul { padding-inline-start: 15px; margin-top: 0px; margin-bottom: 5px; }
 .tbl tr:nth-child(2n+1) .has-hero { background: aqua; }
 .tbl tr:nth-child(2n) .hero-has-poke { background: #f5f500; }
 .tbl tr:nth-child(2n+1) .hero-has-poke { background: yellow; }
+a.no-hero { color: darkgray; }
+a.has-hero { color: aqua; }
+a.hero-has-poke { color: yellow; }
+
 .dstar { display: flex; align-items: center; }
 .dstar a { flex: 1; }
 .star { color: #aac33c; margin-left: 5px; }

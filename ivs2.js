@@ -371,7 +371,7 @@ function showIVs(div, stats, link, energy, min, max, maxStats, poke) {
       <td>${stats.reduce((tt, v) => tt + v, 0) - maxTt}</td>
     </tr>`,
   );
-  var tbl = $(`<table class="tbl" style="width: initial;">`);
+  var tbl = $(`<table>`);
   tbl.appendTo(div.find('#ivResult')).html(out);
 
   tbl.find('.add').click(function () {
@@ -383,7 +383,7 @@ function showIVs(div, stats, link, energy, min, max, maxStats, poke) {
       .attr('IVs')
       .split(',')
       .map((v) => +v);
-    alert('Copied IVs: ' + JSON.stringify(CopyIVs));
+    $(this).css('color', 'blue');
   });
   tbl.find('.paste').click(function () {
     var maxStats = CalcStats(maxIVs, DataDict[poke], link, energy);

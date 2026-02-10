@@ -249,8 +249,9 @@ Zweilous		JzqmWNCZZR`
 
 // Perfect Link Data
 var plink1 = `
-Player ♂ - Eevee//Vaporeon//Jolteon//Flareon//Espeon
-Player ♂ - //Umbreon//Leafeon//Glaceon///Arceus
+Player ♂ - Eevee//Vaporeon//Jolteon
+Player ♂ - //Flareon//Espeon//Umbreon
+Player ♂ - //Leafeon//Glaceon///Arceus
 Oichi - Jigglypuff//Wigglytuff (not Igglybuff)
 Hideyoshi - Monferno//Infernape///Reshiram (not Chimchar)
 Aya - Snorunt//Froslass(not Glalie)

@@ -299,7 +299,19 @@ function starClick(e, hero, poke) {
   } else {
     lset(`${hero}-poke-${poke}`, 'own');
   }
-  $(`.divTbl td[name="${hero}-${poke}"]`).toggleClass('hero-has-poke');
+  $(`[name="${hero}-${poke}"]`).toggleClass('hero-has-poke');
+}
+
+function filterHero(val) {
+  if (val == 'own') {
+    $('#plink>div').hide();
+    $('#plink>div.hero-own').show();
+  } else if (val == 'own-100') {
+    $('#plink>div').hide();
+    $('#plink a.poke-own').parent().parent().show();
+  } else {
+    $('#plink>div').show();
+  }
 }
 
 $(function () {
@@ -446,10 +458,14 @@ $(function () {
     if (map[poke]) {
       map[poke].forEach((v) => {
         const div = $(`<div style="margin-top:2px"></div>`);
-        const color = lget(`${v.hero}-own`) ? 'aqua' : 'darkgray';
-        $(div).append(
-          `<a href="#hero-${v.hero}" style="color: ${color}">${v.prefix + v.hero}</a>`,
-        );
+        const color = [
+          lget(`${v.hero}-poke-${poke}`) == 'own' ? 'hero-has-poke' : '',
+          lget(`${v.hero}-own`) ? 'has-hero' : 'no-hero',
+        ];
+        $(`<a href="#hero-${v.hero}"">${v.prefix + v.hero}</a>`)
+          .addClass(color)
+          .attr('name', `${v.hero}-${poke}`)
+          .appendTo(div);
         $(td).append(div);
       });
     }
@@ -541,9 +557,15 @@ $(function () {
     });
     $('#plink').append(herod);
   };
-  $('#plink').append(`<div><h1>WARLORD/POKEMON</h1></div>`);
+  $('#plink').append(
+    `<d2 class="flex1"><h1>WARLORD</h1>
+      Filter: <button onclick="filterHero('all')">ALL</button>
+      <button onclick="filterHero('own')">Own</button>
+      <button onclick="filterHero('own-100')">Own(100% Link)</button>
+    </d2>`,
+  );
   plink1.forEach(ppp);
-  $('#plink').append(`<div><h1>WARRIOR/POKEMON</h1></div>`);
+  $('#plink').append(`<d2><h1>WARRIOR</h1></d2>`);
   plink2.forEach(ppp);
   // Show Hero detail
   $('.HeroLinks').click(function (e) {
