@@ -142,9 +142,7 @@ const showPokeDetail = (div, name) => {
   });
 };
 
-var SearchHistory = [];
 const getIVsDiv = (hero, poke) => {
-  SearchHistory = [];
   var ivs = $(`
       <div class="ivs">
         <div class="ivs-cal">
@@ -185,13 +183,24 @@ const getIVsDiv = (hero, poke) => {
       .next()
       .empty()
       .append(
-        SearchHistory.filter((v) => v[0] == hp).map(
-          (v) => `<div>${v.join(' ')}</div>`,
-        ),
+        (lget(`ivs-${poke}`) || [])
+          .filter((v) => v[0] == hp)
+          .map((v) => `<tr>${v.map((y) => `<td>${y}</td>`)}</tr>`),
       )
-      .find('div')
+      .find('tr')
       .click(function () {
-        setVals(ivs, ...$(this).text().split(' '));
+        setVals(
+          ivs,
+          ...$(this)
+            .find('td')
+            .get()
+            .map((v) => +$(v).text()),
+        );
+      });
+    $('.history-list tr td:last-child')
+      .get()
+      .forEach((v) => {
+        $(v).addClass(cssIVs($(v).text()));
       });
   });
   return ivs;
@@ -582,16 +591,16 @@ async function syncData() {
           data: items,
         }),
       );
-      alert('Uploaded');
+      alert('↑↑↑↑↑↑');
     } else if (version < hver) {
       // GET from HOST
       Object.keys(valsHost.data).forEach((key) => {
         localStorage.setItem(key, valsHost.data[key]);
       });
-      alert('Downloaded');
+      alert('↓↓↓↓↓↓');
       window.location.reload();
     } else {
-      alert('No updated');
+      alert('======');
     }
 
     $('#search').val('');

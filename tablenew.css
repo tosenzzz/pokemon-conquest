@@ -210,12 +210,10 @@ a.hero-has-poke { color: yellow; }
 .history-list {
   position: absolute;
   left: 0;
-  background: #8b4747;
+  background: #efd8d8;
   margin-top: 2px;
   border-radius: 2px;
 }
-.history-list>div {
-  color: white;
-  white-space: nowrap;
-  margin: 1px 3px;
+.history-list td {
+  color: black;
 }

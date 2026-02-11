@@ -289,6 +289,7 @@ function executeIVCalc(e) {
   } else {
     if (link <= 0) {
       // Find all valid IVs
+      var bestIvs = 0;
       for (link = 1; link <= 100; link++) {
         var [min, max] = CalcIVs(stats, DataDict[poke], link, energy);
         var maxStats = CalcStats(maxIVs, DataDict[poke], link, energy);
@@ -296,13 +297,29 @@ function executeIVCalc(e) {
           !min.some((v) => v == -1000 || v == 1000) &&
           !max.some((v) => v == -1000 || v == 1000)
         ) {
-          showIVs(div, stats, link, energy, min, max, maxStats, poke);
+          var total = showIVs(
+            div,
+            stats,
+            link,
+            energy,
+            min,
+            max,
+            maxStats,
+            poke,
+          );
+          if (total > bestIvs) bestIvs = total;
         }
       }
       setVals(div, '', '', '', '', '', energy);
-      var history = [...stats, 0, energy];
-      if (!SearchHistory.some((v) => v.join(',') == history.join(',')))
+      var history = [...stats, 0, energy, bestIvs];
+      var SearchHistory = lget(`ivs-${poke}`) || [];
+      if (
+        bestIvs > 0 &&
+        !SearchHistory.some((v) => v.join(',') == history.join(','))
+      ) {
         SearchHistory.push(history);
+        lset(`ivs-${poke}`, SearchHistory);
+      }
     } else {
       // Find Max Stats
       var maxStats = CalcStats(maxIVs, DataDict[poke], link, energy);
