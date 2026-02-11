@@ -364,11 +364,26 @@ function genHero(div, line, filter1, filter2) {
   var { hero, pokes } = line;
 
   // Filter check
-  if (filter1 == 'own' && !lget(`${hero}-own`)) return;
+  if (
+    filter1 == 'own' &&
+    !(
+      lget(`${hero}-own`) &&
+      (!filter2 ||
+        HeroLinks[hero].some(
+          (v) =>
+            lget(`${hero}-poke-${v.name}`) == 'own' &&
+            pokeData[v.name].type.includes(filter2),
+        ))
+    )
+  )
+    return;
   if (
     filter1 == 'own-100' &&
     !HeroLinks[hero].some(
-      (v) => lget(`${hero}-poke-${v.name}`) == 'own' && v.link.includes(100),
+      (v) =>
+        lget(`${hero}-poke-${v.name}`) == 'own' &&
+        v.link.includes(100) &&
+        (!filter2 || pokeData[v.name].type.includes(filter2)),
     )
   )
     return;
@@ -377,16 +392,8 @@ function genHero(div, line, filter1, filter2) {
     !HeroLinks[hero].some(
       (v) =>
         lget(`${hero}-poke-${v.name}`) == 'own' &&
-        ['good-ivs', 'max-ivs'].includes(getIVs(hero, v.name).cIVs),
-    )
-  )
-    return;
-  if (
-    !!filter2 &&
-    !HeroLinks[hero].some(
-      (v) =>
-        lget(`${hero}-poke-${v.name}`) == 'own' &&
-        pokeData[v.name].type.includes(filter2),
+        ['good-ivs', 'max-ivs'].includes(getIVs(hero, v.name).cIVs) &&
+        (!filter2 || pokeData[v.name].type.includes(filter2)),
     )
   )
     return;
