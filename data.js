@@ -3529,6 +3529,7 @@ $('#myTable>tbody>tr').each(function () {
     def: +$(tds[8]).text(),
     spd: +$(tds[9]).text(),
     total: +$(tds[10]).text(),
+    type: $(tds[3]).find('img').get().map(v => $(v).attr('src').match(/([^/]*).gif/)[1]),
   };
 });
 JSON.stringify(pokeData)
@@ -3744,6 +3745,7 @@ var pokeData = {
     def: 119,
     spd: 115,
     total: 569,
+    type: ['normal'],
   },
   Vaporeon: {
     id: 134,
@@ -3753,6 +3755,7 @@ var pokeData = {
     def: 159,
     spd: 135,
     total: 889,
+    type: ['water'],
   },
   Jolteon: {
     id: 135,
@@ -3762,6 +3765,7 @@ var pokeData = {
     def: 159,
     spd: 265,
     total: 889,
+    type: ['electric'],
   },
   Flareon: {
     id: 136,
@@ -3771,6 +3775,7 @@ var pokeData = {
     def: 175,
     spd: 135,
     total: 815,
+    type: ['fire'],
   },
   Espeon: {
     id: 196,
@@ -3780,6 +3785,7 @@ var pokeData = {
     def: 159,
     spd: 225,
     total: 889,
+    type: ['psychic'],
   },
   Umbreon: {
     id: 197,
@@ -3789,6 +3795,7 @@ var pokeData = {
     def: 245,
     spd: 135,
     total: 815,
+    type: ['dark'],
   },
   Leafeon: {
     id: 470,
@@ -3798,6 +3805,7 @@ var pokeData = {
     def: 199,
     spd: 195,
     total: 859,
+    type: ['grass'],
   },
   Glaceon: {
     id: 471,
@@ -3807,6 +3815,7 @@ var pokeData = {
     def: 209,
     spd: 135,
     total: 849,
+    type: ['ice'],
   },
   Ralts: {
     id: 280,
@@ -3816,6 +3825,7 @@ var pokeData = {
     def: 65,
     spd: 85,
     total: 411,
+    type: ['psychic'],
   },
   Kirlia: {
     id: 281,
@@ -3825,6 +3835,7 @@ var pokeData = {
     def: 95,
     spd: 105,
     total: 521,
+    type: ['psychic'],
   },
   Gardevoir: {
     id: 282,
@@ -3834,6 +3845,7 @@ var pokeData = {
     def: 185,
     spd: 165,
     total: 851,
+    type: ['psychic'],
   },
   Gallade: {
     id: 475,
@@ -3843,6 +3855,7 @@ var pokeData = {
     def: 185,
     spd: 165,
     total: 851,
+    type: ['psychic', 'fighting'],
   },
   Magikarp: {
     id: 129,
@@ -3852,6 +3865,7 @@ var pokeData = {
     def: 79,
     spd: 165,
     total: 419,
+    type: ['water'],
   },
   Gyarados: {
     id: 130,
@@ -3861,6 +3875,7 @@ var pokeData = {
     def: 183,
     spd: 167,
     total: 905,
+    type: ['water', 'flying'],
   },
   Pichu: {
     id: 172,
@@ -3870,6 +3885,7 @@ var pokeData = {
     def: 55,
     spd: 125,
     total: 405,
+    type: ['electric'],
   },
   Pikachu: {
     id: 25,
@@ -3879,6 +3895,7 @@ var pokeData = {
     def: 75,
     spd: 185,
     total: 545,
+    type: ['electric'],
   },
   Raichu: {
     id: 26,
@@ -3888,6 +3905,7 @@ var pokeData = {
     def: 139,
     spd: 205,
     total: 759,
+    type: ['electric'],
   },
   Wooper: {
     id: 194,
@@ -3897,6 +3915,7 @@ var pokeData = {
     def: 75,
     spd: 35,
     total: 385,
+    type: ['water', 'ground'],
   },
   Quagsire: {
     id: 195,
@@ -3906,6 +3925,7 @@ var pokeData = {
     def: 155,
     spd: 75,
     total: 705,
+    type: ['water', 'ground'],
   },
   Igglybuff: {
     id: 174,
@@ -3915,6 +3935,7 @@ var pokeData = {
     def: 39,
     spd: 35,
     total: 429,
+    type: ['normal'],
   },
   Jigglypuff: {
     id: 39,
@@ -3924,6 +3945,7 @@ var pokeData = {
     def: 49,
     spd: 45,
     total: 529,
+    type: ['normal'],
   },
   Wigglytuff: {
     id: 40,
@@ -3933,6 +3955,7 @@ var pokeData = {
     def: 99,
     spd: 95,
     total: 729,
+    type: ['normal'],
   },
   Zubat: {
     id: 41,
@@ -3942,6 +3965,7 @@ var pokeData = {
     def: 79,
     spd: 115,
     total: 479,
+    type: ['poison', 'flying'],
   },
   Golbat: {
     id: 42,
@@ -3951,6 +3975,7 @@ var pokeData = {
     def: 149,
     spd: 185,
     total: 729,
+    type: ['poison', 'flying'],
   },
   Crobat: {
     id: 169,
@@ -3960,6 +3985,7 @@ var pokeData = {
     def: 165,
     spd: 265,
     total: 895,
+    type: ['poison', 'flying'],
   },
   Starly: {
     id: 396,
@@ -3969,6 +3995,7 @@ var pokeData = {
     def: 65,
     spd: 125,
     total: 495,
+    type: ['normal', 'flying'],
   },
   Staravia: {
     id: 397,
@@ -3978,6 +4005,7 @@ var pokeData = {
     def: 95,
     spd: 165,
     total: 635,
+    type: ['normal', 'flying'],
   },
   Staraptor: {
     id: 398,
@@ -3987,6 +4015,7 @@ var pokeData = {
     def: 125,
     spd: 205,
     total: 855,
+    type: ['normal', 'flying'],
   },
   Bidoof: {
     id: 399,
@@ -3996,6 +4025,7 @@ var pokeData = {
     def: 85,
     spd: 67,
     total: 475,
+    type: ['normal'],
   },
   Bibarel: {
     id: 400,
@@ -4005,6 +4035,7 @@ var pokeData = {
     def: 125,
     spd: 147,
     total: 715,
+    type: ['normal', 'water'],
   },
   Venipede: {
     id: 543,
@@ -4014,6 +4045,7 @@ var pokeData = {
     def: 103,
     spd: 119,
     total: 487,
+    type: ['bug', 'poison'],
   },
   Whirlipede: {
     id: 544,
@@ -4023,6 +4055,7 @@ var pokeData = {
     def: 183,
     spd: 99,
     total: 587,
+    type: ['bug', 'poison'],
   },
   Scolipede: {
     id: 545,
@@ -4032,6 +4065,7 @@ var pokeData = {
     def: 163,
     spd: 229,
     total: 807,
+    type: ['bug', 'poison'],
   },
   Shinx: {
     id: 403,
@@ -4041,6 +4075,7 @@ var pokeData = {
     def: 73,
     spd: 95,
     total: 453,
+    type: ['electric'],
   },
   Luxio: {
     id: 404,
@@ -4050,6 +4085,7 @@ var pokeData = {
     def: 103,
     spd: 125,
     total: 633,
+    type: ['electric'],
   },
   Luxray: {
     id: 405,
@@ -4059,6 +4095,7 @@ var pokeData = {
     def: 163,
     spd: 145,
     total: 773,
+    type: ['electric'],
   },
   Litwick: {
     id: 607,
@@ -4068,6 +4105,7 @@ var pokeData = {
     def: 115,
     spd: 45,
     total: 505,
+    type: ['ghost', 'fire'],
   },
   Lampent: {
     id: 608,
@@ -4077,6 +4115,7 @@ var pokeData = {
     def: 125,
     spd: 115,
     total: 665,
+    type: ['ghost', 'fire'],
   },
   Chandelure: {
     id: 609,
@@ -4086,6 +4125,7 @@ var pokeData = {
     def: 185,
     spd: 165,
     total: 875,
+    type: ['ghost', 'fire'],
   },
   Roggenrola: {
     id: 524,
@@ -4095,6 +4135,7 @@ var pokeData = {
     def: 115,
     spd: 35,
     total: 525,
+    type: ['rock'],
   },
   Boldore: {
     id: 525,
@@ -4104,6 +4145,7 @@ var pokeData = {
     def: 149,
     spd: 45,
     total: 659,
+    type: ['rock'],
   },
   Gigalith: {
     id: 526,
@@ -4113,6 +4155,7 @@ var pokeData = {
     def: 205,
     spd: 55,
     total: 815,
+    type: ['rock'],
   },
   Petilil: {
     id: 548,
@@ -4122,6 +4165,7 @@ var pokeData = {
     def: 105,
     spd: 65,
     total: 515,
+    type: ['grass'],
   },
   Lilligant: {
     id: 549,
@@ -4131,6 +4175,7 @@ var pokeData = {
     def: 155,
     spd: 185,
     total: 815,
+    type: ['grass'],
   },
   Mareep: {
     id: 179,
@@ -4140,6 +4185,7 @@ var pokeData = {
     def: 89,
     spd: 75,
     total: 519,
+    type: ['electric'],
   },
   Flaaffy: {
     id: 180,
@@ -4149,6 +4195,7 @@ var pokeData = {
     def: 119,
     spd: 95,
     total: 629,
+    type: ['electric'],
   },
   Ampharos: {
     id: 181,
@@ -4158,6 +4205,7 @@ var pokeData = {
     def: 169,
     spd: 115,
     total: 809,
+    type: ['electric'],
   },
   Cottonee: {
     id: 546,
@@ -4167,6 +4215,7 @@ var pokeData = {
     def: 115,
     spd: 137,
     total: 521,
+    type: ['grass'],
   },
   Whimsicott: {
     id: 547,
@@ -4176,6 +4225,7 @@ var pokeData = {
     def: 165,
     spd: 237,
     total: 791,
+    type: ['grass'],
   },
   Riolu: {
     id: 447,
@@ -4185,6 +4235,7 @@ var pokeData = {
     def: 85,
     spd: 125,
     total: 545,
+    type: ['fighting'],
   },
   Lucario: {
     id: 448,
@@ -4194,6 +4245,7 @@ var pokeData = {
     def: 145,
     spd: 185,
     total: 815,
+    type: ['fighting', 'steel'],
   },
   Chingling: {
     id: 433,
@@ -4203,6 +4255,7 @@ var pokeData = {
     def: 105,
     spd: 95,
     total: 535,
+    type: ['psychic'],
   },
   Chimecho: {
     id: 358,
@@ -4212,6 +4265,7 @@ var pokeData = {
     def: 155,
     spd: 135,
     total: 725,
+    type: ['psychic'],
   },
   Ekans: {
     id: 23,
@@ -4221,6 +4275,7 @@ var pokeData = {
     def: 103,
     spd: 115,
     total: 523,
+    type: ['poison'],
   },
   Arbok: {
     id: 24,
@@ -4230,6 +4285,7 @@ var pokeData = {
     def: 153,
     spd: 165,
     total: 723,
+    type: ['poison'],
   },
   Pineco: {
     id: 204,
@@ -4239,6 +4295,7 @@ var pokeData = {
     def: 129,
     spd: 35,
     total: 509,
+    type: ['bug'],
   },
   Forretress: {
     id: 205,
@@ -4248,6 +4305,7 @@ var pokeData = {
     def: 205,
     spd: 85,
     total: 735,
+    type: ['bug', 'steel'],
   },
   Meowth: {
     id: 52,
@@ -4257,6 +4315,7 @@ var pokeData = {
     def: 79,
     spd: 185,
     total: 549,
+    type: ['normal'],
   },
   Persian: {
     id: 53,
@@ -4266,6 +4325,7 @@ var pokeData = {
     def: 129,
     spd: 235,
     total: 749,
+    type: ['normal'],
   },
   Spheal: {
     id: 363,
@@ -4275,6 +4335,7 @@ var pokeData = {
     def: 105,
     spd: 55,
     total: 525,
+    type: ['ice', 'water'],
   },
   Sealeo: {
     id: 364,
@@ -4284,6 +4345,7 @@ var pokeData = {
     def: 145,
     spd: 95,
     total: 685,
+    type: ['ice', 'water'],
   },
   Walrein: {
     id: 365,
@@ -4293,6 +4355,7 @@ var pokeData = {
     def: 185,
     spd: 135,
     total: 845,
+    type: ['ice', 'water'],
   },
   Gothita: {
     id: 574,
@@ -4302,6 +4365,7 @@ var pokeData = {
     def: 119,
     spd: 95,
     total: 529,
+    type: ['psychic'],
   },
   Gothorita: {
     id: 575,
@@ -4311,6 +4375,7 @@ var pokeData = {
     def: 159,
     spd: 115,
     total: 659,
+    type: ['psychic'],
   },
   Gothitelle: {
     id: 576,
@@ -4320,6 +4385,7 @@ var pokeData = {
     def: 209,
     spd: 135,
     total: 789,
+    type: ['psychic'],
   },
   Sandile: {
     id: 551,
@@ -4329,6 +4395,7 @@ var pokeData = {
     def: 75,
     spd: 135,
     total: 569,
+    type: ['ground', 'dark'],
   },
   Krokorok: {
     id: 552,
@@ -4338,6 +4405,7 @@ var pokeData = {
     def: 95,
     spd: 153,
     total: 647,
+    type: ['ground', 'dark'],
   },
   Krookodile: {
     id: 553,
@@ -4347,6 +4415,7 @@ var pokeData = {
     def: 145,
     spd: 189,
     total: 873,
+    type: ['ground', 'dark'],
   },
   Duskull: {
     id: 355,
@@ -4356,6 +4425,7 @@ var pokeData = {
     def: 185,
     spd: 55,
     total: 475,
+    type: ['ghost'],
   },
   Dusclops: {
     id: 356,
@@ -4365,6 +4435,7 @@ var pokeData = {
     def: 265,
     spd: 55,
     total: 655,
+    type: ['ghost'],
   },
   Dusknoir: {
     id: 477,
@@ -4374,6 +4445,7 @@ var pokeData = {
     def: 275,
     spd: 95,
     total: 775,
+    type: ['ghost'],
   },
   Munna: {
     id: 517,
@@ -4383,6 +4455,7 @@ var pokeData = {
     def: 105,
     spd: 53,
     total: 559,
+    type: ['psychic'],
   },
   Musharna: {
     id: 518,
@@ -4392,6 +4465,7 @@ var pokeData = {
     def: 185,
     spd: 63,
     total: 809,
+    type: ['psychic'],
   },
   Blitzle: {
     id: 522,
@@ -4401,6 +4475,7 @@ var pokeData = {
     def: 69,
     spd: 157,
     total: 551,
+    type: ['electric'],
   },
   Zebstrika: {
     id: 523,
@@ -4410,6 +4485,7 @@ var pokeData = {
     def: 131,
     spd: 237,
     total: 793,
+    type: ['electric'],
   },
   Dratini: {
     id: 147,
@@ -4419,6 +4495,7 @@ var pokeData = {
     def: 99,
     spd: 105,
     total: 501,
+    type: ['dragon'],
   },
   Dragonair: {
     id: 148,
@@ -4428,6 +4505,7 @@ var pokeData = {
     def: 139,
     spd: 145,
     total: 689,
+    type: ['dragon'],
   },
   Dragonite: {
     id: 149,
@@ -4437,6 +4515,7 @@ var pokeData = {
     def: 199,
     spd: 165,
     total: 929,
+    type: ['dragon', 'flying'],
   },
   Larvitar: {
     id: 246,
@@ -4446,6 +4525,7 @@ var pokeData = {
     def: 105,
     spd: 87,
     total: 535,
+    type: ['rock', 'ground'],
   },
   Pupitar: {
     id: 247,
@@ -4455,6 +4535,7 @@ var pokeData = {
     def: 145,
     spd: 107,
     total: 675,
+    type: ['rock', 'ground'],
   },
   Tyranitar: {
     id: 248,
@@ -4464,6 +4545,7 @@ var pokeData = {
     def: 215,
     spd: 127,
     total: 925,
+    type: ['rock', 'dark'],
   },
   Beldum: {
     id: 374,
@@ -4473,6 +4555,7 @@ var pokeData = {
     def: 145,
     spd: 65,
     total: 515,
+    type: ['steel', 'psychic'],
   },
   Metang: {
     id: 375,
@@ -4482,6 +4565,7 @@ var pokeData = {
     def: 185,
     spd: 105,
     total: 675,
+    type: ['steel', 'psychic'],
   },
   Metagross: {
     id: 376,
@@ -4491,6 +4575,7 @@ var pokeData = {
     def: 225,
     spd: 145,
     total: 915,
+    type: ['steel', 'psychic'],
   },
   Gible: {
     id: 443,
@@ -4500,6 +4585,7 @@ var pokeData = {
     def: 95,
     spd: 89,
     total: 495,
+    type: ['dragon', 'ground'],
   },
   Gabite: {
     id: 444,
@@ -4509,6 +4595,7 @@ var pokeData = {
     def: 125,
     spd: 169,
     total: 725,
+    type: ['dragon', 'ground'],
   },
   Garchomp: {
     id: 445,
@@ -4518,6 +4605,7 @@ var pokeData = {
     def: 185,
     spd: 209,
     total: 985,
+    type: ['dragon', 'ground'],
   },
   Croagunk: {
     id: 453,
@@ -4527,6 +4615,7 @@ var pokeData = {
     def: 85,
     spd: 105,
     total: 523,
+    type: ['poison', 'fighting'],
   },
   Toxicroak: {
     id: 454,
@@ -4536,6 +4625,7 @@ var pokeData = {
     def: 135,
     spd: 175,
     total: 763,
+    type: ['poison', 'fighting'],
   },
   Deino: {
     id: 633,
@@ -4545,6 +4635,7 @@ var pokeData = {
     def: 105,
     spd: 81,
     total: 495,
+    type: ['dark', 'dragon'],
   },
   Zweilous: {
     id: 634,
@@ -4554,6 +4645,7 @@ var pokeData = {
     def: 145,
     spd: 121,
     total: 695,
+    type: ['dark', 'dragon'],
   },
   Hydreigon: {
     id: 635,
@@ -4563,6 +4655,7 @@ var pokeData = {
     def: 185,
     spd: 201,
     total: 935,
+    type: ['dark', 'dragon'],
   },
   Snorunt: {
     id: 361,
@@ -4572,6 +4665,7 @@ var pokeData = {
     def: 105,
     spd: 105,
     total: 525,
+    type: ['ice'],
   },
   Glalie: {
     id: 362,
@@ -4581,6 +4675,7 @@ var pokeData = {
     def: 165,
     spd: 165,
     total: 765,
+    type: ['ice'],
   },
   Froslass: {
     id: 478,
@@ -4590,6 +4685,7 @@ var pokeData = {
     def: 145,
     spd: 225,
     total: 785,
+    type: ['ice', 'ghost'],
   },
   Minccino: {
     id: 572,
@@ -4599,6 +4695,7 @@ var pokeData = {
     def: 85,
     spd: 155,
     total: 565,
+    type: ['normal'],
   },
   Cinccino: {
     id: 573,
@@ -4608,6 +4705,7 @@ var pokeData = {
     def: 125,
     spd: 235,
     total: 815,
+    type: ['normal'],
   },
   Machop: {
     id: 66,
@@ -4617,6 +4715,7 @@ var pokeData = {
     def: 89,
     spd: 75,
     total: 579,
+    type: ['fighting'],
   },
   Machoke: {
     id: 67,
@@ -4626,6 +4725,7 @@ var pokeData = {
     def: 135,
     spd: 95,
     total: 705,
+    type: ['fighting'],
   },
   Machamp: {
     id: 68,
@@ -4635,6 +4735,7 @@ var pokeData = {
     def: 169,
     spd: 115,
     total: 839,
+    type: ['fighting'],
   },
   Timburr: {
     id: 532,
@@ -4644,6 +4745,7 @@ var pokeData = {
     def: 95,
     spd: 75,
     total: 595,
+    type: ['fighting'],
   },
   Gurdurr: {
     id: 533,
@@ -4653,6 +4755,7 @@ var pokeData = {
     def: 139,
     spd: 85,
     total: 719,
+    type: ['fighting'],
   },
   Conkeldurr: {
     id: 534,
@@ -4662,6 +4765,7 @@ var pokeData = {
     def: 165,
     spd: 95,
     total: 865,
+    type: ['fighting'],
   },
   Cubchoo: {
     id: 613,
@@ -4671,6 +4775,7 @@ var pokeData = {
     def: 85,
     spd: 85,
     total: 515,
+    type: ['ice'],
   },
   Beartic: {
     id: 614,
@@ -4680,6 +4785,7 @@ var pokeData = {
     def: 165,
     spd: 105,
     total: 795,
+    type: ['ice'],
   },
   Oshawott: {
     id: 501,
@@ -4689,6 +4795,7 @@ var pokeData = {
     def: 95,
     spd: 95,
     total: 541,
+    type: ['water'],
   },
   Dewott: {
     id: 502,
@@ -4698,6 +4805,7 @@ var pokeData = {
     def: 125,
     spd: 125,
     total: 681,
+    type: ['water'],
   },
   Samurott: {
     id: 503,
@@ -4707,6 +4815,7 @@ var pokeData = {
     def: 159,
     spd: 145,
     total: 809,
+    type: ['water'],
   },
   Charmander: {
     id: 4,
@@ -4716,6 +4825,7 @@ var pokeData = {
     def: 97,
     spd: 135,
     total: 545,
+    type: ['fire'],
   },
   Charmeleon: {
     id: 5,
@@ -4725,6 +4835,7 @@ var pokeData = {
     def: 127,
     spd: 165,
     total: 651,
+    type: ['fire'],
   },
   Charizard: {
     id: 6,
@@ -4734,6 +4845,7 @@ var pokeData = {
     def: 167,
     spd: 205,
     total: 861,
+    type: ['fire', 'flying'],
   },
   Gastly: {
     id: 92,
@@ -4743,6 +4855,7 @@ var pokeData = {
     def: 69,
     spd: 165,
     total: 609,
+    type: ['ghost', 'poison'],
   },
   Haunter: {
     id: 93,
@@ -4752,6 +4865,7 @@ var pokeData = {
     def: 105,
     spd: 195,
     total: 735,
+    type: ['ghost', 'poison'],
   },
   Gengar: {
     id: 94,
@@ -4761,6 +4875,7 @@ var pokeData = {
     def: 139,
     spd: 225,
     total: 859,
+    type: ['ghost', 'poison'],
   },
   Chimchar: {
     id: 390,
@@ -4770,6 +4885,7 @@ var pokeData = {
     def: 93,
     spd: 127,
     total: 539,
+    type: ['fire'],
   },
   Monferno: {
     id: 391,
@@ -4779,6 +4895,7 @@ var pokeData = {
     def: 109,
     spd: 167,
     total: 675,
+    type: ['fire', 'fighting'],
   },
   Infernape: {
     id: 392,
@@ -4788,6 +4905,7 @@ var pokeData = {
     def: 147,
     spd: 221,
     total: 843,
+    type: ['fire', 'fighting'],
   },
   Snivy: {
     id: 495,
@@ -4797,6 +4915,7 @@ var pokeData = {
     def: 115,
     spd: 131,
     total: 541,
+    type: ['grass'],
   },
   Servine: {
     id: 496,
@@ -4806,6 +4925,7 @@ var pokeData = {
     def: 155,
     spd: 171,
     total: 681,
+    type: ['grass'],
   },
   Serperior: {
     id: 497,
@@ -4815,6 +4935,7 @@ var pokeData = {
     def: 195,
     spd: 231,
     total: 841,
+    type: ['grass'],
   },
   Tepig: {
     id: 498,
@@ -4824,6 +4945,7 @@ var pokeData = {
     def: 95,
     spd: 95,
     total: 525,
+    type: ['fire'],
   },
   Pignite: {
     id: 499,
@@ -4833,6 +4955,7 @@ var pokeData = {
     def: 115,
     spd: 115,
     total: 711,
+    type: ['fire', 'fighting'],
   },
   Emboar: {
     id: 500,
@@ -4842,6 +4965,7 @@ var pokeData = {
     def: 135,
     spd: 135,
     total: 805,
+    type: ['fire', 'fighting'],
   },
   Sewaddle: {
     id: 540,
@@ -4851,6 +4975,7 @@ var pokeData = {
     def: 135,
     spd: 89,
     total: 509,
+    type: ['bug', 'grass'],
   },
   Swadloon: {
     id: 541,
@@ -4860,6 +4985,7 @@ var pokeData = {
     def: 175,
     spd: 89,
     total: 589,
+    type: ['bug', 'grass'],
   },
   Leavanny: {
     id: 542,
@@ -4869,6 +4995,7 @@ var pokeData = {
     def: 155,
     spd: 189,
     total: 749,
+    type: ['bug', 'grass'],
   },
   Abra: {
     id: 63,
@@ -4878,6 +5005,7 @@ var pokeData = {
     def: 75,
     spd: 185,
     total: 635,
+    type: ['psychic'],
   },
   Kadabra: {
     id: 64,
@@ -4887,6 +5015,7 @@ var pokeData = {
     def: 105,
     spd: 215,
     total: 755,
+    type: ['psychic'],
   },
   Alakazam: {
     id: 65,
@@ -4896,6 +5025,7 @@ var pokeData = {
     def: 135,
     spd: 245,
     total: 875,
+    type: ['psychic'],
   },
   Treecko: {
     id: 252,
@@ -4905,6 +5035,7 @@ var pokeData = {
     def: 95,
     spd: 145,
     total: 565,
+    type: ['grass'],
   },
   Grovyle: {
     id: 253,
@@ -4914,6 +5045,7 @@ var pokeData = {
     def: 115,
     spd: 195,
     total: 695,
+    type: ['grass'],
   },
   Sceptile: {
     id: 254,
@@ -4923,6 +5055,7 @@ var pokeData = {
     def: 155,
     spd: 245,
     total: 865,
+    type: ['grass'],
   },
   Piplup: {
     id: 393,
@@ -4932,6 +5065,7 @@ var pokeData = {
     def: 113,
     spd: 85,
     total: 541,
+    type: ['water'],
   },
   Prinplup: {
     id: 394,
@@ -4941,6 +5075,7 @@ var pokeData = {
     def: 149,
     spd: 105,
     total: 659,
+    type: ['water'],
   },
   Empoleon: {
     id: 395,
@@ -4950,6 +5085,7 @@ var pokeData = {
     def: 193,
     spd: 125,
     total: 823,
+    type: ['water', 'steel'],
   },
   Pansage: {
     id: 511,
@@ -4959,6 +5095,7 @@ var pokeData = {
     def: 101,
     spd: 133,
     total: 555,
+    type: ['grass'],
   },
   Simisage: {
     id: 512,
@@ -4968,6 +5105,7 @@ var pokeData = {
     def: 131,
     spd: 207,
     total: 799,
+    type: ['grass'],
   },
   Pansear: {
     id: 513,
@@ -4977,6 +5115,7 @@ var pokeData = {
     def: 101,
     spd: 133,
     total: 555,
+    type: ['fire'],
   },
   Simisear: {
     id: 514,
@@ -4986,6 +5125,7 @@ var pokeData = {
     def: 131,
     spd: 207,
     total: 799,
+    type: ['fire'],
   },
   Panpour: {
     id: 515,
@@ -4995,6 +5135,7 @@ var pokeData = {
     def: 101,
     spd: 133,
     total: 555,
+    type: ['water'],
   },
   Simipour: {
     id: 516,
@@ -5004,6 +5145,7 @@ var pokeData = {
     def: 131,
     spd: 207,
     total: 799,
+    type: ['water'],
   },
   Darumaka: {
     id: 554,
@@ -5013,6 +5155,7 @@ var pokeData = {
     def: 95,
     spd: 105,
     total: 635,
+    type: ['fire'],
   },
   Darmanitan: {
     id: 555,
@@ -5022,6 +5165,7 @@ var pokeData = {
     def: 115,
     spd: 195,
     total: 915,
+    type: ['fire'],
   },
   Axew: {
     id: 610,
@@ -5031,6 +5175,7 @@ var pokeData = {
     def: 105,
     spd: 119,
     total: 605,
+    type: ['dragon'],
   },
   Fraxure: {
     id: 611,
@@ -5040,6 +5185,7 @@ var pokeData = {
     def: 125,
     spd: 139,
     total: 745,
+    type: ['dragon'],
   },
   Haxorus: {
     id: 612,
@@ -5049,6 +5195,7 @@ var pokeData = {
     def: 165,
     spd: 199,
     total: 925,
+    type: ['dragon'],
   },
   Joltik: {
     id: 595,
@@ -5058,6 +5205,7 @@ var pokeData = {
     def: 105,
     spd: 135,
     total: 569,
+    type: ['bug', 'electric'],
   },
   Galvantula: {
     id: 596,
@@ -5067,6 +5215,7 @@ var pokeData = {
     def: 125,
     spd: 221,
     total: 795,
+    type: ['bug', 'electric'],
   },
   Aron: {
     id: 304,
@@ -5076,6 +5225,7 @@ var pokeData = {
     def: 145,
     spd: 65,
     total: 565,
+    type: ['steel', 'rock'],
   },
   Lairon: {
     id: 305,
@@ -5085,6 +5235,7 @@ var pokeData = {
     def: 195,
     spd: 85,
     total: 695,
+    type: ['steel', 'rock'],
   },
   Aggron: {
     id: 306,
@@ -5094,6 +5245,7 @@ var pokeData = {
     def: 245,
     spd: 105,
     total: 825,
+    type: ['steel', 'rock'],
   },
   Drilbur: {
     id: 529,
@@ -5103,6 +5255,7 @@ var pokeData = {
     def: 89,
     spd: 141,
     total: 635,
+    type: ['ground'],
   },
   Excadrill: {
     id: 530,
@@ -5112,6 +5265,7 @@ var pokeData = {
     def: 129,
     spd: 181,
     total: 915,
+    type: ['ground', 'steel'],
   },
   Zorua: {
     id: 570,
@@ -5121,6 +5275,7 @@ var pokeData = {
     def: 85,
     spd: 135,
     total: 575,
+    type: ['dark'],
   },
   Zoroark: {
     id: 571,
@@ -5130,6 +5285,7 @@ var pokeData = {
     def: 125,
     spd: 215,
     total: 815,
+    type: ['dark'],
   },
   Skorupi: {
     id: 451,
@@ -5139,6 +5295,7 @@ var pokeData = {
     def: 149,
     spd: 135,
     total: 579,
+    type: ['poison', 'bug'],
   },
   Drapion: {
     id: 452,
@@ -5148,6 +5305,7 @@ var pokeData = {
     def: 189,
     spd: 195,
     total: 819,
+    type: ['poison', 'dark'],
   },
   Pawniard: {
     id: 624,
@@ -5157,6 +5315,7 @@ var pokeData = {
     def: 115,
     spd: 125,
     total: 615,
+    type: ['dark', 'steel'],
   },
   Bisharp: {
     id: 625,
@@ -5166,6 +5325,7 @@ var pokeData = {
     def: 175,
     spd: 145,
     total: 815,
+    type: ['dark', 'steel'],
   },
   Rhyhorn: {
     id: 111,
@@ -5175,6 +5335,7 @@ var pokeData = {
     def: 129,
     spd: 55,
     total: 629,
+    type: ['ground', 'rock'],
   },
   Rhydon: {
     id: 112,
@@ -5184,6 +5345,7 @@ var pokeData = {
     def: 169,
     spd: 85,
     total: 839,
+    type: ['ground', 'rock'],
   },
   Rhyperior: {
     id: 464,
@@ -5193,6 +5355,7 @@ var pokeData = {
     def: 189,
     spd: 85,
     total: 899,
+    type: ['ground', 'rock'],
   },
   Shieldon: {
     id: 410,
@@ -5202,6 +5365,7 @@ var pokeData = {
     def: 211,
     spd: 65,
     total: 535,
+    type: ['rock', 'steel'],
   },
   Bastiodon: {
     id: 411,
@@ -5211,6 +5375,7 @@ var pokeData = {
     def: 311,
     spd: 65,
     total: 715,
+    type: ['rock', 'steel'],
   },
   Scraggy: {
     id: 559,
@@ -5220,6 +5385,7 @@ var pokeData = {
     def: 145,
     spd: 101,
     total: 611,
+    type: ['dark', 'fighting'],
   },
   Scrafty: {
     id: 560,
@@ -5229,6 +5395,7 @@ var pokeData = {
     def: 235,
     spd: 121,
     total: 781,
+    type: ['dark', 'fighting'],
   },
   Drifloon: {
     id: 425,
@@ -5238,6 +5405,7 @@ var pokeData = {
     def: 83,
     spd: 145,
     total: 643,
+    type: ['ghost', 'flying'],
   },
   Drifblim: {
     id: 426,
@@ -5247,6 +5415,7 @@ var pokeData = {
     def: 103,
     spd: 165,
     total: 843,
+    type: ['ghost', 'flying'],
   },
   Rufflet: {
     id: 627,
@@ -5256,6 +5425,7 @@ var pokeData = {
     def: 105,
     spd: 125,
     total: 651,
+    type: ['normal', 'flying'],
   },
   Braviary: {
     id: 628,
@@ -5265,6 +5435,7 @@ var pokeData = {
     def: 155,
     spd: 165,
     total: 881,
+    type: ['normal', 'flying'],
   },
   Anorith: {
     id: 347,
@@ -5274,6 +5445,7 @@ var pokeData = {
     def: 105,
     spd: 155,
     total: 655,
+    type: ['rock', 'bug'],
   },
   Armaldo: {
     id: 348,
@@ -5283,6 +5455,7 @@ var pokeData = {
     def: 185,
     spd: 95,
     total: 795,
+    type: ['rock', 'bug'],
   },
   Larvesta: {
     id: 636,
@@ -5292,6 +5465,7 @@ var pokeData = {
     def: 115,
     spd: 125,
     total: 635,
+    type: ['bug', 'fire'],
   },
   Volcarona: {
     id: 637,
@@ -5301,6 +5475,7 @@ var pokeData = {
     def: 175,
     spd: 205,
     total: 935,
+    type: ['bug', 'fire'],
   },
   Onix: {
     id: 95,
@@ -5310,6 +5485,7 @@ var pokeData = {
     def: 209,
     spd: 145,
     total: 629,
+    type: ['rock', 'ground'],
   },
   Steelix: {
     id: 208,
@@ -5319,6 +5495,7 @@ var pokeData = {
     def: 269,
     spd: 65,
     total: 769,
+    type: ['steel', 'ground'],
   },
   Beedrill: {
     id: 15,
@@ -5328,6 +5505,7 @@ var pokeData = {
     def: 125,
     spd: 155,
     total: 685,
+    type: ['bug', 'poison'],
   },
   Munchlax: {
     id: 446,
@@ -5337,6 +5515,7 @@ var pokeData = {
     def: 129,
     spd: 15,
     total: 699,
+    type: ['normal'],
   },
   Snorlax: {
     id: 143,
@@ -5346,6 +5525,7 @@ var pokeData = {
     def: 179,
     spd: 65,
     total: 899,
+    type: ['normal'],
   },
   Emolga: {
     id: 587,
@@ -5355,6 +5535,7 @@ var pokeData = {
     def: 125,
     spd: 211,
     total: 711,
+    type: ['electric', 'flying'],
   },
   Sneasel: {
     id: 215,
@@ -5364,6 +5545,7 @@ var pokeData = {
     def: 135,
     spd: 235,
     total: 785,
+    type: ['dark', 'ice'],
   },
   Weavile: {
     id: 461,
@@ -5373,6 +5555,7 @@ var pokeData = {
     def: 155,
     spd: 255,
     total: 905,
+    type: ['dark', 'ice'],
   },
   Misdreavus: {
     id: 200,
@@ -5382,6 +5565,7 @@ var pokeData = {
     def: 149,
     spd: 175,
     total: 729,
+    type: ['ghost'],
   },
   Mismagius: {
     id: 429,
@@ -5391,6 +5575,7 @@ var pokeData = {
     def: 169,
     spd: 215,
     total: 829,
+    type: ['ghost'],
   },
   Audino: {
     id: 531,
@@ -5400,6 +5585,7 @@ var pokeData = {
     def: 177,
     spd: 105,
     total: 723,
+    type: ['normal'],
   },
   Carnivine: {
     id: 455,
@@ -5409,6 +5595,7 @@ var pokeData = {
     def: 149,
     spd: 97,
     total: 709,
+    type: ['grass'],
   },
   Spiritomb: {
     id: 442,
@@ -5418,6 +5605,7 @@ var pokeData = {
     def: 221,
     spd: 75,
     total: 695,
+    type: ['ghost', 'dark'],
   },
   Scyther: {
     id: 123,
@@ -5427,6 +5615,7 @@ var pokeData = {
     def: 165,
     spd: 215,
     total: 855,
+    type: ['bug', 'flying'],
   },
   Scizor: {
     id: 212,
@@ -5436,6 +5625,7 @@ var pokeData = {
     def: 185,
     spd: 135,
     total: 835,
+    type: ['bug', 'steel'],
   },
   Lapras: {
     id: 131,
@@ -5445,6 +5635,7 @@ var pokeData = {
     def: 179,
     spd: 125,
     total: 849,
+    type: ['water', 'ice'],
   },
   Terrakion: {
     id: 639,
@@ -5454,6 +5645,7 @@ var pokeData = {
     def: 185,
     spd: 221,
     total: 961,
+    type: ['rock', 'fighting'],
   },
   Articuno: {
     id: 144,
@@ -5463,6 +5655,7 @@ var pokeData = {
     def: 229,
     spd: 175,
     total: 889,
+    type: ['ice', 'flying'],
   },
   Registeel: {
     id: 379,
@@ -5472,6 +5665,7 @@ var pokeData = {
     def: 305,
     spd: 105,
     total: 835,
+    type: ['steel'],
   },
   Groudon: {
     id: 383,
@@ -5481,6 +5675,7 @@ var pokeData = {
     def: 235,
     spd: 185,
     total: 1035,
+    type: ['ground'],
   },
   Dialga: {
     id: 483,
@@ -5490,6 +5685,7 @@ var pokeData = {
     def: 225,
     spd: 185,
     total: 1025,
+    type: ['steel', 'dragon'],
   },
   Mewtwo: {
     id: 150,
@@ -5499,6 +5695,7 @@ var pokeData = {
     def: 185,
     spd: 265,
     total: 1085,
+    type: ['psychic'],
   },
   Reshiram: {
     id: 643,
@@ -5508,6 +5705,7 @@ var pokeData = {
     def: 225,
     spd: 185,
     total: 1025,
+    type: ['dragon', 'fire'],
   },
   Zekrom: {
     id: 644,
@@ -5517,6 +5715,7 @@ var pokeData = {
     def: 225,
     spd: 185,
     total: 1025,
+    type: ['dragon', 'electric'],
   },
   Arceus: {
     id: 493,
@@ -5526,6 +5725,7 @@ var pokeData = {
     def: 245,
     spd: 245,
     total: 1085,
+    type: ['normal'],
   },
   Rayquaza: {
     id: 384,
@@ -5535,5 +5735,6 @@ var pokeData = {
     def: 190,
     spd: 200,
     total: 1025,
+    type: ['dragon', 'flying'],
   },
 };

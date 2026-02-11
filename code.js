@@ -108,7 +108,6 @@ const showPokeDetail = (div, name) => {
         let color = '';
         if (lget(`${v.hero}-poke-${name}`) == 'own') color = 'hero-has-poke ';
         if (lget(`${v.hero}-own`)) color += 'has-hero';
-        var ivsData = lget(`${v.hero}-ivs-${name}`);
         var { total, cIVs } = getIVs(v.hero, name);
         return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
                 <td class="${color}" name="${v.hero}-${name}">
@@ -331,26 +330,13 @@ function starClick(e, hero, poke) {
   $(`[name="${hero}-${poke}"]`).toggleClass('hero-has-poke');
 }
 
-function filterHero(val) {
-  if (val == 'own') {
-    $('#plink tr').hide();
-    $('#plink tr.hero-own').show();
-  } else if (val == 'own-100') {
-    $('#plink tr').hide();
-    $('#plink td.pf-poke').parent().show();
-  } else if (val == 'good-ivs') {
-    $('#plink tr').hide();
-    $('#plink td div.good-ivs, #plink td div.max-ivs').parent().parent().show();
-  } else {
-    genHeroList();
-  }
-}
-
-function genHeroList() {
+var lastFil1 = '';
+function genHeroList(filter1, filter2) {
+  lastFil1 = filter1;
   $('#plink #tbl1').empty();
   $('#plink #tbl2').empty();
-  plink1.forEach((v) => genHero($('#plink #tbl1'), v));
-  plink2.forEach((v) => genHero($('#plink #tbl2'), v));
+  plink1.forEach((v) => genHero($('#plink #tbl1'), v, filter1, filter2));
+  plink2.forEach((v) => genHero($('#plink #tbl2'), v, filter1, filter2));
 
   // Show Hero detail
   $('.HeroLinks').click(function (e) {
@@ -374,8 +360,36 @@ function genHeroList() {
   });
 }
 
-function genHero(div, line) {
+function genHero(div, line, filter1, filter2) {
   var { hero, pokes } = line;
+
+  // Filter check
+  if (filter1 == 'own' && !lget(`${hero}-own`)) return;
+  if (
+    filter1 == 'own-100' &&
+    !HeroLinks[hero].some(
+      (v) => lget(`${hero}-poke-${v.name}`) == 'own' && v.link.includes(100),
+    )
+  )
+    return;
+  if (
+    filter1 == 'good-ivs' &&
+    !HeroLinks[hero].some(
+      (v) =>
+        lget(`${hero}-poke-${v.name}`) == 'own' &&
+        ['good-ivs', 'max-ivs'].includes(getIVs(hero, v.name).cIVs),
+    )
+  )
+    return;
+  if (
+    !!filter2 &&
+    !HeroLinks[hero].some(
+      (v) =>
+        lget(`${hero}-poke-${v.name}`) == 'own' &&
+        pokeData[v.name].type.includes(filter2),
+    )
+  )
+    return;
 
   // Hero line
   const herod = $(`<tr id="hero-${hero}"></tr>`);
@@ -406,7 +420,7 @@ function genHero(div, line) {
       var { total, cIVs } = getIVs(hero, poke);
       var td = $(
         `<td class="cen pklink">
-          <div class="flex0 ${cIVs}">
+          <div class="flex0 ${cIVs} has-ivs">
             <div name="${hero}-ivs-${poke}">${total}</div>
             <a href="#poke-${poke}"><img pk="${poke}" src="${pokeImgs[poke]}"/></a>
           </div>
@@ -464,15 +478,6 @@ $(function () {
     filterPokemon(4, $(this).attr('src'));
   });
   ll('Filter Pokemons move: ', new Date().getTime() - startTime);
-  startTime = new Date().getTime();
-
-  // Link pokemon to veekun.com
-  $('#myTable>tbody>tr').each(function () {
-    const tds = $(this).children();
-    const lnk = $(tds[2]).find('a');
-    const name = lnk.text().trim();
-  });
-  ll('Modify table: ', new Date().getTime() - startTime);
   startTime = new Date().getTime();
 
   // Show Pokemon move detail
@@ -562,7 +567,18 @@ $(function () {
   startTime = new Date().getTime();
 
   // HERO LIST
-  genHeroList();
+  genHeroList('own');
+
+  // Filter Hero
+  pokeTypes.forEach((v) => {
+    var type = v.match(/([^/]*).gif/)[1];
+    var img = $(`<img src="${v}" border="0" id=${v.match(/([^/]+).gif$/)[1]}>`);
+    img.attr('name', type);
+    $('.herotype').append(img);
+  });
+  $('.herotype img').click(function () {
+    genHeroList(lastFil1, $(this).attr('name'));
+  });
 });
 
 async function syncData() {
