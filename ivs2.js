@@ -300,6 +300,9 @@ function executeIVCalc(e) {
         }
       }
       setVals(div, '', '', '', '', '', energy);
+      var history = [...stats, 0, energy];
+      if (!SearchHistory.some((v) => v.join(',') == history.join(',')))
+        SearchHistory.push(history);
     } else {
       // Find Max Stats
       var maxStats = CalcStats(maxIVs, DataDict[poke], link, energy);
@@ -308,6 +311,7 @@ function executeIVCalc(e) {
       setVals(div, '', '', '', '', link, energy);
     }
   }
+  div.find('.history-list').empty();
 }
 
 function cssIVs(total) {

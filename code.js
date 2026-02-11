@@ -142,11 +142,16 @@ const showPokeDetail = (div, name) => {
   });
 };
 
+var SearchHistory = [];
 const getIVsDiv = (hero, poke) => {
+  SearchHistory = [];
   var ivs = $(`
       <div class="ivs">
         <div class="ivs-cal">
-          <input id="ivHP" inputmode="numeric" placeholder="HP">
+          <div class="history">
+            <input id="ivHP" inputmode="numeric" placeholder="HP">
+            <div class="history-list"></div>
+          </div>
           <input id="ivAtk" inputmode="numeric" placeholder="ATK">
           <input id="ivDef" inputmode="numeric" placeholder="DEF">
           <input id="ivSpe" inputmode="numeric" placeholder="SPD">
@@ -174,6 +179,21 @@ const getIVsDiv = (hero, poke) => {
       showIVs(ivs, stats, link, energy, min, max, maxStats, poke);
     }
   }
+  ivs.find('#ivHP').change(function () {
+    var hp = +$(this).val();
+    $(this)
+      .next()
+      .empty()
+      .append(
+        SearchHistory.filter((v) => v[0] == hp).map(
+          (v) => `<div>${v.join(' ')}</div>`,
+        ),
+      )
+      .find('div')
+      .click(function () {
+        setVals(ivs, ...$(this).text().split(' '));
+      });
+  });
   return ivs;
 };
 
