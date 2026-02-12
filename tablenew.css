@@ -217,4 +217,5 @@ a.hero-has-poke { color: yellow; }
 }
 .history-list td {
   color: black;
+  padding: 2px;
 }

@@ -157,12 +157,9 @@ const showPokeDetail = (div, name) => {
 
 const getIVsDiv = (hero, poke) => {
   var ivs = $(`
-      <div class="ivs">
+      <div class="ivs history">
         <div class="ivs-cal">
-          <div class="history">
-            <input id="ivHP" inputmode="numeric" placeholder="HP">
-            <div class="history-list"></div>
-          </div>
+          <input id="ivHP" inputmode="numeric" placeholder="HP">
           <input id="ivAtk" inputmode="numeric" placeholder="ATK">
           <input id="ivDef" inputmode="numeric" placeholder="DEF">
           <input id="ivSpe" inputmode="numeric" placeholder="SPD">
@@ -176,6 +173,7 @@ const getIVsDiv = (hero, poke) => {
           </select>
           <button onclick="executeIVCalc(this)">IVs</button>
         </div>
+        <div class="history-list"></div>
         <div id="ivResult" class="ivs-cal"></div>
       </div>`);
   ivs.attr('poke', poke);
@@ -192,8 +190,8 @@ const getIVsDiv = (hero, poke) => {
   }
   ivs.find('#ivHP').change(function () {
     var hp = +$(this).val();
-    $(this)
-      .next()
+    ivs
+      .find('.history-list')
       .empty()
       .append(
         (lget(`ivs-${poke}`) || [])
