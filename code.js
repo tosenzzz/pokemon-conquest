@@ -67,6 +67,18 @@ function sortByPos(arr) {
   }
   return result;
 }
+function sortByIVs(hero, arr) {
+  const result = [...arr]
+    .map((v) => {
+      var { total, cls, text } = getIVs(hero, v.name);
+      v.total = total;
+      v.cls = cls;
+      v.text = text;
+      return v;
+    })
+    .sort((a, b) => b.total - a.total);
+  return result;
+}
 
 const addBoxV2 = (title, fn, ...pr) => {
   let sdiv = $(`<span class="skill"></span>`);
@@ -84,13 +96,15 @@ const addBoxV2 = (title, fn, ...pr) => {
 
 const getIVs = (hero, poke) => {
   var ivsData = lget(`${hero}-ivs-${poke}`);
-  var total = '';
-  var cIVs = '';
+  var total = 0;
+  var text = '';
+  var cls = '';
   if (ivsData) {
-    total = ivsData.total + '%';
-    cIVs = cssIVs(ivsData.total);
+    total = ivsData.total;
+    cls = cssIVs(ivsData.total);
+    text = total + '%';
   }
-  return { total, cIVs };
+  return { total, cls, text };
 };
 
 const showPokeDetail = (div, name) => {
@@ -108,7 +122,7 @@ const showPokeDetail = (div, name) => {
         let color = '';
         if (lget(`${v.hero}-poke-${name}`) == 'own') color = 'hero-has-poke ';
         if (lget(`${v.hero}-own`)) color += 'has-hero';
-        var { total, cIVs } = getIVs(v.hero, name);
+        var { text, cls } = getIVs(v.hero, name);
         return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
                 <td class="${color}" name="${v.hero}-${name}">
                   <div class="dstar">
@@ -123,7 +137,7 @@ const showPokeDetail = (div, name) => {
                       `<td class="max-link show" hero="${v.hero}">${u}</td>`,
                   )
                   .join('')}
-                <td name="${v.hero}-ivs-${name}" class="show ${cIVs}" hero="${v.hero}">${total}</td>
+                <td name="${v.hero}-ivs-${name}" class="show ${cls}" hero="${v.hero}">${text}</td>
               </tr>`;
       })
       .join('') +
@@ -245,10 +259,10 @@ const showHeroDetail = (div, hero, close, poke) => {
         move = allMoves[move];
         let color = '';
         if (lget(`${hero}-poke-${v.name}`) == 'own') color = 'hero-has-poke ';
-        var { total, cIVs } = getIVs(hero, v.name);
+        var { text, cls } = getIVs(hero, v.name);
         return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
                 ${v.link.map((u) => `<td class="max-link show" poke="${v.name}">${u}</td>`).join('')}
-                <td name="${hero}-ivs-${v.name}" class="show ${cIVs}" poke="${v.name}">${total}</td>
+                <td name="${hero}-ivs-${v.name}" class="show ${cls}" poke="${v.name}">${text}</td>
                 <td class="add-poke" hero="${hero}" poke="${v.name}"><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
                 <td class="${color}" name="${hero}-${v.name}">
                   <div class="dstar">
@@ -362,6 +376,7 @@ function genHeroList(filter1, filter2) {
 
 function genHero(div, line, filter1, filter2) {
   var { hero, pokes } = line;
+  var dhero = sortByIVs(hero, HeroLinks[hero]);
 
   // Filter check
   if (
@@ -369,7 +384,7 @@ function genHero(div, line, filter1, filter2) {
     !(
       lget(`${hero}-own`) &&
       (!filter2 ||
-        HeroLinks[hero].some(
+        dhero.some(
           (v) =>
             (lget(`${hero}-poke-${v.name}`) == 'own' || v.link.includes(100)) &&
             pokeData[v.name].type.includes(filter2),
@@ -379,7 +394,7 @@ function genHero(div, line, filter1, filter2) {
     return;
   if (
     filter1 == 'own-100' &&
-    !HeroLinks[hero].some(
+    !dhero.some(
       (v) =>
         lget(`${hero}-poke-${v.name}`) == 'own' &&
         v.link.includes(100) &&
@@ -389,10 +404,10 @@ function genHero(div, line, filter1, filter2) {
     return;
   if (
     filter1 == 'good-ivs' &&
-    !HeroLinks[hero].some(
+    !dhero.some(
       (v) =>
         lget(`${hero}-poke-${v.name}`) == 'own' &&
-        ['good-ivs', 'max-ivs'].includes(getIVs(hero, v.name).cIVs) &&
+        ['good-ivs', 'max-ivs'].includes(v.cls) &&
         (!filter2 || pokeData[v.name].type.includes(filter2)),
     )
   )
@@ -421,15 +436,14 @@ function genHero(div, line, filter1, filter2) {
     .appendTo(herod);
 
   // Pokemons
-  sortByPos(HeroLinks[hero]).forEach((v) => {
+  dhero.forEach((v) => {
     var poke = v.name;
     var pOwn = lget(`${hero}-poke-${poke}`) == 'own';
     if (pOwn || (filter1 == 'own' && v.link.includes(100))) {
-      var { total, cIVs } = getIVs(hero, poke);
       var td = $(
         `<td class="cen pklink">
           <div class="flex0 has-ivs">
-            <div name="${hero}-ivs-${poke}" class="${cIVs}">${total}</div>
+            <div name="${hero}-ivs-${poke}" class="${v.cls}">${v.text}</div>
             <a href="#poke-${poke}"><img pk="${poke}" src="${pokeImgs[poke]}"/></a>
           </div>
         </td>`,
