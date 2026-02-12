@@ -371,7 +371,7 @@ function genHero(div, line, filter1, filter2) {
       (!filter2 ||
         HeroLinks[hero].some(
           (v) =>
-            lget(`${hero}-poke-${v.name}`) == 'own' &&
+            (lget(`${hero}-poke-${v.name}`) == 'own' || v.link.includes(100)) &&
             pokeData[v.name].type.includes(filter2),
         ))
     )
@@ -423,18 +423,20 @@ function genHero(div, line, filter1, filter2) {
   // Pokemons
   sortByPos(HeroLinks[hero]).forEach((v) => {
     var poke = v.name;
-    if (lget(`${hero}-poke-${poke}`) == 'own') {
+    var pOwn = lget(`${hero}-poke-${poke}`) == 'own';
+    if (pOwn || (filter1 == 'own' && v.link.includes(100))) {
       var { total, cIVs } = getIVs(hero, poke);
       var td = $(
         `<td class="cen pklink">
-          <div class="flex0 ${cIVs} has-ivs">
-            <div name="${hero}-ivs-${poke}">${total}</div>
+          <div class="flex0 has-ivs">
+            <div name="${hero}-ivs-${poke}" class="${cIVs}">${total}</div>
             <a href="#poke-${poke}"><img pk="${poke}" src="${pokeImgs[poke]}"/></a>
           </div>
         </td>`,
       ).appendTo(herod);
       if (v.link.includes(100)) {
-        td.addClass('pf-poke');
+        if (pOwn) td.addClass('pf-poke');
+        else td.addClass('pf-poke-no');
       }
     }
   });
