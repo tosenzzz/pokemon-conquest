@@ -136,9 +136,9 @@ la .close { width: 100%; margin-top: 5px; border: 1px; color: red; }
 .tbl tr.ninety-link:nth-child(2n) td.max-link { background: #afcfaf; }
 .tbl tr.ninety-link:nth-child(2n+1) td.max-link { background: #c0d8c0; }
 .tbl tr:nth-child(2n) td.max-ivs { background: #c800f5; }
-.tbl tr:nth-child(2n+1) td.max-ivs, td.max-ivs, div.max-ivs, .has-ivs:has(.max-ivs) { background: #d051ed; }
+.tbl tr:nth-child(2n+1) td.max-ivs, td.max-ivs, div.max-ivs, .has-ivs:has(.show-ivs.max-ivs) { background: #d051ed; }
 .tbl tr:nth-child(2n) td.good-ivs { background: #7bce99; }
-.tbl tr:nth-child(2n+1) td.good-ivs, td.good-ivs, div.good-ivs, .has-ivs:has(.good-ivs) { background: #71e69c; }
+.tbl tr:nth-child(2n+1) td.good-ivs, td.good-ivs, div.good-ivs, .has-ivs:has(.show-ivs.good-ivs) { background: #71e69c; }
 #myTable td:nth-child(n+12):nth-child(-n+15) { text-align: left; }
 ul { padding-inline-start: 15px; margin-top: 0px; margin-bottom: 5px; }
 .pktype, .herotype { margin-top: 10px; }
@@ -170,10 +170,11 @@ a.hero-has-poke { color: yellow; }
   align-items: center;
   justify-content: center;
 }
-.hero-skill { text-align: left; margin-top: 5px; }
+.hero-skill { text-align: left; margin-top: 5px; margin-bottom: 5px; }
 .ivs {
-  margin-bottom: 5px;
-  min-width: 100px;
+  min-width: 200px;
+  max-height: 300px;
+  overflow: auto;
 }
 .ivs input {
   width: 30px;

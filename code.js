@@ -353,7 +353,8 @@ function genHeroList(filter1, filter2) {
   // Show Hero detail
   $('.HeroLinks').click(function (e) {
     e.stopPropagation();
-    var la = $(this).next();
+    var la = $(this).next('la');
+    if (la.length < 1) la = $('<la>').insertAfter($(this));
     var name = $(this).attr('name').trim();
     var div1 = $('<div class="divLa">');
     var div2 = $('<div>');
@@ -362,6 +363,29 @@ function genHeroList(filter1, filter2) {
     showHeroDetail(div2, name, 'la');
     la.show();
   });
+
+  // Show Pokemon IVs
+  $('#plink')
+    .find('.show-ivs')
+    .click(function (e) {
+      e.stopPropagation();
+      var la = $(this).next('la');
+      if (la.length < 1) la = $('<la>').insertAfter($(this));
+      var name = $(this).attr('name').trim();
+      var [_, hero, poke] = name.match(/(.*)-ivs-(.*)/);
+      var div1 = $('<div class="divLa">');
+      var div2 = $('<div>');
+      la.empty().append(div1);
+      div1.append(div2, '<div class="more">');
+      var ivs = getIVsDiv(hero, poke);
+      div2.append(ivs);
+      div2.append(
+        $(`<button class="close">✖</button>`).click(() =>
+          div2.closest('la').hide(),
+        ),
+      );
+      la.show();
+    });
 
   // Hide msg-box
   $('body').on('click', function () {
@@ -441,7 +465,10 @@ function genHero(div, line, filter1, filter2) {
       var td = $(
         `<td class="cen pklink">
           <div class="flex0 has-ivs">
-            <div name="${hero}-ivs-${poke}" class="${v.cls}">${v.text}</div>
+            <div class="skill">
+              <div name="${hero}-ivs-${poke}" class="show-ivs ${v.cls}">${v.text || '&nbsp;'}</div>
+              <la></la>
+            </div>
             <a href="#poke-${poke}"><img pk="${poke}" src="${pokeImgs[poke]}"/></a>
           </div>
         </td>`,
@@ -522,7 +549,8 @@ $(function () {
   // Show Pokemon detail
   $('.PokeLinks').click(function (e) {
     e.stopPropagation();
-    var la = $(this).next();
+    var la = $(this).next('la');
+    if (la.length < 1) la = $('<la>').insertAfter($(this));
     var name = $(this).attr('name').trim();
     var div1 = $('<div class="divLa">');
     var div2 = $('<div>');
