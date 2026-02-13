@@ -258,7 +258,7 @@ const showHeroDetail = (div, hero, close, poke) => {
         let color = '';
         if (lget(`${hero}-poke-${v.name}`) == 'own') color = 'hero-has-poke ';
         var { text, cls } = getIVs(hero, v.name);
-        return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
+        return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.some((v) => v > 89) ? 'ninety-link' : ''}">
                 ${v.link.map((u) => `<td class="max-link show" poke="${v.name}">${u}</td>`).join('')}
                 <td name="${hero}-ivs-${v.name}" class="show ${cls}" poke="${v.name}">${text}</td>
                 <td class="add-poke" hero="${hero}" poke="${v.name}"><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
@@ -616,7 +616,7 @@ $(function () {
   startTime = new Date().getTime();
 
   // HERO LIST
-  genHeroList('own');
+  genHeroList('good-ivs');
 
   // Filter Hero
   pokeTypes.forEach((v) => {
