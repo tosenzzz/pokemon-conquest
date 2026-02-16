@@ -21,6 +21,8 @@ const lrem = (key, hero, poke) => {
   }
   return item;
 };
+var MinLNK = +lget('min-link') || 0;
+
 const API = (type, url, data) => {
   return new Promise((ok, err) => {
     $.ajax({
@@ -49,7 +51,7 @@ const cpHeroLink = (a, b) => {
   s2 += b.hero;
   return s1.localeCompare(s2);
 };
-function sortByPos(arr) {
+function sortByPos(arr, hero) {
   const result = [...arr];
   for (let i = 0; i < result.length; i++) {
     const item = result[i];
@@ -65,9 +67,11 @@ function sortByPos(arr) {
     // Chèn lại trước target
     result.splice(insertIndex, 0, item);
   }
-  return result;
+  return result.filter((v) =>
+    v.link.some((x) => x >= MinLNK || lget(`${hero}-poke-${v.name}`) == 'own'),
+  );
 }
-function sortByIVs(hero, arr) {
+function sortByIVs(arr, hero) {
   const result = [...arr]
     .map((v) => {
       var { total, cls, text } = getIVs(hero, v.name);
@@ -77,7 +81,14 @@ function sortByIVs(hero, arr) {
       return v;
     })
     .sort((a, b) => b.total - a.total);
-  return result;
+  return result.filter((v) =>
+    v.link.some((x) => x >= MinLNK || lget(`${hero}-poke-${v.name}`) == 'own'),
+  );
+}
+function sortByLnk(arr, poke) {
+  return arr.filter(
+    (v) => lget(`${v.hero}-poke-${poke}`) || v.link.some((x) => x >= MinLNK),
+  );
 }
 
 const addBoxV2 = (title, fn, ...pr) => {
@@ -116,7 +127,7 @@ const showPokeDetail = (div, name) => {
   var divIvs = getIVsDiv('', name);
   var detail =
     '<table class="tbl">' +
-    PokeLinks[name]
+    sortByLnk(PokeLinks[name], name)
       .sort(cpHeroLink)
       .map((v) => {
         let color = '';
@@ -190,14 +201,17 @@ const getIVsDiv = (hero, poke) => {
   }
   ivs.find('#ivHP').change(function () {
     var hp = +$(this).val();
+    var hlst = (lget(`ivs-${poke}`) || [])
+      .filter((v) => v[0] == hp)
+      .sort((a, b) => {
+        s1 = [...a].map((v) => String(v).padStart(3, '0')).join('');
+        s2 = [...b].map((v) => String(v).padStart(3, '0')).join('');
+        return s2.localeCompare(s1);
+      });
     ivs
       .find('.history-list')
       .empty()
-      .append(
-        (lget(`ivs-${poke}`) || [])
-          .filter((v) => v[0] == hp)
-          .map((v) => `<tr>${v.map((y) => `<td>${y}</td>`)}</tr>`),
-      )
+      .append(hlst.map((v) => `<tr>${v.map((y) => `<td>${y}</td>`)}</tr>`))
       .find('tr')
       .click(function () {
         setVals(
@@ -247,7 +261,7 @@ const showHeroDetail = (div, hero, close, poke) => {
 
   var detail =
     '<table class="tbl">' +
-    sortByPos(HeroLinks[hero])
+    sortByPos(HeroLinks[hero], hero)
       .map((v) => {
         var move = pokeMoves[v.name]?.name;
         if (!move) {
@@ -398,7 +412,7 @@ function genHeroList(filter1, filter2) {
 
 function genHero(div, line, filter1, filter2) {
   var { hero, pokes } = line;
-  var dhero = sortByIVs(hero, HeroLinks[hero]);
+  var dhero = sortByIVs(HeroLinks[hero], hero);
 
   // Filter check
   if (
@@ -485,6 +499,12 @@ function genHero(div, line, filter1, filter2) {
 
 $(function () {
   let startTime = new Date().getTime();
+  $('#minLnk')
+    .val(MinLNK)
+    .change(function () {
+      MinLNK = +$('#minLnk').val();
+      lset('min-link', MinLNK);
+    });
 
   // Add addition data to HeroLinks
   var addData = lget('HeroLinks') || [];
