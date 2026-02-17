@@ -246,6 +246,11 @@ function CalcStats(ivList, baseList, link, energy) {
 
 /* --- EXECUTION --- */
 
+function clearIVCalc(e) {
+  var div = $(e).closest('.ivs');
+  setVals(div, '', '', '', '', '', 110);
+}
+
 var maxIVs = [31, 31, 31, 31];
 function executeIVCalc(e) {
   var div = $(e).closest('.ivs');
@@ -310,13 +315,13 @@ function executeIVCalc(e) {
           if (total > bestIvs) bestIvs = total;
         }
       }
-      setVals(div, '', '', '', '', '', energy);
       var history = [...stats, 0, energy, bestIvs];
       var SearchHistory = lget(`ivs-${poke}`) || [];
       if (
         bestIvs > 0 &&
         !SearchHistory.some((v) => v.join(',') == history.join(','))
       ) {
+        setVals(div, '', '', '', '', '', energy);
         SearchHistory.push(history);
         lset(`ivs-${poke}`, SearchHistory);
       }

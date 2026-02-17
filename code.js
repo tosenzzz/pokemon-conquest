@@ -184,6 +184,7 @@ const getIVsDiv = (hero, poke) => {
             <option value="90">↓</option>
           </select>
           <button onclick="executeIVCalc(this)">IVs</button>
+          <button onclick="clearIVCalc(this)">Clear</button>
         </div>
         <div class="history-list"></div>
         <div id="ivResult" class="ivs-cal"></div>
@@ -381,28 +382,6 @@ function genHeroList(filter1, filter2) {
 
   // Show Pokemon IVs
   $('#plink')
-    .find('.show-ivs')
-    .click(function (e) {
-      e.stopPropagation();
-      var la = $(this).next('la');
-      if (la.length < 1) la = $('<la>').insertAfter($(this));
-      var name = $(this).attr('name').trim();
-      var [_, hero, poke] = name.match(/(.*)-ivs-(.*)/);
-      var div1 = $('<div class="divLa">');
-      var div2 = $('<div>');
-      la.empty().append(div1);
-      div1.append(div2, '<div class="more">');
-      div2.append(getIVsDiv(hero, poke));
-      div2.append(
-        $(`<button class="close">✖</button>`).click(() =>
-          div2.closest('la').hide(),
-        ),
-      );
-      la.show();
-    });
-
-  // Show Pokemon detail
-  $('#plink')
     .find('.show-poke')
     .click(function (e) {
       e.stopPropagation();
@@ -414,6 +393,7 @@ function genHeroList(filter1, filter2) {
       var div2 = $('<div>');
       la.empty().append(div1);
       div1.append(div2, '<div class="more">');
+      div2.append(getIVsDiv(hero, poke));
       $(`<table class="pk-detail">`)
         .append($(`#myTable tr#poke-${poke}`).clone().show())
         .appendTo(div2);
@@ -501,16 +481,13 @@ function genHero(div, line, filter1, filter2) {
     var pOwn = lget(`${hero}-poke-${poke}`) == 'own';
     if (pOwn || (filter1 == 'own' && v.link.includes(100))) {
       var td = $(
-        `<td class="cen pklink">
-          <div class="flex0 has-ivs">
-            <div class="skill">
+        `<td class="cen pklink show-ivs">
+          <div class="skill">
+            <div class="flex0 has-ivs show-poke" hero="${hero}" poke="${poke}">
               <div name="${hero}-ivs-${poke}" class="show-ivs ${v.cls}">${v.text || '&nbsp;'}</div>
-              <la></la>
+              <img src="${pokeImgs[poke]}"/>
             </div>
-            <div class="skill">
-              <img hero=${hero} poke="${poke}" class="show-poke" src="${pokeImgs[poke]}"/>
-              <la></la>
-            </div>
+            <la></la>
           </div>
         </td>`,
       ).appendTo(herod);
