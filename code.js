@@ -22,6 +22,7 @@ const lrem = (key, hero, poke) => {
   return item;
 };
 var MinLNK = +lget('min-link') || 0;
+var FilterPk = lget('filter-poke');
 
 const API = (type, url, data) => {
   return new Promise((ok, err) => {
@@ -391,8 +392,31 @@ function genHeroList(filter1, filter2) {
       var div2 = $('<div>');
       la.empty().append(div1);
       div1.append(div2, '<div class="more">');
-      var ivs = getIVsDiv(hero, poke);
-      div2.append(ivs);
+      div2.append(getIVsDiv(hero, poke));
+      div2.append(
+        $(`<button class="close">✖</button>`).click(() =>
+          div2.closest('la').hide(),
+        ),
+      );
+      la.show();
+    });
+
+  // Show Pokemon detail
+  $('#plink')
+    .find('.show-poke')
+    .click(function (e) {
+      e.stopPropagation();
+      var la = $(this).next('la');
+      if (la.length < 1) la = $('<la>').insertAfter($(this));
+      var hero = $(this).attr('hero').trim();
+      var poke = $(this).attr('poke').trim();
+      var div1 = $('<div class="divLa">');
+      var div2 = $('<div>');
+      la.empty().append(div1);
+      div1.append(div2, '<div class="more">');
+      $(`<table class="pk-detail">`)
+        .append($(`#myTable tr#poke-${poke}`).clone().show())
+        .appendTo(div2);
       div2.append(
         $(`<button class="close">✖</button>`).click(() =>
           div2.closest('la').hide(),
@@ -483,7 +507,10 @@ function genHero(div, line, filter1, filter2) {
               <div name="${hero}-ivs-${poke}" class="show-ivs ${v.cls}">${v.text || '&nbsp;'}</div>
               <la></la>
             </div>
-            <a href="#poke-${poke}"><img pk="${poke}" src="${pokeImgs[poke]}"/></a>
+            <div class="skill">
+              <img hero=${hero} poke="${poke}" class="show-poke" src="${pokeImgs[poke]}"/>
+              <la></la>
+            </div>
           </div>
         </td>`,
       ).appendTo(herod);
@@ -535,6 +562,7 @@ $(function () {
   });
   $('.pktype img').click(function () {
     filterPokemon(3, $(this).attr('src'));
+    lset('filter-poke', { col: 3, src: $(this).attr('src') });
   });
 
   // Filter Pokemon's move
@@ -544,7 +572,12 @@ $(function () {
   });
   $('.movetype img').click(function () {
     filterPokemon(4, $(this).attr('src'));
+    lset('filter-poke', { col: 4, src: $(this).attr('src') });
   });
+  if (FilterPk) {
+    filterPokemon(FilterPk.col, FilterPk.src);
+  }
+
   ll('Filter Pokemons move: ', new Date().getTime() - startTime);
   startTime = new Date().getTime();
 
@@ -735,4 +768,5 @@ async function search() {
 function clearS() {
   $('#search').val('');
   $('#myTable>tbody>tr').show();
+  lset('filter-poke', null);
 }

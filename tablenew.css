@@ -89,7 +89,7 @@
   display: flex;
   align-items: center;
 }
-.flex0 div { flex: 1; padding: 1px; }
+.flex0 div:first-child { flex: 1; padding: 1px; }
 .flex1 {
   display: flex;
   align-items: center;
@@ -221,3 +221,11 @@ a.hero-has-poke { color: yellow; }
   padding: 2px;
 }
 #minLnk {width: 35px;}
+
+.pk-detail img {
+  width: initial;
+  background-color: initial;
+}
+.pk-detail .imgpk {
+  width: 60px;
+}
