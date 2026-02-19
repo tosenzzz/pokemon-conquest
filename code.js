@@ -139,7 +139,7 @@ const showPokeDetail = (div, name) => {
                 <td class="${color}" name="${v.hero}-${name}">
                   <div class="dstar">
                     <a href="#hero-${v.hero}">${v.hero}</a>
-                    <span class="star" onclick="starClick(this, '${v.hero.replace("'", "\\'")}', '${name}')">★</span>
+                    <span class="star" hero="${v.hero}" poke="${name}">★</span>
                   </div>
                 </td>
                 ${v.link
@@ -160,6 +160,11 @@ const showPokeDetail = (div, name) => {
       div.closest('la').hide(),
     ),
   );
+  div.find('.star').click(function () {
+    var hero = $(this).attr('hero');
+    var poke = $(this).attr('poke');
+    starClick(hero, poke);
+  });
   div.find('.show').click(function () {
     var divDe = div.closest('.divLa').find('.more');
     showHeroDetail(divDe, $(this).attr('hero'), '.more', name);
@@ -183,16 +188,18 @@ const getIVsDiv = (hero, poke) => {
             <option value="95">↘</option>
             <option value="90">↓</option>
           </select>
-          <button onclick="executeIVCalc(this)">IVs</button>
-          <button onclick="clearIVCalc(this)">Clear</button>
+          <button onclick="executeIVCalc(this)" style="color:green">✔</button>
+          <button onclick="clearIVCalc(this)" style="color:red">✖</button>
         </div>
         <div class="history-list"></div>
         <div id="ivResult" class="ivs-cal"></div>
       </div>`);
   ivs.attr('poke', poke);
   if (!!hero) {
+    var hrimg = `https://veekun.com/dex/media/warriors/big-icons/${heroImgs[hero]}`;
+    var pkimg = `https://www.serebii.net/conquest/pokemon/${String(pokeData[poke].id).padStart(3, '0')}.png`;
     ivs.prepend(
-      `<div class="ivs-img"><img src="${pokeImgs[poke]}"/> ˚ʚ♡ɞ˚ <img src="${heroImgs[hero]}"/></div>`,
+      `<div class="ivs-img"><img src="${pkimg}"/> ˚ʚ♡ɞ˚ <img src="${hrimg}"/></div>`,
     );
     ivs.attr('hero', hero);
     var ivsData = lget(`${hero}-ivs-${poke}`);
@@ -239,7 +246,8 @@ const showHeroDetail = (div, hero, close, poke) => {
     return;
   }
   div.empty();
-  var heroName = `<div class="hero-name"><img src="${heroImgs[hero]}" class="HeroLinks" name="${hero}"/>${hero}</div>`;
+  var hrimg = `https://veekun.com/dex/media/warriors/big-icons/${heroImgs[hero]}`;
+  var heroName = `<div class="hero-name"><img src="${hrimg}" class="HeroLinks" name="${hero}"/>${hero}</div>`;
   var heroSkill = $(`<div class="hero-skill"></div>`);
   if (!heroCap[hero]) {
     alert('No hero capacity ' + hero);
@@ -271,6 +279,7 @@ const showHeroDetail = (div, hero, close, poke) => {
           return;
         }
         move = allMoves[move];
+        pdt = pokeData[v.name];
         let color = '';
         if (lget(`${hero}-poke-${v.name}`) == 'own') color = 'hero-has-poke ';
         var { text, cls } = getIVs(hero, v.name);
@@ -279,15 +288,15 @@ const showHeroDetail = (div, hero, close, poke) => {
                 <td name="${hero}-ivs-${v.name}" class="show ${cls}" poke="${v.name}">${text}</td>
                 <td class="add-poke" hero="${hero}" poke="${v.name}"><img src="https://www.serebii.net/conquest/pokemon/${String(v.id).padStart(3, '0')}.png"></td>
                 <td class="${color}" name="${hero}-${v.name}">
-                  <div class="dstar">
-                    <a href="#poke-${v.name}">${v.name}</a>
-                    <span class="star" onclick="starClick(this, '${hero.replace("'", "\\'")}', '${v.name}')">★</span>
+                  <div class="dstar" hero="${hero}" poke="${v.name}">
+                    <div>${v.name}</div>
+                    <div class="typ">${pdt.type.map((typ) => `<img src="https://veekun.com/dex/media/types/en/${typ}.png"/>`).join('')}</div>
                   </div>
                 </td>
-                <td>${pokeData[v.name].total}</td>
-                <td style="text-align: center;"><div>${move.pow}</div><div>${move.star}</div></td>
-                <td>${move.acc}</td>
-                <td><img style="width: 30px;" src="${move.range}"></td>
+                <td>${pdt.total}</td>
+                <td style="text-align:center;"><div>${move.pow}</div><div>${move.star}</div></td>
+                <td style="text-align:center;">${move.acc}<div><img src="https://veekun.com/dex/media/types/en/${move.typ}.png"/></div></td>
+                <td><img style="width:30px;" src="https://veekun.com/dex/media/chrome/conquest-move-ranges/${move.range}"/></td>
               </tr>`;
       })
       .join('') +
@@ -298,6 +307,11 @@ const showHeroDetail = (div, hero, close, poke) => {
       div.closest(close || 'la').hide(),
     ),
   );
+  div.find('.dstar').click(function () {
+    var hero = $(this).attr('hero');
+    var poke = $(this).attr('poke');
+    starClick(hero, poke);
+  });
   div.find('.add-poke').click(function () {
     var hero = $(this).attr('hero');
     var poke = $(this).attr('poke');
@@ -339,9 +353,13 @@ const showHeroDetail = (div, hero, close, poke) => {
     showHeroDetail(div, hero, close, poke);
   });
   div.find('.show').click(function () {
+    var poke = $(this).attr('poke');
     var divDe = div.closest('.divLa').find('.more');
     divDe.empty();
-    divDe.append(getIVsDiv(hero, $(this).attr('poke')));
+    divDe.append(getIVsDiv(hero, poke));
+    $(`<table class="pk-detail">`)
+      .append($(`#myTable tr#poke-${poke}`).clone().show())
+      .appendTo(divDe);
     divDe.append(
       $(`<button class="close">✖</button>`).click(() => divDe.hide()),
     );
@@ -349,7 +367,7 @@ const showHeroDetail = (div, hero, close, poke) => {
   });
 };
 
-function starClick(e, hero, poke) {
+function starClick(hero, poke) {
   if (lget(`${hero}-poke-${poke}`) == 'own') {
     lset(`${hero}-poke-${poke}`, '');
   } else {
@@ -458,9 +476,10 @@ function genHero(div, line, filter1, filter2) {
   if (lget(`${hero}-own`)) herod.addClass('hero-own');
 
   // Show Hero detail
+  var hrimg = `https://veekun.com/dex/media/warriors/big-icons/${heroImgs[hero]}`;
   herod.append(
     `<td class="cen"><span class="skill">
-        <img src="${heroImgs[hero]}" class="HeroLinks" name="${hero}">
+        <img src="${hrimg}" class="HeroLinks" name="${hero}">
       	<la></la>
       </span></td>`,
   );
@@ -479,13 +498,14 @@ function genHero(div, line, filter1, filter2) {
   dhero.forEach((v) => {
     var poke = v.name;
     var pOwn = lget(`${hero}-poke-${poke}`) == 'own';
-    if (pOwn || (filter1 == 'own' && v.link.includes(100))) {
+    if (pOwn || ((filter1 == 'own' || filter1 == '') && v.link.includes(100))) {
+      var pkimg = `https://www.serebii.net/conquest/pokemon/${String(pokeData[poke].id).padStart(3, '0')}.png`;
       var td = $(
         `<td class="cen pklink show-ivs">
           <div class="skill">
             <div class="flex0 has-ivs show-poke" hero="${hero}" poke="${poke}">
               <div name="${hero}-ivs-${poke}" class="show-ivs ${v.cls}">${v.text || '&nbsp;'}</div>
-              <img src="${pokeImgs[poke]}"/>
+              <img src="${pkimg}"/>
             </div>
             <la></la>
           </div>
@@ -534,7 +554,9 @@ $(function () {
 
   // Filter Pokemon
   pokeTypes.forEach((v) => {
-    var img = $(`<img src="${v}" border="0" id=${v.match(/([^/]+).gif$/)[1]}>`);
+    var img = $(
+      `<img src="https://www.serebii.net/pokedex-bw/type/${v}.gif" border="0" id="${v}">`,
+    );
     $('.pktype').append(img);
   });
   $('.pktype img').click(function () {
@@ -544,7 +566,9 @@ $(function () {
 
   // Filter Pokemon's move
   pokeTypes.forEach((v) => {
-    var img = $(`<img src="${v}" border="0" id=${v.match(/([^/]+).gif$/)[1]}>`);
+    var img = $(
+      `<img src="https://www.serebii.net/pokedex-bw/type/${v}.gif" border="0" id="${v}">`,
+    );
     $('.movetype').append(img);
   });
   $('.movetype img').click(function () {
@@ -650,9 +674,10 @@ $(function () {
 
   // Filter Hero
   pokeTypes.forEach((v) => {
-    var type = v.match(/([^/]*).gif/)[1];
-    var img = $(`<img src="${v}" border="0" id=${v.match(/([^/]+).gif$/)[1]}>`);
-    img.attr('name', type);
+    var img = $(
+      `<img src="https://www.serebii.net/pokedex-bw/type/${v}.gif" border="0" id="${v}">`,
+    );
+    img.attr('name', v);
     $('.herotype').append(img);
   });
   $('.herotype img').click(function () {

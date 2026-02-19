@@ -89,7 +89,7 @@
   display: flex;
   align-items: center;
 }
-.flex0 div:first-child { flex: 1; padding: 1px; }
+.flex0>div:first-child { flex: 1; padding: 1px; }
 .flex1 {
   display: flex;
   align-items: center;
@@ -159,7 +159,13 @@ a.has-hero { color: aqua; }
 a.hero-has-poke { color: yellow; }
 
 .dstar { display: flex; align-items: center; }
-.dstar a { flex: 1; }
+.dstar>*:first-child { flex: 1; }
+.dstar .typ {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-left: 2px;
+}
 .star { color: #aac33c; margin-left: 5px; }
 .HeroLinks { height:20px; }
 .hero-name {
@@ -172,7 +178,7 @@ a.hero-has-poke { color: yellow; }
 }
 .hero-skill { text-align: left; margin-top: 5px; margin-bottom: 5px; }
 .ivs {
-  min-width: 200px;
+  min-width: 250px;
   max-height: 300px;
   overflow: auto;
 }

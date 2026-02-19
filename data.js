@@ -84,23 +84,23 @@ function initData() {
 
 // img.match(/([^/]+).gif$/)[1]
 var pokeTypes = [
-  'https://www.serebii.net/pokedex-bw/type/normal.gif',
-  'https://www.serebii.net/pokedex-bw/type/fire.gif',
-  'https://www.serebii.net/pokedex-bw/type/grass.gif',
-  'https://www.serebii.net/pokedex-bw/type/water.gif',
-  'https://www.serebii.net/pokedex-bw/type/fighting.gif',
-  'https://www.serebii.net/pokedex-bw/type/flying.gif',
-  'https://www.serebii.net/pokedex-bw/type/electric.gif',
-  'https://www.serebii.net/pokedex-bw/type/bug.gif',
-  'https://www.serebii.net/pokedex-bw/type/poison.gif',
-  'https://www.serebii.net/pokedex-bw/type/psychic.gif',
-  'https://www.serebii.net/pokedex-bw/type/ground.gif',
-  'https://www.serebii.net/pokedex-bw/type/rock.gif',
-  'https://www.serebii.net/pokedex-bw/type/steel.gif',
-  'https://www.serebii.net/pokedex-bw/type/dark.gif',
-  'https://www.serebii.net/pokedex-bw/type/ghost.gif',
-  'https://www.serebii.net/pokedex-bw/type/ice.gif',
-  'https://www.serebii.net/pokedex-bw/type/dragon.gif',
+  'normal',
+  'fire',
+  'grass',
+  'water',
+  'fighting',
+  'flying',
+  'electric',
+  'bug',
+  'poison',
+  'psychic',
+  'ground',
+  'rock',
+  'steel',
+  'dark',
+  'ghost',
+  'ice',
+  'dragon',
 ];
 
 var pwd_data = `Abra		JkKxwkq1x8
@@ -463,231 +463,207 @@ $('.dex-pokemon-moves tbody tr').each((i, v) => {
 })
 */
 const heroImgs = {
-  'Player ♂': 'https://veekun.com/dex/media/warriors/big-icons/player-m-1.png',
-  'Player ♀': 'https://veekun.com/dex/media/warriors/big-icons/player-f-1.png',
-  Nobunaga: 'https://veekun.com/dex/media/warriors/big-icons/nobunaga-2.png',
-  Oichi: 'https://veekun.com/dex/media/warriors/big-icons/oichi-1.png',
-  Hideyoshi: 'https://veekun.com/dex/media/warriors/big-icons/hideyoshi-1.png',
-  Motochika: 'https://veekun.com/dex/media/warriors/big-icons/motochika-1.png',
-  Ginchiyo: 'https://veekun.com/dex/media/warriors/big-icons/ginchiyo-1.png',
-  Motonari: 'https://veekun.com/dex/media/warriors/big-icons/motonari-1.png',
-  Mitsuhide: 'https://veekun.com/dex/media/warriors/big-icons/mitsuhide-1.png',
-  Yoshihiro: 'https://veekun.com/dex/media/warriors/big-icons/yoshihiro-1.png',
-  Nene: 'https://veekun.com/dex/media/warriors/big-icons/nene-1.png',
-  Shingen: 'https://veekun.com/dex/media/warriors/big-icons/shingen-1.png',
-  Masamune: 'https://veekun.com/dex/media/warriors/big-icons/masamune-1.png',
-  Kenshin: 'https://veekun.com/dex/media/warriors/big-icons/kenshin-1.png',
-  Yoshimoto: 'https://veekun.com/dex/media/warriors/big-icons/yoshimoto-1.png',
-  Ujiyasu: 'https://veekun.com/dex/media/warriors/big-icons/ujiyasu-1.png',
-  Nō: 'https://veekun.com/dex/media/warriors/big-icons/no-1.png',
-  Kotarō: 'https://veekun.com/dex/media/warriors/big-icons/kotaro-1.png',
-  Ieyasu: 'https://veekun.com/dex/media/warriors/big-icons/ieyasu-1.png',
-  Hanbei: 'https://veekun.com/dex/media/warriors/big-icons/hanbei-1.png',
-  Kanbei: 'https://veekun.com/dex/media/warriors/big-icons/kanbei-1.png',
-  Muneshige: 'https://veekun.com/dex/media/warriors/big-icons/muneshige-1.png',
-  Gracia: 'https://veekun.com/dex/media/warriors/big-icons/gracia-1.png',
-  Hanzō: 'https://veekun.com/dex/media/warriors/big-icons/hanzo-1.png',
-  Kunoichi: 'https://veekun.com/dex/media/warriors/big-icons/kunoichi-1.png',
-  Yukimura: 'https://veekun.com/dex/media/warriors/big-icons/yukimura-1.png',
-  Magoichi: 'https://veekun.com/dex/media/warriors/big-icons/magoichi-1.png',
-  Kanetsugu: 'https://veekun.com/dex/media/warriors/big-icons/kanetsugu-1.png',
-  Aya: 'https://veekun.com/dex/media/warriors/big-icons/aya-1.png',
-  Kai: 'https://veekun.com/dex/media/warriors/big-icons/kai-1.png',
-  Okuni: 'https://veekun.com/dex/media/warriors/big-icons/okuni-1.png',
-  Ranmaru: 'https://veekun.com/dex/media/warriors/big-icons/ranmaru-1.png',
-  Tadakatsu: 'https://veekun.com/dex/media/warriors/big-icons/tadakatsu-1.png',
-  Ina: 'https://veekun.com/dex/media/warriors/big-icons/ina-1.png',
-  Keiji: 'https://veekun.com/dex/media/warriors/big-icons/keiji-1.png',
-  Mitsunari: 'https://veekun.com/dex/media/warriors/big-icons/mitsunari-1.png',
-  Kiyomasa: 'https://veekun.com/dex/media/warriors/big-icons/kiyomasa-1.png',
-  Masanori: 'https://veekun.com/dex/media/warriors/big-icons/masanori-1.png',
-  Tsunehisa: 'https://veekun.com/dex/media/warriors/big-icons/professor.png',
-  Naoie: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
-  Harutaka:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
-  Takanobu: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
-  Naoshige: 'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
-  Ujisato: 'https://veekun.com/dex/media/warriors/big-icons/alchemist.png',
-  Chacha: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
-  Gō: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
-  Hatsu: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
-  Kazumasu: 'https://veekun.com/dex/media/warriors/big-icons/ninja-armor.png',
-  Nagahide: 'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
-  Yoshitaka: 'https://veekun.com/dex/media/warriors/big-icons/sailor.png',
-  Urakusai: 'https://veekun.com/dex/media/warriors/big-icons/alchemist.png',
-  Narimasa: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
-  Tomonori: 'https://veekun.com/dex/media/warriors/big-icons/nobleman.png',
-  Murashige: 'https://veekun.com/dex/media/warriors/big-icons/alchemist.png',
-  Masahide: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
-  Nagayoshi: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
-  Kitsuno: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
-  Gotoku: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
-  Hidenaga:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
-  Koroku: 'https://veekun.com/dex/media/warriors/big-icons/adventurer.png',
-  Takatora: 'https://veekun.com/dex/media/warriors/big-icons/clever.png',
-  Yoshitsugu: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
-  Yukinaga: 'https://veekun.com/dex/media/warriors/big-icons/merchant-m.png',
-  Rikyū: 'https://veekun.com/dex/media/warriors/big-icons/alchemist.png',
-  Hideyori: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
-  Asahi: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
-  Kazutoyo: 'https://veekun.com/dex/media/warriors/big-icons/clever.png',
-  Nagayasu: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
-  Harunaga: 'https://veekun.com/dex/media/warriors/big-icons/portly.png',
-  Hideaki: 'https://veekun.com/dex/media/warriors/big-icons/nervous.png',
-  Naka: 'https://veekun.com/dex/media/warriors/big-icons/farmer-f.png',
-  Tatsuko: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
-  Maa: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
-  Chiyo: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
-  Hatsume: 'https://veekun.com/dex/media/warriors/big-icons/ninja-ceiling.png',
-  Nobuchika: 'https://veekun.com/dex/media/warriors/big-icons/clever.png',
-  Chikayasu:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
-  Morichika: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
-  Chikamasa: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
-  Norishige:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
-  Takayori: 'https://veekun.com/dex/media/warriors/big-icons/clever.png',
-  Tadasumi: 'https://veekun.com/dex/media/warriors/big-icons/nervous.png',
-  Dōsetsu: 'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
-  Shōun: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
-  Sōrin: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
-  Sekisō: 'https://veekun.com/dex/media/warriors/big-icons/monk.png',
-  Akizane: 'https://veekun.com/dex/media/warriors/big-icons/alchemist.png',
-  Takatane: 'https://veekun.com/dex/media/warriors/big-icons/nervous.png',
-  Kiyo: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
-  Motoharu:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
-  Takakage: 'https://veekun.com/dex/media/warriors/big-icons/armor-visor.png',
-  Terumoto:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
-  Takeyoshi: 'https://veekun.com/dex/media/warriors/big-icons/sailor.png',
-  Ekei: 'https://veekun.com/dex/media/warriors/big-icons/monk.png',
-  Takamoto: 'https://veekun.com/dex/media/warriors/big-icons/nervous.png',
-  Sadatoshi: 'https://veekun.com/dex/media/warriors/big-icons/portly.png',
-  Hidemitsu:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
-  Toshimitsu:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
-  Shigemoto:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
-  Mitsutada: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
-  Yukimasa: 'https://veekun.com/dex/media/warriors/big-icons/portly.png',
-  Tadaoki: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
-  Fujitaka: 'https://veekun.com/dex/media/warriors/big-icons/nobleman.png',
-  Hiroko: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
-  Tadamoto: 'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
-  Tadatsune: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
-  Takahisa: 'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
-  Hisaaki: 'https://veekun.com/dex/media/warriors/big-icons/armor-visor.png',
-  Masatoshi: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
-  Kanemori: 'https://veekun.com/dex/media/warriors/big-icons/armor-visor.png',
-  Tokitaka: 'https://veekun.com/dex/media/warriors/big-icons/professor.png',
-  Sandayū: 'https://veekun.com/dex/media/warriors/big-icons/ninja-armor.png',
-  Morikiyo: 'https://veekun.com/dex/media/warriors/big-icons/ninja-armor.png',
-  Kashinkoji: 'https://veekun.com/dex/media/warriors/big-icons/professor.png',
-  Yasunaga: 'https://veekun.com/dex/media/warriors/big-icons/ninja-visor.png',
-  Seikurō: 'https://veekun.com/dex/media/warriors/big-icons/ninja-scroll.png',
-  Katsuyori:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
-  Haruyuki: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
-  Masakage: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
-  Masatoyo: 'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
-  Nobufusa:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
-  Masayuki: 'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
-  Yukitaka: 'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
-  Ume: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
-  Chiyome: 'https://veekun.com/dex/media/warriors/big-icons/ninja-eyeliner.png',
-  Kei: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
-  Kagetsuna: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
-  Shigezane: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
-  Tsunamoto:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
-  Tsunenaga: 'https://veekun.com/dex/media/warriors/big-icons/sailor.png',
-  Munetoki: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
-  Munezane: 'https://veekun.com/dex/media/warriors/big-icons/armor-visor.png',
-  Yoshi: 'https://veekun.com/dex/media/warriors/big-icons/ninja-eyeliner.png',
-  Iroha: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
-  Kagekatsu: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
-  Yoshikiyo:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
-  Tomonobu:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
-  Kageie: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
-  Takahiro: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
-  Sadamitsu: 'https://veekun.com/dex/media/warriors/big-icons/professor.png',
-  Yatarō: 'https://veekun.com/dex/media/warriors/big-icons/armor-buff.png',
-  Saneyori: 'https://veekun.com/dex/media/warriors/big-icons/professor.png',
-  Hana: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
-  Sen: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
-  Ujichika: 'https://veekun.com/dex/media/warriors/big-icons/nobleman.png',
-  Ujizane: 'https://veekun.com/dex/media/warriors/big-icons/nobleman.png',
-  Sessai: 'https://veekun.com/dex/media/warriors/big-icons/monk.png',
-  Masatsuna:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
-  Yasutomo:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
-  Ujihiro: 'https://veekun.com/dex/media/warriors/big-icons/portly.png',
-  Motozane: 'https://veekun.com/dex/media/warriors/big-icons/portly.png',
-  Sena: 'https://veekun.com/dex/media/warriors/big-icons/ninja-eyeliner.png',
-  Sōun: 'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
-  Tsunashige:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
-  "Gen'an": 'https://veekun.com/dex/media/warriors/big-icons/monk.png',
-  Ujimasa:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
-  Ujiteru: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
-  Ujikuni:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
-  Ujinao: 'https://veekun.com/dex/media/warriors/big-icons/armor-visor.png',
-  Shizuka: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
-  Madoka: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
-  Dōsan: 'https://veekun.com/dex/media/warriors/big-icons/merchant-m.png',
-  Yoshitatsu:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
-  Ittetsu:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-sweatband.png',
-  Bokuzen: 'https://veekun.com/dex/media/warriors/big-icons/armor-visor.png',
-  Morinari: 'https://veekun.com/dex/media/warriors/big-icons/nervous.png',
-  Omi: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
-  Asa: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
-  Shimoyama: 'https://veekun.com/dex/media/warriors/big-icons/ninja-scroll.png',
-  Genba: 'https://veekun.com/dex/media/warriors/big-icons/ninja-visor.png',
-  Danzō: 'https://veekun.com/dex/media/warriors/big-icons/ninja-scroll.png',
-  Yazaemon: 'https://veekun.com/dex/media/warriors/big-icons/ninja-visor.png',
-  Isuke: 'https://veekun.com/dex/media/warriors/big-icons/ninja-visor.png',
-  Tadatsugu:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-veteran.png',
-  Naomasa: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
-  Yasumasa: 'https://veekun.com/dex/media/warriors/big-icons/armor-helmet.png',
-  Masanobu: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
-  Hidetada: 'https://veekun.com/dex/media/warriors/big-icons/armor-smarmy.png',
-  Kazumasa: 'https://veekun.com/dex/media/warriors/big-icons/angular.png',
-  Chōan: 'https://veekun.com/dex/media/warriors/big-icons/merchant-m.png',
-  Tenkai: 'https://veekun.com/dex/media/warriors/big-icons/monk.png',
-  Munenori:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
-  Kame: 'https://veekun.com/dex/media/warriors/big-icons/ninja-ceiling.png',
-  Toku: 'https://veekun.com/dex/media/warriors/big-icons/princess.png',
-  Saizō: 'https://veekun.com/dex/media/warriors/big-icons/ninja-armor.png',
-  Sasuke: 'https://veekun.com/dex/media/warriors/big-icons/ninja-scroll.png',
-  Katsu: 'https://veekun.com/dex/media/warriors/big-icons/ninja-ceiling.png',
-  Jūzō: 'https://veekun.com/dex/media/warriors/big-icons/ninja-visor.png',
-  Tsuru: 'https://veekun.com/dex/media/warriors/big-icons/woman-warrior.png',
-  Ise: 'https://veekun.com/dex/media/warriors/big-icons/ninja-ceiling.png',
-  Jinpachi: 'https://veekun.com/dex/media/warriors/big-icons/sailor.png',
-  Kamanosuke: 'https://veekun.com/dex/media/warriors/big-icons/adventurer.png',
-  Seikai: 'https://veekun.com/dex/media/warriors/big-icons/adventurer.png',
-  Isa: 'https://veekun.com/dex/media/warriors/big-icons/adventurer.png',
-  Yoshiteru: 'https://veekun.com/dex/media/warriors/big-icons/nobleman.png',
-  Yoshiaki: 'https://veekun.com/dex/media/warriors/big-icons/nobleman.png',
-  Hisahide: 'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
-  Jūbei: 'https://veekun.com/dex/media/warriors/big-icons/armor-headlight.png',
-  Nobutsuna:
-    'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
-  Bokuden: 'https://veekun.com/dex/media/warriors/big-icons/armor-officer.png',
-  Otsū: 'https://veekun.com/dex/media/warriors/big-icons/ninja-ceiling.png',
+  'Player ♂': 'player-m-1.png',
+  'Player ♀': 'player-f-1.png',
+  Nobunaga: 'nobunaga-2.png',
+  Oichi: 'oichi-1.png',
+  Hideyoshi: 'hideyoshi-1.png',
+  Motochika: 'motochika-1.png',
+  Ginchiyo: 'ginchiyo-1.png',
+  Motonari: 'motonari-1.png',
+  Mitsuhide: 'mitsuhide-1.png',
+  Yoshihiro: 'yoshihiro-1.png',
+  Nene: 'nene-1.png',
+  Shingen: 'shingen-1.png',
+  Masamune: 'masamune-1.png',
+  Kenshin: 'kenshin-1.png',
+  Yoshimoto: 'yoshimoto-1.png',
+  Ujiyasu: 'ujiyasu-1.png',
+  Nō: 'no-1.png',
+  Kotarō: 'kotaro-1.png',
+  Ieyasu: 'ieyasu-1.png',
+  Hanbei: 'hanbei-1.png',
+  Kanbei: 'kanbei-1.png',
+  Muneshige: 'muneshige-1.png',
+  Gracia: 'gracia-1.png',
+  Hanzō: 'hanzo-1.png',
+  Kunoichi: 'kunoichi-1.png',
+  Yukimura: 'yukimura-1.png',
+  Magoichi: 'magoichi-1.png',
+  Kanetsugu: 'kanetsugu-1.png',
+  Aya: 'aya-1.png',
+  Kai: 'kai-1.png',
+  Okuni: 'okuni-1.png',
+  Ranmaru: 'ranmaru-1.png',
+  Tadakatsu: 'tadakatsu-1.png',
+  Ina: 'ina-1.png',
+  Keiji: 'keiji-1.png',
+  Mitsunari: 'mitsunari-1.png',
+  Kiyomasa: 'kiyomasa-1.png',
+  Masanori: 'masanori-1.png',
+  Tsunehisa: 'professor.png',
+  Naoie: 'angular.png',
+  Harutaka: 'armor-headlight.png',
+  Takanobu: 'armor-helmet.png',
+  Naoshige: 'armor-officer.png',
+  Ujisato: 'alchemist.png',
+  Chacha: 'princess.png',
+  Gō: 'woman-warrior.png',
+  Hatsu: 'princess.png',
+  Kazumasu: 'ninja-armor.png',
+  Nagahide: 'armor-officer.png',
+  Yoshitaka: 'sailor.png',
+  Urakusai: 'alchemist.png',
+  Narimasa: 'armor-helmet.png',
+  Tomonori: 'nobleman.png',
+  Murashige: 'alchemist.png',
+  Masahide: 'angular.png',
+  Nagayoshi: 'armor-smarmy.png',
+  Kitsuno: 'woman-warrior.png',
+  Gotoku: 'woman-warrior.png',
+  Hidenaga: 'armor-sweatband.png',
+  Koroku: 'adventurer.png',
+  Takatora: 'clever.png',
+  Yoshitsugu: 'angular.png',
+  Yukinaga: 'merchant-m.png',
+  Rikyū: 'alchemist.png',
+  Hideyori: 'armor-smarmy.png',
+  Asahi: 'princess.png',
+  Kazutoyo: 'clever.png',
+  Nagayasu: 'armor-buff.png',
+  Harunaga: 'portly.png',
+  Hideaki: 'nervous.png',
+  Naka: 'farmer-f.png',
+  Tatsuko: 'woman-warrior.png',
+  Maa: 'princess.png',
+  Chiyo: 'woman-warrior.png',
+  Hatsume: 'ninja-ceiling.png',
+  Nobuchika: 'clever.png',
+  Chikayasu: 'armor-headlight.png',
+  Morichika: 'armor-smarmy.png',
+  Chikamasa: 'armor-buff.png',
+  Norishige: 'armor-headlight.png',
+  Takayori: 'clever.png',
+  Tadasumi: 'nervous.png',
+  Dōsetsu: 'armor-veteran.png',
+  Shōun: 'armor-helmet.png',
+  Sōrin: 'angular.png',
+  Sekisō: 'monk.png',
+  Akizane: 'alchemist.png',
+  Takatane: 'nervous.png',
+  Kiyo: 'princess.png',
+  Motoharu: 'armor-sweatband.png',
+  Takakage: 'armor-visor.png',
+  Terumoto: 'armor-sweatband.png',
+  Takeyoshi: 'sailor.png',
+  Ekei: 'monk.png',
+  Takamoto: 'nervous.png',
+  Sadatoshi: 'portly.png',
+  Hidemitsu: 'armor-sweatband.png',
+  Toshimitsu: 'armor-officer.png',
+  Shigemoto: 'armor-headlight.png',
+  Mitsutada: 'armor-buff.png',
+  Yukimasa: 'portly.png',
+  Tadaoki: 'armor-smarmy.png',
+  Fujitaka: 'nobleman.png',
+  Hiroko: 'princess.png',
+  Tadamoto: 'armor-officer.png',
+  Tadatsune: 'armor-buff.png',
+  Takahisa: 'armor-veteran.png',
+  Hisaaki: 'armor-visor.png',
+  Masatoshi: 'armor-buff.png',
+  Kanemori: 'armor-visor.png',
+  Tokitaka: 'professor.png',
+  Sandayū: 'ninja-armor.png',
+  Morikiyo: 'ninja-armor.png',
+  Kashinkoji: 'professor.png',
+  Yasunaga: 'ninja-visor.png',
+  Seikurō: 'ninja-scroll.png',
+  Katsuyori: 'armor-sweatband.png',
+  Haruyuki: 'angular.png',
+  Masakage: 'armor-helmet.png',
+  Masatoyo: 'armor-veteran.png',
+  Nobufusa: 'armor-headlight.png',
+  Masayuki: 'armor-officer.png',
+  Yukitaka: 'armor-veteran.png',
+  Ume: 'princess.png',
+  Chiyome: 'ninja-eyeliner.png',
+  Kei: 'woman-warrior.png',
+  Kagetsuna: 'angular.png',
+  Shigezane: 'armor-helmet.png',
+  Tsunamoto: 'armor-veteran.png',
+  Tsunenaga: 'sailor.png',
+  Munetoki: 'armor-buff.png',
+  Munezane: 'armor-visor.png',
+  Yoshi: 'ninja-eyeliner.png',
+  Iroha: 'woman-warrior.png',
+  Kagekatsu: 'armor-helmet.png',
+  Yoshikiyo: 'armor-officer.png',
+  Tomonobu: 'armor-sweatband.png',
+  Kageie: 'armor-helmet.png',
+  Takahiro: 'armor-smarmy.png',
+  Sadamitsu: 'professor.png',
+  Yatarō: 'armor-buff.png',
+  Saneyori: 'professor.png',
+  Hana: 'woman-warrior.png',
+  Sen: 'princess.png',
+  Ujichika: 'nobleman.png',
+  Ujizane: 'nobleman.png',
+  Sessai: 'monk.png',
+  Masatsuna: 'armor-headlight.png',
+  Yasutomo: 'armor-sweatband.png',
+  Ujihiro: 'portly.png',
+  Motozane: 'portly.png',
+  Sena: 'ninja-eyeliner.png',
+  Sōun: 'armor-veteran.png',
+  Tsunashige: 'armor-officer.png',
+  "Gen'an": 'monk.png',
+  Ujimasa: 'armor-headlight.png',
+  Ujiteru: 'armor-smarmy.png',
+  Ujikuni: 'armor-sweatband.png',
+  Ujinao: 'armor-visor.png',
+  Shizuka: 'woman-warrior.png',
+  Madoka: 'woman-warrior.png',
+  Dōsan: 'merchant-m.png',
+  Yoshitatsu: 'armor-helmet.png',
+  Ittetsu: 'armor-sweatband.png',
+  Bokuzen: 'armor-visor.png',
+  Morinari: 'nervous.png',
+  Omi: 'princess.png',
+  Asa: 'princess.png',
+  Shimoyama: 'ninja-scroll.png',
+  Genba: 'ninja-visor.png',
+  Danzō: 'ninja-scroll.png',
+  Yazaemon: 'ninja-visor.png',
+  Isuke: 'ninja-visor.png',
+  Tadatsugu: 'armor-veteran.png',
+  Naomasa: 'armor-helmet.png',
+  Yasumasa: 'armor-helmet.png',
+  Masanobu: 'angular.png',
+  Hidetada: 'armor-smarmy.png',
+  Kazumasa: 'angular.png',
+  Chōan: 'merchant-m.png',
+  Tenkai: 'monk.png',
+  Munenori: 'armor-headlight.png',
+  Kame: 'ninja-ceiling.png',
+  Toku: 'princess.png',
+  Saizō: 'ninja-armor.png',
+  Sasuke: 'ninja-scroll.png',
+  Katsu: 'ninja-ceiling.png',
+  Jūzō: 'ninja-visor.png',
+  Tsuru: 'woman-warrior.png',
+  Ise: 'ninja-ceiling.png',
+  Jinpachi: 'sailor.png',
+  Kamanosuke: 'adventurer.png',
+  Seikai: 'adventurer.png',
+  Isa: 'adventurer.png',
+  Yoshiteru: 'nobleman.png',
+  Yoshiaki: 'nobleman.png',
+  Hisahide: 'armor-officer.png',
+  Jūbei: 'armor-headlight.png',
+  Nobutsuna: 'armor-officer.png',
+  Bokuden: 'armor-officer.png',
+  Otsū: 'ninja-ceiling.png',
 };
 
 /*
@@ -907,9 +883,9 @@ const heroCap = {
 pks = {};
 getskill = (nm) => {
   $.get(`https://veekun.com/dex/conquest/pokemon/${nm}`, function(data) {
-    img = $(data).find('dd.dex-cpm-range img').attr('src');
+    img = $(data).find('dd.dex-cpm-range img').attr('src').match(/([^\/]*).png/)[1];
     name = $(data).find('dd.dex-cpm-name').text().trim().toLowerCase();
-    pks[nm] = {name, range: 'https://veekun.com' + img};
+    pks[nm] = {name, range: img};
     console.log('Done ' + nm);
   });
 }
@@ -919,986 +895,206 @@ $('.dex-pokemon-moves>tbody>tr').each(function () {
 });
 */
 const pokeMoves = {
-  Drilbur: {
-    name: 'dig',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Gallade: {
-    name: 'psycho cut',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Gyarados: {
-    name: 'aqua tail',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
-  },
-  Carnivine: {
-    name: 'vine whip',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  },
-  Audino: {
-    name: 'pound',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Excadrill: {
-    name: 'drill run',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  },
-  Mismagius: {
-    name: 'shadow ball',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Spiritomb: {
-    name: 'shadow sneak',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Dusknoir: {
-    name: 'shadow ball',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Dusclops: {
-    name: 'shadow sneak',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Duskull: {
-    name: 'astonish',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  },
-  Zebstrika: {
-    name: 'discharge',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  },
-  Terrakion: {
-    name: 'sacred sword',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Musharna: {
-    name: 'dream eater',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Blitzle: {
-    name: 'spark',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Munna: {
-    name: 'hypnosis',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Dragonite: {
-    name: 'dragon rush',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
-  },
-  Larvitar: {
-    name: 'rock tomb',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Dragonair: {
-    name: 'dragon tail',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback-switch.png',
-  },
-  Krookodile: {
-    name: 'crunch',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Leafeon: {
-    name: 'leaf blade',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Kirlia: {
-    name: 'psyshock',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Espeon: {
-    name: 'psybeam',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Haxorus: {
-    name: 'outrage',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
-  },
-  Fraxure: {
-    name: 'dragon claw',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Axew: {
-    name: 'dragon rage',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Raichu: {
-    name: 'volt tackle',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead-advance-1.png',
-  },
-  Lairon: {
-    name: 'iron head',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  },
-  Aron: {
-    name: 'metal claw',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Zoroark: {
-    name: 'night daze',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
-  },
-  Galvantula: {
-    name: 'discharge',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  },
-  Zorua: {
-    name: 'foul play',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Mewtwo: {
-    name: 'psystrike',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/t-shape.png',
-  },
-  Golbat: {
-    name: 'poison fang',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Aggron: {
-    name: 'iron tail',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
-  },
-  Bibarel: {
-    name: 'hyper fang',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Eevee: {
-    name: 'quick attack',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Venipede: {
-    name: 'poison sting',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Crobat: {
-    name: 'cross poison',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
-  },
-  Staraptor: {
-    name: 'brave bird',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/chevron-advance-1.png',
-  },
-  Shinx: {
-    name: 'spark',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Bidoof: {
-    name: 'headbutt',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Luxio: {
-    name: 'discharge',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  },
-  Scolipede: {
-    name: 'venoshock',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
-  },
-  Chandelure: {
-    name: 'fire spin',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-2-ahead.png',
-  },
-  Whirlipede: {
-    name: 'poison tail',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  },
-  Luxray: {
-    name: 'thunder',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
-  },
-  Petilil: {
-    name: 'mega drain',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Lampent: {
-    name: 'flame burst',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
-  },
-  Litwick: {
-    name: 'ember',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Boldore: {
-    name: 'rock slide',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Gigalith: {
-    name: 'stone edge',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
-  },
-  Flaaffy: {
-    name: 'discharge',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  },
-  Mareep: {
-    name: 'thunder shock',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Ampharos: {
-    name: 'thunder',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
-  },
-  Lilligant: {
-    name: 'petal dance',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
-  },
-  Roggenrola: {
-    name: 'rock blast',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Whimsicott: {
-    name: 'razor leaf',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Cottonee: {
-    name: 'absorb',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Arbok: {
-    name: 'venoshock',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
-  },
-  Lucario: {
-    name: 'aura sphere',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-knockback.png',
-  },
-  Riolu: {
-    name: 'force palm',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  },
-  Chingling: {
-    name: 'confusion',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
-  },
-  Ekans: {
-    name: 'poison sting',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Chimecho: {
-    name: 'psyshock',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Persian: {
-    name: 'slash',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Pineco: {
-    name: 'bug bite',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Forretress: {
-    name: 'gyro ball',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  },
-  Gothita: {
-    name: 'confusion',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
-  },
-  Meowth: {
-    name: 'fury swipes',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Sealeo: {
-    name: 'ice ball',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  },
-  Walrein: {
-    name: 'blizzard',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
-  },
-  Krokorok: {
-    name: 'bite',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Spheal: {
-    name: 'powder snow',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Sandile: {
-    name: 'mud-slap',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Jolteon: {
-    name: 'thunderbolt',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
-  },
-  Rayquaza: {
-    name: 'dragon pulse',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Gothorita: {
-    name: 'psybeam',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Gothitelle: {
-    name: 'future sight',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
-  },
-  Glaceon: {
-    name: 'icy wind',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  },
-  Magikarp: {
-    name: 'splash',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/user.png',
-  },
-  Vaporeon: {
-    name: 'hydro pump',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Lapras: {
-    name: 'ice beam',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Pichu: {
-    name: 'thunder shock',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Scizor: {
-    name: 'x-scissor',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
-  },
-  Groudon: {
-    name: 'earth power',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
-  },
-  Scyther: {
-    name: 'fury cutter',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  },
-  Gardevoir: {
-    name: 'psychic',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead.png',
-  },
-  Registeel: {
-    name: 'flash cannon',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
-  },
-  Articuno: {
-    name: 'blizzard',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
-  },
-  Dialga: {
-    name: 'roar of time',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/2-rows.png',
-  },
-  Arceus: {
-    name: 'judgment',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  },
-  Reshiram: {
-    name: 'blue flare',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
-  },
-  Zekrom: {
-    name: 'bolt strike',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  },
-  Tyranitar: {
-    name: 'stone edge',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/plus.png',
-  },
-  Gabite: {
-    name: 'dragon claw',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Garchomp: {
-    name: 'dragon rush',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
-  },
-  Gible: {
-    name: 'dragon rage',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Pupitar: {
-    name: 'rock slide',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Metagross: {
-    name: 'meteor mash',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  },
-  Zweilous: {
-    name: 'crunch',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Croagunk: {
-    name: 'poison jab',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Froslass: {
-    name: 'icy wind',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  },
-  Toxicroak: {
-    name: 'sludge bomb',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
-  },
-  Glalie: {
-    name: 'ice beam',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Snorunt: {
-    name: 'powder snow',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Hydreigon: {
-    name: 'dragon pulse',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Deino: {
-    name: 'dragon rage',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Cinccino: {
-    name: 'tail slap',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  },
-  Machoke: {
-    name: 'wake-up slap',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Minccino: {
-    name: 'double slap',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Machop: {
-    name: 'karate chop',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Gurdurr: {
-    name: 'wake-up slap',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Timburr: {
-    name: 'low kick',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Machamp: {
-    name: 'cross chop',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
-  },
-  Conkeldurr: {
-    name: 'superpower',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  },
-  Charizard: {
-    name: 'flamethrower',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Cubchoo: {
-    name: 'powder snow',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Oshawott: {
-    name: 'water gun',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Dewott: {
-    name: 'water pulse',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Charmander: {
-    name: 'ember',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Charmeleon: {
-    name: 'fire fang',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Samurott: {
-    name: 'aqua tail',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
-  },
-  Beartic: {
-    name: 'icicle crash',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Metang: {
-    name: 'bullet punch',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Dratini: {
-    name: 'dragon rage',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Chimchar: {
-    name: 'ember',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Gengar: {
-    name: 'shadow ball',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Haunter: {
-    name: 'hex',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Gastly: {
-    name: 'lick',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Servine: {
-    name: 'leaf blade',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Infernape: {
-    name: 'fire spin',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-2-ahead.png',
-  },
-  Monferno: {
-    name: 'flame wheel',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  },
-  Beldum: {
-    name: 'iron head',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  },
-  Emboar: {
-    name: 'fire blast',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/dai.png',
-  },
-  Abra: {
-    name: 'teleport',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/user.png',
-  },
-  Sewaddle: {
-    name: 'bug bite',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Serperior: {
-    name: 'leaf storm',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  },
-  Swadloon: {
-    name: 'razor leaf',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Grovyle: {
-    name: 'leaf blade',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Alakazam: {
-    name: 'psychic',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead.png',
-  },
-  Kadabra: {
-    name: 'psybeam',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Treecko: {
-    name: 'absorb',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Empoleon: {
-    name: 'hydro pump',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Piplup: {
-    name: 'bubble',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Prinplup: {
-    name: 'bubble beam',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-ahead.png',
-  },
-  Simisear: {
-    name: 'incinerate',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Pansear: {
-    name: 'flame burst',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
-  },
-  Sceptile: {
-    name: 'leaf storm',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  },
-  Tepig: {
-    name: 'ember',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Simisage: {
-    name: 'leaf storm',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  },
-  Pignite: {
-    name: 'heat crash',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  },
-  Pansage: {
-    name: 'vine whip',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  },
-  Darmanitan: {
-    name: 'fire blast',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/dai.png',
-  },
-  Darumaka: {
-    name: 'flame wheel',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  },
-  Simipour: {
-    name: 'brine',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Panpour: {
-    name: 'water gun',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Joltik: {
-    name: 'electro ball',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Flareon: {
-    name: 'fire fang',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Zubat: {
-    name: 'wing attack',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Wigglytuff: {
-    name: 'hyper voice',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
-  },
-  Umbreon: {
-    name: 'assurance',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Jigglypuff: {
-    name: 'double slap',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Quagsire: {
-    name: 'mud bomb',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Wooper: {
-    name: 'water gun',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Ralts: {
-    name: 'confusion',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
-  },
-  Pikachu: {
-    name: 'thunderbolt',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
-  },
-  Igglybuff: {
-    name: 'pound',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Starly: {
-    name: 'quick attack',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Pawniard: {
-    name: 'assurance',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Drapion: {
-    name: 'cross poison',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
-  },
-  Skorupi: {
-    name: 'poison jab',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Staravia: {
-    name: 'wing attack',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Shieldon: {
-    name: 'iron head',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  },
-  Rhyperior: {
-    name: 'rock wrecker',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
-  },
-  Rhydon: {
-    name: 'drill run',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  },
-  Drifloon: {
-    name: 'astonish',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  },
-  Rhyhorn: {
-    name: 'bulldoze',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
-  },
-  Scraggy: {
-    name: 'faint attack',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Scrafty: {
-    name: 'high jump kick',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  },
-  Bastiodon: {
-    name: 'rock slide',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
-  },
-  Rufflet: {
-    name: 'wing attack',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Anorith: {
-    name: 'fury cutter',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  },
-  Braviary: {
-    name: 'sky drop',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Drifblim: {
-    name: 'shadow ball',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Larvesta: {
-    name: 'flame wheel',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  },
-  Armaldo: {
-    name: 'x-scissor',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
-  },
-  Onix: {
-    name: 'rock tomb',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
-  },
-  Volcarona: {
-    name: 'fiery dance',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
-  },
-  Snorlax: {
-    name: 'body slam',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
-  },
-  Steelix: {
-    name: 'iron tail',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/row-knockback.png',
-  },
-  Munchlax: {
-    name: 'tackle',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Beedrill: {
-    name: 'twineedle',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
-  },
-  Weavile: {
-    name: 'night slash',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  },
-  Misdreavus: {
-    name: 'astonish',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
-  },
-  Sneasel: {
-    name: 'faint attack',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
-  },
-  Snivy: {
-    name: 'vine whip',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  },
-  Bisharp: {
-    name: 'night slash',
-    range: 'https://veekun.com/dex/media/chrome/conquest-move-ranges/row.png',
-  },
-  Emolga: {
-    name: 'volt switch',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/tile-2-ahead-switch-back.png',
-  },
-  Leavanny: {
-    name: 'x-scissor',
-    range:
-      'https://veekun.com/dex/media/chrome/conquest-move-ranges/x-shape.png',
-  },
+  Drilbur: { name: 'dig', range: 'tile-2-ahead.png' },
+  Gallade: { name: 'psycho cut', range: 'column-2-tiles.png' },
+  Gyarados: { name: 'aqua tail', range: 'row-knockback.png' },
+  Carnivine: { name: 'vine whip', range: 'row.png' },
+  Audino: { name: 'pound', range: 'tile-1-ahead.png' },
+  Excadrill: { name: 'drill run', range: 'tile-2-ahead-advance-1.png' },
+  Mismagius: { name: 'shadow ball', range: 'tile-2-ahead.png' },
+  Spiritomb: { name: 'shadow sneak', range: 'tile-1-ahead.png' },
+  Dusknoir: { name: 'shadow ball', range: 'tile-2-ahead.png' },
+  Dusclops: { name: 'shadow sneak', range: 'tile-1-ahead.png' },
+  Duskull: { name: 'astonish', range: 'tile-1-ahead-knockback.png' },
+  Zebstrika: { name: 'discharge', range: 'ring-adjacent.png' },
+  Terrakion: { name: 'sacred sword', range: 'tile-1-ahead.png' },
+  Musharna: { name: 'dream eater', range: 'tile-1-ahead.png' },
+  Blitzle: { name: 'spark', range: 'tile-1-ahead.png' },
+  Munna: { name: 'hypnosis', range: 'column-2-tiles.png' },
+  Dragonite: { name: 'dragon rush', range: 'diamond-2-ahead-advance-2.png' },
+  Larvitar: { name: 'rock tomb', range: 'tile-2-ahead.png' },
+  Dragonair: { name: 'dragon tail', range: 'row-knockback-switch.png' },
+  Krookodile: { name: 'crunch', range: 'tile-1-ahead.png' },
+  Leafeon: { name: 'leaf blade', range: 'tile-1-ahead.png' },
+  Kirlia: { name: 'psyshock', range: 'tile-2-ahead.png' },
+  Espeon: { name: 'psybeam', range: 'column-3-tiles.png' },
+  Haxorus: { name: 'outrage', range: 'diamond-adjacent.png' },
+  Fraxure: { name: 'dragon claw', range: 'tile-1-ahead.png' },
+  Axew: { name: 'dragon rage', range: 'column-2-tiles.png' },
+  Raichu: { name: 'volt tackle', range: 'row-2-ahead-advance-1.png' },
+  Lairon: { name: 'iron head', range: 'tile-1-ahead-knockback.png' },
+  Aron: { name: 'metal claw', range: 'tile-1-ahead.png' },
+  Zoroark: { name: 'night daze', range: 'diamond-adjacent.png' },
+  Galvantula: { name: 'discharge', range: 'ring-adjacent.png' },
+  Zorua: { name: 'foul play', range: 'tile-1-ahead.png' },
+  Mewtwo: { name: 'psystrike', range: 't-shape.png' },
+  Golbat: { name: 'poison fang', range: 'tile-1-ahead.png' },
+  Aggron: { name: 'iron tail', range: 'row-knockback.png' },
+  Bibarel: { name: 'hyper fang', range: 'tile-1-ahead.png' },
+  Eevee: { name: 'quick attack', range: 'tile-1-ahead.png' },
+  Venipede: { name: 'poison sting', range: 'column-2-tiles.png' },
+  Crobat: { name: 'cross poison', range: 'x-shape.png' },
+  Staraptor: { name: 'brave bird', range: 'chevron-advance-1.png' },
+  Shinx: { name: 'spark', range: 'tile-1-ahead.png' },
+  Bidoof: { name: 'headbutt', range: 'tile-1-ahead.png' },
+  Luxio: { name: 'discharge', range: 'ring-adjacent.png' },
+  Scolipede: { name: 'venoshock', range: 'row-2-ahead.png' },
+  Chandelure: { name: 'fire spin', range: 'ring-2-ahead.png' },
+  Whirlipede: { name: 'poison tail', range: 'row.png' },
+  Luxray: { name: 'thunder', range: 'tile-3-ahead.png' },
+  Petilil: { name: 'mega drain', range: 'tile-1-ahead.png' },
+  Lampent: { name: 'flame burst', range: 'x-shape-2-ahead.png' },
+  Litwick: { name: 'ember', range: 'tile-2-ahead.png' },
+  Boldore: { name: 'rock slide', range: 'column-3-tiles.png' },
+  Gigalith: { name: 'stone edge', range: 'plus.png' },
+  Flaaffy: { name: 'discharge', range: 'ring-adjacent.png' },
+  Mareep: { name: 'thunder shock', range: 'column-2-tiles.png' },
+  Ampharos: { name: 'thunder', range: 'tile-3-ahead.png' },
+  Lilligant: { name: 'petal dance', range: 'diamond-adjacent.png' },
+  Roggenrola: { name: 'rock blast', range: 'tile-2-ahead.png' },
+  Whimsicott: { name: 'razor leaf', range: 'column-3-tiles.png' },
+  Cottonee: { name: 'absorb', range: 'tile-1-ahead.png' },
+  Arbok: { name: 'venoshock', range: 'row-2-ahead.png' },
+  Lucario: { name: 'aura sphere', range: 'tile-2-ahead-knockback.png' },
+  Riolu: { name: 'force palm', range: 'tile-1-ahead-knockback.png' },
+  Chingling: { name: 'confusion', range: 'tile-3-ahead.png' },
+  Ekans: { name: 'poison sting', range: 'column-2-tiles.png' },
+  Chimecho: { name: 'psyshock', range: 'tile-2-ahead.png' },
+  Persian: { name: 'slash', range: 'tile-1-ahead.png' },
+  Pineco: { name: 'bug bite', range: 'tile-1-ahead.png' },
+  Forretress: { name: 'gyro ball', range: 'tile-2-ahead-advance-1.png' },
+  Gothita: { name: 'confusion', range: 'tile-3-ahead.png' },
+  Meowth: { name: 'fury swipes', range: 'tile-1-ahead.png' },
+  Sealeo: { name: 'ice ball', range: 'tile-2-ahead-advance-1.png' },
+  Walrein: { name: 'blizzard', range: '2-rows-2-ahead.png' },
+  Krokorok: { name: 'bite', range: 'tile-1-ahead.png' },
+  Spheal: { name: 'powder snow', range: 'column-2-tiles.png' },
+  Sandile: { name: 'mud-slap', range: 'column-2-tiles.png' },
+  Jolteon: { name: 'thunderbolt', range: 'row-2-ahead.png' },
+  Rayquaza: { name: 'dragon pulse', range: 'column-3-tiles.png' },
+  Gothorita: { name: 'psybeam', range: 'column-3-tiles.png' },
+  Gothitelle: { name: 'future sight', range: '2-rows-2-ahead.png' },
+  Glaceon: { name: 'icy wind', range: 'row.png' },
+  Magikarp: { name: 'splash', range: 'user.png' },
+  Vaporeon: { name: 'hydro pump', range: 'column-3-tiles.png' },
+  Lapras: { name: 'ice beam', range: 'column-3-tiles.png' },
+  Pichu: { name: 'thunder shock', range: 'column-2-tiles.png' },
+  Scizor: { name: 'x-scissor', range: 'x-shape.png' },
+  Groudon: { name: 'earth power', range: 'plus.png' },
+  Scyther: { name: 'fury cutter', range: 'row.png' },
+  Gardevoir: { name: 'psychic', range: 'diamond-2-ahead.png' },
+  Registeel: { name: 'flash cannon', range: 'plus.png' },
+  Articuno: { name: 'blizzard', range: '2-rows-2-ahead.png' },
+  Dialga: { name: 'roar of time', range: '2-rows.png' },
+  Arceus: { name: 'judgment', range: 'ring-adjacent.png' },
+  Reshiram: { name: 'blue flare', range: 'plus.png' },
+  Zekrom: { name: 'bolt strike', range: 'tile-1-ahead-knockback.png' },
+  Tyranitar: { name: 'stone edge', range: 'plus.png' },
+  Gabite: { name: 'dragon claw', range: 'tile-1-ahead.png' },
+  Garchomp: { name: 'dragon rush', range: 'diamond-2-ahead-advance-2.png' },
+  Gible: { name: 'dragon rage', range: 'column-2-tiles.png' },
+  Pupitar: { name: 'rock slide', range: 'column-3-tiles.png' },
+  Metagross: { name: 'meteor mash', range: 'tile-1-ahead-knockback.png' },
+  Zweilous: { name: 'crunch', range: 'tile-1-ahead.png' },
+  Croagunk: { name: 'poison jab', range: 'tile-1-ahead.png' },
+  Froslass: { name: 'icy wind', range: 'row.png' },
+  Toxicroak: { name: 'sludge bomb', range: 'x-shape-2-ahead.png' },
+  Glalie: { name: 'ice beam', range: 'column-3-tiles.png' },
+  Snorunt: { name: 'powder snow', range: 'column-2-tiles.png' },
+  Hydreigon: { name: 'dragon pulse', range: 'column-3-tiles.png' },
+  Deino: { name: 'dragon rage', range: 'column-2-tiles.png' },
+  Cinccino: { name: 'tail slap', range: 'row.png' },
+  Machoke: { name: 'wake-up slap', range: 'tile-1-ahead.png' },
+  Minccino: { name: 'double slap', range: 'tile-1-ahead.png' },
+  Machop: { name: 'karate chop', range: 'tile-1-ahead.png' },
+  Gurdurr: { name: 'wake-up slap', range: 'tile-1-ahead.png' },
+  Timburr: { name: 'low kick', range: 'tile-1-ahead.png' },
+  Machamp: { name: 'cross chop', range: 'x-shape.png' },
+  Conkeldurr: { name: 'superpower', range: 'tile-1-ahead-knockback.png' },
+  Charizard: { name: 'flamethrower', range: 'column-3-tiles.png' },
+  Cubchoo: { name: 'powder snow', range: 'column-2-tiles.png' },
+  Oshawott: { name: 'water gun', range: 'column-2-tiles.png' },
+  Dewott: { name: 'water pulse', range: 'column-2-tiles.png' },
+  Charmander: { name: 'ember', range: 'tile-2-ahead.png' },
+  Charmeleon: { name: 'fire fang', range: 'tile-1-ahead.png' },
+  Samurott: { name: 'aqua tail', range: 'row-knockback.png' },
+  Beartic: { name: 'icicle crash', range: 'tile-2-ahead.png' },
+  Metang: { name: 'bullet punch', range: 'tile-1-ahead.png' },
+  Dratini: { name: 'dragon rage', range: 'column-2-tiles.png' },
+  Chimchar: { name: 'ember', range: 'tile-2-ahead.png' },
+  Gengar: { name: 'shadow ball', range: 'tile-2-ahead.png' },
+  Haunter: { name: 'hex', range: 'tile-1-ahead.png' },
+  Gastly: { name: 'lick', range: 'tile-1-ahead.png' },
+  Servine: { name: 'leaf blade', range: 'tile-1-ahead.png' },
+  Infernape: { name: 'fire spin', range: 'ring-2-ahead.png' },
+  Monferno: { name: 'flame wheel', range: 'tile-2-ahead-advance-1.png' },
+  Beldum: { name: 'iron head', range: 'tile-1-ahead-knockback.png' },
+  Emboar: { name: 'fire blast', range: 'dai.png' },
+  Abra: { name: 'teleport', range: 'user.png' },
+  Sewaddle: { name: 'bug bite', range: 'tile-1-ahead.png' },
+  Serperior: { name: 'leaf storm', range: 'ring-adjacent.png' },
+  Swadloon: { name: 'razor leaf', range: 'column-3-tiles.png' },
+  Grovyle: { name: 'leaf blade', range: 'tile-1-ahead.png' },
+  Alakazam: { name: 'psychic', range: 'diamond-2-ahead.png' },
+  Kadabra: { name: 'psybeam', range: 'column-3-tiles.png' },
+  Treecko: { name: 'absorb', range: 'tile-1-ahead.png' },
+  Empoleon: { name: 'hydro pump', range: 'column-3-tiles.png' },
+  Piplup: { name: 'bubble', range: 'column-2-tiles.png' },
+  Prinplup: { name: 'bubble beam', range: 'column-2-ahead.png' },
+  Simisear: { name: 'incinerate', range: 'column-3-tiles.png' },
+  Pansear: { name: 'flame burst', range: 'x-shape-2-ahead.png' },
+  Sceptile: { name: 'leaf storm', range: 'ring-adjacent.png' },
+  Tepig: { name: 'ember', range: 'tile-2-ahead.png' },
+  Simisage: { name: 'leaf storm', range: 'ring-adjacent.png' },
+  Pignite: { name: 'heat crash', range: 'tile-2-ahead-advance-1.png' },
+  Pansage: { name: 'vine whip', range: 'row.png' },
+  Darmanitan: { name: 'fire blast', range: 'dai.png' },
+  Darumaka: { name: 'flame wheel', range: 'tile-2-ahead-advance-1.png' },
+  Simipour: { name: 'brine', range: 'column-2-tiles.png' },
+  Panpour: { name: 'water gun', range: 'column-2-tiles.png' },
+  Joltik: { name: 'electro ball', range: 'tile-2-ahead.png' },
+  Flareon: { name: 'fire fang', range: 'tile-1-ahead.png' },
+  Zubat: { name: 'wing attack', range: 'tile-1-ahead.png' },
+  Wigglytuff: { name: 'hyper voice', range: 'ring-adjacent.png' },
+  Umbreon: { name: 'assurance', range: 'tile-1-ahead.png' },
+  Jigglypuff: { name: 'double slap', range: 'tile-1-ahead.png' },
+  Quagsire: { name: 'mud bomb', range: 'tile-2-ahead.png' },
+  Wooper: { name: 'water gun', range: 'column-2-tiles.png' },
+  Ralts: { name: 'confusion', range: 'tile-3-ahead.png' },
+  Pikachu: { name: 'thunderbolt', range: 'row-2-ahead.png' },
+  Igglybuff: { name: 'pound', range: 'tile-1-ahead.png' },
+  Starly: { name: 'quick attack', range: 'tile-1-ahead.png' },
+  Pawniard: { name: 'assurance', range: 'tile-1-ahead.png' },
+  Drapion: { name: 'cross poison', range: 'x-shape.png' },
+  Skorupi: { name: 'poison jab', range: 'tile-1-ahead.png' },
+  Staravia: { name: 'wing attack', range: 'tile-1-ahead.png' },
+  Shieldon: { name: 'iron head', range: 'tile-1-ahead-knockback.png' },
+  Rhyperior: { name: 'rock wrecker', range: 'tile-3-ahead.png' },
+  Rhydon: { name: 'drill run', range: 'tile-2-ahead-advance-1.png' },
+  Drifloon: { name: 'astonish', range: 'tile-1-ahead-knockback.png' },
+  Rhyhorn: { name: 'bulldoze', range: 'diamond-adjacent.png' },
+  Scraggy: { name: 'faint attack', range: 'tile-1-ahead.png' },
+  Scrafty: { name: 'high jump kick', range: 'tile-2-ahead-advance-1.png' },
+  Bastiodon: { name: 'rock slide', range: 'column-3-tiles.png' },
+  Rufflet: { name: 'wing attack', range: 'tile-1-ahead.png' },
+  Anorith: { name: 'fury cutter', range: 'row.png' },
+  Braviary: { name: 'sky drop', range: 'tile-1-ahead.png' },
+  Drifblim: { name: 'shadow ball', range: 'tile-2-ahead.png' },
+  Larvesta: { name: 'flame wheel', range: 'tile-2-ahead-advance-1.png' },
+  Armaldo: { name: 'x-scissor', range: 'x-shape.png' },
+  Onix: { name: 'rock tomb', range: 'tile-2-ahead.png' },
+  Volcarona: { name: 'fiery dance', range: 'diamond-2-ahead-advance-2.png' },
+  Snorlax: { name: 'body slam', range: 'tile-2-ahead-advance-1.png' },
+  Steelix: { name: 'iron tail', range: 'row-knockback.png' },
+  Munchlax: { name: 'tackle', range: 'tile-1-ahead.png' },
+  Beedrill: { name: 'twineedle', range: 'column-2-tiles.png' },
+  Weavile: { name: 'night slash', range: 'row.png' },
+  Misdreavus: { name: 'astonish', range: 'tile-1-ahead-knockback.png' },
+  Sneasel: { name: 'faint attack', range: 'tile-1-ahead.png' },
+  Snivy: { name: 'vine whip', range: 'row.png' },
+  Bisharp: { name: 'night slash', range: 'row.png' },
+  Emolga: { name: 'volt switch', range: 'tile-2-ahead-switch-back.png' },
+  Leavanny: { name: 'x-scissor', range: 'x-shape.png' },
 };
 
 /*
@@ -2526,10 +1722,11 @@ var pokeSkills = {
 /*
 // Pokemon Moves: https://veekun.com/dex/conquest/moves
 dd = {};
-$('#xx tr').each(function () {
+$('.dex-pokemon-moves tbody tr').each(function () {
   const tds = $(this).children();
   nm = $(tds[0]).text().trim().toLowerCase();
   dd[nm] = {
+    typ: $(tds[1]).find('img').attr('src').match(/([^\/]*).png/)[1],
     pow: $(tds[3]).text().trim(),
     star: $(tds[4]).text().trim(),
     acc: $(tds[5]).text().trim(),
@@ -2540,971 +1737,984 @@ JSON.stringify(dd);
 */
 var allMoves = {
   absorb: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'grass',
+    range: 'tile-1-ahead.png',
     pow: '20',
     star: '★',
     acc: '100%',
     eff: 'Heals the user by half the damage dealt.',
   },
   'aqua tail': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/row-knockback.png',
+    typ: 'water',
+    range: 'row-knockback.png',
     pow: '44',
     star: '★★★★',
     acc: '90%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   assurance: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'dark',
+    range: 'tile-1-ahead.png',
     pow: '31',
     star: '★★★',
     acc: '100%',
     eff: 'Has double power if the target has already taken damage this turn.',
   },
   astonish: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+    typ: 'ghost',
+    range: 'tile-1-ahead-knockback.png',
     pow: '20',
     star: '★',
     acc: '100%',
     eff: 'Has a 30% chance to make the target flinch.',
   },
   'aura sphere': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-knockback.png',
+    typ: 'fighting',
+    range: 'tile-2-ahead-knockback.png',
     pow: '45',
     star: '★★★★',
     acc: '—',
     eff: 'Never misses.',
   },
   bite: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'dark',
+    range: 'tile-1-ahead.png',
     pow: '36',
     star: '★★★',
     acc: '100%',
     eff: 'Has a 30% chance to make the target flinch.',
   },
   blizzard: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
+    typ: 'ice',
+    range: '2-rows-2-ahead.png',
     pow: '51',
     star: '★★★★★',
     acc: '70%',
     eff: 'Has a 10% chance to freeze each target.',
   },
   'blue flare': {
-    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/plus.png',
+    typ: 'fire',
+    range: 'plus.png',
     pow: '55',
     star: '★★★★★',
     acc: '85%',
     eff: 'Has a 20% chance to burn each target.',
   },
   'body slam': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+    typ: 'normal',
+    range: 'tile-2-ahead-advance-1.png',
     pow: '45',
     star: '★★★★',
     acc: '100%',
     eff: 'Has a 30% chance to paralyze the target.',
   },
   'bolt strike': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+    typ: 'electric',
+    range: 'tile-1-ahead-knockback.png',
     pow: '57',
     star: '★★★★★',
     acc: '85%',
     eff: 'Has a 20% chance to paralyze the target.',
   },
   'brave bird': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/chevron-advance-1.png',
+    typ: 'flying',
+    range: 'chevron-advance-1.png',
     pow: '58',
     star: '★★★★★',
     acc: '100%',
     eff: "Lowers the user's range and Defense until its next turn.",
   },
   brine: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+    typ: 'water',
+    range: 'column-2-tiles.png',
     pow: '35',
     star: '★★★',
     acc: '100%',
     eff: 'Has double power against Pokémon with less than half their max HP remaining.',
   },
   bubble: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+    typ: 'water',
+    range: 'column-2-tiles.png',
     pow: '20',
     star: '★',
     acc: '100%',
     eff: "Has a 10% chance to lower each target's Speed.",
   },
   'bubble beam': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-ahead.png',
+    typ: 'water',
+    range: 'column-2-ahead.png',
     pow: '38',
     star: '★★★',
     acc: '100%',
     eff: "Has a 10% chance to lower each target's Speed.",
   },
   'bug bite': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'bug',
+    range: 'tile-1-ahead.png',
     pow: '36',
     star: '★★★',
     acc: '100%',
     eff: "Uses the target's item if it is consumable.",
   },
   bulldoze: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
+    typ: 'ground',
+    range: 'diamond-adjacent.png',
     pow: '33',
     star: '★★★',
     acc: '100%',
     eff: "Has a 100% chance to lower each target's range by one tile.",
   },
   'bullet punch': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'steel',
+    range: 'tile-1-ahead.png',
     pow: '26',
     star: '★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   confusion: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+    typ: 'psychic',
+    range: 'tile-3-ahead.png',
     pow: '29',
     star: '★★',
     acc: '100%',
     eff: 'Has a 10% chance to confuse the target.',
   },
   'cross chop': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/x-shape.png',
+    typ: 'fighting',
+    range: 'x-shape.png',
     pow: '45',
     star: '★★★★',
     acc: '80%',
     eff: 'Has an increased chance for a critical hit.',
   },
   'cross poison': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/x-shape.png',
+    typ: 'poison',
+    range: 'x-shape.png',
     pow: '38',
     star: '★★★',
     acc: '100%',
     eff: 'Has a 10% chance to poison each target and an increased chance for a critical hit.',
   },
   crunch: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'dark',
+    range: 'tile-1-ahead.png',
     pow: '43',
     star: '★★★★',
     acc: '100%',
     eff: "Has a 20% chance to lower the target's Defense.",
   },
   dig: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+    typ: 'ground',
+    range: 'tile-2-ahead.png',
     pow: '41',
     star: '★★★★',
     acc: '100%',
     eff: 'Digs underground and hits at the beginning of the next turn.',
   },
   discharge: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+    typ: 'electric',
+    range: 'ring-adjacent.png',
     pow: '41',
     star: '★★★★',
     acc: '100%',
     eff: 'Has a 30% chance to paralyze each target.',
   },
   'double slap': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'normal',
+    range: 'tile-1-ahead.png',
     pow: '10',
     star: '★',
     acc: '90%',
     eff: 'Hits 2 to 5 times in one turn.',
   },
   'dragon claw': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'dragon',
+    range: 'tile-1-ahead.png',
     pow: '43',
     star: '★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'dragon pulse': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+    typ: 'dragon',
+    range: 'column-3-tiles.png',
     pow: '44',
     star: '★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'dragon rage': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+    typ: 'dragon',
+    range: 'column-2-tiles.png',
     pow: '40',
     star: '★★★',
     acc: '75%',
     eff: 'Inflicts exactly 40 HP in damage.',
   },
   'dragon rush': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
+    typ: 'dragon',
+    range: 'diamond-2-ahead-advance-2.png',
     pow: '45',
     star: '★★★★',
     acc: '75%',
     eff: 'Has a 20% chance to make each target flinch.',
   },
   'dragon tail': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/row-knockback-switch.png',
+    typ: 'dragon',
+    range: 'row-knockback-switch.png',
     pow: '33',
     star: '★★★',
     acc: '90%',
     eff: 'Switches each target with the Pokémon behind it.',
   },
   'dream eater': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'psychic',
+    range: 'tile-1-ahead.png',
     pow: '48',
     star: '★★★★',
     acc: '100%',
     eff: 'Heals the user by half the damage inflicted.  Only works if the target is asleep.',
   },
   'drill run': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+    typ: 'ground',
+    range: 'tile-2-ahead-advance-1.png',
     pow: '41',
     star: '★★★★',
     acc: '95%',
     eff: 'Has an increased chance for a critical hit.',
   },
   'earth power': {
-    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/plus.png',
+    typ: 'ground',
+    range: 'plus.png',
     pow: '44',
     star: '★★★★',
     acc: '100%',
     eff: "Has a 10% chance to lower each target's Defense.",
   },
   'electro ball': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+    typ: 'electric',
+    range: 'tile-2-ahead.png',
     pow: '26',
     star: '★★',
     acc: '100%',
     eff: 'Power rises the faster the user is compared to the target.',
   },
   ember: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+    typ: 'fire',
+    range: 'tile-2-ahead.png',
     pow: '26',
     star: '★★',
     acc: '100%',
     eff: 'Has a 10% chance to burn the target.',
   },
   'faint attack': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'dark',
+    range: 'tile-1-ahead.png',
     pow: '36',
     star: '★★★',
     acc: '—',
     eff: 'Never misses.',
   },
   'fiery dance': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-2-ahead-advance-2.png',
+    typ: 'fire',
+    range: 'diamond-2-ahead-advance-2.png',
     pow: '41',
     star: '★★★★',
     acc: '100%',
     eff: "Has a 50% chance to raise the user's Attack.",
   },
   'fire blast': {
-    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/dai.png',
+    typ: 'fire',
+    range: 'dai.png',
     pow: '51',
     star: '★★★★★',
     acc: '85%',
     eff: 'Has a 10% chance to burn each target.',
   },
   'fire fang': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'fire',
+    range: 'tile-1-ahead.png',
     pow: '39',
     star: '★★★',
     acc: '95%',
     eff: 'Has a 10% chance each to burn the target or make it flinch.',
   },
   'fire spin': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/ring-2-ahead.png',
+    typ: 'fire',
+    range: 'ring-2-ahead.png',
     pow: '12',
     star: '★',
     acc: '85%',
     eff: 'Hits 4 to 5 times in one turn.',
   },
   'flame burst': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
+    typ: 'fire',
+    range: 'x-shape-2-ahead.png',
     pow: '38',
     star: '★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   flamethrower: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+    typ: 'fire',
+    range: 'column-3-tiles.png',
     pow: '45',
     star: '★★★★',
     acc: '100%',
     eff: 'Has a 10% chance to burn each target.',
   },
   'flame wheel': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+    typ: 'fire',
+    range: 'tile-2-ahead-advance-1.png',
     pow: '32',
     star: '★★★',
     acc: '100%',
     eff: 'Has a 10% chance to burn the target.  Thaws the user out if frozen.',
   },
   'flash cannon': {
-    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/plus.png',
+    typ: 'steel',
+    range: 'plus.png',
     pow: '41',
     star: '★★★★',
     acc: '100%',
     eff: "Has a 10% chance to lower each target's Defense.",
   },
   'force palm': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+    typ: 'fighting',
+    range: 'tile-1-ahead-knockback.png',
     pow: '31',
     star: '★★★',
     acc: '100%',
     eff: 'Has a 30% chance to paralyze the target.',
   },
   'foul play': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'dark',
+    range: 'tile-1-ahead.png',
     pow: '47',
     star: '★★★★',
     acc: '100%',
     eff: "Inflicts damage based on the target's Attack stat instead of the user's.",
   },
   'fury cutter': {
-    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/row.png',
+    typ: 'bug',
+    range: 'row.png',
     pow: '12',
     star: '★',
     acc: '95%',
     eff: 'Doubles in power with each consecutive successful use.',
   },
   'fury swipes': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'normal',
+    range: 'tile-1-ahead.png',
     pow: '10',
     star: '★',
     acc: '90%',
     eff: 'Hits 2 to 5 times in one turn.',
   },
   'future sight': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/2-rows-2-ahead.png',
+    typ: 'psychic',
+    range: '2-rows-2-ahead.png',
     pow: '45',
     star: '★★★★',
     acc: '100%',
     eff: 'Hits each target at the beginning of the turn after next.',
   },
   'gyro ball': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+    typ: 'steel',
+    range: 'tile-2-ahead-advance-1.png',
     pow: '18',
     star: '★',
     acc: '100%',
     eff: 'Power rises the slower the user is compared to the target.',
   },
   headbutt: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'normal',
+    range: 'tile-1-ahead.png',
     pow: '39',
     star: '★★★',
     acc: '100%',
     eff: 'Has a 30% chance to make the target flinch.',
   },
   'heat crash': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+    typ: 'fire',
+    range: 'tile-2-ahead-advance-1.png',
     pow: '43',
     star: '★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   hex: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'ghost',
+    range: 'tile-1-ahead.png',
     pow: '31',
     star: '★★★',
     acc: '100%',
     eff: 'Has double power if the target has a major status ailment.',
   },
   'high jump kick': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+    typ: 'fighting',
+    range: 'tile-2-ahead-advance-1.png',
     pow: '65',
     star: '★★★★★',
     acc: '90%',
     eff: 'Damages the user if it misses.',
   },
   'hydro pump': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+    typ: 'water',
+    range: 'column-3-tiles.png',
     pow: '51',
     star: '★★★★★',
     acc: '80%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'hyper fang': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'normal',
+    range: 'tile-1-ahead.png',
     pow: '43',
     star: '★★★★',
     acc: '90%',
     eff: 'Has a 10% chance to make the target flinch.',
   },
   'hyper voice': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+    typ: 'normal',
+    range: 'ring-adjacent.png',
     pow: '44',
     star: '★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   hypnosis: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+    typ: 'psychic',
+    range: 'column-2-tiles.png',
     pow: '—',
     star: '',
     acc: '60%',
     eff: 'Puts each target to sleep.',
   },
   'ice ball': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-advance-1.png',
+    typ: 'ice',
+    range: 'tile-2-ahead-advance-1.png',
     pow: '18',
     star: '★',
     acc: '90%',
     eff: 'Doubles in power with each consecutive successful use.',
   },
   'ice beam': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+    typ: 'ice',
+    range: 'column-3-tiles.png',
     pow: '45',
     star: '★★★★',
     acc: '100%',
     eff: 'Has a 10% chance to freeze each target.',
   },
   'icicle crash': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+    typ: 'ice',
+    range: 'tile-2-ahead.png',
     pow: '45',
     star: '★★★★',
     acc: '90%',
     eff: 'Has a 30% chance to make the target flinch.',
   },
   'icy wind': {
-    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/row.png',
+    typ: 'ice',
+    range: 'row.png',
     pow: '34',
     star: '★★★',
     acc: '95%',
     eff: "Has a 100% chance to lower each target's range by one tile.",
   },
   incinerate: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+    typ: 'fire',
+    range: 'column-3-tiles.png',
     pow: '28',
     star: '★★',
     acc: '100%',
     eff: "Permanently destroys each target's item if it is consumable.",
   },
   'iron head': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+    typ: 'steel',
+    range: 'tile-1-ahead-knockback.png',
     pow: '43',
     star: '★★★★',
     acc: '100%',
     eff: 'Has a 30% chance to make the target flinch.',
   },
   'iron tail': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/row-knockback.png',
+    typ: 'steel',
+    range: 'row-knockback.png',
     pow: '45',
     star: '★★★★',
     acc: '75%',
     eff: "Has a 30% chance to lower each target's Defense.",
   },
   judgment: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+    typ: 'normal',
+    range: 'ring-adjacent.png',
     pow: '55',
     star: '★★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'karate chop': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'fighting',
+    range: 'tile-1-ahead.png',
     pow: '31',
     star: '★★★',
     acc: '100%',
     eff: 'Has an increased chance for a critical hit.',
   },
   'leaf blade': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'grass',
+    range: 'tile-1-ahead.png',
     pow: '45',
     star: '★★★★',
     acc: '100%',
     eff: 'Has an increased chance for a critical hit.',
   },
   'leaf storm': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/ring-adjacent.png',
+    typ: 'grass',
+    range: 'ring-adjacent.png',
     pow: '52',
     star: '★★★★★',
     acc: '90%',
     eff: "Lowers the user's Attack.",
   },
   lick: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'ghost',
+    range: 'tile-1-ahead.png',
     pow: '14',
     star: '★',
     acc: '100%',
     eff: 'Has a 30% chance to paralyze the target.',
   },
   'low kick': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'fighting',
+    range: 'tile-1-ahead.png',
     pow: '31',
     star: '★★★',
     acc: '90%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'mega drain': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'grass',
+    range: 'tile-1-ahead.png',
     pow: '26',
     star: '★★',
     acc: '100%',
     eff: 'Heals the user by half the damage dealt.',
   },
   'metal claw': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'steel',
+    range: 'tile-1-ahead.png',
     pow: '31',
     star: '★★★',
     acc: '95%',
     eff: "Has a 10% chance to raise the user's Attack.",
   },
   'meteor mash': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+    typ: 'steel',
+    range: 'tile-1-ahead-knockback.png',
     pow: '48',
     star: '★★★★',
     acc: '85%',
     eff: "Has a 20% chance to raise the user's Attack.",
   },
   'mud bomb': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+    typ: 'ground',
+    range: 'tile-2-ahead.png',
     pow: '39',
     star: '★★★',
     acc: '85%',
     eff: "Has a 30% chance to lower the target's accuracy.",
   },
   'mud-slap': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+    typ: 'ground',
+    range: 'column-2-tiles.png',
     pow: '17',
     star: '★',
     acc: '100%',
     eff: "Has a 100% chance to lower each target's accuracy.",
   },
   'night daze': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
+    typ: 'dark',
+    range: 'diamond-adjacent.png',
     pow: '42',
     star: '★★★★',
     acc: '95%',
     eff: "Has a 40% chance to lower each target's accuracy.",
   },
   'night slash': {
-    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/row.png',
+    typ: 'dark',
+    range: 'row.png',
     pow: '38',
     star: '★★★',
     acc: '100%',
     eff: 'Has an increased chance for a critical hit.',
   },
   outrage: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
+    typ: 'dragon',
+    range: 'diamond-adjacent.png',
     pow: '41',
     star: '★★★★',
     acc: '100%',
     eff: 'Hits 2 to 3 times in one turn.  User has 0 range on its next turn.',
   },
   'petal dance': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-adjacent.png',
+    typ: 'grass',
+    range: 'diamond-adjacent.png',
     pow: '41',
     star: '★★★★',
     acc: '100%',
     eff: 'Hits 2 to 3 times in one turn.  User has 0 range on its next turn.',
   },
   'poison fang': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'poison',
+    range: 'tile-1-ahead.png',
     pow: '31',
     star: '★★★',
     acc: '100%',
     eff: 'Has a 30% chance to badly poison the target.',
   },
   'poison jab': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'poison',
+    range: 'tile-1-ahead.png',
     pow: '43',
     star: '★★★★',
     acc: '100%',
     eff: 'Has a 30% chance to poison the target.',
   },
   'poison sting': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+    typ: 'poison',
+    range: 'column-2-tiles.png',
     pow: '12',
     star: '★',
     acc: '100%',
     eff: 'Has a 30% chance to poison each target.',
   },
   'poison tail': {
-    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/row.png',
+    typ: 'poison',
+    range: 'row.png',
     pow: '29',
     star: '★★',
     acc: '100%',
     eff: 'Has a 10% chance to poison each target and an increased chance for a critical hit.',
   },
   pound: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'normal',
+    range: 'tile-1-ahead.png',
     pow: '26',
     star: '★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'powder snow': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+    typ: 'ice',
+    range: 'column-2-tiles.png',
     pow: '24',
     star: '★★',
     acc: '100%',
     eff: 'Has a 10% chance to freeze each target.',
   },
   psybeam: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+    typ: 'psychic',
+    range: 'column-3-tiles.png',
     pow: '35',
     star: '★★★',
     acc: '100%',
     eff: 'Has a 10% chance to confuse each target.',
   },
   psychic: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/diamond-2-ahead.png',
+    typ: 'psychic',
+    range: 'diamond-2-ahead.png',
     pow: '44',
     star: '★★★★',
     acc: '100%',
     eff: "Has a 10% chance to lower each target's Defense.",
   },
   'psycho cut': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+    typ: 'psychic',
+    range: 'column-2-tiles.png',
     pow: '38',
     star: '★★★',
     acc: '100%',
     eff: 'Has an increased chance for a critical hit.',
   },
   psyshock: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+    typ: 'psychic',
+    range: 'tile-2-ahead.png',
     pow: '43',
     star: '★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   psystrike: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/t-shape.png',
+    typ: 'psychic',
+    range: 't-shape.png',
     pow: '45',
     star: '★★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'quick attack': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'normal',
+    range: 'tile-1-ahead.png',
     pow: '31',
     star: '★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'razor leaf': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+    typ: 'grass',
+    range: 'column-3-tiles.png',
     pow: '31',
     star: '★★★',
     acc: '95%',
     eff: 'Has an increased chance for a critical hit.',
   },
   'roar of time': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/2-rows.png',
+    typ: 'dragon',
+    range: '2-rows.png',
     pow: '58',
     star: '★★★★★',
     acc: '90%',
     eff: 'Cannot be used the turn after hitting.',
   },
   'rock blast': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+    typ: 'rock',
+    range: 'tile-2-ahead.png',
     pow: '10',
     star: '★',
     acc: '90%',
     eff: 'Hits 2 to 5 times in one turn.',
   },
   'rock slide': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-3-tiles.png',
+    typ: 'rock',
+    range: 'column-3-tiles.png',
     pow: '41',
     star: '★★★★',
     acc: '90%',
     eff: 'Has a 30% chance to make each target flinch.',
   },
   'rock tomb': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+    typ: 'rock',
+    range: 'tile-2-ahead.png',
     pow: '31',
     star: '★★★',
     acc: '80%',
     eff: "Has a 100% chance to lower the target's range by one tile.",
   },
   'rock wrecker': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+    typ: 'rock',
+    range: 'tile-3-ahead.png',
     pow: '58',
     star: '★★★★★',
     acc: '90%',
     eff: 'Cannot be used the turn after hitting.',
   },
   'sacred sword': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'fighting',
+    range: 'tile-1-ahead.png',
     pow: '45',
     star: '★★★★',
     acc: '100%',
     eff: "Ignores the target's stat modifiers.",
   },
   'shadow ball': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead.png',
+    typ: 'ghost',
+    range: 'tile-2-ahead.png',
     pow: '43',
     star: '★★★★',
     acc: '100%',
     eff: "Has a 20% chance to lower the target's Defense.",
   },
   'shadow sneak': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'ghost',
+    range: 'tile-1-ahead.png',
     pow: '26',
     star: '★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'sky drop': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'flying',
+    range: 'tile-1-ahead.png',
     pow: '36',
     star: '★★★',
     acc: '100%',
     eff: 'Lifts the target into the sky and hits at the beginning of the next turn.',
   },
   slash: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'normal',
+    range: 'tile-1-ahead.png',
     pow: '41',
     star: '★★★★',
     acc: '100%',
     eff: 'Has an increased chance for a critical hit.',
   },
   'sludge bomb': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/x-shape-2-ahead.png',
+    typ: 'poison',
+    range: 'x-shape-2-ahead.png',
     pow: '44',
     star: '★★★★',
     acc: '100%',
     eff: 'Has a 30% chance to poison each target.',
   },
   spark: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'electric',
+    range: 'tile-1-ahead.png',
     pow: '39',
     star: '★★★',
     acc: '100%',
     eff: 'Has a 30% chance to paralyze the target.',
   },
   splash: {
-    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/user.png',
+    typ: 'normal',
+    range: 'user.png',
     pow: '—',
     star: '',
     acc: '—',
     eff: 'Does nothing.',
   },
   'stone edge': {
-    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/plus.png',
+    typ: 'rock',
+    range: 'plus.png',
     pow: '45',
     star: '★★★★',
     acc: '80%',
     eff: 'Has an increased chance for a critical hit.',
   },
   superpower: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead-knockback.png',
+    typ: 'fighting',
+    range: 'tile-1-ahead-knockback.png',
     pow: '55',
     star: '★★★★★',
     acc: '100%',
     eff: "Lowers the user's Attack and Defense.",
   },
   tackle: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'normal',
+    range: 'tile-1-ahead.png',
     pow: '31',
     star: '★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'tail slap': {
-    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/row.png',
+    typ: 'normal',
+    range: 'row.png',
     pow: '23',
     star: '★★',
     acc: '85%',
     eff: 'Hits 2 to 5 times in one turn.',
   },
   teleport: {
-    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/user.png',
+    typ: 'psychic',
+    range: 'user.png',
     pow: '—',
     star: '',
     acc: '—',
     eff: 'Teleports randomly.',
   },
   thunder: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-3-ahead.png',
+    typ: 'electric',
+    range: 'tile-3-ahead.png',
     pow: '51',
     star: '★★★★★',
     acc: '70%',
     eff: 'Has a 30% chance to paralyze the target.',
   },
   thunderbolt: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
+    typ: 'electric',
+    range: 'row-2-ahead.png',
     pow: '45',
     star: '★★★★',
     acc: '100%',
     eff: 'Has a 10% chance to paralyze each target.',
   },
   'thunder shock': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+    typ: 'electric',
+    range: 'column-2-tiles.png',
     pow: '24',
     star: '★★',
     acc: '100%',
     eff: 'Has a 10% chance to paralyze each target.',
   },
   twineedle: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+    typ: 'bug',
+    range: 'column-2-tiles.png',
     pow: '26',
     star: '★★',
     acc: '100%',
     eff: 'Hits twice in one turn.  Has a 20% chance to poison each target with each hit.',
   },
   venoshock: {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/row-2-ahead.png',
+    typ: 'poison',
+    range: 'row-2-ahead.png',
     pow: '35',
     star: '★★★',
     acc: '100%',
     eff: 'Has double power against poisoned Pokémon.',
   },
   'vine whip': {
-    range: 'https://veekun.com//dex/media/chrome/conquest-move-ranges/row.png',
+    typ: 'grass',
+    range: 'row.png',
     pow: '24',
     star: '★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'volt switch': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-2-ahead-switch-back.png',
+    typ: 'electric',
+    range: 'tile-2-ahead-switch-back.png',
     pow: '41',
     star: '★★★★',
     acc: '100%',
     eff: 'User moves back one tile, switching places with any Pokémon already there.',
   },
   'volt tackle': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/row-2-ahead-advance-1.png',
+    typ: 'electric',
+    range: 'row-2-ahead-advance-1.png',
     pow: '58',
     star: '★★★★★',
     acc: '100%',
     eff: "Lowers the user's range and Defense until its next turn.  Has a 10% chance to paralyze each target.",
   },
   'wake-up slap': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'fighting',
+    range: 'tile-1-ahead.png',
     pow: '36',
     star: '★★★',
     acc: '100%',
     eff: 'Has double power and wakes the target up if it is asleep.',
   },
   'water gun': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+    typ: 'water',
+    range: 'column-2-tiles.png',
     pow: '24',
     star: '★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'water pulse': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/column-2-tiles.png',
+    typ: 'water',
+    range: 'column-2-tiles.png',
     pow: '36',
     star: '★★★',
     acc: '100%',
     eff: 'Has a 20% chance to confuse each target.',
   },
   'wing attack': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/tile-1-ahead.png',
+    typ: 'flying',
+    range: 'tile-1-ahead.png',
     pow: '31',
     star: '★★★',
     acc: '100%',
     eff: 'Inflicts regular damage with no additional effect.',
   },
   'x-scissor': {
-    range:
-      'https://veekun.com//dex/media/chrome/conquest-move-ranges/x-shape.png',
+    typ: 'bug',
+    range: 'x-shape.png',
     pow: '41',
     star: '★★★★',
     acc: '100%',
@@ -3519,8 +2729,6 @@ $('#myTable>tbody>tr').each(function () {
   const tds = $(this).children();
   const lnk = $(tds[2]).find('a');
   const name = lnk.text().trim();
-  const id = String(+$(tds[0]).text()).padStart(3, '0');
-  pokeImgs[name] = `https://www.serebii.net/conquest/pokemon/${id}.png`;
   pokeData[name] = {
     id: +$(tds[0]).text(),
     name: name,
@@ -3534,208 +2742,6 @@ $('#myTable>tbody>tr').each(function () {
 });
 JSON.stringify(pokeData)
 */
-var pokeImgs = {
-  Eevee: 'https://www.serebii.net/conquest/pokemon/133.png',
-  Vaporeon: 'https://www.serebii.net/conquest/pokemon/134.png',
-  Jolteon: 'https://www.serebii.net/conquest/pokemon/135.png',
-  Flareon: 'https://www.serebii.net/conquest/pokemon/136.png',
-  Espeon: 'https://www.serebii.net/conquest/pokemon/196.png',
-  Umbreon: 'https://www.serebii.net/conquest/pokemon/197.png',
-  Leafeon: 'https://www.serebii.net/conquest/pokemon/470.png',
-  Glaceon: 'https://www.serebii.net/conquest/pokemon/471.png',
-  Ralts: 'https://www.serebii.net/conquest/pokemon/280.png',
-  Kirlia: 'https://www.serebii.net/conquest/pokemon/281.png',
-  Gardevoir: 'https://www.serebii.net/conquest/pokemon/282.png',
-  Gallade: 'https://www.serebii.net/conquest/pokemon/475.png',
-  Magikarp: 'https://www.serebii.net/conquest/pokemon/129.png',
-  Gyarados: 'https://www.serebii.net/conquest/pokemon/130.png',
-  Pichu: 'https://www.serebii.net/conquest/pokemon/172.png',
-  Pikachu: 'https://www.serebii.net/conquest/pokemon/025.png',
-  Raichu: 'https://www.serebii.net/conquest/pokemon/026.png',
-  Wooper: 'https://www.serebii.net/conquest/pokemon/194.png',
-  Quagsire: 'https://www.serebii.net/conquest/pokemon/195.png',
-  Igglybuff: 'https://www.serebii.net/conquest/pokemon/174.png',
-  Jigglypuff: 'https://www.serebii.net/conquest/pokemon/039.png',
-  Wigglytuff: 'https://www.serebii.net/conquest/pokemon/040.png',
-  Zubat: 'https://www.serebii.net/conquest/pokemon/041.png',
-  Golbat: 'https://www.serebii.net/conquest/pokemon/042.png',
-  Crobat: 'https://www.serebii.net/conquest/pokemon/169.png',
-  Starly: 'https://www.serebii.net/conquest/pokemon/396.png',
-  Staravia: 'https://www.serebii.net/conquest/pokemon/397.png',
-  Staraptor: 'https://www.serebii.net/conquest/pokemon/398.png',
-  Bidoof: 'https://www.serebii.net/conquest/pokemon/399.png',
-  Bibarel: 'https://www.serebii.net/conquest/pokemon/400.png',
-  Venipede: 'https://www.serebii.net/conquest/pokemon/543.png',
-  Whirlipede: 'https://www.serebii.net/conquest/pokemon/544.png',
-  Scolipede: 'https://www.serebii.net/conquest/pokemon/545.png',
-  Shinx: 'https://www.serebii.net/conquest/pokemon/403.png',
-  Luxio: 'https://www.serebii.net/conquest/pokemon/404.png',
-  Luxray: 'https://www.serebii.net/conquest/pokemon/405.png',
-  Litwick: 'https://www.serebii.net/conquest/pokemon/607.png',
-  Lampent: 'https://www.serebii.net/conquest/pokemon/608.png',
-  Chandelure: 'https://www.serebii.net/conquest/pokemon/609.png',
-  Roggenrola: 'https://www.serebii.net/conquest/pokemon/524.png',
-  Boldore: 'https://www.serebii.net/conquest/pokemon/525.png',
-  Gigalith: 'https://www.serebii.net/conquest/pokemon/526.png',
-  Petilil: 'https://www.serebii.net/conquest/pokemon/548.png',
-  Lilligant: 'https://www.serebii.net/conquest/pokemon/549.png',
-  Mareep: 'https://www.serebii.net/conquest/pokemon/179.png',
-  Flaaffy: 'https://www.serebii.net/conquest/pokemon/180.png',
-  Ampharos: 'https://www.serebii.net/conquest/pokemon/181.png',
-  Cottonee: 'https://www.serebii.net/conquest/pokemon/546.png',
-  Whimsicott: 'https://www.serebii.net/conquest/pokemon/547.png',
-  Riolu: 'https://www.serebii.net/conquest/pokemon/447.png',
-  Lucario: 'https://www.serebii.net/conquest/pokemon/448.png',
-  Chingling: 'https://www.serebii.net/conquest/pokemon/433.png',
-  Chimecho: 'https://www.serebii.net/conquest/pokemon/358.png',
-  Ekans: 'https://www.serebii.net/conquest/pokemon/023.png',
-  Arbok: 'https://www.serebii.net/conquest/pokemon/024.png',
-  Pineco: 'https://www.serebii.net/conquest/pokemon/204.png',
-  Forretress: 'https://www.serebii.net/conquest/pokemon/205.png',
-  Meowth: 'https://www.serebii.net/conquest/pokemon/052.png',
-  Persian: 'https://www.serebii.net/conquest/pokemon/053.png',
-  Spheal: 'https://www.serebii.net/conquest/pokemon/363.png',
-  Sealeo: 'https://www.serebii.net/conquest/pokemon/364.png',
-  Walrein: 'https://www.serebii.net/conquest/pokemon/365.png',
-  Gothita: 'https://www.serebii.net/conquest/pokemon/574.png',
-  Gothorita: 'https://www.serebii.net/conquest/pokemon/575.png',
-  Gothitelle: 'https://www.serebii.net/conquest/pokemon/576.png',
-  Sandile: 'https://www.serebii.net/conquest/pokemon/551.png',
-  Krokorok: 'https://www.serebii.net/conquest/pokemon/552.png',
-  Krookodile: 'https://www.serebii.net/conquest/pokemon/553.png',
-  Duskull: 'https://www.serebii.net/conquest/pokemon/355.png',
-  Dusclops: 'https://www.serebii.net/conquest/pokemon/356.png',
-  Dusknoir: 'https://www.serebii.net/conquest/pokemon/477.png',
-  Munna: 'https://www.serebii.net/conquest/pokemon/517.png',
-  Musharna: 'https://www.serebii.net/conquest/pokemon/518.png',
-  Blitzle: 'https://www.serebii.net/conquest/pokemon/522.png',
-  Zebstrika: 'https://www.serebii.net/conquest/pokemon/523.png',
-  Dratini: 'https://www.serebii.net/conquest/pokemon/147.png',
-  Dragonair: 'https://www.serebii.net/conquest/pokemon/148.png',
-  Dragonite: 'https://www.serebii.net/conquest/pokemon/149.png',
-  Larvitar: 'https://www.serebii.net/conquest/pokemon/246.png',
-  Pupitar: 'https://www.serebii.net/conquest/pokemon/247.png',
-  Tyranitar: 'https://www.serebii.net/conquest/pokemon/248.png',
-  Beldum: 'https://www.serebii.net/conquest/pokemon/374.png',
-  Metang: 'https://www.serebii.net/conquest/pokemon/375.png',
-  Metagross: 'https://www.serebii.net/conquest/pokemon/376.png',
-  Gible: 'https://www.serebii.net/conquest/pokemon/443.png',
-  Gabite: 'https://www.serebii.net/conquest/pokemon/444.png',
-  Garchomp: 'https://www.serebii.net/conquest/pokemon/445.png',
-  Croagunk: 'https://www.serebii.net/conquest/pokemon/453.png',
-  Toxicroak: 'https://www.serebii.net/conquest/pokemon/454.png',
-  Deino: 'https://www.serebii.net/conquest/pokemon/633.png',
-  Zweilous: 'https://www.serebii.net/conquest/pokemon/634.png',
-  Hydreigon: 'https://www.serebii.net/conquest/pokemon/635.png',
-  Snorunt: 'https://www.serebii.net/conquest/pokemon/361.png',
-  Glalie: 'https://www.serebii.net/conquest/pokemon/362.png',
-  Froslass: 'https://www.serebii.net/conquest/pokemon/478.png',
-  Minccino: 'https://www.serebii.net/conquest/pokemon/572.png',
-  Cinccino: 'https://www.serebii.net/conquest/pokemon/573.png',
-  Machop: 'https://www.serebii.net/conquest/pokemon/066.png',
-  Machoke: 'https://www.serebii.net/conquest/pokemon/067.png',
-  Machamp: 'https://www.serebii.net/conquest/pokemon/068.png',
-  Timburr: 'https://www.serebii.net/conquest/pokemon/532.png',
-  Gurdurr: 'https://www.serebii.net/conquest/pokemon/533.png',
-  Conkeldurr: 'https://www.serebii.net/conquest/pokemon/534.png',
-  Cubchoo: 'https://www.serebii.net/conquest/pokemon/613.png',
-  Beartic: 'https://www.serebii.net/conquest/pokemon/614.png',
-  Oshawott: 'https://www.serebii.net/conquest/pokemon/501.png',
-  Dewott: 'https://www.serebii.net/conquest/pokemon/502.png',
-  Samurott: 'https://www.serebii.net/conquest/pokemon/503.png',
-  Charmander: 'https://www.serebii.net/conquest/pokemon/004.png',
-  Charmeleon: 'https://www.serebii.net/conquest/pokemon/005.png',
-  Charizard: 'https://www.serebii.net/conquest/pokemon/006.png',
-  Gastly: 'https://www.serebii.net/conquest/pokemon/092.png',
-  Haunter: 'https://www.serebii.net/conquest/pokemon/093.png',
-  Gengar: 'https://www.serebii.net/conquest/pokemon/094.png',
-  Chimchar: 'https://www.serebii.net/conquest/pokemon/390.png',
-  Monferno: 'https://www.serebii.net/conquest/pokemon/391.png',
-  Infernape: 'https://www.serebii.net/conquest/pokemon/392.png',
-  Snivy: 'https://www.serebii.net/conquest/pokemon/495.png',
-  Servine: 'https://www.serebii.net/conquest/pokemon/496.png',
-  Serperior: 'https://www.serebii.net/conquest/pokemon/497.png',
-  Tepig: 'https://www.serebii.net/conquest/pokemon/498.png',
-  Pignite: 'https://www.serebii.net/conquest/pokemon/499.png',
-  Emboar: 'https://www.serebii.net/conquest/pokemon/500.png',
-  Sewaddle: 'https://www.serebii.net/conquest/pokemon/540.png',
-  Swadloon: 'https://www.serebii.net/conquest/pokemon/541.png',
-  Leavanny: 'https://www.serebii.net/conquest/pokemon/542.png',
-  Abra: 'https://www.serebii.net/conquest/pokemon/063.png',
-  Kadabra: 'https://www.serebii.net/conquest/pokemon/064.png',
-  Alakazam: 'https://www.serebii.net/conquest/pokemon/065.png',
-  Treecko: 'https://www.serebii.net/conquest/pokemon/252.png',
-  Grovyle: 'https://www.serebii.net/conquest/pokemon/253.png',
-  Sceptile: 'https://www.serebii.net/conquest/pokemon/254.png',
-  Piplup: 'https://www.serebii.net/conquest/pokemon/393.png',
-  Prinplup: 'https://www.serebii.net/conquest/pokemon/394.png',
-  Empoleon: 'https://www.serebii.net/conquest/pokemon/395.png',
-  Pansage: 'https://www.serebii.net/conquest/pokemon/511.png',
-  Simisage: 'https://www.serebii.net/conquest/pokemon/512.png',
-  Pansear: 'https://www.serebii.net/conquest/pokemon/513.png',
-  Simisear: 'https://www.serebii.net/conquest/pokemon/514.png',
-  Panpour: 'https://www.serebii.net/conquest/pokemon/515.png',
-  Simipour: 'https://www.serebii.net/conquest/pokemon/516.png',
-  Darumaka: 'https://www.serebii.net/conquest/pokemon/554.png',
-  Darmanitan: 'https://www.serebii.net/conquest/pokemon/555.png',
-  Axew: 'https://www.serebii.net/conquest/pokemon/610.png',
-  Fraxure: 'https://www.serebii.net/conquest/pokemon/611.png',
-  Haxorus: 'https://www.serebii.net/conquest/pokemon/612.png',
-  Joltik: 'https://www.serebii.net/conquest/pokemon/595.png',
-  Galvantula: 'https://www.serebii.net/conquest/pokemon/596.png',
-  Aron: 'https://www.serebii.net/conquest/pokemon/304.png',
-  Lairon: 'https://www.serebii.net/conquest/pokemon/305.png',
-  Aggron: 'https://www.serebii.net/conquest/pokemon/306.png',
-  Drilbur: 'https://www.serebii.net/conquest/pokemon/529.png',
-  Excadrill: 'https://www.serebii.net/conquest/pokemon/530.png',
-  Zorua: 'https://www.serebii.net/conquest/pokemon/570.png',
-  Zoroark: 'https://www.serebii.net/conquest/pokemon/571.png',
-  Skorupi: 'https://www.serebii.net/conquest/pokemon/451.png',
-  Drapion: 'https://www.serebii.net/conquest/pokemon/452.png',
-  Pawniard: 'https://www.serebii.net/conquest/pokemon/624.png',
-  Bisharp: 'https://www.serebii.net/conquest/pokemon/625.png',
-  Rhyhorn: 'https://www.serebii.net/conquest/pokemon/111.png',
-  Rhydon: 'https://www.serebii.net/conquest/pokemon/112.png',
-  Rhyperior: 'https://www.serebii.net/conquest/pokemon/464.png',
-  Shieldon: 'https://www.serebii.net/conquest/pokemon/410.png',
-  Bastiodon: 'https://www.serebii.net/conquest/pokemon/411.png',
-  Scraggy: 'https://www.serebii.net/conquest/pokemon/559.png',
-  Scrafty: 'https://www.serebii.net/conquest/pokemon/560.png',
-  Drifloon: 'https://www.serebii.net/conquest/pokemon/425.png',
-  Drifblim: 'https://www.serebii.net/conquest/pokemon/426.png',
-  Rufflet: 'https://www.serebii.net/conquest/pokemon/627.png',
-  Braviary: 'https://www.serebii.net/conquest/pokemon/628.png',
-  Anorith: 'https://www.serebii.net/conquest/pokemon/347.png',
-  Armaldo: 'https://www.serebii.net/conquest/pokemon/348.png',
-  Larvesta: 'https://www.serebii.net/conquest/pokemon/636.png',
-  Volcarona: 'https://www.serebii.net/conquest/pokemon/637.png',
-  Onix: 'https://www.serebii.net/conquest/pokemon/095.png',
-  Steelix: 'https://www.serebii.net/conquest/pokemon/208.png',
-  Beedrill: 'https://www.serebii.net/conquest/pokemon/015.png',
-  Munchlax: 'https://www.serebii.net/conquest/pokemon/446.png',
-  Snorlax: 'https://www.serebii.net/conquest/pokemon/143.png',
-  Emolga: 'https://www.serebii.net/conquest/pokemon/587.png',
-  Sneasel: 'https://www.serebii.net/conquest/pokemon/215.png',
-  Weavile: 'https://www.serebii.net/conquest/pokemon/461.png',
-  Misdreavus: 'https://www.serebii.net/conquest/pokemon/200.png',
-  Mismagius: 'https://www.serebii.net/conquest/pokemon/429.png',
-  Audino: 'https://www.serebii.net/conquest/pokemon/531.png',
-  Carnivine: 'https://www.serebii.net/conquest/pokemon/455.png',
-  Spiritomb: 'https://www.serebii.net/conquest/pokemon/442.png',
-  Scyther: 'https://www.serebii.net/conquest/pokemon/123.png',
-  Scizor: 'https://www.serebii.net/conquest/pokemon/212.png',
-  Lapras: 'https://www.serebii.net/conquest/pokemon/131.png',
-  Terrakion: 'https://www.serebii.net/conquest/pokemon/639.png',
-  Articuno: 'https://www.serebii.net/conquest/pokemon/144.png',
-  Registeel: 'https://www.serebii.net/conquest/pokemon/379.png',
-  Groudon: 'https://www.serebii.net/conquest/pokemon/383.png',
-  Dialga: 'https://www.serebii.net/conquest/pokemon/483.png',
-  Mewtwo: 'https://www.serebii.net/conquest/pokemon/150.png',
-  Reshiram: 'https://www.serebii.net/conquest/pokemon/643.png',
-  Zekrom: 'https://www.serebii.net/conquest/pokemon/644.png',
-  Arceus: 'https://www.serebii.net/conquest/pokemon/493.png',
-  Rayquaza: 'https://www.serebii.net/conquest/pokemon/384.png',
-};
 var pokeData = {
   Eevee: {
     id: 133,
