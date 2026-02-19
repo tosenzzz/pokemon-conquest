@@ -135,10 +135,11 @@ const showPokeDetail = (div, name) => {
         if (lget(`${v.hero}-poke-${name}`) == 'own') color = 'hero-has-poke ';
         if (lget(`${v.hero}-own`)) color += 'has-hero';
         var { text, cls } = getIVs(v.hero, name);
+        var hrimg = `https://veekun.com/dex/media/warriors/big-icons/${heroImgs[v.hero]}`;
         return `<tr class="${v.link.includes(100) ? 'hundred-link' : v.link.includes(90) ? 'ninety-link' : ''}">
                 <td class="${color}" name="${v.hero}-${name}">
                   <div class="dstar">
-                    <a href="#hero-${v.hero}">${v.hero}</a>
+                    <div class="flex0"><img class="hrimg" src="${hrimg}"/><a href="#hero-${v.hero}">${v.hero}</a></div>
                     <span class="star" hero="${v.hero}" poke="${name}">★</span>
                   </div>
                 </td>

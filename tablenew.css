@@ -166,6 +166,10 @@ a.hero-has-poke { color: yellow; }
   gap: 1px;
   padding-left: 2px;
 }
+.dstar .hrimg {
+  width: 30px;
+  padding-right: 5px;
+}
 .star { color: #aac33c; margin-left: 5px; }
 .HeroLinks { height:20px; }
 .hero-name {
