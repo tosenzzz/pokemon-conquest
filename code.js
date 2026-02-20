@@ -69,9 +69,7 @@ function sortByPos(arr, hero) {
     result.splice(insertIndex, 0, item);
   }
   return result.filter((v) =>
-    v.link.some(
-      (x) => x == 0 || x >= MinLNK || lget(`${hero}-poke-${v.name}`) == 'own',
-    ),
+    v.link.some((x) => x >= MinLNK || lget(`${hero}-poke-${v.name}`) == 'own'),
   );
 }
 function sortByIVs(arr, hero) {
@@ -85,16 +83,12 @@ function sortByIVs(arr, hero) {
     })
     .sort((a, b) => b.total - a.total);
   return result.filter((v) =>
-    v.link.some(
-      (x) => x == 0 || x >= MinLNK || lget(`${hero}-poke-${v.name}`) == 'own',
-    ),
+    v.link.some((x) => x >= MinLNK || lget(`${hero}-poke-${v.name}`) == 'own'),
   );
 }
 function sortByLnk(arr, poke) {
   return arr.filter(
-    (v) =>
-      lget(`${v.hero}-poke-${poke}`) ||
-      v.link.some((x) => x == 0 || x >= MinLNK),
+    (v) => lget(`${v.hero}-poke-${poke}`) || v.link.some((x) => x >= MinLNK),
   );
 }
 
@@ -329,11 +323,11 @@ const showHeroDetail = (div, hero, close, poke) => {
       if (item) {
         var pkm = item[0].pkm;
         HeroLinks[hero].splice(
-          HeroLinks[hero].findIndex((v) => v.id == pkm.id && !!v.pos),
+          HeroLinks[hero].findIndex((v) => v.id == pkm.id),
           1,
         );
         PokeLinks[pkm.name].splice(
-          PokeLinks[pkm.name].findIndex((v) => v.hero == hero && !!v.pos),
+          PokeLinks[pkm.name].findIndex((v) => v.hero == hero),
           1,
         );
       }
@@ -343,14 +337,14 @@ const showHeroDetail = (div, hero, close, poke) => {
         alert(`No Pokemon with ID [${id}]!`);
         return;
       }
-      // if (!!HeroLinks[hero].find((a) => a.id == id)) {
-      //   alert(`Hero with Pokemon [${pkm.name}] existed!`);
-      //   return;
-      // }
+      if (!!HeroLinks[hero].find((a) => a.id == id)) {
+        alert(`Hero with Pokemon [${pkm.name}] existed!`);
+        return;
+      }
       pkm = {
         id: id,
         name: pkm.name,
-        link: [...HeroLinks[hero][0].link].fill(0),
+        link: [...HeroLinks[hero][0].link].fill(60),
         pos: poke,
       };
       HeroLinks[hero].push(pkm);
@@ -538,11 +532,11 @@ $(function () {
     });
 
   // Add addition data to HeroLinks
-  (lget('HeroLinks') || []).forEach((v) => {
+  var addData = lget('HeroLinks') || [];
+  addData.forEach((v) => {
     var { hero, pkm } = v;
-    pkm.link.fill(0);
     HeroLinks[hero].push(pkm);
-    PokeLinks[pkm.name].push({ hero: hero, link: pkm.link, pos: !!pkm.pos });
+    PokeLinks[pkm.name].push({ hero: hero, link: pkm.link });
   });
 
   // Search Enter-key
@@ -694,7 +688,7 @@ $(function () {
 
 async function syncData() {
   try {
-    var items = {};
+    const items = {};
     Object.keys(localStorage).forEach((key) => {
       const value = localStorage.getItem(key);
       items[key] = value;
