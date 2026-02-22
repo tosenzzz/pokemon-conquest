@@ -251,3 +251,8 @@ a.hero-has-poke { color: yellow; }
 .ivs-tb {
   display: flex;
 }
+.show-all {
+  display: flex;
+  align-items: center;
+  float: right;
+}

@@ -52,7 +52,7 @@ const cpHeroLink = (a, b) => {
   s2 += b.hero;
   return s1.localeCompare(s2);
 };
-function sortByPos(arr, hero) {
+function sortByPos(arr, hero, minLnk) {
   const result = [...arr];
   for (let i = 0; i < result.length; i++) {
     const item = result[i];
@@ -69,7 +69,7 @@ function sortByPos(arr, hero) {
     result.splice(insertIndex, 0, item);
   }
   return result.filter((v) =>
-    v.link.some((x) => x >= MinLNK || lget(`${hero}-poke-${v.name}`) == 'own'),
+    v.link.some((x) => x >= minLnk || lget(`${hero}-poke-${v.name}`) == 'own'),
   );
 }
 function sortByIVs(arr, hero) {
@@ -242,7 +242,7 @@ const getIVsDiv = (hero, poke) => {
   return ivs;
 };
 
-const showHeroDetail = (div, hero, close, poke) => {
+const showHeroDetail = (div, hero, close, poke, isShowAll = false) => {
   if (!HeroLinks[hero]) {
     alert('No HeroLinks', hero);
     return;
@@ -261,7 +261,7 @@ const showHeroDetail = (div, hero, close, poke) => {
     var rankUp = $(`<ul>`).appendTo(heroSkill);
     rankUp.append(heroRankUp[hero].map((v, i) => `<li>${i + 1}. ${v}</li>`));
   }
-  $(`<div>Skills</div>`).appendTo(heroSkill);
+  $(`<div>Skills: </div>`).appendTo(heroSkill);
   var skillL = $(`<ul>`).appendTo(heroSkill);
   heroSkills[hero].forEach((v, i) => {
     skillL.append(`<li>${i + 1}. ${v}: ${skillsList[v]}</li>`);
@@ -273,7 +273,7 @@ const showHeroDetail = (div, hero, close, poke) => {
 
   var detail =
     '<table class="tbl">' +
-    sortByPos(HeroLinks[hero], hero)
+    sortByPos(HeroLinks[hero], hero, isShowAll ? 0 : MinLNK)
       .map((v) => {
         var move = pokeMoves[v.name]?.name;
         if (!move) {
@@ -303,7 +303,12 @@ const showHeroDetail = (div, hero, close, poke) => {
       })
       .join('') +
     '</table>';
-  div.append($('<div class="divTbl">').append(heroName, heroSkill, detail));
+  var showAll = $(
+    `<label class="show-all"><input type="checkbox">Show All</label> `,
+  );
+  div.append(
+    $('<div class="divTbl">').append(heroName, heroSkill, showAll, detail),
+  );
   div.append(
     $(`<button class="close">✖</button>`).click(() =>
       div.closest(close || 'la').hide(),
@@ -354,6 +359,13 @@ const showHeroDetail = (div, hero, close, poke) => {
     }
     showHeroDetail(div, hero, close, poke);
   });
+  div
+    .find('.show-all input')
+    .attr('checked', isShowAll)
+    .change(function () {
+      isShowAll = $(this).is(':checked');
+      showHeroDetail(div, hero, close, poke, isShowAll);
+    });
   div.find('.show').click(function () {
     var poke = $(this).attr('poke');
     var divDe = div.closest('.divLa').find('.more');
@@ -396,7 +408,7 @@ function genHeroList(filter1, filter2) {
     var div2 = $('<div>');
     la.empty().append(div1);
     div1.append(div2, '<div class="more">');
-    showHeroDetail(div2, name, 'la');
+    showHeroDetail(div2, name, 'la', null);
     la.show();
   });
 
@@ -462,11 +474,16 @@ function genHero(div, line, filter1, filter2) {
     return;
   if (
     filter1 == 'own-100' &&
-    !dhero.some(
-      (v) =>
-        lget(`${hero}-poke-${v.name}`) == 'own' &&
-        v.link.includes(100) &&
-        (!filter2 || pokeData[v.name].type.includes(filter2)),
+    !(
+      dhero.some(
+        (v) => lget(`${hero}-poke-${v.name}`) == 'own' && v.link.includes(100),
+      ) &&
+      (!filter2 ||
+        dhero.some(
+          (v) =>
+            lget(`${hero}-poke-${v.name}`) == 'own' &&
+            pokeData[v.name].type.includes(filter2),
+        ))
     )
   )
     return;
@@ -680,7 +697,7 @@ $(function () {
   startTime = new Date().getTime();
 
   // HERO LIST
-  genHeroList('good-ivs');
+  genHeroList('own-100');
 
   // Filter Hero
   pokeTypes.forEach((v) => {

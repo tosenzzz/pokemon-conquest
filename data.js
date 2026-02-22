@@ -426,6 +426,7 @@ var plink2 = [
   { hero: 'Tomonobu', pokes: ['Ralts', 'Kirlia', 'Gardevoir'] },
   { hero: 'Tsunamoto', pokes: ['Snorunt', 'Glalie'] },
   { hero: 'Tsunehisa', pokes: ['Meowth', 'Persian'] },
+  { hero: 'Tsunenaga', pokes: ['Emolga'] },
   { hero: 'Ujichika', pokes: ['Sewaddle', 'Swadloon', 'Leavanny'] },
   { hero: 'Ujihiro', pokes: ['Sewaddle', 'Swadloon', 'Leavanny'] },
   { hero: 'Ujikuni', pokes: ['Anorith', 'Armaldo'] },
