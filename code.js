@@ -404,24 +404,32 @@ function genHeroList(filter1, filter2) {
     .find('.show-poke')
     .click(function (e) {
       e.stopPropagation();
-      var la = $(this).next('la');
-      if (la.length < 1) la = $('<la>').insertAfter($(this));
       var hero = $(this).attr('hero').trim();
       var poke = $(this).attr('poke').trim();
-      var div1 = $('<div class="divLa">');
-      var div2 = $('<div>');
-      la.empty().append(div1);
-      div1.append(div2, '<div class="more">');
-      div2.append(getIVsDiv(hero, poke));
-      $(`<table class="pk-detail">`)
-        .append($(`#myTable tr#poke-${poke}`).clone().show())
-        .appendTo(div2);
-      div2.append(
-        $(`<button class="close">✖</button>`).click(() =>
-          div2.closest('la').hide(),
-        ),
-      );
-      la.show();
+
+      var ivsTb, pokeTb;
+      if ($('.poke-list').is(':visible')) {
+        ivsTb = $('.poke-list:visible').find('.ivs-tb');
+        pokeTb = $('.poke-list:visible').find('.pk-detail');
+      } else {
+        var la = $(this).next('la');
+        if (la.length < 1) la = $('<la>').insertAfter($(this));
+        var div1 = $('<div class="divLa">');
+        var div2 = $('<div class="poke-list">');
+        ivsTb = $('<div class="ivs-tb">').appendTo(div2);
+        pokeTb = $(`<table class="pk-detail">`).appendTo(div2);
+        la.empty().append(div1);
+        div1.append(div2, '<div class="more">');
+        div2.append(
+          $(`<button class="close">✖</button>`).click(() =>
+            div2.closest('la').hide(),
+          ),
+        );
+        la.show();
+      }
+
+      ivsTb.append(getIVsDiv(hero, poke));
+      pokeTb.append($(`#myTable tr#poke-${poke}`).clone().show());
     });
 
   // Hide msg-box

@@ -317,13 +317,12 @@ function executeIVCalc(e) {
       }
       var history = [...stats, 0, energy, bestIvs];
       var SearchHistory = lget(`ivs-${poke}`) || [];
-      if (
-        bestIvs > 0 &&
-        !SearchHistory.some((v) => v.join(',') == history.join(','))
-      ) {
+      if (bestIvs > 0) {
         setVals(div, '', '', '', '', '', energy);
-        SearchHistory.push(history);
-        lset(`ivs-${poke}`, SearchHistory);
+        if (!SearchHistory.some((v) => v.join(',') == history.join(','))) {
+          SearchHistory.push(history);
+          lset(`ivs-${poke}`, SearchHistory);
+        }
       }
     } else {
       // Find Max Stats

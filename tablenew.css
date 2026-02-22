@@ -221,7 +221,7 @@ a.hero-has-poke { color: yellow; }
   max-width: 300px;
 }
 .history-list {
-  position: absolute;
+  /* position: absolute; */
   left: 0;
   background: #efd8d8;
   margin-top: 2px;
@@ -240,4 +240,7 @@ a.hero-has-poke { color: yellow; }
 }
 .pk-detail .imgpk {
   width: 60px;
+}
+.ivs-tb {
+  display: flex;
 }
