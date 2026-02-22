@@ -189,8 +189,8 @@ const getIVsDiv = (hero, poke) => {
             <option value="95">↘</option>
             <option value="90">↓</option>
           </select>
-          <button onclick="executeIVCalc(this)" style="color:green">✔</button>
-          <button onclick="clearIVCalc(this)" style="color:red">✖</button>
+          <button onclick="clearIVCalc(this)" class="clr-ivs">✖</button>
+          <button onclick="executeIVCalc(this)" class="exe-ivs">✔ Calculate</button>
         </div>
         <div class="history-list"></div>
         <div id="ivResult" class="ivs-cal"></div>
@@ -209,10 +209,11 @@ const getIVsDiv = (hero, poke) => {
       showIVs(ivs, stats, link, energy, min, max, maxStats, poke);
     }
   }
-  ivs.find('#ivHP').change(function () {
-    var hp = +$(this).val();
+  ivs.find('#ivHP,#ivAtk').change(function () {
+    var hp = +ivs.find('#ivHP').val();
+    var atk = +ivs.find('#ivAtk').val();
     var hlst = (lget(`ivs-${poke}`) || [])
-      .filter((v) => v[0] == hp)
+      .filter((v) => v[0] == hp && (!atk || v[1] == atk))
       .sort((a, b) => {
         s1 = [...a].map((v) => String(v).padStart(3, '0')).join('');
         s2 = [...b].map((v) => String(v).padStart(3, '0')).join('');

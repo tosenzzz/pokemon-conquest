@@ -216,6 +216,13 @@ a.hero-has-poke { color: yellow; }
 .ivs #ivResult table {
   border: 1px solid #b6b6ec;
 }
+.exe-ivs {
+  color:green;
+  width: 100px;
+}
+.clr-ivs {
+  color:red
+}
 .history {
   position: relative;
   max-width: 300px;
