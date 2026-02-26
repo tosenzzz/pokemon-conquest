@@ -190,7 +190,8 @@ const getIVsDiv = (hero, poke) => {
             <option value="90">↓</option>
           </select>
           <button onclick="clearIVCalc(this)" class="clr-ivs">✖</button>
-          <button onclick="executeIVCalc(this)" class="exe-ivs">✔ Calculate</button>
+          <button onclick="pasteIVs(this)" class="clr-ivs">⬰</button>
+          <div><button onclick="executeIVCalc(this)" class="exe-ivs">✔ Calculate</button></div>
         </div>
         <div class="history-list"></div>
         <div id="ivResult" class="ivs-cal"></div>

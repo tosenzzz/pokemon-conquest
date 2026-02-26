@@ -1,5 +1,5 @@
 /* --- POKEMON DATA --- */
-const DataDict = {
+const PokeStats = {
   Eevee: [220, 115, 119, 115],
   Vaporeon: [370, 225, 159, 135],
   Jolteon: [240, 225, 159, 265],
@@ -251,11 +251,23 @@ function clearIVCalc(e) {
   setVals(div, '', '', '', '', '', 110);
 }
 
+async function pasteIVs(e) {
+  var div = $(e).closest('.ivs');
+  var str = await navigator.clipboard.readText();
+  var arr = str
+    .split(/[\s\-]/)
+    .map((v) => +v)
+    .filter((v) => !Number.isNaN(v));
+  // arr.splice(4, 0, '');
+  setVals(div, ...arr);
+}
+
 var maxIVs = [31, 31, 31, 31];
 function executeIVCalc(e) {
   var div = $(e).closest('.ivs');
   var poke = div.attr('poke');
-  if (!DataDict[poke]) {
+  var baseStats = PokeStats[poke];
+  if (!baseStats) {
     alert('No pokemon ' + poke);
   }
   var hero = div.attr('hero');
@@ -271,8 +283,8 @@ function executeIVCalc(e) {
   var energy = +div.find('#ivEnergy').val();
 
   if (link > 0 && stats.some((v) => v > 0)) {
-    var [min, max] = CalcIVs(stats, DataDict[poke], link, energy);
-    var maxStats = CalcStats([31, 31, 31, 31], DataDict[poke], link, energy);
+    var [min, max] = CalcIVs(stats, baseStats, link, energy);
+    var maxStats = CalcStats([31, 31, 31, 31], baseStats, link, energy);
 
     if (!hero) showIVs(div, stats, link, energy, min, max, maxStats, poke);
     else {
@@ -296,8 +308,8 @@ function executeIVCalc(e) {
       // Find all valid IVs
       var bestIvs = 0;
       for (link = 1; link <= 100; link++) {
-        var [min, max] = CalcIVs(stats, DataDict[poke], link, energy);
-        var maxStats = CalcStats(maxIVs, DataDict[poke], link, energy);
+        var [min, max] = CalcIVs(stats, baseStats, link, energy);
+        var maxStats = CalcStats(maxIVs, baseStats, link, energy);
         if (
           !min.some((v) => v == -1000 || v == 1000) &&
           !max.some((v) => v == -1000 || v == 1000)
@@ -326,13 +338,29 @@ function executeIVCalc(e) {
       }
     } else {
       // Find Max Stats
-      var maxStats = CalcStats(maxIVs, DataDict[poke], link, energy);
+      var maxStats = CalcStats(maxIVs, baseStats, link, energy);
       stats = maxStats;
       showIVs(div, maxStats, link, energy, maxIVs, maxIVs, maxStats, poke);
       setVals(div, '', '', '', '', link, energy);
     }
   }
   div.find('.history-list').empty();
+}
+
+function calcMDroid() {
+  var bestIvs = 0;
+  var baseStats = PokeStats[poke];
+  for (link = 1; link <= 100; link++) {
+    var [min, max] = CalcIVs(stats, baseStats, link, energy);
+    var maxStats = CalcStats(maxIVs, baseStats, link, energy);
+    if (
+      !min.some((v) => v == -1000 || v == 1000) &&
+      !max.some((v) => v == -1000 || v == 1000)
+    ) {
+      var total = showIVs(div, stats, link, energy, min, max, maxStats, poke);
+      if (total > bestIvs) bestIvs = total;
+    }
+  }
 }
 
 function cssIVs(total) {
@@ -411,8 +439,9 @@ function showIVs(div, stats, link, energy, min, max, maxStats, poke) {
     $(this).css('color', 'blue');
   });
   tbl.find('.paste').click(function () {
-    var maxStats = CalcStats(maxIVs, DataDict[poke], link, energy);
-    var copyStats = CalcStats(CopyIVs, DataDict[poke], link, energy);
+    var baseStats = PokeStats[poke];
+    var maxStats = CalcStats(maxIVs, baseStats, link, energy);
+    var copyStats = CalcStats(CopyIVs, baseStats, link, energy);
     div.find('#ivResult').empty();
     showIVs(div, copyStats, link, energy, CopyIVs, CopyIVs, maxStats, poke);
   });
