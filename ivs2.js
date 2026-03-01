@@ -409,18 +409,16 @@ function setVals(div, hp, atk, def, spd, lnk, ener) {
 
 var CopyIVs = [];
 function showIVs(div, stats, link, energy, min, max, minStats, maxStats, poke) {
-  ll(min, max);
   setVals(div, ...stats, link, energy);
 
   const labels = ['HP', 'Atk', 'Def', 'Spe'];
   let out = [
     `<tr>
       <td class="add">${link}%</td>
-      <th>Min</th>
-      <th class="paste">Max</th>
-      <th>SMin</th>
-      <th>SMax</th>
-      <th>Diff</th>
+      <th>Mn</th>
+      <th class="paste">Mx</th>
+      <th>SMx</th>
+      <th>Dif</th>
     </tr>`,
   ];
   let total1 = 0;
@@ -438,11 +436,10 @@ function showIVs(div, stats, link, energy, min, max, minStats, maxStats, poke) {
       out.push(
         `<tr>
           <th>${labels[i]}</th>
-          <td>${Math.trunc((min[i] * 100) / 31)}%</td>
-          <td>${Math.trunc((max[i] * 100) / 31)}%</td>
-          <td>${minStats[i]}</td>
+          <td>${min[i]}</td>
+          <td>${max[i]}</td>
           <td>${maxStats[i]}</td>
-          <td>${stats[i] - maxStats[i]}</td>
+          <td>${maxStats[i] - stats[i]}</td>
         </tr>`,
       );
     }
@@ -452,11 +449,10 @@ function showIVs(div, stats, link, energy, min, max, minStats, maxStats, poke) {
   out.push(
     `<tr>
       <th>Total</th>
-      <td class="${cssIVs(total1)}">${total1}%</td>
-      <td class="${cssIVs(total2)} copy">${total2}%</td>
-      <td>${minTt}</td>
+      <td class="${cssIVs(total1)}">${total1}</td>
+      <td class="${cssIVs(total2)} copy">${total2}</td>
       <td>${maxTt}</td>
-      <td>${stats.reduce((tt, v) => tt + v, 0) - maxTt}</td>
+      <td>${maxTt - stats.reduce((tt, v) => tt + v, 0)}</td>
     </tr>`,
   );
   var tbl = $(`<table>`);
