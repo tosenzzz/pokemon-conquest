@@ -285,28 +285,31 @@ function executeIVCalc(e) {
 
   if (link > 0 && stats.some((v) => v > 0)) {
     var [min, max] = CalcIVs(stats, baseStats, link, energy);
-    var minStats = CalcStats(minIVs, baseStats, link, energy);
-    var maxStats = CalcStats(maxIVs, baseStats, link, energy);
+    var maxS = CalcStats(maxIVs, baseStats, link, energy);
 
-    if (!hero)
-      showIVs(div, stats, link, energy, min, max, minStats, maxStats, poke);
-    else {
-      var total = showIVs(
-        div,
-        stats,
-        link,
-        energy,
-        min,
-        max,
-        minStats,
-        maxStats,
-        poke,
-      );
+    if (!hero) {
+      showIVs(div, stats, link, energy, min, max, maxS, poke);
+    } else {
+      // Optimze min-max IVs
+      var last = lget(`${hero}-ivs-${poke}`);
+      if (last?.min?.length && last?.max?.length) {
+        if (
+          min.every((v, i) => v < last.max[i]) &&
+          max.every((v, i) => v > last.min[i])
+        ) {
+          for (i = 0; i < 4; i++) {
+            min[i] = Math.max(min[i], last.min[i]);
+            max[i] = Math.min(max[i], last.max[i]);
+          }
+        }
+      }
+
+      var total = showIVs(div, stats, link, energy, min, max, maxS, poke);
       var tdIvs = $(`[name="${hero}-ivs-${poke}"]`);
       tdIvs.text(total + '%');
       tdIvs.removeClass(['max-ivs', 'good-ivs']);
       tdIvs.addClass(cssIVs(total));
-      lset(`${hero}-ivs-${poke}`, { stats, link, energy, total });
+      lset(`${hero}-ivs-${poke}`, { stats, link, energy, total, min, max });
     }
   } else {
     if (link <= 0) {
@@ -314,23 +317,12 @@ function executeIVCalc(e) {
       var bestIvs = 0;
       for (link = 1; link <= 100; link++) {
         var [min, max] = CalcIVs(stats, baseStats, link, energy);
-        var minStats = CalcStats(minIVs, baseStats, link, energy);
-        var maxStats = CalcStats(maxIVs, baseStats, link, energy);
+        var maxS = CalcStats(maxIVs, baseStats, link, energy);
         if (
           !min.some((v) => v == -1000 || v == 1000) &&
           !max.some((v) => v == -1000 || v == 1000)
         ) {
-          var total = showIVs(
-            div,
-            stats,
-            link,
-            energy,
-            min,
-            max,
-            minStats,
-            maxStats,
-            poke,
-          );
+          var total = showIVs(div, stats, link, energy, min, max, maxS, poke);
           if (total > bestIvs) bestIvs = total;
         }
       }
@@ -345,51 +337,12 @@ function executeIVCalc(e) {
       }
     } else {
       // Find Max Stats
-      var minStats = CalcStats(minIVs, baseStats, link, energy);
-      var maxStats = CalcStats(maxIVs, baseStats, link, energy);
-      stats = maxStats;
-      showIVs(
-        div,
-        maxStats,
-        link,
-        energy,
-        maxIVs,
-        maxIVs,
-        minStats,
-        maxStats,
-        poke,
-      );
+      var maxs = CalcStats(maxIVs, baseStats, link, energy);
+      showIVs(div, maxs, link, energy, maxIVs, maxIVs, maxs, poke);
       setVals(div, '', '', '', '', link, energy);
     }
   }
   div.find('.history-list').empty();
-}
-
-function calcMDroid() {
-  var bestIvs = 0;
-  var baseStats = PokeStats[poke];
-  for (link = 1; link <= 100; link++) {
-    var [min, max] = CalcIVs(stats, baseStats, link, energy);
-    var minStats = CalcStats(minIVs, baseStats, link, energy);
-    var maxStats = CalcStats(maxIVs, baseStats, link, energy);
-    if (
-      !min.some((v) => v == -1000 || v == 1000) &&
-      !max.some((v) => v == -1000 || v == 1000)
-    ) {
-      var total = showIVs(
-        div,
-        stats,
-        link,
-        energy,
-        min,
-        max,
-        minStats,
-        maxStats,
-        poke,
-      );
-      if (total > bestIvs) bestIvs = total;
-    }
-  }
 }
 
 function cssIVs(total) {
@@ -408,7 +361,7 @@ function setVals(div, hp, atk, def, spd, lnk, ener) {
 }
 
 var CopyIVs = [];
-function showIVs(div, stats, link, energy, min, max, minStats, maxStats, poke) {
+function showIVs(div, stats, link, energy, min, max, maxStats, poke) {
   setVals(div, ...stats, link, energy);
 
   const labels = ['HP', 'Atk', 'Def', 'Spe'];
@@ -423,7 +376,6 @@ function showIVs(div, stats, link, energy, min, max, minStats, maxStats, poke) {
   ];
   let total1 = 0;
   let total2 = 0;
-  let minTt = 0;
   let maxTt = 0;
   for (let i = 0; i < 4; i++) {
     if (min[i] === -1000 || max[i] === 1000) {
@@ -431,7 +383,6 @@ function showIVs(div, stats, link, energy, min, max, minStats, maxStats, poke) {
     } else {
       total1 += min[i];
       total2 += max[i];
-      minTt += minStats[i];
       maxTt += maxStats[i];
       out.push(
         `<tr>
@@ -471,21 +422,10 @@ function showIVs(div, stats, link, energy, min, max, minStats, maxStats, poke) {
   });
   tbl.find('.paste').click(function () {
     var baseStats = PokeStats[poke];
-    var minStats = CalcStats(minIVs, baseStats, link, energy);
     var maxStats = CalcStats(maxIVs, baseStats, link, energy);
     var copyStats = CalcStats(CopyIVs, baseStats, link, energy);
     div.find('#ivResult').empty();
-    showIVs(
-      div,
-      copyStats,
-      link,
-      energy,
-      CopyIVs,
-      CopyIVs,
-      minStats,
-      maxStats,
-      poke,
-    );
+    showIVs(div, copyStats, link, energy, CopyIVs, CopyIVs, maxStats, poke);
   });
   return total2;
 }
