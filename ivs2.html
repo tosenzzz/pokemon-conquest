@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pokemon Conquest Save Editor</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 20px;
+    }
+
+    input {
+      width: 80px;
+    }
+
+    select {
+      width: 200px;
+    }
+
+    .row {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Pokemon Conquest Save Editor</h2>
+  <input type="file" id="fileInput">
+  <br><br>
+  <div class="row">
+    Warrior
+    <select id="warriorList"></select>
+  </div>
+  <div class="row">
+    Pokemon
+    <select id="pokemonList"></select>
+  </div>
+  <h3>Stats</h3>
+  <div class="row">Name <input id="name"></div>
+  <div class="row">Link <input id="link"></div>
+  <div class="row">Energy <input id="energy"></div>
+  <div class="row">HP <input id="hp"></div>
+  <div class="row">Attack <input id="atk"></div>
+  <div class="row">Defense <input id="def"></div>
+  <div class="row">Speed <input id="spd"></div>
+  <h3>IV</h3>
+  <div class="row">HP IV <input id="ivhp"></div>
+  <div class="row">Atk IV <input id="ivatk"></div>
+  <div class="row">Def IV <input id="ivdef"></div>
+  <div class="row">Spd IV <input id="ivspd"></div>
+  <br>
+  <button id="applyBtn">Apply</button>
+  <button id="downloadBtn">Download Save</button>
+  <script>
+    var ll = console.log;
+    let saveData
+    let pokemonTable = []
+    let currentIndex = 0
+    const POKEMON_START = 0x1C000
+    const POKEMON_SIZE = 0x30
+    const POKEMON_COUNT = 200
+    const speciesNames = {
+      31: "Tepig",
+      32: "Pignite",
+      33: "Emboar"
+    }
+    function read8(o) {
+      return saveData[o]
+    }
+    function read16(o) {
+      return saveData[o] | (saveData[o + 1] << 8)
+    }
+    function read32(o) {
+      return (
+        saveData[o] |
+        (saveData[o + 1] << 8) |
+        (saveData[o + 2] << 16) |
+        (saveData[o + 3] << 24)
+      ) >>> 0
+    }
+    function write8(o, v) {
+      saveData[o] = v & 255
+    }
+    function write16(o, v) {
+      saveData[o] = v & 255
+      saveData[o + 1] = v >> 8
+    }
+    function write32(o, v) {
+      saveData[o] = v & 255
+      saveData[o + 1] = (v >> 8) & 255
+      saveData[o + 2] = (v >> 16) & 255
+      saveData[o + 3] = (v >> 24) & 255
+    }
+    $("#fileInput").on("change", function () {
+      let file = this.files[0]
+      let reader = new FileReader()
+      reader.onload = function () {
+        saveData = new Uint8Array(reader.result)
+        parsePokemon()
+      }
+      reader.readAsArrayBuffer(file)
+    })
+    function parsePokemon(hp1, atk1, def1, spd1) {
+      pokemonTable = []
+      for (let i = 0; i < saveData.length - 32; i++) {
+        let species = saveData[i]
+        if (species == 0 || species > 200) continue
+        let link = saveData[i + 2]
+        let energy = saveData[i + 3]
+        if (link > 100 || energy > 100) continue
+        let hp = read16(i + 4)
+        let atk = read16(i + 6)
+        let def = read16(i + 8)
+        let spd = read16(i + 10)
+        if (hp > 500 || atk > 300 || def > 300 || spd > 300) continue
+        if (hp == hp1 && atk == atk1 && def == def1 && spd == spd1) {
+          ll("FOUNDD>>>>>>", i)
+        }
+        pokemonTable.push({
+          base: i,
+          species,
+          link,
+          energy,
+          hp,
+          atk,
+          def,
+          spd,
+          ivhp: saveData[i + 16],
+          ivatk: saveData[i + 17],
+          ivdef: saveData[i + 18],
+          ivspd: saveData[i + 19]
+        })
+      }
+      ll("Pokemon detected:", pokemonTable.length)
+      buildWarriorList()
+    }
+    function find(hps, atks, defs, spds) {
+      var found = []
+      for (let i = 0; i < saveData.length - 32; i++) {
+        let hp = read16(i + 0)
+        let atk = read16(i + 2)
+        let def = read16(i + 4)
+        let spd = read16(i + 6)
+        if (
+          (hps[0] <= hp && hp <= hps[1]) &&
+          (atks[0] <= atk && atk <= atks[1]) &&
+          (defs[0] <= def && def <= defs[1]) &&
+          (spds[0] <= spd && spd <= spds[1])
+        )
+          found.push({
+            base: i,
+            hp,
+            atk,
+            def,
+            spd,
+          })
+      }
+      ll(found)
+    }
+
+    function buildWarriorList() {
+      let w = $("#warriorList")
+      w.empty()
+      for (let i = 0; i < 10; i++) {
+        w.append(`<option value="${i}">Warrior ${i}</option>`)
+      }
+    }
+    function buildPokemonList() {
+      let list = $("#pokemonList")
+      list.empty()
+      pokemonTable.forEach((p, i) => {
+        let name = speciesNames[p.species] || ("ID" + p.species)
+        list.append(`<option value="${i}">${name} (${p.link}%)</option>`)
+      })
+      if (pokemonTable.length > 0) {
+        $("#pokemonList").val(0)
+        showPokemon()
+      }
+      console.log("Pokemon parsed:", pokemonTable.length)
+    }
+    $("#pokemonList").on("change", showPokemon)
+    function showPokemon() {
+      let id = $("#pokemonList").val()
+      if (id === null) return
+      let p = pokemonTable[id]
+      if (!p) return
+      currentIndex = id
+      $("#name").val(speciesNames[p.species] || p.species)
+      $("#link").val(p.link)
+      $("#energy").val(p.energy)
+      $("#hp").val(p.hp)
+      $("#atk").val(p.atk)
+      $("#def").val(p.def)
+      $("#spd").val(p.spd)
+      $("#ivhp").val(p.ivhp)
+      $("#ivatk").val(p.ivatk)
+      $("#ivdef").val(p.ivdef)
+      $("#ivspd").val(p.ivspd)
+    }
+    $("#applyBtn").click(function () {
+      let p = pokemonTable[currentIndex]
+      p.link = parseInt($("#link").val())
+      p.energy = parseInt($("#energy").val())
+      p.hp = parseInt($("#hp").val())
+      p.atk = parseInt($("#atk").val())
+      p.def = parseInt($("#def").val())
+      p.spd = parseInt($("#spd").val())
+      p.ivhp = parseInt($("#ivhp").val())
+      p.ivatk = parseInt($("#ivatk").val())
+      p.ivdef = parseInt($("#ivdef").val())
+      p.ivspd = parseInt($("#ivspd").val())
+      let b = p.base
+      saveData[b + 2] = p.link
+      saveData[b + 3] = p.energy
+      write16(b + 4, p.hp)
+      write16(b + 6, p.atk)
+      write16(b + 8, p.def)
+      write16(b + 10, p.spd)
+      saveData[b + 16] = p.ivhp
+      saveData[b + 17] = p.ivatk
+      saveData[b + 18] = p.ivdef
+      saveData[b + 19] = p.ivspd
+      alert("Saved")
+    })
+    $("#downloadBtn").click(function () {
+      let blob = new Blob([saveData])
+      let a = document.createElement("a")
+      a.href = URL.createObjectURL(blob)
+      a.download = "edited_conquest.srm"
+      a.click()
+    })
+  </script>
+</body>
+
+</html>

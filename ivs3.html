@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Save Filter + Hex Editor</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #viewer {
+      height: 500px;
+      overflow: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      font-family: monospace;
+    }
+
+    .row {
+      margin-bottom: 3px;
+    }
+
+    .offset {
+      display: inline-block;
+      width: 80px;
+      color: #888;
+    }
+
+    .hex {
+      border: 0;
+    }
+
+    .int {
+      border: 0;
+    }
+
+    .byte {
+      margin-right: 4px;
+    }
+
+    .hit input {
+      background: #ff6b6b;
+      color: white;
+    }
+
+    table {
+      font-family: monospace;
+      border: 1px solid;
+    }
+
+    .diff {
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+    }
+
+    .x_span {
+      background: 1px #a18585;
+      border: 0;
+    }
+
+    .old_val {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Save Filter + Hex Editor</h2>
+  <div>
+    Base Save <input type="file" id="baseFile">
+  </div>
+  <div>
+    Next Save <input type="file" id="nextFile">
+  </div>
+  <div>
+    <label>
+      <input type="radio" name="mode" value="changed" checked> Changed
+    </label>
+    <label>
+      <input type="radio" name="mode" value="unchanged"> Unchanged
+    </label>
+    <button id="compareBtn">Compare</button>
+    <label>
+      <input type="checkbox" id="compWithFirst" checked /> Compare with First File
+    </label>
+  </div>
+  <div id="info"></div>
+  <div>
+    <label>
+      <input type="checkbox" id="showOldVal" /> Show Old Value
+    </label>
+    <button id="revertBtn">Revert</button>
+  </div>
+  <div><button id="saveBtn">Save File</button></div>
+  <div id="viewer"></div>
+  <script>
+    var ll = console.log;
+    let firstData = null
+    let nextData = null
+    let candidateOffsets = {}
+
+    function loadFile(file, callback) {
+      let reader = new FileReader()
+      reader.onload = function (e) {
+        callback(new Uint8Array(e.target.result))
+      }
+      reader.readAsArrayBuffer(file)
+    }
+
+    $("#baseFile").on("change", function () {
+      let file = this.files[0]
+      if (!file) return
+      loadFile(file, function (data) {
+        firstData = data
+        candidateOffsets = {}
+        for (let i = 0; i < data.length; i++)
+          candidateOffsets[i] = data[i];
+        $("#info").text("Base loaded. Candidates " + data.length)
+        // render()
+      })
+    })
+
+    $("#compareBtn").click(function () {
+      if (!firstData) {
+        alert("Load base first")
+        return
+      }
+      let file = $("#nextFile")[0].files[0];
+      if (!file) {
+        alert("Load next save")
+        return
+      }
+
+      let mode = $("input[name=mode]:checked").val();
+      let compFirst = $('#compWithFirst').prop('checked');
+      let oldData = compFirst ? firstData : (nextData || firstData)
+      loadFile(file, function (next) {
+        let newCandidates = {}
+        for (let off of Object.keys(candidateOffsets)) {
+          let changed = oldData[off] !== next[off]
+          if (mode === "changed" && changed)
+            newCandidates[off] = candidateOffsets[off]
+          if (mode === "unchanged" && !changed)
+            newCandidates[off] = candidateOffsets[off]
+        }
+        candidateOffsets = newCandidates
+        nextData = next
+        $("#info").text("Remaining candidates " + Object.keys(candidateOffsets).length)
+        render()
+      })
+    })
+
+    function render() {
+      if (!nextData) return
+      let hitSet = candidateOffsets
+      const bytesPerRow = 16
+      const maxRows = 512
+      const len = Object.keys(hitSet).length;
+      if (len > maxRows) return;
+
+      let html = "<table border='1' cellspacing='0' cellpadding='2'>"
+      html += `
+        <tr>
+          <th rowspan="2">Offset</th>
+          <th colspan="16">HEX</th>
+          <th rowspan="x_span_x" class="x_span"></th>
+          <th colspan="16">INT</th>
+        </tr>
+        <tr>
+        `
+      for (let i = 0; i < 16; i++) {
+        html += `<th>${i.toString(16).toUpperCase()}</th>`
+      }
+      for (let i = 0; i < 16; i++) {
+        html += `<th>${i}</th>`
+      }
+      html += "</tr>"
+      var x_span_x = 1;
+      for (let r = 0; r < Math.round(nextData.length / bytesPerRow); r++) {
+        let offset = r * bytesPerRow
+        if (offset >= nextData.length) break
+
+        // check row có candidate không
+        let hasHit = false
+        for (let i = 0; i < bytesPerRow; i++) {
+          if (hitSet.hasOwnProperty(offset + i)) {
+            hasHit = true
+            break
+          }
+        }
+        if (!hasHit) continue
+
+        html += "<tr>"
+        html += `<td>${offset.toString(16).padStart(6, "0").toUpperCase()}</td>`
+
+        // HEX side
+        for (let i = 0; i < bytesPerRow; i++) {
+          x_span_x++;
+          let pos = offset + i
+          if (pos >= nextData.length) {
+            html += "<td></td>"
+            continue
+          }
+          let val = nextData[pos];
+          let hex = val.toString(16).padStart(2, "0").toUpperCase();
+          let cls = hitSet.hasOwnProperty(pos) ? "hit" : "";
+          let old = `<span class="old_val">${cls ? hitSet[pos].toString(16).padStart(2, "0").toUpperCase() + '/' : ''}</span>`
+          html += `
+            <td class="${cls}">
+            <div class="diff">${old}<input class="hex" data-off="${pos}" value="${hex}" size="2"></div>
+            </td>
+          `
+        }
+        // html += `<td>|</td>`
+
+        // INT side
+        for (let i = 0; i < bytesPerRow; i++) {
+          let pos = offset + i
+          if (pos >= nextData.length) {
+            html += "<td></td>"
+            continue
+          }
+          let val = nextData[pos]
+          let cls = hitSet.hasOwnProperty(pos) ? "hit" : "";
+          let old = `<span class="old_val">${cls ? hitSet[pos] + '/' : ''}</span>`
+          html += `
+            <td class="${cls}">
+              <div class="diff">${old}<input class="int" data-off="${pos}" value="${val}" size="3"></div>
+            </td>
+          `
+        }
+        html += "</tr>"
+      }
+      html += "</table>";
+      html = html.replace(/x_span_x/, x_span_x)
+      $("#viewer").html(html);
+      $('.old_val').toggle($("#showOldVal").prop("checked"));
+    }
+
+    $(document).on("input", ".hex", function () {
+      let off = parseInt($(this).data("off"))
+      let hex = $(this).val()
+      let val = parseInt(hex, 16)
+      if (isNaN(val) || val < 0 || val > 255) return
+      firstData[off] = val
+      $(`.int[data-off=${off}]`).val(val)
+    })
+
+    $(document).on("input", ".int", function () {
+      let off = parseInt($(this).data("off"))
+      let val = parseInt($(this).val())
+      if (isNaN(val) || val < 0 || val > 255) return
+      firstData[off] = val
+      let hex = val.toString(16).padStart(2, "0").toUpperCase();
+      $(`.hex[data-off=${off}]`).val(hex)
+    })
+
+    $("#saveBtn").click(function () {
+      if (!nextData) return
+      let blob = new Blob([nextData], { type: "application/octet-stream" })
+      let a = document.createElement("a")
+      a.href = URL.createObjectURL(blob)
+      a.download = $("#nextFile")[0].files[0].name;
+      a.click()
+    })
+
+    $("#showOldVal").change(function () {
+      $('.old_val').toggle($("#showOldVal").prop("checked"));
+    })
+
+    $("#revertBtn").click(function () {
+      for (i in candidateOffsets) {
+        var tmp = nextData[i];
+        nextData[i] = candidateOffsets[i];
+        candidateOffsets[i] = tmp;
+
+        let hex = nextData[i].toString(16).padStart(2, "0").toUpperCase();
+        $(`.hex[data-off=${i}]`).val(hex);
+        $(`.int[data-off=${i}]`).val(nextData[i])
+      }
+    })
+
+  </script>
+</body>
+
+</html>

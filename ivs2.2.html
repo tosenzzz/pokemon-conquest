@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Conquest Save Pokemon Finder</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 20px;
+    }
+
+    table {
+      border-collapse: collapse;
+      font-family: monospace;
+    }
+
+    td,
+    th {
+      border: 1px solid #ccc;
+      padding: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Pokemon Conquest Pokemon Finder</h2>
+  <input type="file" id="file">
+  <button id="scan">Scan</button>
+  <table id="tbl">
+    <thead>
+      <tr>
+        <th>Offset</th>
+        <th>Species</th>
+        <th>Link</th>
+        <th>Energy</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <script>
+    let saveData = null
+    function read8(o) {
+      return saveData[o]
+    }
+    function read16(o) {
+      return saveData[o] | (saveData[o + 1] << 8)
+    }
+    $("#file").on("change", function () {
+      let f = this.files[0]
+      let r = new FileReader()
+      r.onload = function (e) {
+        saveData = new Uint8Array(e.target.result)
+        alert("save loaded")
+      }
+      r.readAsArrayBuffer(f)
+    })
+    $("#scan").click(function () {
+      if (!saveData) return
+      let tbody = $("#tbl tbody")
+      tbody.empty()
+      for (let i = 0; i < saveData.length - 32; i++) {
+        let species = read16(i)
+        if (species < 1 || species > 649)
+          continue
+        let link = read8(i + 4)
+        let energy = read8(i + 5)
+        if (link > 100 || energy > 100 || link < 1 || energy < 1)
+          continue
+        tbody.append(`
+          <tr>
+          <td>${i.toString(16)}</td>
+          <td>${species}</td>
+          <td>${link}</td>
+          <td>${energy}</td>
+          </tr>
+        `)
+      }
+    })
+  </script>
+</body>
+
+</html>
